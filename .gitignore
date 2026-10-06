@@ -1,0 +1,21 @@
+# Devpost Learn — personal learning context, kept out of commits by default.
+# (This does NOT make AI conversations private; it only keeps this file out of git.)
+/devpost/learner-profile.md
+
+# Local agent memory / session state — never publish.
+.workbuddy-ai/memory/
+.claude/settings.local.json
+
+# Credentials — ignore real secrets, allow a secret-free example file.
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# OS / editor noise
+.DS_Store
+*.swp
