@@ -36,6 +36,7 @@ export function BoogieMatrixCanvas({ memories }: BoogieMatrixCanvasProps) {
     availableTypes,
     getTypeColor,
     typeColors,
+    settings,
   } = useMemory();
 
   const [shuffleSeed, setShuffleSeed] = useState(0);
@@ -171,21 +172,39 @@ export function BoogieMatrixCanvas({ memories }: BoogieMatrixCanvasProps) {
     return list;
   }, [memories, activeFilter, sortOrder, relationships, allMemories, shuffleSeed, language]);
 
+  // Tactile Editorial Paper Stock Presets (eliminates flat monotone feel)
+  const PAPER_STOCK_PRESETS: Record<string, { bg: string; border: string; tape: string }> = {
+    idea: { bg: "#FDF3EF", border: "#F0DDD4", tape: "rgba(192, 90, 70, 0.45)" }, // 暖杏和纸
+    learning: { bg: "#EFF4F8", border: "#D8E4ED", tape: "rgba(91, 123, 148, 0.45)" }, // 冰海方格纸
+    moment: { bg: "#FBF5E8", border: "#EDE2CC", tape: "rgba(196, 154, 86, 0.45)" }, // 琥珀牛皮纸
+    decision: { bg: "#F4F1F8", border: "#DFD9E8", tape: "rgba(124, 111, 147, 0.45)" }, // 暮山紫笺
+    plan: { bg: "#EFF4EE", border: "#D8E4D6", tape: "rgba(96, 128, 102, 0.45)" }, // 鼠尾草植物纸
+    achievement: { bg: "#F8EFEA", border: "#E8D8CF", tape: "rgba(166, 107, 78, 0.45)" }, // 焦糖复古纸
+    collection: { bg: "#EFF3F5", border: "#D4DEE2", tape: "rgba(90, 125, 143, 0.45)" }, // 烟灰石青纸
+  };
+
   // Craft.do & Pinterest Editorial Scrapbook Paper Themes synchronized with Type Colors
   const getScrapbookTheme = (type: string, index: number) => {
     const tilts = ["rotate-[-0.6deg]", "rotate-[0.7deg]", "rotate-[-0.4deg]", "rotate-[0.8deg]", "rotate-[-0.8deg]"];
     const tilt = tilts[index % tilts.length];
     const typeColor = getTypeColor(type);
+    const isDark = settings?.theme === "obsidian-dark";
+
+    const stock = PAPER_STOCK_PRESETS[type] || {
+      bg: isDark ? "var(--card-white)" : `${typeColor}18`,
+      border: `${typeColor}45`,
+      tape: `${typeColor}50`,
+    };
 
     return {
-      bg: `${typeColor}12`, // 7% Morandi wash tint, distinct on canvas yet readable
-      cardBorder: `${typeColor}45`, // Subtle colored border
+      bg: isDark ? "var(--card-white)" : stock.bg,
+      cardBorder: isDark ? "var(--border-subtle)" : stock.border,
       accentBar: typeColor,
-      textColor: "#1F1D1B",
-      metaColor: "#57524E",
+      textColor: isDark ? "var(--ink-primary)" : "#1F1D1B",
+      metaColor: isDark ? "var(--ink-secondary)" : "#57524E",
       badgeBg: typeColor,
       badgeText: "#FFFFFF",
-      tapeColor: `${typeColor}40`,
+      tapeColor: stock.tape,
       tapeRotate: index % 2 === 0 ? "-1.2deg" : "1.1deg",
       tilt,
     };

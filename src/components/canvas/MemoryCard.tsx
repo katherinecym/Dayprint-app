@@ -23,9 +23,25 @@ export function MemoryCard({
   colorBorder = "var(--grid-line)",
   isHorizontalStream = false,
 }: MemoryCardProps) {
-  const { setSelectedMemoryId, t, relationships, memories: allMemories, language, getTypeColor } = useMemory();
+  const { setSelectedMemoryId, t, relationships, memories: allMemories, language, getTypeColor, settings } = useMemory();
 
   const typeColor = getTypeColor(memory.type);
+  const isDark = settings?.theme === "obsidian-dark";
+
+  const PAPER_STOCK_PRESETS: Record<string, { bg: string; border: string }> = {
+    idea: { bg: "#FDF3EF", border: "#F0DDD4" },
+    learning: { bg: "#EFF4F8", border: "#D8E4ED" },
+    moment: { bg: "#FBF5E8", border: "#EDE2CC" },
+    decision: { bg: "#F4F1F8", border: "#DFD9E8" },
+    plan: { bg: "#EFF4EE", border: "#D8E4D6" },
+    achievement: { bg: "#F8EFEA", border: "#E8D8CF" },
+    collection: { bg: "#EFF3F5", border: "#D4DEE2" },
+  };
+
+  const stock = PAPER_STOCK_PRESETS[memory.type] || {
+    bg: isDark ? "var(--card-white)" : `${typeColor}18`,
+    border: `${typeColor}45`,
+  };
 
   const formattedDate = new Date(memory.occurred_at).toLocaleDateString(undefined, {
     month: "short",
@@ -50,8 +66,8 @@ export function MemoryCard({
       layoutId={`card-${memory.id}`}
       onClick={() => setSelectedMemoryId(memory.id)}
       style={{
-        backgroundColor: hasImage ? "#FFFFFF" : `${typeColor}10`,
-        borderColor: `${typeColor}35`,
+        backgroundColor: hasImage ? "#FFFFFF" : isDark ? "var(--card-white)" : stock.bg,
+        borderColor: isDark ? "var(--border-subtle)" : stock.border,
         borderTopColor: typeColor,
         borderTopWidth: "3.5px",
         ...(isHorizontalStream
