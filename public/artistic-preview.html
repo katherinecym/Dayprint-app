@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dayprint · 艺术级 UI/UX 视觉方案预览 (Award-Winning Concept Preview)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-linen: #FAF7F2;
+      --card-paper: #FFFDF9;
+      --ink-primary: #1F1E1C;
+      --ink-secondary: #5C5852;
+      --ink-muted: #8C877E;
+      --border-soft: #EAE4DA;
+      --terracotta: #C97A63;
+      --fjord-slate: #5B7B94;
+      --amber-warm: #C49A56;
+      --sage-green: #608066;
+      --wisteria: #7C6F93;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-linen);
+      color: var(--ink-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+      padding-bottom: 80px;
+      /* 真实笔记本装订书脊微阴影 */
+      box-shadow: inset 28px 0 45px -24px rgba(45, 35, 25, 0.12);
+      transition: background 0.3s ease;
+    }
+
+    /* 经典手账点阵纸 (Dot Grid - 默认开启) */
+    body.paper-dot-grid {
+      background-image: 
+        radial-gradient(circle, rgba(165, 148, 126, 0.35) 1.25px, transparent 1.25px);
+      background-size: 24px 24px;
+      background-position: 12px 12px;
+    }
+
+    /* 日系 Hobonichi / Kokuyo 方格纸 (Graph / Quad Grid) */
+    body.paper-graph-grid {
+      background-image: 
+        linear-gradient(to right, rgba(165, 148, 126, 0.18) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(165, 148, 126, 0.18) 1px, transparent 1px),
+        linear-gradient(to right, rgba(165, 148, 126, 0.36) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(165, 148, 126, 0.36) 1px, transparent 1px);
+      background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
+    }
+
+    /* 复古法式横线本 (Ruled Journal with Margin) */
+    body.paper-lined {
+      background-image: 
+        linear-gradient(to bottom, rgba(165, 148, 126, 0.22) 1px, transparent 1px),
+        linear-gradient(to right, rgba(201, 122, 99, 0.35) 1.5px, transparent 1.5px);
+      background-size: 100% 28px, 100% 100%;
+      background-position: 0 0, 72px 0;
+    }
+
+    /* 纯净纸本 (Plain Linen) */
+    body.paper-plain {
+      background-image: none;
+    }
+
+    /* 笔记本丝带书签 (Fabric Ribbon Bookmark) */
+    .ribbon-bookmark {
+      position: fixed;
+      top: 0;
+      right: 120px;
+      width: 14px;
+      height: 96px;
+      background: linear-gradient(135deg, #B8382D 0%, #D9483B 100%);
+      box-shadow: 2px 4px 10px rgba(0,0,0,0.18);
+      z-index: 999;
+      pointer-events: none;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 84%, 0 100%);
+    }
+
+    /* 1. 微细纸浆真实噪点层 (SVG feTurbulence) */
+    .paper-grain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.038;
+      mix-blend-mode: multiply;
+    }
+
+    /* 优雅排版与字阶 */
+    .serif-title {
+      font-family: 'Newsreader', 'Songti SC', serif;
+      font-feature-settings: 'dlig' on, 'liga' on;
+    }
+
+    .mono-meta {
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: -0.02em;
+    }
+
+    /* 顶部策展风格 Bar */
+    header {
+      padding: 20px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-soft);
+      backdrop-filter: blur(12px);
+      background: rgba(250, 247, 242, 0.82);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .curator-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink-primary);
+    }
+
+    .curator-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--terracotta);
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(201, 122, 99, 0.5);
+    }
+
+    .controls-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn-pill {
+      border: 1px solid var(--border-soft);
+      background: #FFFFFF;
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-pill:hover {
+      border-color: var(--ink-secondary);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    .btn-pill.primary {
+      background: var(--ink-primary);
+      color: #FFFFFF;
+      border-color: var(--ink-primary);
+    }
+
+    /* 展板主容器 */
+    .gallery-container {
+      max-width: 1360px;
+      margin: 40px auto;
+      padding: 0 32px;
+    }
+
+    .section-intro {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-intro h1 {
+      font-size: 38px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      margin-bottom: 12px;
+      color: var(--ink-primary);
+    }
+
+    .section-intro p {
+      font-size: 15px;
+      color: var(--ink-secondary);
+      max-width: 620px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* 策展式错落网格 (Masonry / Editorial Grid) */
+    .editorial-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    /* 3D 物理倾斜卡片基类 */
+    .tactile-card {
+      background: var(--card-paper);
+      border-radius: 16px;
+      border: 1px solid rgba(220, 214, 203, 0.7);
+      padding: 28px;
+      position: relative;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 
+        0 4px 6px -1px rgba(50, 40, 30, 0.03),
+        0 12px 28px -4px rgba(50, 40, 30, 0.05),
+        0 1px 2px 0 rgba(50, 40, 30, 0.02);
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .tactile-card:hover {
+      box-shadow: 
+        0 12px 24px -2px rgba(50, 40, 30, 0.06),
+        0 24px 48px -6px rgba(50, 40, 30, 0.09),
+        0 2px 4px 0 rgba(50, 40, 30, 0.03);
+    }
+
+    /* 和纸胶带装饰 (Washi Tape) */
+    .washi-tape {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-1.2deg);
+      width: 100px;
+      height: 24px;
+      background: rgba(243, 235, 222, 0.65);
+      border-left: 2px dashed rgba(200, 190, 175, 0.4);
+      border-right: 2px dashed rgba(200, 190, 175, 0.4);
+      backdrop-filter: blur(2px);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .washi-tape.amber {
+      background: rgba(230, 215, 185, 0.65);
+      transform: translateX(-50%) rotate(1.5deg);
+    }
+
+    .washi-tape.slate {
+      background: rgba(210, 222, 232, 0.6);
+      transform: translateX(-50%) rotate(-0.8deg);
+    }
+
+    /* 钢印徽章 (Debossed Museum Seal) */
+    .deboss-seal {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.025);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      font-size: 9.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ink-muted);
+    }
+
+    /* 卡片 1: 策展焦点大卡 (Featured Editorial Essay) */
+    .card-featured {
+      grid-column: span 7;
+      min-height: 480px;
+      display: flex;
+      flex-col: column;
+      justify-content: space-between;
+    }
+
+    .drop-cap {
+      float: left;
+      font-family: 'Newsreader', serif;
+      font-size: 56px;
+      line-height: 44px;
+      padding-top: 4px;
+      padding-right: 12px;
+      padding-bottom: 2px;
+      color: var(--terracotta);
+    }
+
+    .pull-quote {
+      margin: 24px 0;
+      padding: 16px 22px;
+      background: #F8F5EE;
+      border-left: 3px solid var(--terracotta);
+      border-radius: 0 10px 10px 0;
+      font-family: 'Newsreader', serif;
+      font-style: italic;
+      font-size: 18px;
+      line-height: 1.5;
+      color: #38342E;
+    }
+
+    /* 卡片 2: 画廊装裱拍立得 (Gallery Matting & Polaroid) */
+    .card-polaroid {
+      grid-column: span 5;
+      background: #FFFFFF;
+      padding: 20px 20px 24px 20px;
+      transform: rotate(1deg);
+      border-radius: 6px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.06);
+    }
+
+    .polaroid-matte {
+      width: 100%;
+      height: 280px;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      background: #EDEAE1;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.08);
+    }
+
+    .polaroid-matte img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: contrast(1.03) saturate(1.05) sepia(0.08);
+      transition: transform 0.6s ease;
+    }
+
+    .card-polaroid:hover .polaroid-matte img {
+      transform: scale(1.03);
+    }
+
+    .handwriting-caption {
+      font-family: 'Newsreader', serif;
+      font-style: italic;
+      margin-top: 16px;
+      font-size: 15px;
+      color: var(--ink-secondary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* 卡片 3: 深空天球星图组件 (Cosmic Knowledge Constellation) */
+    .card-constellation {
+      grid-column: span 8;
+      background: #14161B;
+      color: #F0EDE6;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .constellation-canvas-wrap {
+      width: 100%;
+      height: 320px;
+      position: relative;
+      background: radial-gradient(circle at 50% 50%, #1A202C 0%, #101216 100%);
+      border-radius: 10px;
+      margin-top: 16px;
+      overflow: hidden;
+    }
+
+    /* 天体同心圆坐标线 */
+    .celestial-rings {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 260px;
+      height: 260px;
+      border: 1px dashed rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .celestial-rings::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 160px;
+      height: 160px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 50%;
+    }
+
+    /* 星星节点 */
+    .star-node {
+      position: absolute;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .star-node::after {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      border-radius: 50%;
+      background: inherit;
+      opacity: 0.25;
+      animation: pulse-glow 3s infinite ease-in-out;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { transform: scale(1); opacity: 0.2; }
+      50% { transform: scale(1.6); opacity: 0.45; }
+    }
+
+    .star-label {
+      position: absolute;
+      white-space: nowrap;
+      top: -22px;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      color: rgba(255, 255, 255, 0.85);
+      background: rgba(0, 0, 0, 0.6);
+      padding: 2px 7px;
+      border-radius: 4px;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      pointer-events: none;
+    }
+
+    /* 卡片 4: 物理小票与墨水互动卡 (Tactile Thermal Receipt & Ink Bleed) */
+    .card-receipt-interactive {
+      grid-column: span 4;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .receipt-paper {
+      background: linear-gradient(180deg, #FDFBF7 50%, var(--current-mood-wash, rgba(201, 122, 99, 0.14)) 100%);
+      border-radius: 8px;
+      border: 1px solid var(--border-soft);
+      padding: 24px;
+      position: relative;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+      transition: background 0.4s ease, border-color 0.4s ease;
+    }
+
+    .receipt-tear-edge {
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 7px;
+      background: radial-gradient(circle, transparent, transparent 3px, #FDFBF7 4px);
+      background-size: 10px 10px;
+    }
+
+    /* 小票上的今日情绪水彩认证章 (Mood Ink-Drop Seal) */
+    .receipt-mood-seal {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px dashed var(--current-mood-color, #C97A63);
+      padding: 6px 12px;
+      border-radius: 6px;
+      margin: 10px 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      transition: all 0.3s ease;
+    }
+
+    .mood-blob-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50% 45% 55% 48% / 48% 52% 48% 52%;
+      background: var(--current-mood-color, #C97A63);
+      box-shadow: 0 0 8px var(--current-mood-color, #C97A63);
+      display: inline-block;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    /* 水彩荧光笔划线高亮 (Watercolor Highlighter Stroke) */
+    .watercolor-highlight {
+      background: linear-gradient(120deg, var(--current-mood-wash, rgba(201, 122, 99, 0.28)) 0%, rgba(255, 255, 255, 0) 100%);
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-weight: 600;
+      color: var(--ink-primary);
+    }
+
+    /* 墨水晕染波纹动效 (Ink Bleed Wave) */
+    .ink-ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(91, 123, 148, 0.3) 0%, rgba(201, 122, 99, 0.15) 60%, transparent 80%);
+      pointer-events: none;
+      transform: scale(0);
+      animation: ink-expand 1.1s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+    }
+
+    @keyframes ink-expand {
+      to {
+        transform: scale(3.5);
+        opacity: 0;
+      }
+    }
+
+    /* 交互悬浮高光层 (Specular Gloss) */
+    .gloss-layer {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.4) 0%, transparent 60%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .tactile-card:hover .gloss-layer {
+      opacity: 1;
+    }
+
+    /* 5. 每日灵感撕纸微签 (Daily Muse Tear-off Slip) */
+    .muse-slip-wrapper {
+      grid-column: span 12;
+      margin-bottom: 8px;
+    }
+
+    .muse-slip {
+      background: #FFFDF8;
+      border: 1.5px dashed var(--amber-warm);
+      border-radius: 12px;
+      padding: 18px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      position: relative;
+      box-shadow: 0 4px 16px rgba(196, 154, 86, 0.08);
+      background-image: radial-gradient(circle, rgba(196, 154, 86, 0.15) 1px, transparent 1px);
+      background-size: 16px 16px;
+    }
+
+    .muse-slip-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #926E2B;
+      background: rgba(196, 154, 86, 0.15);
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    /* 6. 3D 火漆印章 (Tactile Wax Seal Trophy) */
+    .wax-seal-cabinet {
+      grid-column: span 12;
+      background: #FFFDF9;
+      border: 1px solid var(--border-soft);
+      border-radius: 16px;
+      padding: 22px 28px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+      margin-top: 10px;
+    }
+
+    .wax-seal-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: transform 0.25s ease;
+    }
+
+    .wax-seal-item:hover {
+      transform: translateY(-2px);
+    }
+
+    .wax-seal {
+      width: 48px;
+      height: 48px;
+      border-radius: 48% 52% 49% 51% / 51% 48% 52% 49%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 
+        0 4px 10px rgba(0, 0, 0, 0.18),
+        inset 0 2px 4px rgba(255, 255, 255, 0.35),
+        inset 0 -3px 5px rgba(0, 0, 0, 0.4);
+      position: relative;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .wax-seal::after {
+      content: '';
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.45);
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .wax-seal.red {
+      background: radial-gradient(circle at 35% 35%, #DD4C3B 0%, #A82818 70%, #7A170A 100%);
+    }
+
+    .wax-seal.amber {
+      background: radial-gradient(circle at 35% 35%, #F0B342 0%, #B87B14 70%, #7E4F05 100%);
+    }
+
+    .wax-seal.blue {
+      background: radial-gradient(circle at 35% 35%, #6B94B8 0%, #366085 70%, #1D3D5A 100%);
+    }
+
+    .wax-seal.purple {
+      background: radial-gradient(circle at 35% 35%, #9A8BB8 0%, #615082 70%, #3E2F59 100%);
+    }
+
+    .wax-seal-icon {
+      font-size: 16px;
+      color: #FFF2D6;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+      z-index: 2;
+    }
+
+    /* 7. 时空回响浮动引力条 (Memory Echo Serendipity) */
+    .echo-banner {
+      background: #FDF9F0;
+      border: 1px solid #EEDFCA;
+      border-left: 4px solid var(--amber-warm);
+      border-radius: 8px;
+      padding: 12px 18px;
+      margin-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* 8. 情绪水彩调色盘 (Watercolor Mood Swatches) */
+    .mood-swatches-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-top: 14px;
+    }
+
+    .mood-pigment {
+      width: 22px;
+      height: 22px;
+      border-radius: 50% 46% 54% 48% / 48% 52% 48% 52%;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .mood-pigment:hover {
+      transform: scale(1.25);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+
+    .mood-pigment.active {
+      transform: scale(1.2);
+      box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px var(--ink-primary);
+    }
+
+    /* 底部行动引导栏 */
+    .action-dock {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(31, 30, 28, 0.94);
+      color: #FFFFFF;
+      padding: 10px 24px;
+      border-radius: 36px;
+      box-shadow: 0 16px 36px -6px rgba(0,0,0,0.3);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      z-index: 1000;
+    }
+
+    .action-dock span {
+      font-size: 13px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body class="paper-dot-grid">
+
+  <!-- 笔记本真丝丝带书签 -->
+  <div class="ribbon-bookmark" title="丝带书签 (Fabric Ribbon Bookmark)"></div>
+
+  <!-- SVG 微细纸纹 Noise Filter -->
+  <svg class="paper-grain" xmlns="http://www.w3.org/2000/svg">
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" stitchTiles="stitch" />
+      <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0" />
+    </filter>
+    <rect width="100%" height="100%" filter="url(#grain)" />
+  </svg>
+
+  <!-- 顶部导航 -->
+  <header>
+    <div class="curator-badge">
+      <span class="curator-dot"></span>
+      <span class="serif-title" style="font-size: 19px; font-weight: 600;">Dayprint · Gallery & Studio</span>
+      <span class="deboss-seal">ARTISAN PROTOTYPE</span>
+    </div>
+
+    <div class="controls-row">
+      <!-- 笔记本底纸图案切换器: 点阵 / 方格 / 横线 / 纯净 -->
+      <button class="btn-pill" id="grid-toggle-btn" onclick="cycleNotebookGrid()" style="border-color: var(--amber-warm); background: #FFFDF9;">
+        <span>⁝ 底纸: 5mm 点阵手账纸 (Dot Grid)</span>
+      </button>
+      <button class="btn-pill" id="theme-btn" onclick="togglePaperTone()">
+        <span>🎨 色温: 暖亚麻</span>
+      </button>
+      <button class="btn-pill" id="sound-btn" onclick="toggleSound()">
+        <span>🔊 机械音效: 开启</span>
+      </button>
+      <button class="btn-pill primary" onclick="triggerGlobalInkBleed()">
+        <span>✦ 墨水晕染反馈</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- 展厅主体 -->
+  <main class="gallery-container">
+    <div class="section-intro">
+      <span class="deboss-seal" style="margin-bottom: 8px;">CURATORIAL DIRECTION 2026</span>
+      <h1 class="serif-title">把碎片日常，编排为一本触手可及的精装画册</h1>
+      <p>融合 <strong>Craft.do 的精密数字工艺</strong> 与 <strong>Pinterest 策展剪贴画</strong> 的自然呼吸感。请将鼠标移入各卡片体验微 3D 物理倾斜与透光和纸胶带质感。</p>
+    </div>
+
+    <div class="editorial-grid">
+      <!-- 0. 每日灵感撕纸盲盒 (Daily Muse Thematic Packs & AI Generator) -->
+      <div class="muse-slip-wrapper">
+        <div class="muse-slip" id="muse-slip-card" style="flex-direction: column; align-items: stretch; gap: 14px;">
+          <!-- 灵感主题组切换标签栏 -->
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-bottom: 1px dashed rgba(196, 154, 86, 0.35); padding-bottom: 10px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="muse-slip-badge">✦ 今日灵感策展日历 (DAILY MUSE)</span>
+              <span class="mono-meta" style="font-size: 11px; color: var(--terracotta); font-weight: 600;" id="muse-date-tag">
+                2026.10-15 周四 · 轮换主题
+              </span>
+            </div>
+            <!-- 主题组快速切换药丸按钮 -->
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;" id="muse-theme-pills">
+              <button class="btn-pill active" onclick="switchMusePack('thursday_core', this)" style="font-size: 11px; padding: 3px 9px;">
+                <span>🎯 周四·决策第一性</span>
+              </button>
+              <button class="btn-pill" onclick="switchMusePack('sensory_micro', this)" style="font-size: 11px; padding: 3px 9px;">
+                <span>🌿 生活微光</span>
+              </button>
+              <button class="btn-pill" onclick="switchMusePack('cognitive_flip', this)" style="font-size: 11px; padding: 3px 9px;">
+                <span>💡 认知反转</span>
+              </button>
+              <button class="btn-pill" onclick="switchMusePack('future_anchor', this)" style="font-size: 11px; padding: 3px 9px;">
+                <span>✉️ 未来信件</span>
+              </button>
+              <button class="btn-pill" onclick="switchMusePack('ai_curated', this)" style="font-size: 11px; padding: 3px 9px; border-color: var(--amber-warm); color: var(--terracotta);">
+                <span>✨ AI 个性化深挖</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 灵感问题核心展现区 -->
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+            <div style="flex: 1; min-width: 280px;">
+              <div style="font-size: 11px; color: var(--ink-muted); margin-bottom: 4px;" id="muse-pack-name">
+                当前组别：【周四·决策第一性】（每日根据真实星期自动轮播，亦可手动切换）
+              </div>
+              <p id="muse-prompt-text" style="font-size: 15px; font-weight: 600; color: var(--ink-primary); margin: 0; line-height: 1.6; letter-spacing: -0.01em;">
+                “今天做出的哪个微小决定，可能会在半年后产生复利效应？”
+              </p>
+            </div>
+            <div style="display: flex; gap: 8px; align-items: center; flex-shrink: 0;">
+              <button class="btn-pill" onclick="drawNewMusePrompt()" style="border-color: var(--amber-warm); background: #FFF;">
+                <span>🎲 撕下一张签</span>
+              </button>
+              <button class="btn-pill" onclick="generateAiMuseSet()" style="border-color: #615082; background: #FFF; color: #615082;">
+                <span id="ai-gen-btn-text">✦ 让 AI 换一组新题</span>
+              </button>
+              <button class="btn-pill primary" onclick="answerMusePrompt()">
+                <span>✍ 以此为题作答</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1. 焦点深度随笔卡片 (Editorial Essay) -->
+      <article class="tactile-card card-featured" id="card-1">
+        <div class="washi-tape"></div>
+        <div class="gloss-layer"></div>
+
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <span class="deboss-seal" style="background: rgba(201, 122, 99, 0.12); color: var(--terracotta);">PHILOSOPHY // 灵感沉淀</span>
+              <span class="mono-meta" style="font-size: 11px; color: var(--ink-muted);">№ 2026.10-15 · L2 SEMANTIC</span>
+            </div>
+            <span class="mono-meta" style="font-size: 12px; color: var(--ink-secondary);">10:14 AM · 晴</span>
+          </div>
+
+          <h2 class="serif-title" style="font-size: 28px; line-height: 1.25; margin-bottom: 16px;">
+            关于记忆的拓扑学：我们并不是在记录过去，而是在为未来的自己铺设航标
+          </h2>
+
+          <p style="font-size: 14.5px; line-height: 1.8; color: var(--ink-secondary);">
+            <span class="drop-cap">真</span>实的人类记忆从不是条块分割的数据库字段，它是浸润着光线、气味与偶然顿悟的连续织锦。当我们把一则琐碎的生活观察与三个月前关于认知架构的思考连结在一起时，思想的引力网络才真正开始呼吸。
+          </p>
+
+          <div class="pull-quote">
+            “所有的知识管理工具都试图替我们分类，但伟大的创作者只需要一个能激荡回声的画室。”
+          </div>
+
+          <!-- 时空记忆回响条 (Memory Echo Serendipity) -->
+          <div class="echo-banner">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="font-size: 20px;">⏳</span>
+              <div>
+                <div style="font-size: 11.5px; font-weight: 700; color: var(--terracotta); letter-spacing: 0.05em; text-transform: uppercase;">
+                  时空记忆回响 · 84 天前的伏笔
+                </div>
+                <div style="font-size: 13px; color: var(--ink-primary); margin-top: 2px;">
+                  2026.07-22 你曾写下《关于知识孤岛的迷思》，AI 识别到与当前“铺设航标”存在哲学因果呼应
+                </div>
+              </div>
+            </div>
+            <button class="btn-pill" style="white-space: nowrap; font-size: 11.5px; padding: 6px 12px; border-color: var(--amber-warm); background: #FFF;" onclick="weaveEchoLink()">
+              <span>✦ 星图编织因果连线</span>
+            </button>
+          </div>
+
+          <!-- 每日情绪水彩调色盘 (Watercolor Mood Pigments) -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 18px; padding-top: 14px; border-top: 1px dashed var(--border-soft);">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span class="mono-meta" style="font-size: 11px; color: var(--ink-muted);">今日情绪水彩:</span>
+              <div class="mood-swatches-row" style="margin-top: 0;">
+                <div class="mood-pigment active" style="background: #C97A63;" title="陶土红 · 热情充沛" onclick="selectMoodPigment(this, '陶土红 · 热情充沛')"></div>
+                <div class="mood-pigment" style="background: #E5A93C;" title="琥珀蜜 · 灵感火花" onclick="selectMoodPigment(this, '琥珀蜜 · 灵感火花')"></div>
+                <div class="mood-pigment" style="background: #608066;" title="苍青绿 · 平和治愈" onclick="selectMoodPigment(this, '苍青绿 · 平和治愈')"></div>
+                <div class="mood-pigment" style="background: #5B7B94;" title="冰海蓝 · 理性澄澈" onclick="selectMoodPigment(this, '冰海蓝 · 理性澄澈')"></div>
+                <div class="mood-pigment" style="background: #9A8BB8;" title="暮山紫 · 沉静内省" onclick="selectMoodPigment(this, '暮山紫 · 沉静内省')"></div>
+              </div>
+            </div>
+            <span id="active-mood-label" class="mono-meta" style="font-size: 11px; color: var(--terracotta); font-weight: 600;">陶土红 · 热情充沛</span>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-soft); padding-top: 16px; margin-top: 20px;">
+          <div style="display: flex; gap: 8px;">
+            <span class="btn-pill" style="padding: 4px 10px; font-size: 11px;">#认知拓扑</span>
+            <span class="btn-pill" style="padding: 4px 10px; font-size: 11px;">#策展笔记</span>
+          </div>
+          <span class="mono-meta" style="font-size: 11px; color: var(--ink-muted);">98% AI 置信度 · 关联 6 节点</span>
+        </div>
+      </article>
+
+      <!-- 2. 画廊装裱拍立得卡片 (Polaroid Gallery Matting) -->
+      <aside class="tactile-card card-polaroid" id="card-2">
+        <div class="washi-tape amber"></div>
+        <div class="gloss-layer"></div>
+
+        <div class="polaroid-matte">
+          <img src="https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?auto=format&fit=crop&w=800&q=80" alt="Artisan Desk & Light" />
+          <div style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.5); color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 3px; font-family: monospace;">
+            35mm · Kodak Gold
+          </div>
+        </div>
+
+        <div class="handwriting-caption">
+          <span>“初秋下午斜照在书桌上的阳光”</span>
+          <span class="mono-meta" style="font-size: 11px; color: var(--ink-muted);">OCT 15</span>
+        </div>
+
+        <div style="margin-top: 14px; font-size: 12.5px; color: var(--ink-secondary); line-height: 1.6;">
+          随手拍下的工作台光影。此时正在构想知识图谱的力导向渲染，光斑的位置刚好落在星图草稿上。
+        </div>
+      </aside>
+
+      <!-- 3. 深空天球星图 (Celestial Knowledge Constellation) -->
+      <section class="tactile-card card-constellation" id="card-3">
+        <div class="gloss-layer"></div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="deboss-seal" style="border-color: rgba(255,255,255,0.2); color: #A0AEC0;">COSMIC CARTOGRAPHY</span>
+              <span class="mono-meta" style="font-size: 11px; color: #718096;">DEEP DENSITY: 14 NODES</span>
+            </div>
+            <h3 class="serif-title" style="font-size: 22px; margin-top: 6px;">深空天体知识星图 (Celestial Graph)</h3>
+          </div>
+          <button class="btn-pill" style="background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); color: #FFF;" onclick="pulseConstellation()">
+            <span>✦ 星尘引力共振</span>
+          </button>
+        </div>
+
+        <div class="constellation-canvas-wrap" id="constellation-wrap">
+          <div class="celestial-rings"></div>
+          
+          <!-- SVG 引力连线 -->
+          <svg style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;">
+            <line x1="28%" y1="36%" x2="52%" y2="50%" stroke="rgba(255,255,255,0.18)" stroke-width="1.2" stroke-dasharray="3,3" />
+            <line x1="52%" y1="50%" x2="74%" y2="38%" stroke="rgba(201,122,99,0.4)" stroke-width="1.5" />
+            <line x1="52%" y1="50%" x2="62%" y2="72%" stroke="rgba(91,123,148,0.5)" stroke-width="1.5" />
+            <line x1="28%" y1="36%" x2="35%" y2="70%" stroke="rgba(196,154,86,0.3)" stroke-width="1" />
+          </svg>
+
+          <!-- 恒星节点 1 (核心思想) -->
+          <div class="star-node" style="left: 52%; top: 50%; width: 14px; height: 14px; background: #C97A63; box-shadow: 0 0 16px #C97A63;">
+            <div class="star-label">#认知拓扑 (Core)</div>
+          </div>
+
+          <!-- 恒星节点 2 (日常感知) -->
+          <div class="star-node" style="left: 28%; top: 36%; width: 10px; height: 10px; background: #C49A56; box-shadow: 0 0 12px #C49A56;">
+            <div class="star-label">#工作台光斑</div>
+          </div>
+
+          <!-- 恒星节点 3 (技术工具) -->
+          <div class="star-node" style="left: 74%; top: 38%; width: 11px; height: 11px; background: #5B7B94; box-shadow: 0 0 12px #5B7B94;">
+            <div class="star-label">#GSAP物理引擎</div>
+          </div>
+
+          <!-- 恒星节点 4 (心智模式) -->
+          <div class="star-node" style="left: 62%; top: 72%; width: 9px; height: 9px; background: #7C6F93; box-shadow: 0 0 10px #7C6F93;">
+            <div class="star-label">#极简主义哲学</div>
+          </div>
+
+          <!-- 恒星节点 5 (经历锚点) -->
+          <div class="star-node" style="left: 35%; top: 70%; width: 8px; height: 8px; background: #608066; box-shadow: 0 0 10px #608066;">
+            <div class="star-label">#秋季策展展出</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. 物理小票与墨水交互卡片 (Receipt & Zen Bleed) -->
+      <section class="card-receipt-interactive">
+        <div class="receipt-paper tactile-card" id="card-4" onclick="createInkBleedAt(event, this)">
+          <div class="washi-tape slate"></div>
+          <div class="gloss-layer"></div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #D5CFBF; padding-bottom: 12px; margin-bottom: 14px;">
+            <span class="mono-meta" style="font-size: 11px; font-weight: 700; color: var(--ink-primary);">DAYPRINT RECEIPT // 今日归档</span>
+            <span class="mono-meta" style="font-size: 10px; color: var(--ink-muted);">№ 10.15-0482</span>
+          </div>
+
+          <!-- 融在小票里：今日情绪水彩认证章 (Mood Ink-Drop Seal) -->
+          <div class="receipt-mood-seal" id="receipt-mood-seal">
+            <span class="mood-blob-dot" id="receipt-mood-dot"></span>
+            <div>
+              <div class="mono-meta" style="font-size: 9.5px; font-weight: 700; color: var(--ink-muted); letter-spacing: 0.05em;" id="receipt-mood-code">
+                MOOD SPECTRUM // 情绪水彩
+              </div>
+              <div style="font-size: 12px; font-weight: 600; color: var(--ink-primary); margin-top: 1px;" id="receipt-mood-text">
+                陶土红 · 热情充沛 85%
+              </div>
+            </div>
+          </div>
+
+          <!-- 小票主体文字（融合荧光水彩笔刷划线） -->
+          <div style="font-size: 13px; line-height: 1.7; color: var(--ink-primary); margin: 12px 0 16px 0;">
+            <p style="margin: 0 0 6px 0;">
+              <strong>[核心洞察]</strong> <span class="watercolor-highlight" id="receipt-highlight">为未来的自己铺设航标</span>
+            </p>
+            <p style="color: var(--ink-secondary); font-size: 12px; margin: 0 0 4px 0;">
+              • 心流专注：45 分钟 · 1,420 字
+            </p>
+            <p style="color: var(--ink-secondary); font-size: 12px; margin: 0;">
+              • 知识星图：成功连通 6 个核心思想节点
+            </p>
+          </div>
+
+          <!-- 小票底部水彩浸染说明与验证印记 -->
+          <div style="border-top: 1px dashed #D5CFBF; padding-top: 12px; display: flex; justify-content: space-between; align-items: center;">
+            <span class="mono-meta" style="font-size: 10px; color: var(--ink-muted);">DIP-DYE WASH & BLEED</span>
+            <span class="mono-meta" style="font-size: 11px; font-weight: 600; color: var(--fjord-slate);">VERIFIED ✓</span>
+          </div>
+
+          <div class="receipt-tear-edge"></div>
+        </div>
+
+        <!-- 形式策略深度解析：小票 vs 拍立得 -->
+        <div class="tactile-card" style="padding: 20px; background: #FFF;">
+          <h4 class="serif-title" style="font-size: 15px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+            <span>📸</span> 媒介自适应策略：小票还是拍立得？
+          </h4>
+          <div style="font-size: 12px; color: var(--ink-secondary); line-height: 1.7;">
+            <p style="margin: 0 0 8px 0;">
+              <strong>1. 纯文字随笔 ➔ 【水彩浸染小票】</strong><br>
+              文本、字数与总结适合小票呈现，底端渐变浸润当日水彩，极具收账归档的极简仪式感。
+            </p>
+            <p style="margin: 0 0 8px 0;">
+              <strong>2. 附带照片/摄影 ➔ 【和纸胶带拍立得】</strong><br>
+              若用小票打印照片容易产生黑白噪点的低廉感；而拍立得相纸拥有经典的<strong>厚框宽下巴留白</strong>，支持手写体日期，是定格真实照片的绝佳载体。
+            </p>
+            <p style="margin: 0;">
+              <strong>3. 高阶剪贴形态 ➔ 【拍立得 + 右下角附小票】</strong><br>
+              拍立得作为视觉主角，小票作为附着在右下角的专属“情绪与参数票签”，层次感拉满！
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. 3D 火漆印章里程碑陈列柜 (Wax Seal Cabinet) -->
+      <section class="wax-seal-cabinet">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <span style="font-size: 26px;">🎖</span>
+          <div>
+            <div class="serif-title" style="font-size: 17px; font-weight: 600;">手账印章陈列柜 · 习惯与思想里程碑</div>
+            <div style="font-size: 12.5px; color: var(--ink-secondary); margin-top: 3px;">
+              每一枚火漆都由你真实的灵感刻印而成。点击印章体验微 3D 凹凸回弹与重力盖章微音效。
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 24px; flex-wrap: wrap; align-items: center;">
+          <div class="wax-seal-item" onclick="triggerWaxSealTap(this, '晨曦初露 · 连续 3 天手账留白已填满')">
+            <div class="wax-seal red">
+              <span class="wax-seal-icon">☀️</span>
+            </div>
+            <div>
+              <div style="font-size: 13px; font-weight: 600; color: var(--ink-primary);">晨曦初露</div>
+              <div class="mono-meta" style="font-size: 10.5px; color: var(--terracotta);">3-DAY STREAK</div>
+            </div>
+          </div>
+
+          <div class="wax-seal-item" onclick="triggerWaxSealTap(this, '星轨开拓者 · 知识星图中诞生首个 10 节点引力团')">
+            <div class="wax-seal amber">
+              <span class="wax-seal-icon">🪐</span>
+            </div>
+            <div>
+              <div style="font-size: 13px; font-weight: 600; color: var(--ink-primary);">星轨开拓者</div>
+              <div class="mono-meta" style="font-size: 10.5px; color: var(--amber-warm);">10-NODE WEB</div>
+            </div>
+          </div>
+
+          <div class="wax-seal-item" onclick="triggerWaxSealTap(this, '思想策展人 · 成功沉淀一篇 L2 级结构化深度复盘')">
+            <div class="wax-seal blue">
+              <span class="wax-seal-icon">🏛</span>
+            </div>
+            <div>
+              <div style="font-size: 13px; font-weight: 600; color: var(--ink-primary);">思想策展人</div>
+              <div class="mono-meta" style="font-size: 10.5px; color: var(--fjord-slate);">STAR CURATOR</div>
+            </div>
+          </div>
+
+          <div class="wax-seal-item" onclick="triggerWaxSealTap(this, '底层第一性 · 提炼出一句不被时代冲刷的底层价值信条')">
+            <div class="wax-seal purple">
+              <span class="wax-seal-icon">💎</span>
+            </div>
+            <div>
+              <div style="font-size: 13px; font-weight: 600; color: var(--ink-primary);">底层第一性</div>
+              <div class="mono-meta" style="font-size: 10.5px; color: #615082;">CORE VALUES</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- 底部悬浮说明胶囊 -->
+  <aside class="action-dock">
+    <span>✨ 艺术级原型正在以纯静态轻量代码演示</span>
+    <button class="btn-pill primary" onclick="alert('如果您喜欢这套风格，我可以直接将该视觉系统无缝融入到主画布与记忆中枢中！')">
+      <span>认可此方向，应用到项目 →</span>
+    </button>
+  </aside>
+
+  <script>
+    // 1. 3D 物理倾斜与高光跟随算法 (Parallax & Specular Highlight)
+    const cards = document.querySelectorAll('.tactile-card');
+
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        // 微倾斜计算 (控制在 ±3.5 度以内，克制优雅)
+        const rotateX = ((y - centerY) / centerY) * -3.5;
+        const rotateY = ((x - centerX) / centerX) * 3.5;
+        
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+        
+        // 光斑反射位置动态传递给 CSS 变量
+        card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
+        card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+      });
+    });
+
+    // 2. 墨水晕染微交互 (Ink Bleed Animation)
+    function createInkBleedAt(e, element) {
+      const rect = element.getBoundingClientRect();
+      const ripple = document.createElement('div');
+      ripple.className = 'ink-ripple';
+      
+      const size = 120;
+      ripple.style.width = `${size}px`;
+      ripple.style.height = `${size}px`;
+      ripple.style.left = `${e.clientX - rect.left - size/2}px`;
+      ripple.style.top = `${e.clientY - rect.top - size/2}px`;
+      
+      element.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 1100);
+    }
+
+    function triggerGlobalInkBleed() {
+      const card = document.getElementById('card-1');
+      const fakeEvent = {
+        clientX: card.getBoundingClientRect().left + 80,
+        clientY: card.getBoundingClientRect().top + 80
+      };
+      createInkBleedAt(fakeEvent, card);
+    }
+
+    // 3. 星图共振脉冲动效
+    function pulseConstellation() {
+      const stars = document.querySelectorAll('.star-node');
+      stars.forEach((star, i) => {
+        setTimeout(() => {
+          star.style.transform = 'scale(1.8)';
+          star.style.boxShadow = '0 0 25px rgba(255,255,255,0.9)';
+          setTimeout(() => {
+            star.style.transform = 'scale(1)';
+            star.style.boxShadow = '';
+          }, 400);
+        }, i * 90);
+      });
+    }
+
+    // 4. 纸张色调温湿度切换 (Warm Linen vs White Gallery vs Studio Dark)
+    let toneMode = 0;
+    function togglePaperTone() {
+      toneMode = (toneMode + 1) % 3;
+      const btn = document.getElementById('theme-btn');
+      if (toneMode === 0) {
+        document.documentElement.style.setProperty('--bg-linen', '#FAF7F2');
+        document.documentElement.style.setProperty('--card-paper', '#FFFDF9');
+        btn.querySelector('span').innerText = '🎨 纸张色温: 暖亚麻 (Warm Linen)';
+      } else if (toneMode === 1) {
+        document.documentElement.style.setProperty('--bg-linen', '#F4F4F4');
+        document.documentElement.style.setProperty('--card-paper', '#FFFFFF');
+        btn.querySelector('span').innerText = '🎨 纸张色温: 极简纯白 (Minimal Gallery)';
+      } else {
+        document.documentElement.style.setProperty('--bg-linen', '#ECE6DA');
+        document.documentElement.style.setProperty('--card-paper', '#FBF8F2');
+        btn.querySelector('span').innerText = '🎨 纸张色温: 羊皮纸旧藏 (Aged Parchment)';
+      }
+    }
+
+    // 5. 笔记本底纸图案切换 (Dot Grid / Graph Paper / Lined / Plain)
+    const gridModes = [
+      { id: 'paper-dot-grid', label: '⁝ 底纸: 5mm 点阵手账纸 (Dot Grid)' },
+      { id: 'paper-graph-grid', label: '⊞ 底纸: 日系方格本 (Graph Paper)' },
+      { id: 'paper-lined', label: '≡ 底纸: 法式横线手账 (Ruled Journal)' },
+      { id: 'paper-plain', label: '░ 底纸: 纯净棉浆 (Plain Linen)' }
+    ];
+    let currentGridIdx = 0;
+
+    function cycleNotebookGrid() {
+      // 移除当前模式 class
+      document.body.classList.remove(gridModes[currentGridIdx].id);
+      // 切换到下一个模式
+      currentGridIdx = (currentGridIdx + 1) % gridModes.length;
+      document.body.classList.add(gridModes[currentGridIdx].id);
+      
+      const btn = document.getElementById('grid-toggle-btn');
+      btn.querySelector('span').innerText = gridModes[currentGridIdx].label;
+    }
+
+    // 6. 原生 Web Audio API 机械打字音效引擎 (Zero-dependency Audio Synthesizer)
+    let soundEnabled = true;
+    let audioCtx = null;
+
+    function getAudioContext() {
+      if (!audioCtx && typeof window !== 'undefined') {
+        const AudioClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioClass) {
+          audioCtx = new AudioClass();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      const btn = document.getElementById('sound-btn');
+      btn.querySelector('span').innerText = soundEnabled ? '🔊 机械音效: 开启' : '🔇 机械音效: 静音';
+      if (soundEnabled) {
+        playKeyClick();
+      }
+    }
+
+    function playKeyClick() {
+      if (!soundEnabled) return;
+      const ctx = getAudioContext();
+      if (!ctx) return;
+
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      const filter = ctx.createBiquadFilter();
+
+      filter.type = 'bandpass';
+      filter.frequency.setValueAtTime(1400 + Math.random() * 400, ctx.currentTime);
+      filter.Q.setValueAtTime(2.5, ctx.currentTime);
+
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(550 + Math.random() * 180, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(80, ctx.currentTime + 0.025);
+
+      gain.gain.setValueAtTime(0.18, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.035);
+
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start();
+      osc.stop(ctx.currentTime + 0.04);
+    }
+
+    function playPaperRipSound() {
+      if (!soundEnabled) return;
+      const ctx = getAudioContext();
+      if (!ctx) return;
+
+      const bufferSize = Math.floor(ctx.sampleRate * 0.08);
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.35));
+      }
+
+      const noise = ctx.createBufferSource();
+      noise.buffer = buffer;
+
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.setValueAtTime(2400, ctx.currentTime);
+      filter.Q.setValueAtTime(1.8, ctx.currentTime);
+
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.22, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+
+      noise.start();
+    }
+
+    function playWaxStampSound() {
+      if (!soundEnabled) return;
+      const ctx = getAudioContext();
+      if (!ctx) return;
+
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(160, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(45, ctx.currentTime + 0.12);
+
+      gain.gain.setValueAtTime(0.4, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.14);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start();
+      osc.stop(ctx.currentTime + 0.15);
+    }
+
+    // 键盘全局打字声音监听 (输入文字或敲击键盘时获得真实机械键轴触感)
+    window.addEventListener('keydown', (e) => {
+      // 忽略功能键
+      if (['Meta', 'Control', 'Alt', 'Shift'].includes(e.key)) return;
+      playKeyClick();
+    });
+
+    // 7. 每日灵感策展题库组 (Thematic Muse Packs Database & Dynamic Generator)
+    const musePackDatabase = {
+      thursday_core: {
+        name: "当前组别：【周四·决策第一性】（每周四自动当值，聚焦长期复利与护城河）",
+        prompts: [
+          "今天做出的哪个微小决定，可能会在半年后产生复利效应？",
+          "如果把你今天的所有忙碌砍掉 80%，剩下真正支撑核心价值的 20% 是什么？",
+          "今天发生的哪件事，悄悄推翻了你过去坚信的某个预设？",
+          "如果某个选择让你感到犹豫不决，你内心里真正害怕失去的是什么？",
+          "写下一个你今天为了追求效率而忽略的底层原则。"
+        ]
+      },
+      sensory_micro: {
+        name: "当前组别：【生活微光与感官复苏】（聚焦日常治愈、光影触感与细微诗意）",
+        prompts: [
+          "如果把你今天的一段遭遇拍成黑白电影，哪个瞬间最值得停留三秒？",
+          "今天有什么微小的瞬间让你感到‘世界其实挺奇妙’？",
+          "如果用一种气味或某种颜色来凝固今天的心境，会是什么？",
+          "今天吃到的、看到的或听到的哪样东西，让你在一瞬间感到被治愈？",
+          "走在路上或坐在窗前时，今天哪一处光影的变化吸引了你的注意？"
+        ]
+      },
+      cognitive_flip: {
+        name: "当前组别：【认知反转与盲点觉察】（挑战固有偏见、深挖隐性因果）",
+        prompts: [
+          "今天和谁的一句简短对话，让你在回家的路上反复琢磨？",
+          "今天听到最想反驳的一句话是什么？如果站在对方立场，他的合理性在哪里？",
+          "写下今天你最想推翻的一个既定共识，哪怕它听起来很离经叛道。",
+          "今天有什么事情的发展完全出乎意料？背后的真正隐性变量是什么？",
+          "今天你是在按别人的期待做反应，还是在按自己的意志做创造？"
+        ]
+      },
+      future_anchor: {
+        name: "当前组别：【时空折叠与未来信件】（超越当下的焦虑，对话十年后的自己）",
+        prompts: [
+          "如果未来的你从 2036 年寄来一封信，你猜他会如何评价今天所做的决定？",
+          "今天记录下的这段文字，如果被 10 年后的你偶然翻出，你希望它传递怎样的力量？",
+          "今天有什么事情，即使在十年后回看依然微不足道，但今天却耗费了你太多心力？",
+          "现在的你正在为未来哪个不可逆转的时刻积攒底牌？",
+          "想象十年后你在一个晴朗的午后回看今天，你会给此时的自己一个怎样的微笑？"
+        ]
+      },
+      ai_curated: {
+        name: "当前组别：【AI 私人定制深挖】（基于你最近 3 天笔记与星图引力分析生成）",
+        prompts: [
+          "✦ [AI 读到你前天写了《架构简化》]：今天你在工作流或人际中，真正忍痛删掉某段冗余了吗？",
+          "✦ [AI 读到你昨晚写了《人际消耗》]：今天你是否建立起了属于自己的精力防火墙？",
+          "✦ [AI 读到你的深空星图有 3 个未连接节点]：你是否注意到了‘认知拓扑’与‘秋季光影’之间的隐秘因果？",
+          "✦ [AI 识别到你连续 3 天关注“长期主义”]：今天你的行动是在播种，还是在消费昨天的存粮？"
+        ]
+      }
+    };
+
+    let currentPackKey = 'thursday_core';
+    let currentPromptIndex = 0;
+
+    function switchMusePack(packKey, btnEl) {
+      playKeyClick();
+      currentPackKey = packKey;
+      currentPromptIndex = 0;
+
+      // 更新按钮高亮
+      document.querySelectorAll('#muse-theme-pills .btn-pill').forEach(btn => {
+        btn.classList.remove('active');
+        btn.style.background = '#FFF';
+        btn.style.color = '';
+      });
+      if (btnEl) {
+        btnEl.classList.add('active');
+        btnEl.style.background = 'var(--ink-primary)';
+        btnEl.style.color = '#FFF';
+      }
+
+      // 更新说明文案与题目
+      document.getElementById('muse-pack-name').innerText = musePackDatabase[packKey].name;
+      displayCurrentPrompt();
+      triggerGlobalInkBleed();
+    }
+
+    function displayCurrentPrompt() {
+      const pack = musePackDatabase[currentPackKey];
+      const promptText = pack.prompts[currentPromptIndex];
+      const textEl = document.getElementById('muse-prompt-text');
+      textEl.innerText = `“${promptText}”`;
+    }
+
+    function drawNewMusePrompt() {
+      playPaperRipSound();
+      const slip = document.getElementById('muse-slip-card');
+      slip.style.transform = 'scale(0.98) rotate(-0.5deg)';
+      slip.style.opacity = '0.7';
+
+      setTimeout(() => {
+        const pack = musePackDatabase[currentPackKey];
+        currentPromptIndex = (currentPromptIndex + 1) % pack.prompts.length;
+        displayCurrentPrompt();
+        slip.style.transform = 'scale(1) rotate(0deg)';
+        slip.style.opacity = '1';
+        triggerGlobalInkBleed();
+      }, 150);
+    }
+
+    // AI 实时为今日生成一组全新灵感盲盒
+    function generateAiMuseSet() {
+      playKeyClick();
+      const btnText = document.getElementById('ai-gen-btn-text');
+      const originalText = btnText.innerText;
+      btnText.innerText = '✦ AI 深度构思中...';
+
+      const slip = document.getElementById('muse-slip-card');
+      slip.style.boxShadow = '0 0 20px rgba(196, 154, 86, 0.35)';
+
+      setTimeout(() => {
+        // 动态加入一组全新的 AI 灵感
+        const aiGeneratedPrompts = [
+          "✦ [AI 刚刚构思]：如果把今天你遇到的最大挫败视作一种‘隐性馈赠’，它逼迫你升级了哪项心智技能？",
+          "✦ [AI 刚刚构思]：此时此刻，闭上眼深呼吸三次，你的身体哪一部分最渴望得到关照？",
+          "✦ [AI 刚刚构思]：今天你所做的事情中，哪一件最具有‘不被 AI 替代’的人性温度？"
+        ];
+        
+        musePackDatabase.ai_curated.prompts.unshift(...aiGeneratedPrompts);
+        // 自动切换到 AI 组
+        const aiBtn = document.querySelectorAll('#muse-theme-pills .btn-pill')[4];
+        switchMusePack('ai_curated', aiBtn);
+        btnText.innerText = '✓ 已生成 3 道定制新题';
+        setTimeout(() => {
+          btnText.innerText = originalText;
+          slip.style.boxShadow = '';
+        }, 2000);
+      }, 600);
+    }
+
+    function answerMusePrompt() {
+      playKeyClick();
+      const pack = musePackDatabase[currentPackKey];
+      const currentQ = pack.prompts[currentPromptIndex];
+      alert(`已将灵感签【${currentQ}】作为标题提纲载入手账工作台！开始今天的思维流淌...`);
+    }
+
+    // 8. 情绪水彩拾色交互 (动态联动小票浸染与认证印章)
+    const moodMetaMap = {
+      '陶土红 · 热情充沛': { hex: '#C97A63', wash: 'rgba(201, 122, 99, 0.16)', code: 'MOOD // TERRACOTTA WARMTH', pct: '85%' },
+      '琥珀蜜 · 灵感火花': { hex: '#E5A93C', wash: 'rgba(229, 169, 60, 0.18)', code: 'MOOD // AMBER INSPIRATION', pct: '92%' },
+      '苍青绿 · 平和治愈': { hex: '#608066', wash: 'rgba(96, 128, 102, 0.16)', code: 'MOOD // SAGE CALMNESS', pct: '88%' },
+      '冰海蓝 · 理性澄澈': { hex: '#5B7B94', wash: 'rgba(91, 123, 148, 0.18)', code: 'MOOD // FJORD CLARITY', pct: '90%' },
+      '暮山紫 · 沉静内省': { hex: '#9A8BB8', wash: 'rgba(154, 139, 184, 0.18)', code: 'MOOD // TWILIGHT INTROSPECTION', pct: '86%' }
+    };
+
+    function selectMoodPigment(el, label) {
+      playKeyClick();
+      document.querySelectorAll('.mood-pigment').forEach(item => item.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('active-mood-label').innerText = label;
+      
+      const meta = moodMetaMap[label] || { hex: '#C97A63', wash: 'rgba(201, 122, 99, 0.16)', code: 'MOOD // TERRACOTTA', pct: '85%' };
+      
+      // 1. 设置根 CSS 变量，使小票底部水彩浸染与高光笔刷实时变色
+      document.documentElement.style.setProperty('--current-mood-color', meta.hex);
+      document.documentElement.style.setProperty('--current-mood-wash', meta.wash);
+
+      // 2. 动态联动随笔卡片边框
+      document.getElementById('card-1').style.borderColor = meta.hex;
+
+      // 3. 动态联动每日小票上的【情绪水彩认证章】与文字
+      const moodText = document.getElementById('receipt-mood-text');
+      const moodCode = document.getElementById('receipt-mood-code');
+      const moodDot = document.getElementById('receipt-mood-dot');
+      const moodSeal = document.getElementById('receipt-mood-seal');
+
+      if (moodText) moodText.innerText = `${label} ${meta.pct}`;
+      if (moodCode) moodCode.innerText = meta.code;
+      if (moodDot) {
+        moodDot.style.background = meta.hex;
+        moodDot.style.boxShadow = `0 0 10px ${meta.hex}`;
+      }
+      if (moodSeal) {
+        moodSeal.style.borderColor = meta.hex;
+      }
+
+      // 在小票上激起一圈水彩微晕染反馈
+      const card4 = document.getElementById('card-4');
+      if (card4) {
+        const fakeEvent = {
+          clientX: card4.getBoundingClientRect().left + 80,
+          clientY: card4.getBoundingClientRect().bottom - 40
+        };
+        createInkBleedAt(fakeEvent, card4);
+      }
+    }
+
+    // 9. 时空回响编织交互
+    function weaveEchoLink() {
+      playKeyClick();
+      pulseConstellation();
+      alert("✨ AI 已在深空星图中，为你 84 天前的旧笔记《关于知识孤岛的迷思》与今日随笔编织了一条金色因果引力轴！");
+    }
+
+    // 10. 3D 火漆印章敲击回弹
+    function triggerWaxSealTap(el, title) {
+      playWaxStampSound();
+      const seal = el.querySelector('.wax-seal');
+      seal.style.transform = 'scale(0.88) translateY(4px)';
+      seal.style.boxShadow = '0 2px 4px rgba(0,0,0,0.4), inset 0 3px 6px rgba(0,0,0,0.6)';
+
+      setTimeout(() => {
+        seal.style.transform = 'scale(1.15) translateY(-3px)';
+        seal.style.boxShadow = '0 10px 20px rgba(0,0,0,0.25), inset 0 2px 4px rgba(255,255,255,0.4)';
+        setTimeout(() => {
+          seal.style.transform = '';
+          seal.style.boxShadow = '';
+        }, 220);
+      }, 120);
+
+      const dock = document.querySelector('.action-dock span');
+      dock.innerText = `🎖 解锁里程碑勋章: ${title}`;
+    }
+  </script>
+</body>
+</html>

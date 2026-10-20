@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dayprint 先锋艺术风格实验室 // 告别规矩与平庸</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #0B0F19;
+      color: #F8FAFC;
+    }
+    .font-mono-meta {
+      font-family: 'JetBrains+Mono', monospace;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+
+  <!-- Header -->
+  <header class="bg-[#111827] border-b border-slate-800 px-6 py-4 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-50">
+    <div class="flex items-center gap-3.5">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-500 via-amber-400 to-indigo-500 flex items-center justify-center text-white font-black text-lg shadow-lg">
+        D
+      </div>
+      <div>
+        <h1 class="text-base font-bold tracking-tight text-white flex items-center gap-2">
+          <span>Dayprint 先锋艺术风格实验室</span>
+          <span class="text-[10px] bg-rose-500/20 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded-full font-mono-meta">
+            AVANT-GARDE LAB
+          </span>
+        </h1>
+        <p class="text-xs text-slate-400">“打破死板规矩”：引入构成主义、Cosmos诗性手账与包豪斯大尺度张力</p>
+      </div>
+    </div>
+
+    <!-- Style Switcher Tabs -->
+    <div class="flex items-center bg-slate-900/90 p-1 rounded-xl border border-slate-700/80 text-xs font-semibold overflow-x-auto max-w-full">
+      <!-- High Art Series -->
+      <span class="text-[10px] font-mono-meta text-rose-400 uppercase px-2 font-bold shrink-0">先锋艺术:</span>
+      <button
+        onclick="switchTab('art-constructivism.html', this)"
+        id="btn-art1"
+        class="tab-btn px-3 py-1.5 rounded-lg bg-rose-600 text-white font-bold flex items-center gap-1.5 transition-all shadow-md shrink-0"
+      >
+        <span class="w-2 h-2 rounded-full bg-white"></span>
+        <span>1. 构成主义 Proun 空间</span>
+      </button>
+
+      <button
+        onclick="switchTab('art-scrapbook.html', this)"
+        id="btn-art2"
+        class="tab-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white flex items-center gap-1.5 transition-all shrink-0"
+      >
+        <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+        <span>2. Cosmos 诗性策展手账</span>
+      </button>
+
+      <button
+        onclick="switchTab('art-destijl-avantgarde.html', this)"
+        id="btn-art3"
+        class="tab-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white flex items-center gap-1.5 transition-all shrink-0"
+      >
+        <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+        <span>3. 非对称新造型互锁</span>
+      </button>
+
+      <span class="h-4 w-px bg-slate-700 mx-2 shrink-0"></span>
+
+      <!-- Product Benchmark Series -->
+      <span class="text-[10px] font-mono-meta text-slate-400 uppercase px-1 font-bold shrink-0">实用参照:</span>
+      <button
+        onclick="switchTab('style-b-arena.html', this)"
+        class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white flex items-center gap-1 transition-all shrink-0"
+      >
+        <span>Are.na 极简</span>
+      </button>
+      <button
+        onclick="switchTab('style-a-boogie.html', this)"
+        class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white flex items-center gap-1 transition-all shrink-0"
+      >
+        <span>百老汇黄色街道</span>
+      </button>
+      <button
+        onclick="switchTab('style-c-milanote.html', this)"
+        class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white flex items-center gap-1 transition-all shrink-0"
+      >
+        <span>Milanote 连线</span>
+      </button>
+    </div>
+
+    <!-- External Link -->
+    <div class="flex items-center gap-2">
+      <a
+        id="open-tab-btn"
+        href="art-constructivism.html"
+        target="_blank"
+        class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-medium border border-slate-700 flex items-center gap-1.5 transition-colors"
+      >
+        <span>全屏打开当前原型</span>
+        <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+      </a>
+    </div>
+  </header>
+
+  <!-- Interactive Style Preview Frame -->
+  <div class="flex-1 w-full bg-black flex flex-col relative" style="min-height: 720px; height: 78vh;">
+    <iframe
+      id="preview-frame"
+      src="art-constructivism.html"
+      class="w-full flex-1 border-0"
+      style="height: 100%;"
+    ></iframe>
+  </div>
+
+  <!-- Detailed Artistic Critique & Comparison -->
+  <section class="bg-[#111827] border-t border-slate-800 p-8 max-w-7xl mx-auto w-full my-6 rounded-2xl">
+    <div class="mb-6 flex items-center justify-between border-b border-slate-800 pb-4">
+      <div>
+        <h2 class="text-lg font-bold text-white flex items-center gap-2">
+          <i data-lucide="palette" class="w-5 h-5 text-rose-500"></i>
+          <span>破除规矩：先锋艺术 3 大方向对比剖析</span>
+        </h2>
+        <p class="text-xs text-slate-400 mt-1">
+          直击“为什么之前太规矩”的根因：等宽高表格卡片不是唯一的呈现方式，记忆可以有方向、体温与宏大尺度
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+
+      <!-- Column 1 -->
+      <div class="bg-slate-900 border-2 border-rose-500/60 p-6 rounded-xl flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-mono-meta font-bold text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded border border-rose-500/30">
+              DIRECTION 01
+            </span>
+            <span class="text-xs font-mono-meta text-slate-500">PROUN SPATIAL</span>
+          </div>
+          <h3 class="text-base font-bold text-white mb-1">构成主义 Proun 空间</h3>
+          <p class="text-xs text-slate-400 font-mono-meta mb-4">Inspiration: El Lissitzky (埃尔·利西茨基)</p>
+
+          <ul class="space-y-2.5 text-xs text-slate-300">
+            <li class="flex items-start gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-rose-500 mt-1.5 shrink-0"></span>
+              <span><strong>空间对角线与引力场：</strong>SVG 坐标轴与倾斜张力线穿透画布，节点之间存在真实动势。</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-rose-500 mt-1.5 shrink-0"></span>
+              <span><strong>尺度剧烈突变：</strong>核心记忆采用 3xl 巨幅字体，次要节点为小体量红色楔形块，极富戏剧张力。</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-rose-500 mt-1.5 shrink-0"></span>
+              <span><strong>突破平庸：</strong>视觉冲击力极强，完全脱离标准 SaaS 模版感。</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-slate-800 text-xs">
+          <span class="text-slate-400">气质感受：</span>
+          <p class="text-rose-200 font-medium mt-0.5">先锋、建筑感、硬朗、充满哲思与张力。</p>
+        </div>
+      </div>
+
+      <!-- Column 2 -->
+      <div class="bg-slate-900 border-2 border-amber-500/60 p-6 rounded-xl flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-mono-meta font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/30">
+              DIRECTION 02
+            </span>
+            <span class="text-xs font-mono-meta text-slate-500">TACTILE ARCHIVE</span>
+          </div>
+          <h3 class="text-base font-bold text-white mb-1">Cosmos × 记忆策展手账</h3>
+          <p class="text-xs text-slate-400 font-mono-meta mb-4">Inspiration: Cosmos.so / Physical Scrapbook</p>
+
+          <ul class="space-y-2.5 text-xs text-slate-300">
+            <li class="flex items-start gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0"></span>
+              <span><strong>物理触觉材质：</strong>胶带固定、微倾斜角度（-0.5°~1°）、热敏撕边小票纸与打字机字带。</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0"></span>
+              <span><strong>诗意文学排版：</strong>高反差衬线斜体与无衬线混排，散落如同艺术总监的书桌。</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0"></span>
+              <span><strong>打破死板：</strong>不再是生硬的代码卡片，而是有体温的私人珍藏手稿。</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-slate-800 text-xs">
+          <span class="text-slate-400">气质感受：</span>
+          <p class="text-amber-200 font-medium mt-0.5">人文、温暖、诗性、像翻阅一本精美的私人档案。</p>
+        </div>
+      </div>
+
+      <!-- Column 3 -->
+      <div class="bg-slate-900 border-2 border-blue-500/60 p-6 rounded-xl flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-mono-meta font-bold text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/30">
+              DIRECTION 03
+            </span>
+            <span class="text-xs font-mono-meta text-slate-500">NEOPLASTICISM</span>
+          </div>
+          <h3 class="text-base font-bold text-white mb-1">非对称新造型主义互锁</h3>
+          <p class="text-xs text-slate-400 font-mono-meta mb-4">Inspiration: Gerrit Rietveld & Bauhaus 1923</p>
+
+          <ul class="space-y-2.5 text-xs text-slate-300">
+            <li class="flex items-start gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0"></span>
+              <span><strong>纯色巨幕平面：</strong>克莱因蓝横向大板、纯镉红竖直巨石、金黄微色域交织。</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0"></span>
+              <span><strong>几何互锁无死板空隙：</strong>块面与块面之间通过色块比例建立视觉韵律。</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0"></span>
+              <span><strong>蒙德里安的极致升级：</strong>彻底摆脱等宽格子的平庸，化身纯粹美术馆装置。</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-slate-800 text-xs">
+          <span class="text-slate-400">气质感受：</span>
+          <p class="text-blue-200 font-medium mt-0.5">先锋、纯粹色彩、现代主义、博物馆艺术装置感。</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    lucide.createIcons();
+
+    function switchTab(url, btn) {
+      document.getElementById('preview-frame').src = url;
+      document.getElementById('open-tab-btn').href = url;
+
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        b.className = 'tab-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white flex items-center gap-1.5 transition-all shrink-0';
+      });
+
+      if (url.includes('constructivism')) {
+        btn.className = 'tab-btn px-3 py-1.5 rounded-lg bg-rose-600 text-white font-bold flex items-center gap-1.5 transition-all shadow-md shrink-0';
+      } else if (url.includes('scrapbook')) {
+        btn.className = 'tab-btn px-3 py-1.5 rounded-lg bg-amber-500 text-black font-bold flex items-center gap-1.5 transition-all shadow-md shrink-0';
+      } else if (url.includes('destijl')) {
+        btn.className = 'tab-btn px-3 py-1.5 rounded-lg bg-blue-600 text-white font-bold flex items-center gap-1.5 transition-all shadow-md shrink-0';
+      } else {
+        btn.className = 'tab-btn px-3 py-1.5 rounded-lg bg-slate-800 text-white font-bold flex items-center gap-1.5 transition-all shadow-md shrink-0';
+      }
+    }
+  </script>
+</body>
+</html>

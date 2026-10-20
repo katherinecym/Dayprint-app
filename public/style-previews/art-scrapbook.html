@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>先锋艺术 2：Cosmos × 记忆策展手账 (Tactile Scrapbook Archive)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600&family=Courier+Prime:wght@400;700&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #F4F1EA;
+      color: #262422;
+      background-image: 
+        radial-gradient(#E2DDD3 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    .font-serif-editorial {
+      font-family: 'Playfair Display', serif;
+    }
+    .font-typewriter {
+      font-family: 'Courier Prime', monospace;
+    }
+    /* Physical Paper Artifacts */
+    .scrapbook-paper {
+      background: #FAF8F5;
+      box-shadow: 
+        0 1px 3px rgba(0,0,0,0.05),
+        0 8px 24px -4px rgba(60, 50, 40, 0.08);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .scrapbook-paper:hover {
+      transform: translateY(-4px) scale(1.01);
+      box-shadow: 
+        0 4px 6px rgba(0,0,0,0.05),
+        0 16px 36px -6px rgba(60, 50, 40, 0.14);
+      z-index: 20;
+    }
+    /* Washi Tape Accent */
+    .washi-tape {
+      background: rgba(230, 220, 200, 0.7);
+      backdrop-filter: blur(2px);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+      border-left: 1px dashed rgba(0,0,0,0.15);
+      border-right: 1px dashed rgba(0,0,0,0.15);
+    }
+    /* Thermal Receipt Jagged Edge */
+    .receipt-edge {
+      background: radial-gradient(circle, transparent, transparent 3px, #FAF8F5 3px, #FAF8F5 100%);
+      background-size: 8px 8px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-[#C2410C] selection:text-white relative">
+
+  <!-- Top Editorial Header -->
+  <header class="border-b border-[#E0DCD3] px-8 py-5 bg-[#F4F1EA]/90 backdrop-blur-md sticky top-0 z-40 flex items-center justify-between">
+    <div class="flex items-center gap-5">
+      <div class="w-8 h-8 rounded-full border border-[#8C8275] flex items-center justify-center font-serif-editorial italic text-base">
+        d
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h1 class="text-base font-serif-editorial font-bold tracking-normal text-[#262422]">
+            Dayprint <span class="italic font-normal text-[#8C8275]">· Cosmos Archive</span>
+          </h1>
+          <span class="text-[10px] bg-[#EAE5DA] text-[#6E665B] px-2 py-0.5 rounded-full font-typewriter">
+            VOL. 2026 // N° 10.13
+          </span>
+        </div>
+        <p class="text-xs text-[#8C8275] font-serif-editorial italic">
+          人类思考、体温与瞬间的触觉拼贴画廊
+        </p>
+      </div>
+    </div>
+
+    <!-- Curator Tabs -->
+    <div class="flex items-center gap-6 text-xs font-serif-editorial">
+      <button class="text-[#262422] font-bold border-b border-[#262422] pb-0.5">
+        今日画廊 (Gallery Stream)
+      </button>
+      <button class="text-[#8C8275] hover:text-[#262422] transition-colors">
+        深度记忆盒 (Memory Cabinet)
+      </button>
+      <button class="text-[#8C8275] hover:text-[#262422] transition-colors">
+        关系星丛 (Constellation)
+      </button>
+    </div>
+
+    <div>
+      <a href="index.html" class="px-3 py-1.5 border border-[#8C8275] hover:bg-[#262422] hover:text-white text-xs font-typewriter transition-colors">
+        ← 返回实验室中枢
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Scrapbook Canvas -->
+  <main class="flex-1 p-8 md:p-12 max-w-7xl mx-auto w-full relative">
+
+    <!-- Atmospheric Sub-bar -->
+    <div class="mb-10 flex flex-wrap items-center justify-between gap-4 border-b border-[#E0DCD3] pb-4">
+      <div class="flex items-center gap-3">
+        <span class="text-xs font-typewriter text-[#8C8275] uppercase">INDEX FILTER:</span>
+        <button class="px-3 py-1 bg-[#262422] text-[#F4F1EA] rounded-full text-xs font-typewriter">All Artifacts (34)</button>
+        <button class="px-3 py-1 hover:bg-[#EAE5DA] rounded-full text-xs text-[#524B42] font-typewriter">💡 Ideas</button>
+        <button class="px-3 py-1 hover:bg-[#EAE5DA] rounded-full text-xs text-[#524B42] font-typewriter">📖 Studies</button>
+        <button class="px-3 py-1 hover:bg-[#EAE5DA] rounded-full text-xs text-[#524B42] font-typewriter">🧾 Receipts</button>
+      </div>
+
+      <div class="text-xs font-typewriter text-[#8C8275]">
+        <span>CURATED AT: SHANGHAI STUDIO // 22:58</span>
+      </div>
+    </div>
+
+    <!-- Scrapbook Organic Layout (Asymmetrical & Tilted Cards) -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+
+      <!-- ARTIFACT 1: Editorial Essay Card (Obsidian PKM) -->
+      <div class="col-span-12 md:col-span-7 scrapbook-paper p-8 rounded-sm relative -rotate-[0.5deg]">
+        <!-- Washi Tape Pin -->
+        <div class="absolute -top-3 left-1/3 w-28 h-6 washi-tape rotate-1"></div>
+
+        <!-- Archival Stamp -->
+        <div class="flex items-center justify-between pb-4 border-b border-[#ECE7DC] mb-4 text-xs font-typewriter text-[#8C8275]">
+          <span class="border border-[#8C8275]/40 px-2 py-0.5 uppercase tracking-wider text-[10px]">
+            ARCHIVE NO. 2026-1013-A
+          </span>
+          <span>AUTUMN // NOTEBOOK</span>
+        </div>
+
+        <span class="text-xs font-serif-editorial italic text-[#C2410C] block mb-1">
+          Cognitive System Architecture
+        </span>
+
+        <h2 class="text-2xl md:text-3xl font-serif-editorial font-bold text-[#1F1C18] leading-tight mb-4">
+          Obsidian: AI 时代个人知识管理的诗性秩序
+        </h2>
+
+        <p class="text-sm md:text-base leading-relaxed text-[#4A443C] font-serif-editorial italic mb-4">
+          “知识不再是整齐排列的抽屉，而是有生命的菌丝网络。每一条每日日志，都是一朵在黄昏时分等待被 LLM 维基采撷的微小菌褶。”
+        </p>
+
+        <p class="text-xs text-[#6B6357] leading-relaxed mb-6">
+          将飞书 You+ Bot 的即刻对话无缝流入本地 Obsidian 仓库，建立从 L0（瞬时感知）到 L4（核心信念）的分层生命体。
+        </p>
+
+        <!-- Connected Nodes as Fine Ink Links -->
+        <div class="pt-4 border-t border-[#ECE7DC] flex flex-wrap items-center justify-between text-xs font-typewriter">
+          <div class="flex items-center gap-2">
+            <span class="text-[#8C8275]">REFERENCED:</span>
+            <span class="underline decoration-dotted text-[#C2410C] cursor-pointer hover:font-bold">
+              [[高阶思考模型]]
+            </span>
+            <span>•</span>
+            <span class="underline decoration-dotted text-[#C2410C] cursor-pointer hover:font-bold">
+              [[You+Bot 管道]]
+            </span>
+          </div>
+          <span class="text-[#A39B8F]">2 CONNECTIONS</span>
+        </div>
+      </div>
+
+      <!-- ARTIFACT 2: Real Thermal Receipt Fragment (Paper Strip) -->
+      <div class="col-span-12 md:col-span-5 scrapbook-paper p-6 rounded-sm relative rotate-1 font-typewriter border-t-4 border-[#C2410C]">
+        <!-- Top Tape Pin -->
+        <div class="absolute -top-3 right-8 w-20 h-5 washi-tape -rotate-2"></div>
+
+        <div class="text-center pb-3 border-b border-dashed border-[#8C8275]/40 mb-3">
+          <div class="text-xs font-bold tracking-widest uppercase text-[#262422]">DAILY LIFE RECEIPT</div>
+          <div class="text-[10px] text-[#8C8275]">2026.10.13 — 15:30:42</div>
+        </div>
+
+        <div class="space-y-2 text-xs text-[#3D372F] my-4">
+          <div class="flex justify-between">
+            <span>COFFEE INTAKE (DOUBLE ESPRESSO)</span>
+            <span>+180mg</span>
+          </div>
+          <div class="flex justify-between">
+            <span>ENERGY LEVEL FOCUS PEAK</span>
+            <span>88%</span>
+          </div>
+          <div class="flex justify-between">
+            <span>HEART RATE RESTING</span>
+            <span>72 BPM</span>
+          </div>
+        </div>
+
+        <!-- Polaroid Snapshot Attachment with Paperclip effect -->
+        <div class="my-4 bg-white p-2.5 shadow-sm border border-[#E0DCD3]">
+          <div class="w-full h-36 bg-[#EBE7DF] overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=600&q=80"
+              alt="espresso"
+              class="w-full h-full object-cover filter contrast-105"
+            >
+          </div>
+          <div class="text-[10px] text-center text-[#8C8275] pt-2 italic font-serif-editorial">
+            “摄入后的两个小时，完成了核心图谱模块重构”
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-dashed border-[#8C8275]/40 flex justify-between text-[11px] text-[#8C8275]">
+          <span>STATUS: L0 STREAM</span>
+          <span>TAX: NONE</span>
+        </div>
+      </div>
+
+      <!-- ARTIFACT 3: Typewritten Memo Slip (Decision) -->
+      <div class="col-span-12 md:col-span-5 scrapbook-paper p-6 rounded-sm relative -rotate-1 bg-[#FDFCFA]">
+        <div class="flex items-center justify-between text-xs font-typewriter text-[#8C8275] mb-2">
+          <span>MEMO // DECISION</span>
+          <span>OCTOBER 12</span>
+        </div>
+
+        <h3 class="font-serif-editorial text-lg font-bold text-[#1F1C18] mb-2">
+          “最轻的代码，是未被写下的代码”
+        </h3>
+
+        <p class="text-xs text-[#524B42] leading-relaxed font-typewriter">
+          懒惰的高级开发者准则：不做无谓的抽象，不加虚荣的依赖。如非必要，勿增实体。
+        </p>
+
+        <div class="mt-4 pt-3 border-t border-[#ECE7DC] flex justify-between items-center text-xs font-typewriter text-[#8C8275]">
+          <span>TAG: #PHILOSOPHY</span>
+          <span class="text-[#C2410C] font-bold">L4 BELIEF</span>
+        </div>
+      </div>
+
+      <!-- ARTIFACT 4: Today Quick Jot Paper Slip -->
+      <div class="col-span-12 md:col-span-7 scrapbook-paper p-6 rounded-sm relative rotate-[0.3deg] bg-white border border-[#E0DCD3]">
+        <div class="flex items-center justify-between mb-3 text-xs font-typewriter text-[#8C8275]">
+          <span>PEN & INK // 即刻手账录入</span>
+          <span>TODAY'S INK POT</span>
+        </div>
+
+        <textarea
+          placeholder="在宣纸质感的手账本上，写下今天触动你的词句或体悟..."
+          rows="3"
+          class="w-full bg-transparent border-0 p-0 text-sm font-serif-editorial focus:outline-none placeholder:text-[#A39B8F] placeholder:italic resize-none leading-relaxed text-[#262422]"
+        ></textarea>
+
+        <div class="mt-4 pt-3 border-t border-[#ECE7DC] flex items-center justify-between text-xs font-typewriter">
+          <span class="text-[#8C8275]">自动保存至本地 Markdown 仓库</span>
+          <button class="px-4 py-1.5 bg-[#262422] text-[#F4F1EA] hover:bg-[#C2410C] transition-colors rounded-sm">
+            印上今日手账 ↵
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Curator Manifesto Footer -->
+    <div class="mt-14 border-t border-[#D6D0C2] pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-serif-editorial">
+      <div class="text-[#6E665B]">
+        <strong>Cosmos × 手账拼贴设计哲学：</strong> 软件不应当冰冷得像电子表格，而应像一位学者书桌上散落着票据、胶带、拍立得与打字机色带的私人档案馆。
+      </div>
+      <div class="font-typewriter text-[#8C8275] shrink-0">
+        CURATOR MODE // ACTIVATED
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

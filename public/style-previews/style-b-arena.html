@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>风格 B：Are.na × 瑞士国际主义 (Swiss Grid & Are.na Curation)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #FAFAFA;
+      color: #171717;
+      letter-spacing: -0.011em;
+    }
+    .font-mono-meta {
+      font-family: 'JetBrains+Mono', monospace;
+      letter-spacing: -0.02em;
+    }
+    .arena-block {
+      background: #FFFFFF;
+      border: 1px solid #E5E5E5;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .arena-block:hover {
+      border-color: #171717;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+    .pill-tag {
+      background: #F4F4F5;
+      border: 1px solid #E4E4E7;
+      transition: all 0.15s ease;
+    }
+    .pill-tag:hover {
+      background: #18181B;
+      color: #FFFFFF;
+      border-color: #18181B;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-neutral-900 selection:text-white">
+
+  <!-- Top Banner: Style Concept Descriptor -->
+  <div class="bg-white border-b border-neutral-200 px-6 py-2.5 flex items-center justify-between text-xs font-mono-meta">
+    <div class="flex items-center gap-3">
+      <div class="flex items-center gap-1.5 bg-neutral-900 text-white px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+        <span>STYLE B</span>
+      </div>
+      <span class="font-medium text-neutral-800">Are.na × 瑞士国际主义 (Swiss Grid & Minimalist Curation)</span>
+      <span class="hidden md:inline text-neutral-400">· 1px 极细线 / 纯粹留白 / 文本即界面 / 零冗余硬阴影 / 博物馆策展质感</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <a href="index.html" class="px-2.5 py-0.5 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 transition-colors border border-neutral-200 text-xs">
+        ← 返回三套对比中枢
+      </a>
+    </div>
+  </div>
+
+  <!-- Header Bar -->
+  <header class="bg-white border-b border-neutral-200 px-8 py-5 flex flex-wrap items-center justify-between gap-4">
+    <div class="flex items-center gap-4">
+      <div class="w-7 h-7 bg-black text-white flex items-center justify-center font-bold text-xs tracking-tighter">
+        D
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h1 class="text-sm font-semibold tracking-tight text-neutral-900">Dayprint</h1>
+          <span class="text-[11px] text-neutral-400 font-normal">/</span>
+          <span class="text-xs text-neutral-500 font-mono-meta">katherine's brain</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation / Mode Switcher -->
+    <div class="flex items-center gap-1 bg-neutral-100 p-1 rounded-md text-xs font-medium">
+      <button class="px-3 py-1 bg-white text-neutral-900 rounded shadow-xs font-semibold flex items-center gap-1.5">
+        <i data-lucide="book-open" class="w-3.5 h-3.5 text-neutral-500"></i>
+        <span>今日流 (L0)</span>
+      </button>
+      <button class="px-3 py-1 text-neutral-500 hover:text-neutral-900 flex items-center gap-1.5">
+        <i data-lucide="layers" class="w-3.5 h-3.5 text-neutral-400"></i>
+        <span>记忆账本 (L0-L4)</span>
+      </button>
+      <button class="px-3 py-1 text-neutral-500 hover:text-neutral-900 flex items-center gap-1.5">
+        <i data-lucide="network" class="w-3.5 h-3.5 text-neutral-400"></i>
+        <span>关系图谱 (34 nodes)</span>
+      </button>
+    </div>
+
+    <!-- Search & Actions -->
+    <div class="flex items-center gap-3 text-xs">
+      <div class="relative w-56">
+        <i data-lucide="search" class="w-3.5 h-3.5 text-neutral-400 absolute left-2.5 top-1/2 -translate-y-1/2"></i>
+        <input
+          type="text"
+          placeholder="搜索全部思考或词条..."
+          class="w-full bg-neutral-50 border border-neutral-200 pl-8 pr-3 py-1 rounded text-xs focus:outline-none focus:border-neutral-400"
+        >
+      </div>
+      <button class="px-3 py-1 bg-neutral-900 text-white rounded text-xs font-medium hover:bg-neutral-800 transition-colors flex items-center gap-1">
+        <i data-lucide="plus" class="w-3 h-3"></i>
+        <span>记录新卡片</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Filter & View Toolbar (Are.na Style) -->
+  <div class="bg-white px-8 py-3.5 border-b border-neutral-200 flex flex-wrap items-center justify-between gap-4 text-xs">
+    <div class="flex items-center gap-2 flex-wrap">
+      <span class="text-neutral-400 font-mono-meta text-[11px]">CHANNEL:</span>
+      <button class="px-2.5 py-1 bg-neutral-900 text-white rounded font-medium">All (34)</button>
+      <button class="px-2.5 py-1 text-neutral-600 hover:bg-neutral-100 rounded font-medium flex items-center gap-1.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> 💡 Ideas
+      </button>
+      <button class="px-2.5 py-1 text-neutral-600 hover:bg-neutral-100 rounded font-medium flex items-center gap-1.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span> 📖 Learnings
+      </button>
+      <button class="px-2.5 py-1 text-neutral-600 hover:bg-neutral-100 rounded font-medium flex items-center gap-1.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> 📝 Moments
+      </button>
+      <button class="px-2.5 py-1 text-neutral-600 hover:bg-neutral-100 rounded font-medium flex items-center gap-1.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-neutral-800"></span> 🎯 Decisions
+      </button>
+      <span class="h-3 w-px bg-neutral-200 mx-1"></span>
+      <button class="px-2.5 py-1 text-neutral-600 hover:bg-neutral-100 rounded font-medium flex items-center gap-1">
+        <i data-lucide="link-2" class="w-3 h-3 text-blue-600"></i>
+        <span>Linked only (18)</span>
+      </button>
+    </div>
+
+    <!-- Are.na style clean sort -->
+    <div class="flex items-center gap-3 text-neutral-500 text-xs">
+      <span class="font-mono-meta text-[11px] text-neutral-400">SORT:</span>
+      <button class="text-neutral-900 font-semibold underline underline-offset-4">Recently added</button>
+      <button class="hover:text-neutral-900">Oldest</button>
+      <button class="hover:text-neutral-900">Most connected</button>
+      <button class="hover:text-neutral-900 flex items-center gap-1">
+        <i data-lucide="shuffle" class="w-3 h-3"></i>
+        <span>Random</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Grid: Are.na Blocks -->
+  <main class="flex-1 p-8 max-w-7xl mx-auto w-full">
+
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
+
+      <!-- Today Input Block (Are.na Add Block style) -->
+      <div class="col-span-1 md:col-span-2 arena-block p-6 flex flex-col justify-between rounded-sm">
+        <div>
+          <div class="flex items-center justify-between pb-3 border-b border-neutral-100 mb-3">
+            <span class="text-xs font-semibold text-neutral-700 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-neutral-900"></span>
+              <span>Drop thought or journal...</span>
+            </span>
+            <span class="text-[11px] font-mono-meta text-neutral-400">Today, 22:58</span>
+          </div>
+
+          <textarea
+            placeholder="Type anything to capture into your living memory stream..."
+            rows="3"
+            class="w-full bg-transparent border-0 p-0 text-sm focus:outline-none placeholder:text-neutral-300 resize-none leading-relaxed text-neutral-800"
+          ></textarea>
+        </div>
+
+        <div class="pt-3 border-t border-neutral-100 flex items-center justify-between text-xs">
+          <div class="flex items-center gap-2 text-neutral-400 font-mono-meta text-[11px]">
+            <span>Channel: #L0-daily</span>
+            <span>•</span>
+            <span class="text-emerald-600">You+ synced</span>
+          </div>
+          <button class="px-3.5 py-1.5 bg-neutral-900 text-white rounded text-xs font-medium hover:bg-neutral-800 transition-colors">
+            Add to Stream
+          </button>
+        </div>
+      </div>
+
+      <!-- Block 1: Obsidian Architecture (Learning) -->
+      <div class="arena-block p-5 flex flex-col justify-between rounded-sm group cursor-pointer">
+        <div>
+          <div class="flex items-center justify-between mb-3 text-[11px] font-mono-meta">
+            <span class="flex items-center gap-1.5 text-neutral-500 font-medium">
+              <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+              <span>Learning</span>
+            </span>
+            <span class="text-neutral-400">Oct 13</span>
+          </div>
+
+          <h3 class="font-medium text-sm text-neutral-900 leading-snug group-hover:text-blue-600 transition-colors">
+            Obsidian: AI 时代个人知识管理架构
+          </h3>
+          <p class="text-xs text-neutral-500 mt-2 line-clamp-3 leading-relaxed">
+            从单纯的笔记记录，演进为结构化记忆与 LLM Wiki 的协同中枢。知识沉淀遵循渐进式摘要原则。
+          </p>
+
+          <!-- Are.na Minimalist Linked Nodes (Pills) -->
+          <div class="mt-4 pt-2.5 border-t border-neutral-100 flex flex-wrap items-center gap-1.5">
+            <span class="text-[10px] font-mono-meta text-neutral-400">Linked to:</span>
+            <span class="text-[11px] pill-tag px-2 py-0.5 rounded text-neutral-700 font-mono-meta">
+              [[高阶思考模型]]
+            </span>
+            <span class="text-[11px] pill-tag px-2 py-0.5 rounded text-neutral-700 font-mono-meta">
+              [[You+Bot 管道]]
+            </span>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-2 border-t border-neutral-100 flex items-center justify-between text-[11px] font-mono-meta text-neutral-400">
+          <span>2 connections</span>
+          <span>#ai #pkm</span>
+        </div>
+      </div>
+
+      <!-- Block 2: Image Block (Visual Archival) -->
+      <div class="arena-block p-4 flex flex-col justify-between rounded-sm group cursor-pointer">
+        <div>
+          <div class="flex items-center justify-between mb-2 text-[11px] font-mono-meta">
+            <span class="flex items-center gap-1.5 text-neutral-500 font-medium">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+              <span>Receipt</span>
+            </span>
+            <span class="text-neutral-400">15:30</span>
+          </div>
+
+          <div class="w-full h-32 bg-neutral-100 overflow-hidden mb-2 rounded-xs border border-neutral-100">
+            <img
+              src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=400&q=80"
+              alt="coffee receipt"
+              class="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300"
+            >
+          </div>
+
+          <h3 class="font-medium text-xs text-neutral-900 leading-snug">
+            咖啡因摄入与心率状态监测
+          </h3>
+          <p class="text-[11px] text-neutral-400 mt-1">
+            下午饮用双份浓缩，能量提升 28%，维持无焦虑专注。
+          </p>
+        </div>
+
+        <div class="mt-3 pt-2 border-t border-neutral-100 flex items-center justify-between text-[11px] font-mono-meta text-neutral-400">
+          <span>L0 Moment</span>
+          <span>#health</span>
+        </div>
+      </div>
+
+      <!-- Block 3: Decision Card -->
+      <div class="arena-block p-5 flex flex-col justify-between rounded-sm group cursor-pointer">
+        <div>
+          <div class="flex items-center justify-between mb-3 text-[11px] font-mono-meta">
+            <span class="flex items-center gap-1.5 text-neutral-500 font-medium">
+              <span class="w-1.5 h-1.5 rounded-full bg-neutral-900"></span>
+              <span>Decision</span>
+            </span>
+            <span class="text-neutral-400">Oct 12</span>
+          </div>
+
+          <h3 class="font-medium text-sm text-neutral-900 leading-snug group-hover:text-neutral-600 transition-colors">
+            技术栈选型：坚守轻量单文件架构
+          </h3>
+          <p class="text-xs text-neutral-500 mt-2 leading-relaxed">
+            遵循 Lazy Senior Dev 原则，在没有明确需求膨胀前，拒绝引入复杂状态机和多余抽象层。
+          </p>
+
+          <div class="mt-4 pt-2.5 border-t border-neutral-100 flex flex-wrap items-center gap-1.5">
+            <span class="text-[10px] font-mono-meta text-neutral-400">Linked to:</span>
+            <span class="text-[11px] pill-tag px-2 py-0.5 rounded text-neutral-700 font-mono-meta">
+              [[架构底线原则]]
+            </span>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-2 border-t border-neutral-100 flex items-center justify-between text-[11px] font-mono-meta text-neutral-400">
+          <span>1 connection</span>
+          <span>#code #pragmatic</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Summary Box -->
+    <div class="mt-10 bg-white border border-neutral-200 p-6 rounded-sm">
+      <h4 class="text-xs font-semibold uppercase tracking-wider text-neutral-900 mb-2 font-mono-meta">
+        // 风格 B 核心设计原则 (Design Principles)
+      </h4>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-neutral-600 leading-relaxed">
+        <div>
+          <strong class="text-neutral-900 block mb-1">1. 极细线条与极致克制：</strong>
+          彻底剥离任何沉重、粗野的黑边框与像素阴影，采用 1px 浅灰细线（#E5E5E5），界面呼吸感达到极致。
+        </div>
+        <div>
+          <strong class="text-neutral-900 block mb-1">2. 文本与排版即视觉：</strong>
+          通过严格的字体字重与网格对齐建立秩序，内容本身成为最耐看的设计元素，长时间阅读毫无视觉疲劳。
+        </div>
+        <div>
+          <strong class="text-neutral-900 block mb-1">3. 博物馆策展人质感：</strong>
+          类似 Are.na、Notion 与 Readwise Reader 的高智感气质，适合严肃思考、知识积累与深度反思。
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

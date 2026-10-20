@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>风格 C：Milanote × Reflect 空间轻度流体与动态连线 (Modern Spatial & Connectors)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #F8F9FA;
+      color: #1E293B;
+      background-image: radial-gradient(#CBD5E1 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .font-mono-meta {
+      font-family: 'JetBrains+Mono', monospace;
+    }
+    .milanote-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .milanote-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px -4px rgba(15, 23, 42, 0.1);
+      border-color: #94A3B8;
+    }
+    /* Animated SVG line pulse */
+    @keyframes line-flow {
+      to {
+        stroke-dashoffset: -40;
+      }
+    }
+    .flowing-edge {
+      stroke-dasharray: 6, 6;
+      animation: line-flow 1.5s linear infinite;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white relative overflow-x-hidden">
+
+  <!-- Top Banner: Style Concept Descriptor -->
+  <div class="bg-indigo-900 text-white px-6 py-2.5 flex items-center justify-between text-xs font-mono-meta">
+    <div class="flex items-center gap-3">
+      <div class="flex items-center gap-1.5 bg-indigo-500 text-white px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase">
+        <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+        <span>STYLE C</span>
+      </div>
+      <span class="font-semibold text-indigo-100">Milanote × Reflect 空间轻度流体与动态连线</span>
+      <span class="hidden md:inline text-indigo-300">· 圆角流体卡片 / SVG 动态贝塞尔曲线连结 / 情绪便签与白板空间隐喻</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <a href="index.html" class="px-2.5 py-0.5 bg-indigo-800 hover:bg-indigo-700 text-white rounded transition-colors text-xs">
+        ← 返回三套对比中枢
+      </a>
+    </div>
+  </div>
+
+  <!-- Header Bar (Glassmorphic) -->
+  <header class="bg-white/80 backdrop-blur-md border-b border-slate-200/80 px-8 py-4 sticky top-0 z-30 flex flex-wrap items-center justify-between gap-4">
+    <div class="flex items-center gap-3.5">
+      <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white font-extrabold text-sm shadow-md shadow-indigo-500/20">
+        D
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h1 class="text-sm font-bold tracking-tight text-slate-900">Dayprint</h1>
+          <span class="text-[10px] bg-indigo-50 text-indigo-600 font-semibold px-2 py-0.5 rounded-full border border-indigo-100">
+            Spatial Mind
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mode Switcher -->
+    <div class="flex items-center bg-slate-100 p-1 rounded-xl text-xs font-semibold">
+      <button class="px-3.5 py-1.5 bg-white text-slate-900 rounded-lg shadow-sm flex items-center gap-1.5">
+        <i data-lucide="compass" class="w-3.5 h-3.5 text-indigo-600"></i>
+        <span>无限画布 (Canvas)</span>
+      </button>
+      <button class="px-3.5 py-1.5 text-slate-600 hover:text-slate-900 flex items-center gap-1.5">
+        <i data-lucide="book-open" class="w-3.5 h-3.5 text-slate-400"></i>
+        <span>今日日记 (L0)</span>
+      </button>
+      <button class="px-3.5 py-1.5 text-slate-600 hover:text-slate-900 flex items-center gap-1.5">
+        <i data-lucide="brain" class="w-3.5 h-3.5 text-slate-400"></i>
+        <span>记忆特质 (L0-L4)</span>
+      </button>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex items-center gap-2">
+      <button class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5">
+        <i data-lucide="git-branch" class="w-3.5 h-3.5 text-indigo-600"></i>
+        <span>自动对齐连线</span>
+      </button>
+      <button class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-semibold shadow-sm shadow-indigo-600/30 transition-all flex items-center gap-1.5">
+        <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+        <span>新建卡片</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Canvas Sub-Bar -->
+  <div class="bg-white/60 backdrop-blur-sm border-b border-slate-200 px-8 py-3 flex flex-wrap items-center justify-between gap-4 text-xs">
+    <div class="flex items-center gap-2">
+      <span class="text-slate-400 font-semibold text-[11px] uppercase tracking-wider">FILTERS:</span>
+      <button class="px-3 py-1 bg-slate-900 text-white rounded-full font-medium shadow-xs">全部卡片 (34)</button>
+      <button class="px-3 py-1 bg-white hover:bg-slate-100 text-slate-700 rounded-full font-medium border border-slate-200 flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-indigo-500"></span> 知识卡
+      </button>
+      <button class="px-3 py-1 bg-white hover:bg-slate-100 text-slate-700 rounded-full font-medium border border-slate-200 flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-amber-400"></span> 便签碎语
+      </button>
+      <button class="px-3 py-1 bg-white hover:bg-slate-100 text-slate-700 rounded-full font-medium border border-slate-200 flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span> 决策归档
+      </button>
+    </div>
+
+    <div class="flex items-center gap-2 text-slate-500 font-medium">
+      <span class="text-indigo-600 flex items-center gap-1">
+        <i data-lucide="activity" class="w-3.5 h-3.5"></i>
+        <span>8 条动态关联曲线已点亮</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- Spatial Canvas Main Area -->
+  <main class="flex-1 p-8 max-w-7xl mx-auto w-full relative">
+
+    <!-- SVG Overlay for Curved Bezier Connectors between cards -->
+    <svg class="absolute inset-0 w-full h-full pointer-events-none z-0" style="overflow: visible;">
+      <defs>
+        <!-- Connector Gradient -->
+        <linearGradient id="curveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#6366F1" stop-opacity="0.8"/>
+          <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0.8"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Bezier Curve 1: Between Card 1 and Card 2 -->
+      <path
+        d="M 450 180 C 580 180, 600 240, 720 240"
+        fill="none"
+        stroke="url(#curveGrad)"
+        stroke-width="2.5"
+        class="flowing-edge"
+      />
+      <!-- Bezier Curve 2: Between Card 2 and Card 3 -->
+      <path
+        d="M 850 360 C 850 440, 650 420, 520 480"
+        fill="none"
+        stroke="#CBD5E1"
+        stroke-width="2"
+      />
+    </svg>
+
+    <!-- Cards Grid / Canvas Elements -->
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 relative z-10">
+
+      <!-- Card 1: Main Knowledge Hub (Obsidian) -->
+      <div id="card-hub" class="col-span-1 md:col-span-2 milanote-card p-6 flex flex-col justify-between relative group">
+        <!-- Connector Handle on Card Edge (Milanote style) -->
+        <div class="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-indigo-600 border-2 border-white shadow-md flex items-center justify-center cursor-pointer hover:scale-125 transition-transform" title="拉动创建连结">
+          <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[11px] font-semibold text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-full border border-indigo-100 flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-ping"></span>
+              <span>核心知识节点</span>
+            </span>
+            <span class="text-xs text-slate-400 font-mono-meta">10.13 · 20:30</span>
+          </div>
+
+          <h2 class="text-base font-bold text-slate-900 group-hover:text-indigo-600 transition-colors leading-snug">
+            Obsidian: AI 时代个人知识管理架构
+          </h2>
+          <p class="text-xs text-slate-600 mt-2.5 leading-relaxed font-normal">
+            将 You+ Bot 每日自动采集的碎片化聊天日志，通过 LLM Wiki 编译算法提炼为高阶心智模型。笔记不再只是静态归档，而是具备联想与推理能力的动态外部大脑。
+          </p>
+
+          <!-- Milanote Visual Linked Node Tags -->
+          <div class="mt-5 pt-3 border-t border-slate-100 flex flex-wrap items-center gap-2">
+            <span class="text-[11px] font-semibold text-slate-400 flex items-center gap-1">
+              <i data-lucide="link" class="w-3 h-3 text-indigo-500"></i>
+              <span>连结节点:</span>
+            </span>
+            <span class="text-xs bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-medium px-2.5 py-1 rounded-lg transition-colors cursor-pointer flex items-center gap-1">
+              <span>[[高阶思考模型]]</span>
+              <i data-lucide="arrow-up-right" class="w-3 h-3 text-indigo-400"></i>
+            </span>
+            <span class="text-xs bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-medium px-2.5 py-1 rounded-lg transition-colors cursor-pointer flex items-center gap-1">
+              <span>[[You+Bot 管道]]</span>
+              <i data-lucide="arrow-up-right" class="w-3 h-3 text-indigo-400"></i>
+            </span>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+          <span class="font-mono-meta">#ai #pkm #llm-wiki</span>
+          <span class="text-indigo-600 font-semibold flex items-center gap-1">
+            <i data-lucide="git-merge" class="w-3 h-3"></i> 2 条向外连线
+          </span>
+        </div>
+      </div>
+
+      <!-- Card 2: Sticky Note Style (Milanote yellow note) -->
+      <div class="milanote-card p-5 bg-[#FEF9C3] border-[#FEF08A] flex flex-col justify-between relative group hover:border-[#FDE047]">
+        <!-- Connector Handle Left -->
+        <div class="absolute -left-2 top-1/3 -translate-y-1/2 w-4 h-4 rounded-full bg-amber-500 border-2 border-white shadow-md flex items-center justify-center cursor-pointer hover:scale-125 transition-transform" title="与核心节点已连结">
+          <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-amber-800 bg-amber-200/60 px-2 py-0.5 rounded-md">
+              💡 灵感便签
+            </span>
+            <span class="text-[11px] text-amber-700 font-mono-meta">10.12</span>
+          </div>
+
+          <h3 class="font-bold text-sm text-slate-900 leading-snug">
+            高阶思考模型：逆向剪枝
+          </h3>
+          <p class="text-xs text-slate-700 mt-2 leading-relaxed">
+            在动手写任何代码或搭建系统前，先思考“如果删掉这部分会怎样”。减法优先于加法。
+          </p>
+        </div>
+
+        <div class="mt-4 pt-2.5 border-t border-amber-200/80 flex items-center justify-between text-xs text-amber-800">
+          <span class="text-[11px] font-mono-meta">#mental-model</span>
+          <span class="text-[11px] font-semibold bg-white/70 px-1.5 py-0.5 rounded">L2 Skill</span>
+        </div>
+      </div>
+
+      <!-- Card 3: Visual Media Receipt Card -->
+      <div class="milanote-card p-4 flex flex-col justify-between relative group">
+        <div>
+          <div class="w-full h-32 rounded-xl overflow-hidden mb-3 relative bg-slate-100">
+            <img
+              src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=400&q=80"
+              alt="coffee"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            >
+            <span class="absolute top-2 right-2 bg-black/60 backdrop-blur-sm text-white text-[10px] px-2 py-0.5 rounded-full font-mono-meta">
+              小票凭据
+            </span>
+          </div>
+
+          <h3 class="font-bold text-sm text-slate-900 leading-snug">
+            双倍浓缩咖啡因体征记录
+          </h3>
+          <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+            摄入后心率与专注度曲线良好，下午 3 点后不再摄入。
+          </p>
+        </div>
+
+        <div class="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+          <span class="font-mono-meta">#health #receipt</span>
+          <span class="text-slate-500 font-semibold">L0 Stream</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Summary Box -->
+    <div class="mt-10 bg-white/80 backdrop-blur-sm border border-slate-200 p-6 rounded-2xl shadow-sm">
+      <h4 class="text-xs font-bold uppercase tracking-wider text-slate-900 mb-2 font-mono-meta flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
+        <span>风格 C 核心设计原则 (Design Principles)</span>
+      </h4>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-slate-600 leading-relaxed">
+        <div>
+          <strong class="text-slate-900 block mb-1">1. 视觉化实体连线：</strong>
+          彻底告别抽象数字，卡片之间直接以优雅的贝塞尔曲线相连，一眼即可看清想法之间的上下游因果。
+        </div>
+        <div>
+          <strong class="text-slate-900 block mb-1">2. 空间白板与微温触感：</strong>
+          圆角、点阵画布（Dot Grid）、便签材质让界面充满创作者画布的温度，极度亲和且激发灵感。
+        </div>
+        <div>
+          <strong class="text-slate-900 block mb-1">3. 现代 SaaS 丝滑交互：</strong>
+          类似 Milanote、Reflect、Linear 的现代化光影与微交互，手感顺滑现代。
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

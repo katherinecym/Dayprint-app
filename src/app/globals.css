@@ -1,0 +1,363 @@
+@import "tailwindcss";
+
+:root, [data-theme="boogie-paper"] {
+  --canvas-paper: #FAF8F5;
+  --ink-primary: #1C1917;
+  --ink-secondary: #57534E;
+  --ink-muted: #8A857B;
+  --de-stijl-red: #C05A46;
+  --de-stijl-blue: #2E5AAC;
+  --de-stijl-yellow: #E5A93C;
+  --grid-line: #ECE6DC;
+  --grid-line-subtle: #F4EFE7;
+  --card-white: #FCFAF6;
+  --card-tint-blue: #F3F6FB;
+  --panel-bg: #F5EFE6;
+  --border-subtle: #E8E2D5;
+  --gallery-mat: rgba(28, 25, 23, 0.02);
+  --shadow-gallery: 0 1px 3px rgba(80, 65, 50, 0.04), 0 1px 2px rgba(80, 65, 50, 0.02);
+  --shadow-gallery-hover: 0 10px 24px -4px rgba(80, 65, 50, 0.07), 0 4px 8px -2px rgba(80, 65, 50, 0.03);
+  /* Physical Paper Pattern Variables - Whisper-soft subtle paper contrast */
+  --paper-dot-color: rgba(120, 105, 90, 0.12);
+  --paper-grid-color: rgba(120, 105, 90, 0.07);
+  --paper-grid-major: rgba(196, 154, 86, 0.15);
+  --paper-line-color: rgba(120, 105, 90, 0.08);
+  --paper-margin-line: rgba(201, 122, 99, 0.18);
+}
+
+[data-theme="obsidian-dark"] {
+  --canvas-paper: #141416;
+  --ink-primary: #F4F4F6;
+  --ink-secondary: #A1A1AA;
+  --ink-muted: #71717A;
+  --de-stijl-red: #E05A47;
+  --de-stijl-blue: #4A7ADB;
+  --de-stijl-yellow: #E5A93C;
+  --grid-line: #27272D;
+  --grid-line-subtle: #202024;
+  --card-white: #1C1C20;
+  --card-tint-blue: #1E2433;
+  --panel-bg: #18181C;
+  --border-subtle: #27272D;
+  --gallery-mat: rgba(255, 255, 255, 0.03);
+  --shadow-gallery: 0 1px 4px rgba(0, 0, 0, 0.4);
+  --shadow-gallery-hover: 0 12px 28px -4px rgba(0, 0, 0, 0.6);
+  /* Physical Paper Pattern Variables for Dark Mode */
+  --paper-dot-color: rgba(255, 255, 255, 0.10);
+  --paper-grid-color: rgba(255, 255, 255, 0.06);
+  --paper-grid-major: rgba(229, 169, 60, 0.16);
+  --paper-line-color: rgba(255, 255, 255, 0.08);
+  --paper-margin-line: rgba(224, 90, 71, 0.20);
+}
+
+[data-theme="studio-light"] {
+  --canvas-paper: #FCFCFA;
+  --ink-primary: #18181B;
+  --ink-secondary: #52525B;
+  --ink-muted: #8E8E93;
+  --de-stijl-red: #D9483B;
+  --de-stijl-blue: #2E5AAC;
+  --de-stijl-yellow: #CA8A04;
+  --grid-line: #E8E8EC;
+  --grid-line-subtle: #F1F1F4;
+  --card-white: #FCFAF7;
+  --card-tint-blue: #F0F7FF;
+  --panel-bg: #F5F5F7;
+  --border-subtle: #E8E8EC;
+  --gallery-mat: rgba(9, 9, 11, 0.02);
+  --shadow-gallery: 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-gallery-hover: 0 8px 20px -3px rgba(0, 0, 0, 0.07);
+  /* Physical Paper Pattern Variables for Studio Light */
+  --paper-dot-color: rgba(100, 100, 110, 0.12);
+  --paper-grid-color: rgba(100, 100, 110, 0.07);
+  --paper-grid-major: rgba(46, 90, 172, 0.14);
+  --paper-line-color: rgba(100, 100, 110, 0.08);
+  --paper-margin-line: rgba(217, 72, 59, 0.18);
+}
+
+body {
+  background-color: var(--canvas-paper);
+  color: var(--ink-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Refined Clean Structural Dividers */
+.boogie-border-solid {
+  border: 1px solid var(--grid-line);
+}
+
+.boogie-border-b {
+  border-bottom: 1px solid var(--grid-line);
+}
+
+.boogie-border-r {
+  border-right: 1px solid var(--grid-line);
+}
+
+.boogie-border-l {
+  border-left: 1px solid var(--grid-line);
+}
+
+.boogie-border-t {
+  border-top: 1px solid var(--grid-line);
+}
+
+/* Museum Gallery Planar Framing (replaced harsh neo-brutalist shadows) */
+.boogie-shadow {
+  box-shadow: var(--shadow-gallery);
+}
+
+.boogie-shadow-sm {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.boogie-shadow-lg {
+  box-shadow: var(--shadow-gallery-hover);
+}
+
+.boogie-shadow-hover {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+}
+
+.boogie-shadow-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gallery-hover);
+}
+
+/* Authentic Broadway Boogie-Woogie rhythm corner accent */
+.boogie-rhythm-accent {
+  position: relative;
+}
+.boogie-rhythm-accent::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: var(--de-stijl-yellow);
+  pointer-events: none;
+}
+.boogie-rhythm-accent::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  background-color: var(--de-stijl-blue);
+  pointer-events: none;
+}
+
+/* Linen canvas fine texture */
+.boogie-canvas-texture {
+  background-color: var(--canvas-paper);
+  background-image: radial-gradient(var(--border-subtle) 0.8px, transparent 0.8px);
+  background-size: 24px 24px;
+}
+
+/* Custom receipt perforated edge simulation */
+.receipt-perforated {
+  background: radial-gradient(circle, transparent, transparent 4px, var(--card-white) 4px, var(--card-white));
+  background-size: 14px 14px;
+}
+
+/* Monospaced metadata styling */
+.font-mono-meta {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  letter-spacing: -0.02em;
+}
+
+/* Smooth custom scrollbars adapting to theme */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--panel-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--grid-line);
+  opacity: 0.5;
+}
+
+/* Spatial Infinite Canvas Grid pattern */
+.spatial-canvas-bg {
+  background-color: var(--canvas-paper);
+  background-image: 
+    linear-gradient(to right, var(--border-subtle) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border-subtle) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+/* Broadway Boogie Woogie City Grid Canvas */
+.boogie-woogie-grid {
+  background-color: var(--canvas-paper);
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1.5px, transparent 1.5px),
+    linear-gradient(to bottom, var(--grid-line) 1.5px, transparent 1.5px);
+  background-size: 140px 140px;
+}
+
+/* Sliding pulse transition */
+.boogie-slide-card {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+/* Authentic Physical Notebook Patterns */
+.paper-dot-grid {
+  background-color: var(--canvas-paper);
+  background-image: radial-gradient(circle, var(--paper-dot-color) 0.85px, transparent 0.85px);
+  background-size: 24px 24px;
+}
+
+.paper-graph-grid {
+  background-color: var(--canvas-paper);
+  background-image: 
+    linear-gradient(to right, var(--paper-grid-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--paper-grid-color) 1px, transparent 1px),
+    linear-gradient(to right, var(--paper-grid-major) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--paper-grid-major) 1px, transparent 1px);
+  background-size: 24px 24px, 24px 24px, 120px 120px, 120px 120px;
+}
+
+.paper-lined {
+  background-color: var(--canvas-paper);
+  background-image: 
+    linear-gradient(to bottom, transparent 31px, var(--paper-line-color) 32px),
+    linear-gradient(to right, transparent 72px, var(--paper-margin-line) 73px, transparent 75px);
+  background-size: 100% 32px, 100% 100%;
+}
+
+.paper-plain {
+  background-color: var(--canvas-paper);
+  background-image: none;
+}
+
+/* Notebook Spine Shadow & Ribbon Bookmark */
+.notebook-spine-shadow {
+  box-shadow: inset 24px 0 36px -20px rgba(45, 35, 25, 0.05);
+}
+
+.ribbon-bookmark {
+  position: absolute;
+  top: 0;
+  right: 48px;
+  width: 16px;
+  height: 56px;
+  background: #78231E;
+  border-radius: 0 0 2px 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  z-index: 10;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 82%, 0% 100%);
+  pointer-events: none;
+}
+
+/* Washi Tape Accent */
+.washi-tape-strip {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-0.8deg);
+  width: 80px;
+  height: 20px;
+  background: rgba(201, 122, 99, 0.35);
+  backdrop-filter: blur(2px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  clip-path: polygon(4% 0%, 96% 0%, 100% 100%, 0% 100%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Daily Muse Tear-off Slip */
+.muse-slip-card {
+  background: var(--card-white);
+  border: 1px dashed rgba(196, 154, 86, 0.45);
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(130, 105, 70, 0.04);
+  background-image: radial-gradient(circle, rgba(196, 154, 86, 0.08) 0.85px, transparent 0.85px);
+  background-size: 16px 16px;
+}
+
+/* 3D Wax Seal */
+.wax-seal {
+  width: 44px;
+  height: 44px;
+  border-radius: 48% 52% 49% 51% / 51% 48% 52% 49%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18), inset 0 2px 4px rgba(255, 255, 255, 0.35), inset 0 -3px 5px rgba(0, 0, 0, 0.4);
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.wax-seal::after {
+  content: '';
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+}
+
+.wax-seal.red {
+  background: radial-gradient(circle at 35% 35%, #DD4C3B 0%, #A82818 70%, #7A170A 100%);
+}
+.wax-seal.amber {
+  background: radial-gradient(circle at 35% 35%, #F0B342 0%, #B87B14 70%, #7E4F05 100%);
+}
+.wax-seal.blue {
+  background: radial-gradient(circle at 35% 35%, #6B94B8 0%, #366085 70%, #1D3D5A 100%);
+}
+.wax-seal.purple {
+  background: radial-gradient(circle at 35% 35%, #9A8BB8 0%, #615082 70%, #3E2F59 100%);
+}
+
+/* Watercolor Mood & Highlighter */
+.mood-pigment-drop {
+  width: 20px;
+  height: 20px;
+  border-radius: 50% 46% 54% 48% / 48% 52% 48% 52%;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+}
+.mood-pigment-drop:hover {
+  transform: scale(1.25);
+}
+.mood-pigment-drop.active {
+  transform: scale(1.2);
+  box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px var(--ink-primary);
+}
+
+.receipt-dip-dye {
+  background: linear-gradient(180deg, #FDFBF7 50%, var(--current-mood-wash, rgba(201, 122, 99, 0.14)) 100%);
+  transition: background 0.4s ease;
+}
+
+.watercolor-highlight {
+  background: linear-gradient(120deg, var(--current-mood-wash, rgba(201, 122, 99, 0.25)) 0%, rgba(255, 255, 255, 0) 100%);
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-weight: 600;
+}
+/* Hide Next.js development indicator icon and overlay toasts completely */
+nextjs-portal,
+[data-nextjs-dev-indicator],
+[data-nextjs-toast],
+div[data-nextjs-dev-indicator],
+#nextjs-dev-indicator {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

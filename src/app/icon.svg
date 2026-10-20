@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <!-- Mondrian / Boogie Woogie Geometric Crystal Shard (Pure Vector, Full-Bleed, No Background) -->
+  <g transform="translate(32, 29.5) scale(0.73)">
+    <!-- Top Face (Parchment White) -->
+    <path
+      d="M0 -36 L34 -16 L0 4 L-34 -16 Z"
+      fill="#FFFFFF"
+      stroke="#202328"
+      stroke-width="3.6"
+      stroke-linejoin="round"
+    />
+
+    <!-- Left Face (Morandi Prussian Blue) -->
+    <path
+      d="M-34 -16 L0 4 L0 42 L-34 22 Z"
+      fill="#4E7494"
+      stroke="#202328"
+      stroke-width="3.6"
+      stroke-linejoin="round"
+    />
+
+    <!-- Right Face (Morandi Terracotta Ochre) -->
+    <path
+      d="M0 4 L34 -16 L34 22 L0 42 Z"
+      fill="#D66D52"
+      stroke="#202328"
+      stroke-width="3.6"
+      stroke-linejoin="round"
+    />
+
+    <!-- Accent Intersection Plane (Mineral Mustard Gold) -->
+    <path
+      d="M0 4 L18 -6 L18 14 L0 24 Z"
+      fill="#E5A93C"
+      stroke="#202328"
+      stroke-width="2.6"
+      stroke-linejoin="round"
+    />
+
+    <!-- Inner Central Core Spark -->
+    <circle cx="0" cy="4" r="4.2" fill="#FFFFFF" stroke="#202328" stroke-width="2.6" />
+  </g>
+</svg>

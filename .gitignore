@@ -19,3 +19,7 @@ yarn-error.log*
 # OS / editor noise
 .DS_Store
 *.swp
+.dayprint-inbox.json
+.next/
+tsconfig.tsbuildinfo
+*.log
