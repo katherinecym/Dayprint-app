@@ -16,6 +16,7 @@ import {
   BookOpen,
   Sprout,
   Award,
+  Sparkles,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 
@@ -37,6 +38,8 @@ export function BoogieMatrixCanvas({ memories }: BoogieMatrixCanvasProps) {
     getTypeColor,
     typeColors,
     settings,
+    appMode,
+    loadDemoData,
   } = useMemory();
 
   const [shuffleSeed, setShuffleSeed] = useState(0);
@@ -338,12 +341,76 @@ export function BoogieMatrixCanvas({ memories }: BoogieMatrixCanvasProps) {
           <TodayEditor initialPrompt={insertedPrompt} />
         </div>
 
-      {/* 3. THE MEMORY STREAM (Scrapbook Multi-Column Masonry) */}
+      {/* 3. THE MEMORY STREAM (Scrapbook Multi-Column Masonry or Empty State) */}
       <div className="w-full">
-
-        {/* Full-Width Multi-Column Masonry Memory Stream (Generous breathing space) */}
-        <div className="columns-1 sm:columns-2 md:columns-3 xl:columns-4 2xl:columns-5 gap-5">
-          {sortedAndFilteredMemories.map((mem, index) => {
+        {sortedAndFilteredMemories.length === 0 ? (
+          <div className="w-full max-w-xl mx-auto my-10 p-8 text-center bg-[#FAF6EE] border-2 border-dashed border-[#DDD2C1] rounded-2xl shadow-xs">
+            {activeFilter !== "all" ? (
+              <div className="flex flex-col items-center gap-2.5">
+                <span className="text-3xl">🔍</span>
+                <h3 className="text-base font-bold text-stone-800">
+                  {language === "zh" ? "未找到筛选结果" : "No matching memories"}
+                </h3>
+                <p className="text-xs text-stone-500 max-w-sm">
+                  {language === "zh"
+                    ? `分类「${activeFilter}」下暂无记忆。`
+                    : `No memories found for category "${activeFilter}".`}
+                </p>
+                <button
+                  onClick={() => setActiveFilter("all")}
+                  className="mt-2 px-3.5 py-1.5 rounded-lg bg-stone-200 hover:bg-stone-300 text-stone-700 text-xs font-medium cursor-pointer transition-colors"
+                >
+                  {language === "zh" ? "清除筛选" : "Clear filter"}
+                </button>
+              </div>
+            ) : appMode === "production" ? (
+              <div className="flex flex-col items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-[#E8F0EA] border border-[#C5D9CA] flex items-center justify-center text-[#2D5A3C] text-2xl font-mono-meta font-bold">
+                  🌱
+                </div>
+                <h3 className="text-base font-bold text-stone-900">
+                  {language === "zh" ? "正式个人手账 · 纯净画卷" : "Personal Journal · Fresh Canvas"}
+                </h3>
+                <p className="text-xs text-stone-600 max-w-md leading-relaxed">
+                  {language === "zh"
+                    ? "当前为正式版纯净状态。在上方输入框写下今天的生活微光、灵感随笔或心智决策，打造属于你的独家心智知识库。"
+                    : "Your personal journal is ready. Capture today's sparks, thoughts, or decisions above to build your private knowledge ledger."}
+                </p>
+                <div className="flex flex-wrap items-center justify-center gap-3 mt-2">
+                  <button
+                    onClick={() => loadDemoData()}
+                    className="px-4 py-2 rounded-xl bg-white border border-[#DDD2C1] hover:border-amber-400 hover:bg-amber-50/60 text-stone-700 text-xs font-semibold shadow-xs transition-all cursor-pointer flex items-center gap-1.5"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                    <span>{language === "zh" ? "载入 Hackathon 评测演示数据" : "Load Hackathon Demo Mock Data"}</span>
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center gap-2.5">
+                <span className="text-3xl">✨</span>
+                <h3 className="text-base font-bold text-stone-800">
+                  {language === "zh" ? "画布为空" : "No memories yet"}
+                </h3>
+                <p className="text-xs text-stone-500 max-w-sm">
+                  {language === "zh"
+                    ? "你可以直接在上方输入你的第一条记录，或一键载入演示数据体验完整功能。"
+                    : "Write your first entry above or load demo memories to explore."}
+                </p>
+                <button
+                  onClick={() => loadDemoData()}
+                  className="mt-2 px-4 py-2 rounded-xl bg-stone-900 text-stone-100 hover:bg-stone-800 text-xs font-semibold shadow-xs transition-colors cursor-pointer flex items-center gap-1.5"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                  <span>{language === "zh" ? "载入官方演示数据" : "Load Demo Mock Data"}</span>
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          /* Full-Width Multi-Column Masonry Memory Stream (Generous breathing space) */
+          <div className="columns-1 sm:columns-2 md:columns-3 xl:columns-4 2xl:columns-5 gap-5">
+            {sortedAndFilteredMemories.map((mem, index) => {
             const theme = getScrapbookTheme(mem.type, index);
             const connectedMems = getConnectedMemories(mem);
 
@@ -582,6 +649,7 @@ export function BoogieMatrixCanvas({ memories }: BoogieMatrixCanvasProps) {
             );
           })}
         </div>
+        )}
       </div>
       </div>
     </div>

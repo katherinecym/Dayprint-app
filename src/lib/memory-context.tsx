@@ -18,7 +18,13 @@ import { SEED_MEMORIES, SEED_RELATIONSHIPS, SEED_COLLECTIONS } from "@/lib/seed"
 import { Language, translations } from "@/lib/i18n";
 import { ensureBilingualMemoryFields } from "@/lib/translator";
 
+export type AppMode = "demo" | "production";
+
 interface MemoryContextType {
+  appMode: AppMode;
+  setAppMode: (mode: AppMode) => void;
+  loadDemoData: () => void;
+  switchToProductionMode: (clearExisting?: boolean) => void;
   memories: CanonicalMemory[];
   relationships: Relationship[];
   collections: Collection[];
@@ -127,6 +133,7 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
   const [storedReceipts, setStoredReceipts] = useState<Record<string, DailyReceipt>>({});
   const [isSyncing, setIsSyncing] = useState<boolean>(false);
   const [viewMode, setViewMode] = useState<"daily" | "memory_os" | "graph">("daily");
+  const [appMode, setAppModeState] = useState<AppMode>("demo");
   const [customTypes, setCustomTypes] = useState<string[]>([]);
   const [typeColors, setTypeColors] = useState<Record<string, string>>(DEFAULT_TYPE_COLORS);
 
@@ -181,43 +188,51 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
       const storedSettings = localStorage.getItem("dayprint_settings");
       const storedPos = localStorage.getItem("dayprint_custom_positions");
       const storedRcpts = localStorage.getItem("dayprint_receipts");
-      // 1. Load memories: self-healing check guarantees You+ and Obsidian memories are always present
+      const storedMode = localStorage.getItem("dayprint_app_mode") as AppMode | null;
+      const currentMode: AppMode = storedMode === "production" ? "production" : "demo";
+      setAppModeState(currentMode);
+
+      // 1. Load memories: demo mode guarantees mock seed data is present; production mode keeps personal canvas
       let loadedMems: CanonicalMemory[] = [];
       if (storedMems) {
         try {
           const parsed = JSON.parse(storedMems);
-          if (Array.isArray(parsed) && parsed.length > 0) {
+          if (Array.isArray(parsed)) {
             loadedMems = parsed;
           }
         } catch {}
       }
 
-      // If loaded is empty OR missing the You+ dataset, merge SEED_MEMORIES
-      const hasYouPlus = loadedMems.some((m) => m.id.startsWith("mem_you_"));
-      if (!hasYouPlus || loadedMems.length === 0) {
-        const existingIds = new Set(loadedMems.map((m) => m.id));
-        const missing = SEED_MEMORIES.filter((sm) => !existingIds.has(sm.id));
-        loadedMems = [...loadedMems, ...missing];
-        localStorage.setItem("dayprint_memories", JSON.stringify(loadedMems));
+      if (currentMode === "demo") {
+        const hasYouPlus = loadedMems.some((m) => m.id.startsWith("mem_you_"));
+        if (!hasYouPlus || loadedMems.length === 0) {
+          const existingIds = new Set(loadedMems.map((m) => m.id));
+          const missing = SEED_MEMORIES.filter((sm) => !existingIds.has(sm.id));
+          loadedMems = [...loadedMems, ...missing];
+          localStorage.setItem("dayprint_memories", JSON.stringify(loadedMems));
+        }
       }
       setMemories(loadedMems);
 
-      // 2. Load relationships: guarantee You+ graph connections are present
+      // 2. Load relationships
       let loadedRels: Relationship[] = [];
       if (storedRels) {
         try {
           const parsed = JSON.parse(storedRels);
-          if (Array.isArray(parsed) && parsed.length > 0) {
+          if (Array.isArray(parsed)) {
             loadedRels = parsed;
           }
         } catch {}
       }
-      const hasYouPlusRels = loadedRels.some((r) => r.id.startsWith("rel_you_"));
-      if (!hasYouPlusRels || loadedRels.length === 0) {
-        const existingRelIds = new Set(loadedRels.map((r) => r.id));
-        const missingRels = SEED_RELATIONSHIPS.filter((sr) => !existingRelIds.has(sr.id));
-        loadedRels = [...loadedRels, ...missingRels];
-        localStorage.setItem("dayprint_relationships", JSON.stringify(loadedRels));
+
+      if (currentMode === "demo") {
+        const hasYouPlusRels = loadedRels.some((r) => r.id.startsWith("rel_you_"));
+        if (!hasYouPlusRels || loadedRels.length === 0) {
+          const existingRelIds = new Set(loadedRels.map((r) => r.id));
+          const missingRels = SEED_RELATIONSHIPS.filter((sr) => !existingRelIds.has(sr.id));
+          loadedRels = [...loadedRels, ...missingRels];
+          localStorage.setItem("dayprint_relationships", JSON.stringify(loadedRels));
+        }
       }
       setRelationships(loadedRels);
 
@@ -855,31 +870,56 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
     };
   }, [memories, relationships, storedReceipts, settings.github.connected, settings.github.auto_sync]);
 
-  const resetDemoData = () => {
+  const setAppMode = (mode: AppMode) => {
+    setAppModeState(mode);
+    try {
+      localStorage.setItem("dayprint_app_mode", mode);
+    } catch {}
+  };
+
+  const loadDemoData = () => {
+    setAppModeState("demo");
     setMemories(SEED_MEMORIES);
     setRelationships(SEED_RELATIONSHIPS);
     setCollections(SEED_COLLECTIONS);
-    setCustomPositions({});
     setStoredReceipts({});
-    localStorage.setItem("dayprint_memories", JSON.stringify(SEED_MEMORIES));
-    localStorage.setItem("dayprint_relationships", JSON.stringify(SEED_RELATIONSHIPS));
-    localStorage.setItem("dayprint_collections", JSON.stringify(SEED_COLLECTIONS));
-    localStorage.removeItem("dayprint_test_cleaned_v2");
+    try {
+      localStorage.setItem("dayprint_app_mode", "demo");
+      localStorage.setItem("dayprint_memories", JSON.stringify(SEED_MEMORIES));
+      localStorage.setItem("dayprint_relationships", JSON.stringify(SEED_RELATIONSHIPS));
+      localStorage.setItem("dayprint_collections", JSON.stringify(SEED_COLLECTIONS));
+      localStorage.removeItem("dayprint_test_cleaned_v2");
+    } catch {}
+  };
+
+  const switchToProductionMode = (clearExisting: boolean = false) => {
+    setAppModeState("production");
+    try {
+      localStorage.setItem("dayprint_app_mode", "production");
+    } catch {}
+    if (clearExisting) {
+      setMemories([]);
+      setRelationships([]);
+      setCollections([]);
+      setCustomPositions({});
+      setStoredReceipts({});
+      setSelectedMemoryId(null);
+      try {
+        localStorage.setItem("dayprint_memories", JSON.stringify([]));
+        localStorage.setItem("dayprint_relationships", JSON.stringify([]));
+        localStorage.setItem("dayprint_collections", JSON.stringify([]));
+        localStorage.setItem("dayprint_custom_positions", JSON.stringify({}));
+        localStorage.setItem("dayprint_receipts", JSON.stringify({}));
+      } catch {}
+    }
+  };
+
+  const resetDemoData = () => {
+    loadDemoData();
   };
 
   const clearAllData = () => {
-    setMemories([]);
-    setRelationships([]);
-    setCollections([]);
-    setCustomPositions({});
-    setStoredReceipts({});
-    setSelectedMemoryId(null);
-    localStorage.setItem("dayprint_memories", JSON.stringify([]));
-    localStorage.setItem("dayprint_relationships", JSON.stringify([]));
-    localStorage.setItem("dayprint_collections", JSON.stringify([]));
-    localStorage.setItem("dayprint_custom_positions", JSON.stringify({}));
-    localStorage.setItem("dayprint_receipts", JSON.stringify({}));
-    localStorage.setItem("dayprint_test_cleaned_v2", "true");
+    switchToProductionMode(true);
   };
 
   const clearTestData = () => {
@@ -934,6 +974,10 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
   return (
     <MemoryContext.Provider
       value={{
+        appMode,
+        setAppMode,
+        loadDemoData,
+        switchToProductionMode,
         memories,
         relationships,
         collections,

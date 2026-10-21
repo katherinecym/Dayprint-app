@@ -23,6 +23,8 @@ import {
   Trash2,
   RotateCcw,
   Lock,
+  Sparkles,
+  Leaf,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 
@@ -58,6 +60,9 @@ export function GitHubSettingsModal({
     clearAllData,
     clearTestData,
     resetDemoData,
+    appMode,
+    loadDemoData,
+    switchToProductionMode,
   } = useMemory();
 
   const [activeTab, setActiveTab] = useState<"ai" | "github" | "data">(initialTab);
@@ -863,6 +868,99 @@ export function GitHubSettingsModal({
           {/* TAB 3: DATA MANAGEMENT & RESET */}
           {activeTab === "data" && (
             <div className="space-y-4">
+              {/* App Mode Switch Section */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-xs font-bold text-stone-900 uppercase tracking-wider font-mono-meta">
+                    {language === "zh" ? "运行版本模式" : "Application Mode"}
+                  </h4>
+                  <span className="text-[10px] text-stone-500">
+                    {language === "zh" ? "随时可无缝切换与载入" : "Switch or restore anytime"}
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {/* Demo Card */}
+                  <div
+                    onClick={() => {
+                      if (appMode !== "demo") {
+                        loadDemoData();
+                        setStatusMsg({
+                          text: language === "zh" ? "已切换至演示版，并载入全部评测示例数据！" : "Switched to Demo Mode with mock memories loaded!",
+                          isError: false,
+                        });
+                      }
+                    }}
+                    className={`p-3.5 rounded-xl border-2 transition-all cursor-pointer relative ${
+                      appMode === "demo"
+                        ? "border-amber-400 bg-amber-50/70 shadow-xs"
+                        : "border-stone-200 bg-white hover:border-stone-300 hover:bg-stone-50/50"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-1.5">
+                      <div className="flex items-center gap-1.5">
+                        <Sparkles className="w-4 h-4 text-amber-600" />
+                        <span className="text-xs font-bold text-stone-900">
+                          {language === "zh" ? "✨ 演示体验版" : "✨ Demo Mode"}
+                        </span>
+                      </div>
+                      {appMode === "demo" && (
+                        <span className="text-[10px] font-mono-meta font-bold px-1.5 py-0.5 rounded-full bg-amber-200/80 text-amber-900">
+                          {language === "zh" ? "当前运行" : "ACTIVE"}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-[11px] text-stone-500 leading-relaxed">
+                      {language === "zh"
+                        ? "专为 Hackathon 评测与特性探索设计。预置蒙德里安、代官山旧书店等丰富图谱、小票存根与认知档案。"
+                        : "Designed for hackathon review & feature exploration. Preloaded with rich constellation graphs, daily notes & receipts."}
+                    </p>
+                  </div>
+
+                  {/* Production Card */}
+                  <div
+                    onClick={() => {
+                      if (appMode !== "production") {
+                        const confirmClear = window.confirm(
+                          language === "zh"
+                            ? "切换至正式版：是否同时清空演示 Mock 数据，开启一张全新空白画卷？\n(确定 = 纯净空白手账，取消 = 保留现有记录继续)"
+                            : "Switch to Personal Journal: Wipe mock data for a clean canvas?\n(OK = Clean canvas, Cancel = Keep existing notes)"
+                        );
+                        switchToProductionMode(confirmClear);
+                        setStatusMsg({
+                          text: language === "zh" ? "已切换至正式版！" : "Switched to Personal Journal Mode!",
+                          isError: false,
+                        });
+                      }
+                    }}
+                    className={`p-3.5 rounded-xl border-2 transition-all cursor-pointer relative ${
+                      appMode === "production"
+                        ? "border-emerald-500 bg-emerald-50/70 shadow-xs"
+                        : "border-stone-200 bg-white hover:border-stone-300 hover:bg-stone-50/50"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-1.5">
+                      <div className="flex items-center gap-1.5">
+                        <Leaf className="w-4 h-4 text-emerald-600" />
+                        <span className="text-xs font-bold text-stone-900">
+                          {language === "zh" ? "🌱 正式个人手账" : "🌱 Personal Journal"}
+                        </span>
+                      </div>
+                      {appMode === "production" && (
+                        <span className="text-[10px] font-mono-meta font-bold px-1.5 py-0.5 rounded-full bg-emerald-200/80 text-emerald-900">
+                          {language === "zh" ? "当前运行" : "ACTIVE"}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-[11px] text-stone-500 leading-relaxed">
+                      {language === "zh"
+                        ? "专属你的私密日常手账与终身思考资产。纯净空白，无冗余数据，支持随时一键载入示例数据。"
+                        : "Your authentic personal memory ledger. Clean slate without mock items, with 1-click demo restore anytime."}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               <div className="p-3.5 bg-amber-50/70 border border-amber-200 rounded-xl flex items-start gap-2.5">
                 <Database className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
                 <div className="text-[11px] leading-relaxed text-stone-700">

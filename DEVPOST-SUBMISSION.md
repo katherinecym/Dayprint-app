@@ -38,7 +38,8 @@ Dayprint is a zero-friction personal micro-journal and living memory workspace:
 4. **Autonomous Cognitive Evolution (L0–L4)**: Dayprint automatically distills raw daily stream (L0) into key milestones (L1), recurring habits & SOPs (L2), mental models (L3), and core principles (L4).
 5. **AI Accomplishment Polishing & STAR Extraction**: One click converts rough fragmented notes into professional accomplishment bullets with Situation, Task, Action, and Result (STAR) breakdowns.
 6. **Weekly Reflection & Memory Maintenance Hub**: At the end of each week, Dayprint automatically synthesizes a structured weekly digest with full CRUD editing and one-click Markdown weekly report export.
-7. **Local-First & Silent GitHub Archival**: 100% of data is stored locally in browser storage. Changes are debounced and silently synchronized as human-readable Markdown files and a clean `archive.json` to the user's private GitHub repository, backed by `keepalive` window-unload guarantees.
+7. **Dual-Mode Engine (Demo vs. Production)**: Designed specifically for hackathon reviewers and real-world journaling alike. Features a 1-click **Demo Mode** preloaded with full knowledge graph constellations and thermal receipts for instant evaluation, alongside a clean-slate **Production Mode** for authentic personal journaling with instant 1-click demo restore capabilities.
+8. **Local-First & Silent GitHub Archival**: 100% of data is stored locally in browser storage. Changes are debounced and silently synchronized as human-readable Markdown files and a clean `archive.json` to the user's private GitHub repository, backed by `keepalive` window-unload guarantees.
 
 ---
 

@@ -19,6 +19,11 @@ import {
   PanelLeft,
   PanelRight,
   PanelRightClose,
+  Sparkles,
+  Leaf,
+  RotateCcw,
+  Check,
+  ChevronDown,
 } from "lucide-react";
 import { OmniSearchModal } from "@/components/search/OmniSearchModal";
 import { isSoundEnabled, toggleSoundSetting } from "@/lib/sound";
@@ -50,11 +55,15 @@ export function HeaderBar({
     settings,
     updateSettings,
     viewMode,
+    appMode,
+    loadDemoData,
+    switchToProductionMode,
   } = useMemory();
 
   const [syncStatus, setSyncStatus] = useState<string | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [soundOn, setSoundOn] = useState(() => isSoundEnabled());
+  const [isModeMenuOpen, setIsModeMenuOpen] = useState(false);
 
   const handleToggleSound = () => {
     const next = toggleSoundSetting();
@@ -142,6 +151,143 @@ export function HeaderBar({
               </span>
             </div>
           </div>
+        </div>
+
+        {/* App Mode Capsule (Demo vs Production) */}
+        <div className="relative">
+          <button
+            type="button"
+            onClick={() => setIsModeMenuOpen((prev) => !prev)}
+            className={`h-8 px-2.5 rounded-lg border text-xs font-medium flex items-center gap-1.5 transition-all cursor-pointer shadow-2xs ${
+              appMode === "demo"
+                ? "bg-amber-50/90 border-amber-300/80 text-amber-900 hover:bg-amber-100"
+                : "bg-emerald-50/90 border-emerald-300/80 text-emerald-900 hover:bg-emerald-100"
+            }`}
+            title={
+              appMode === "demo"
+                ? (language === "zh"
+                  ? "当前为 Demo 演示版（已载入示例数据，点击切换或重置）"
+                  : "Currently Demo Mode (Preloaded mock data, click to switch)")
+                : (language === "zh"
+                  ? "当前为正式手账版（空白纯净画布，点击切换或载入演示数据）"
+                  : "Currently Personal Journal (Clean slate, click to switch)")
+            }
+          >
+            {appMode === "demo" ? (
+              <>
+                <Sparkles className="w-3.5 h-3.5 text-amber-600 animate-pulse" />
+                <span className="font-semibold text-[11px] sm:text-xs">
+                  {language === "zh" ? "✨ 演示版" : "✨ Demo"}
+                </span>
+              </>
+            ) : (
+              <>
+                <Leaf className="w-3.5 h-3.5 text-emerald-600" />
+                <span className="font-semibold text-[11px] sm:text-xs">
+                  {language === "zh" ? "🌱 正式版" : "🌱 Journal"}
+                </span>
+              </>
+            )}
+            <ChevronDown className="w-3 h-3 opacity-60 ml-0.5" />
+          </button>
+
+          {isModeMenuOpen && (
+            <>
+              <div
+                className="fixed inset-0 z-40"
+                onClick={() => setIsModeMenuOpen(false)}
+              />
+              <div className="absolute left-0 mt-1.5 w-64 bg-white rounded-xl shadow-xl border border-stone-200 py-1.5 z-50">
+                <div className="px-3 py-1.5 border-b border-stone-100">
+                  <div className="text-[10px] font-mono-meta font-bold uppercase tracking-wider text-stone-400">
+                    {language === "zh" ? "版本与数据模式" : "Application Mode"}
+                  </div>
+                </div>
+
+                {/* Demo Option */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (appMode !== "demo") {
+                      loadDemoData();
+                    }
+                    setIsModeMenuOpen(false);
+                  }}
+                  className={`w-full px-3 py-2 text-left flex items-start gap-2.5 transition-colors cursor-pointer ${
+                    appMode === "demo" ? "bg-amber-50/70" : "hover:bg-stone-50"
+                  }`}
+                >
+                  <div className="w-7 h-7 rounded-md bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 mt-0.5">
+                    <Sparkles className="w-4 h-4" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-stone-900">
+                        {language === "zh" ? "✨ 演示体验版 (Demo)" : "✨ Demo Mode"}
+                      </span>
+                      {appMode === "demo" && <Check className="w-3.5 h-3.5 text-amber-600" />}
+                    </div>
+                    <p className="text-[11px] text-stone-500 leading-snug mt-0.5">
+                      {language === "zh"
+                        ? "内置 Hackathon 评测数据、蒙德里安图谱星轨与小票"
+                        : "Preloaded with mock graph, journal memories & receipts"}
+                    </p>
+                  </div>
+                </button>
+
+                {/* Production Option */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (appMode !== "production") {
+                      const confirmClear = window.confirm(
+                        language === "zh"
+                          ? "切换至正式版：是否同时清空演示 Mock 数据，开启一张全新空白手账？\n(确定 = 空白手账，取消 = 保留现有记录继续)"
+                          : "Switch to Personal Journal: Wipe mock data for a clean canvas?\n(OK = Clean canvas, Cancel = Keep existing notes)"
+                      );
+                      switchToProductionMode(confirmClear);
+                    }
+                    setIsModeMenuOpen(false);
+                  }}
+                  className={`w-full px-3 py-2 text-left flex items-start gap-2.5 transition-colors cursor-pointer ${
+                    appMode === "production" ? "bg-emerald-50/70" : "hover:bg-stone-50"
+                  }`}
+                >
+                  <div className="w-7 h-7 rounded-md bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
+                    <Leaf className="w-4 h-4" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-stone-900">
+                        {language === "zh" ? "🌱 正式个人手账 (Journal)" : "🌱 Personal Journal"}
+                      </span>
+                      {appMode === "production" && <Check className="w-3.5 h-3.5 text-emerald-600" />}
+                    </div>
+                    <p className="text-[11px] text-stone-500 leading-snug mt-0.5">
+                      {language === "zh"
+                        ? "专属你的真实记忆、随手灵感与认知档案沉淀"
+                        : "Private canvas for your authentic notes & daily prints"}
+                    </p>
+                  </div>
+                </button>
+
+                <div className="my-1 border-t border-stone-100" />
+
+                {/* Action: Reload / Reset Demo Data */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    loadDemoData();
+                    setIsModeMenuOpen(false);
+                  }}
+                  className="w-full px-3 py-1.5 text-left text-xs text-stone-600 hover:text-stone-900 hover:bg-stone-50 flex items-center gap-2 cursor-pointer transition-colors"
+                >
+                  <RotateCcw className="w-3.5 h-3.5 text-stone-400" />
+                  <span>{language === "zh" ? "一键载入官方评测数据" : "Load Official Demo Mock Data"}</span>
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </div>
 
