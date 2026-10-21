@@ -127,4 +127,48 @@ describe("Strict Bilingual Independence & Default Auto-Translation", () => {
     expect(getLocalizedContent(memoryWithEmojis, "zh")).toBe("【职业与专业导向】偏好全栈开发");
     expect(getLocalizedContent(memoryWithEmojis, "en")).toBe("Fullstack engineering preference");
   });
+
+  it("should ensure 100% of seed memories return pure English in 'en' mode and Chinese in 'zh' mode", async () => {
+    const { SEED_MEMORIES, SEED_RELATIONSHIPS, SEED_COLLECTIONS } = await import("../lib/seed");
+    const { getLocalizedReason, getLocalizedCollectionName, getLocalizedCollectionDesc } = await import("../types/memory");
+
+    expect(SEED_MEMORIES.length).toBeGreaterThan(0);
+
+    for (const mem of SEED_MEMORIES) {
+      const enTitle = getLocalizedTitle(mem, "en");
+      const enContent = getLocalizedContent(mem, "en");
+      const zhTitle = getLocalizedTitle(mem, "zh");
+      const zhContent = getLocalizedContent(mem, "zh");
+
+      // In English mode, titles & contents must contain ZERO Chinese characters (except allowed bilingual brand names like You+)
+      const hasChineseInEnTitle = /[\u4e00-\u9fa5]/.test(enTitle);
+      const hasChineseInEnContent = /[\u4e00-\u9fa5]/.test(enContent);
+      expect(hasChineseInEnTitle, `Memory ${mem.id} enTitle leaked Chinese: ${enTitle}`).toBe(false);
+      expect(hasChineseInEnContent, `Memory ${mem.id} enContent leaked Chinese: ${enContent}`).toBe(false);
+
+      // In Chinese mode, titles & contents must contain Chinese characters
+      expect(/[\u4e00-\u9fa5]/.test(zhTitle), `Memory ${mem.id} zhTitle missing Chinese: ${zhTitle}`).toBe(true);
+      expect(/[\u4e00-\u9fa5]/.test(zhContent), `Memory ${mem.id} zhContent missing Chinese: ${zhContent}`).toBe(true);
+    }
+
+    // Verify relationships reasons
+    for (const rel of SEED_RELATIONSHIPS) {
+      const enReason = getLocalizedReason(rel, "en");
+      const zhReason = getLocalizedReason(rel, "zh");
+      expect(/[\u4e00-\u9fa5]/.test(enReason), `Rel ${rel.id} enReason leaked Chinese: ${enReason}`).toBe(false);
+      expect(/[\u4e00-\u9fa5]/.test(zhReason), `Rel ${rel.id} zhReason missing Chinese: ${zhReason}`).toBe(true);
+    }
+
+    // Verify collections
+    for (const col of SEED_COLLECTIONS) {
+      const enName = getLocalizedCollectionName(col, "en");
+      const zhName = getLocalizedCollectionName(col, "zh");
+      const enDesc = getLocalizedCollectionDesc(col, "en");
+      const zhDesc = getLocalizedCollectionDesc(col, "zh");
+      expect(/[\u4e00-\u9fa5]/.test(enName), `Col ${col.id} enName leaked Chinese: ${enName}`).toBe(false);
+      expect(/[\u4e00-\u9fa5]/.test(enDesc), `Col ${col.id} enDesc leaked Chinese: ${enDesc}`).toBe(false);
+      expect(/[\u4e00-\u9fa5]/.test(zhName), `Col ${col.id} zhName missing Chinese: ${zhName}`).toBe(true);
+      expect(/[\u4e00-\u9fa5]/.test(zhDesc), `Col ${col.id} zhDesc missing Chinese: ${zhDesc}`).toBe(true);
+    }
+  });
 });

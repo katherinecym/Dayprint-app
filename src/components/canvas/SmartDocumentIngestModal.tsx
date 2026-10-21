@@ -187,7 +187,9 @@ export function SmartDocumentIngestModal({ isOpen, onClose }: SmartDocumentInges
           to_memory_id: createdIds[i + 1],
           type: "same_project",
           origin: "ai_suggested",
-          reason: "提取自同一篇文档/笔记",
+          reason: language === "zh" ? "提取自同一篇文档/笔记" : "Extracted from the same document / note",
+          reason_zh: "提取自同一篇文档/笔记",
+          reason_en: "Extracted from the same document / note",
           status: "confirmed",
         });
       }
@@ -347,7 +349,7 @@ export function SmartDocumentIngestModal({ isOpen, onClose }: SmartDocumentInges
                       type="url"
                       value={docUrl}
                       onChange={(e) => setDocUrl(e.target.value)}
-                      placeholder="https://xxx.feishu.cn/docx/... 或 https://docs.google.com/document/d/..."
+                      placeholder={language === "zh" ? "https://xxx.feishu.cn/docx/... 或 https://docs.google.com/document/d/..." : "https://docs.google.com/document/d/... or https://xxx.feishu.cn/docx/..."}
                       className="w-full px-3.5 py-2.5 text-sm bg-white border border-stone-300 rounded-xl focus:outline-none focus:border-stone-500 text-stone-800"
                     />
                   </div>

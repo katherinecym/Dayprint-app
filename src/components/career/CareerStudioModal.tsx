@@ -117,7 +117,11 @@ export function CareerStudioModal({ onClose }: CareerStudioModalProps) {
     // 2. Technical breakthroughs
     const breakthroughs = items
       .filter((m) => m.type === "achievement" || m.type === "learning" || m.type === "decision")
-      .map((m) => `- **${getLocalizedTitle(m, language)}**：攻关并沉淀了核心方案，提升模块可用性。`)
+      .map((m) =>
+        language === "zh"
+          ? `- **${getLocalizedTitle(m, language)}**：攻关并沉淀了核心方案，提升模块可用性。`
+          : `- **${getLocalizedTitle(m, language)}**: Delivered core architectural solutions and improved component reliability.`
+      )
       .join("\n") || (language === "zh" ? "- 保持系统稳定演进，持续优化核心交互与数据流转。" : "- Maintained system stability and continuous stream optimization.");
 
     // 3. Next steps (from type === 'plan' or upcoming)
@@ -550,13 +554,13 @@ ${plans}
                               ) : (
                                 <Copy className="w-3 h-3" />
                               )}
-                              <span>{copiedKey === item.id ? "已复制" : "复制简历句"}</span>
+                              <span>{copiedKey === item.id ? (language === "zh" ? "已复制" : "Copied") : (language === "zh" ? "复制简历句" : "Copy Bullet")}</span>
                             </button>
 
                             <button
                               onClick={() => setExpandedStarId(isExpanded ? null : item.id)}
                               className="p-1 rounded text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors cursor-pointer"
-                              title={isExpanded ? "收起 STAR 案例" : "展开 STAR 案例"}
+                              title={isExpanded ? (language === "zh" ? "收起 STAR 案例" : "Collapse STAR breakdown") : (language === "zh" ? "展开 STAR 案例" : "Expand STAR breakdown")}
                             >
                               {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                             </button>
@@ -565,7 +569,7 @@ ${plans}
 
                         {/* Resume Bullet Display */}
                         <div className="p-2.5 bg-amber-50/60 rounded-lg border border-amber-200/60 text-xs leading-relaxed text-amber-950 font-sans">
-                          <span className="font-bold text-amber-900 mr-1.5">[简历推荐表述]:</span>
+                          <span className="font-bold text-amber-900 mr-1.5">{language === "zh" ? "[简历推荐表述]:" : "[Resume Bullet]:"}</span>
                           {item.resumeBullet}
                         </div>
 
@@ -574,19 +578,19 @@ ${plans}
                           <div className="pt-2 border-t border-stone-100 grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-[11px]">
                             <div className="p-2 rounded bg-stone-50 border border-stone-200/70">
                               <span className="font-bold text-stone-700 block mb-1">
-                                S · 业务背景/难点
+                                {language === "zh" ? "S · 业务背景/难点" : "S · Context & Challenge"}
                               </span>
                               <p className="text-stone-600 leading-normal">{item.star.situation}</p>
                             </div>
                             <div className="p-2 rounded bg-stone-50 border border-stone-200/70">
                               <span className="font-bold text-stone-700 block mb-1">
-                                A · 核心行动/方案
+                                {language === "zh" ? "A · 核心行动/方案" : "A · Core Action Taken"}
                               </span>
                               <p className="text-stone-600 leading-normal">{item.star.action}</p>
                             </div>
                             <div className="p-2 rounded bg-stone-50 border border-stone-200/70">
                               <span className="font-bold text-emerald-800 block mb-1">
-                                R · 最终成果/收益
+                                {language === "zh" ? "R · 最终成果/收益" : "R · Result & Impact"}
                               </span>
                               <p className="text-emerald-950 leading-normal">{item.star.result}</p>
                             </div>
@@ -656,7 +660,7 @@ ${plans}
                       {m.timeline_logs && m.timeline_logs.length > 0 && (
                         <div className="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/60 inline-flex items-center gap-1 self-start">
                           <CheckCircle2 className="w-3 h-3" />
-                          <span>已累计演进 {m.timeline_logs.length} 次</span>
+                          <span>{language === "zh" ? `已累计演进 ${m.timeline_logs.length} 次` : `${m.timeline_logs.length} evolutions`}</span>
                         </div>
                       )}
                     </div>

@@ -800,19 +800,19 @@ export function TodayEditor({ initialPrompt }: TodayEditorProps) {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px] pt-0.5">
               <div className="bg-white/90 p-2 rounded border border-amber-200/60 shadow-2xs">
                 <span className="font-bold text-amber-900 block mb-0.5">
-                  S · 挑战与痛点
+                  {language === "zh" ? "S · 挑战与痛点" : "S · Challenge & Context"}
                 </span>
                 <p className="text-stone-700 leading-normal">{extractedStar.situation}</p>
               </div>
               <div className="bg-white/90 p-2 rounded border border-amber-200/60 shadow-2xs">
                 <span className="font-bold text-amber-900 block mb-0.5">
-                  A · 核心攻坚行动
+                  {language === "zh" ? "A · 核心攻坚行动" : "A · Core Action Taken"}
                 </span>
                 <p className="text-stone-700 leading-normal">{extractedStar.action}</p>
               </div>
               <div className="bg-white/90 p-2 rounded border border-amber-200/60 shadow-2xs">
                 <span className="font-bold text-emerald-900 block mb-0.5">
-                  R · 交付收益与影响
+                  {language === "zh" ? "R · 交付收益与影响" : "R · Impact & Results"}
                 </span>
                 <p className="text-emerald-950 leading-normal">{extractedStar.result}</p>
               </div>

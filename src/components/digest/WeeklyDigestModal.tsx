@@ -257,33 +257,40 @@ export function WeeklyDigestModal({ onClose }: WeeklyDigestModalProps) {
 
   // Generate & Copy Markdown Digest
   const handleCopyDigest = () => {
-    let md = `# 📖 Dayprint 本周记忆小结 (${startDateStr} ~ ${endDateStr})\n\n`;
-    md += `> **本周沉淀概览**：共记录 ${weekMemories.length} 条记忆碎片，覆盖 ${
-      new Set(weekMemories.map((m) => m.occurred_at.slice(0, 10))).size
-    } 天。\n\n`;
+    const isZh = language === "zh";
+    let md = isZh
+      ? `# 📖 Dayprint 本周记忆小结 (${startDateStr} ~ ${endDateStr})\n\n`
+      : `# 📖 Dayprint Weekly Memory Digest (${startDateStr} ~ ${endDateStr})\n\n`;
 
-    md += `### 🧠 认知分层分布\n`;
-    md += `- **核心原则 (L4)**: ${levelStats.L4} 条\n`;
-    md += `- **心智模型 (L3)**: ${levelStats.L3} 条\n`;
-    md += `- **习惯准则 (L2)**: ${levelStats.L2} 条\n`;
-    md += `- **关键经历 (L1)**: ${levelStats.L1} 条\n`;
-    md += `- **原始日志 (L0)**: ${levelStats.L0} 条\n\n`;
+    md += isZh
+      ? `> **本周沉淀概览**：共记录 ${weekMemories.length} 条记忆碎片，覆盖 ${
+          new Set(weekMemories.map((m) => m.occurred_at.slice(0, 10))).size
+        } 天。\n\n`
+      : `> **Weekly Overview**: ${weekMemories.length} memory entries captured across ${
+          new Set(weekMemories.map((m) => m.occurred_at.slice(0, 10))).size
+        } days.\n\n`;
+
+    md += isZh ? `### 🧠 认知分层分布\n` : `### 🧠 Cognitive Pyramid Distribution\n`;
+    md += isZh
+      ? `- **核心原则 (L4)**: ${levelStats.L4} 条\n- **心智模型 (L3)**: ${levelStats.L3} 条\n- **习惯准则 (L2)**: ${levelStats.L2} 条\n- **关键经历 (L1)**: ${levelStats.L1} 条\n- **原始日志 (L0)**: ${levelStats.L0} 条\n\n`
+      : `- **Core Principles (L4)**: ${levelStats.L4}\n- **Mental Models (L3)**: ${levelStats.L3}\n- **Habits & SOPs (L2)**: ${levelStats.L2}\n- **Key Events (L1)**: ${levelStats.L1}\n- **Raw Stream (L0)**: ${levelStats.L0}\n\n`;
 
     if (topTopics.length > 0) {
-      md += `### 🏷️ 本周高频主题\n`;
+      md += isZh ? `### 🏷️ 本周高频主题\n` : `### 🏷️ Top Topics This Week\n`;
       md += topTopics.map(([t, c]) => `#${t} (${c})`).join("  ") + "\n\n";
     }
 
-    md += `### 📝 本周沉淀清单\n\n`;
+    md += isZh ? `### 📝 本周沉淀清单\n\n` : `### 📝 Captured Memories\n\n`;
     weekMemories.forEach((m, idx) => {
       const lvlMeta = MEMORY_LEVELS_META[getMemoryLevel(m)];
       const title = getLocalizedTitle(m, language);
       const content = getLocalizedContent(m, language);
       const date = m.occurred_at ? m.occurred_at.slice(0, 10) : "";
-      md += `#### ${idx + 1}. [${lvlMeta.shortZh}] ${title} (${date})\n`;
+      const lvlLabel = isZh ? lvlMeta.shortZh : lvlMeta.shortEn;
+      md += `#### ${idx + 1}. [${lvlLabel}] ${title} (${date})\n`;
       if (content) md += `${content}\n`;
       if (m.topics && m.topics.length > 0) {
-        md += `*标签*: ${m.topics.map((t) => `#${t}`).join(" ")}\n`;
+        md += `*${isZh ? "标签" : "Tags"}*: ${m.topics.map((t) => `#${t}`).join(" ")}\n`;
       }
       md += `\n`;
     });

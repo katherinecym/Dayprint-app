@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useMemory } from "@/lib/memory-context";
 import { X, Plus, Network, Check } from "lucide-react";
-import { RelationType, getLocalizedTitle, getLocalizedContent } from "@/types/memory";
+import { RelationType, getLocalizedTitle, getLocalizedContent, getLocalizedReason } from "@/types/memory";
 
 interface ConnectionModalProps {
   memoryId: string | null;
@@ -125,9 +125,9 @@ export function ConnectionModal({ memoryId, onClose }: ConnectionModalProps) {
                             {getLocalizedTitle(otherMem, language)}
                           </span>
                         </div>
-                        {link.reason && (
+                        {getLocalizedReason(link, language) && (
                           <p className="text-[11px] text-[var(--ink-secondary)] mt-1 italic">
-                            &quot;{link.reason}&quot;
+                            &quot;{getLocalizedReason(link, language)}&quot;
                           </p>
                         )}
                       </div>
