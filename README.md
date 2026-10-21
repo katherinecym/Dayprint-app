@@ -31,6 +31,9 @@ pnpm build
 - 📋 **[产品需求文档 (PRD)](./prd.md)**：完整旅程、界面布局、功能状态与产品决策。
 - 🛠️ **[技术架构规范 (Spec)](./spec.md)**：系统流转、技术选型、组件拓扑、数据结构与离线降级方案。
 - 📖 **[系统深度架构与设计全景 (Detailed Architecture)](./PRD-Dayprint-NextGen.md)**：5 阶认知体系、流水线工程实现与 Z-Index 视口规范。
+- 🏆 **[Devpost 参赛提交包 (Devpost Submission Package)](./DEVPOST-SUBMISSION.md)**：面向评审团的完整产品介绍、技术攻坚与学习心得问答。
+- 🎬 **[演示视频分镜与逐字旁白脚本 (Video Demo Script)](./VIDEO-DEMO-SCRIPT.md)**：2 分钟视频录屏指南、分镜画面操作与中英双语解说。
+- 🎨 **[设计系统与体验升维记录 (Design Enhancements)](./DESIGN-ENHANCEMENT.md)**：渐进式输入、纯净画卷模式与实体手账纸基调色板优化说明。
 
 ---
 
