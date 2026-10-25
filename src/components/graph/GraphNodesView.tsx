@@ -254,9 +254,10 @@ export function GraphNodesView() {
                     ? "bg-white text-stone-900 font-semibold shadow-xs"
                     : "text-stone-600 hover:text-stone-900"
                 }`}
+                title={language === "zh" ? "拓扑节点连结索引视图" : "Topology node index & link inspect view"}
               >
                 <LayoutGrid className="w-3.5 h-3.5 text-[#C97A63]" />
-                <span>{language === "zh" ? "卡片流" : "Cards"}</span>
+                <span>{language === "zh" ? "拓扑索引" : "Topology Index"}</span>
               </button>
             </div>
 
@@ -338,6 +339,19 @@ export function GraphNodesView() {
                 />
               ) : (
                 <div className="flex-1 p-4 md:p-6 overflow-y-auto relative">
+                  <div className="mb-3.5 pb-2 border-b border-[var(--border-subtle)] flex items-center justify-between text-xs text-stone-500 font-mono">
+                    <span className="flex items-center gap-1.5">
+                      <Share2 className="w-3.5 h-3.5 text-[#5B7B94]" />
+                      <span>
+                        {language === "zh"
+                          ? "网络拓扑节点与度数索引 (按连结关系与中心度检索)"
+                          : "Topology Nodes & Degree Index (Inspecting connections & centrality)"}
+                      </span>
+                    </span>
+                    <span className="text-[11px] font-semibold text-stone-600">
+                      {filteredNodes.length} {language === "zh" ? "个图节点" : "nodes"}
+                    </span>
+                  </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
                     {filteredNodes.map((node) => {
                       const isSelected = selectedNodeId === node.id;

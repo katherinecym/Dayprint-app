@@ -24,3 +24,11 @@ yarn-error.log*
 tsconfig.tsbuildinfo
 *.log
 recordings/
+
+# Large media assets — keep out of git
+audio/
+video/
+*.mp4
+*.webm
+*.wav
+*.mp3

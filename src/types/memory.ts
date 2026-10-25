@@ -819,7 +819,11 @@ export interface DailyReceipt {
   referenced_memory_ids: string[];
   created_at: string;
   custom_reflection?: string; // Optional user editorial note
+  custom_reflection_zh?: string;
+  custom_reflection_en?: string;
   mood?: string; // Optional day mood: e.g. 陶土红 · 热情, 冰海蓝 · 澄澈
+  mood_zh?: string;
+  mood_en?: string;
 }
 
 export interface AISettings {

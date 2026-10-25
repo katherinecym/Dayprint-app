@@ -80,8 +80,13 @@ export function DailyReceiptModal({ onClose }: DailyReceiptModalProps) {
     const refMap: Record<string, string> = {};
     allRecordedDates.forEach((date) => {
       const rec = storedReceipts[date];
-      moodMap[date] = rec?.mood || defaultMood;
-      refMap[date] = rec?.custom_reflection || "";
+      if (language === "en") {
+        moodMap[date] = rec?.mood_en || rec?.mood || defaultMood;
+        refMap[date] = rec?.custom_reflection_en || rec?.custom_reflection || "";
+      } else {
+        moodMap[date] = rec?.mood_zh || rec?.mood || defaultMood;
+        refMap[date] = rec?.custom_reflection_zh || rec?.custom_reflection || "";
+      }
     });
     setMoods(moodMap);
     setReflections(refMap);
@@ -347,6 +352,7 @@ export function DailyReceiptModal({ onClose }: DailyReceiptModalProps) {
             const defaultMood = language === "zh" ? "陶土红 · 热情" : "Terracotta · Energized";
             const currentMood =
               moods[date] ||
+              (language === "en" ? storedReceipts[date]?.mood_en : (storedReceipts[date]?.mood_zh || storedReceipts[date]?.mood)) ||
               storedReceipts[date]?.mood ||
               defaultMood;
 
@@ -533,7 +539,11 @@ export function DailyReceiptModal({ onClose }: DailyReceiptModalProps) {
                   </div>
 
                   {/* REFLECTIONS & THOUGHTS (Displayed from Home Page) */}
-                  {storedReceipts[date]?.custom_reflection || reflections[date] ? (
+                  {Boolean(
+                    reflections[date] ||
+                    (language === "en" ? storedReceipts[date]?.custom_reflection_en : storedReceipts[date]?.custom_reflection_zh) ||
+                    storedReceipts[date]?.custom_reflection
+                  ) ? (
                     <div className="pt-2.5 border-t border-stone-200 flex flex-col gap-1.5">
                       <span className="text-[10px] font-bold uppercase text-stone-600 flex items-center gap-1.5 font-mono">
                         <PenTool className="w-3.5 h-3.5" style={{ color: activePreset.color }} />
@@ -543,7 +553,7 @@ export function DailyReceiptModal({ onClose }: DailyReceiptModalProps) {
                         className="text-xs text-stone-800 italic font-serif leading-relaxed pl-3 border-l-2 bg-white/70 py-2 pr-2.5 rounded-r shadow-2xs transition-colors"
                         style={{ borderLeftColor: activePreset.color }}
                       >
-                        “{storedReceipts[date]?.custom_reflection || reflections[date]}”
+                        “{reflections[date] || (language === "en" ? storedReceipts[date]?.custom_reflection_en : storedReceipts[date]?.custom_reflection_zh) || storedReceipts[date]?.custom_reflection}”
                       </p>
                     </div>
                   ) : (

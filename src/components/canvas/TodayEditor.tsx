@@ -51,7 +51,7 @@ export function TodayEditor({ initialPrompt }: TodayEditorProps) {
   const [extractedStar, setExtractedStar] = useState<MemoryStarImpact | null>(null);
   const [originalBackup, setOriginalBackup] = useState<{ title: string; content: string } | null>(null);
   const [isDocIngestOpen, setIsDocIngestOpen] = useState(false);
-  const [isExpanded, setIsExpanded] = useState<boolean>(() => Boolean(initialPrompt));
+  const [isExpanded, setIsExpanded] = useState<boolean>(true);
 
   useEffect(() => {
     if (initialPrompt) setIsExpanded(true);
@@ -416,7 +416,7 @@ export function TodayEditor({ initialPrompt }: TodayEditorProps) {
     setExtractedStar(null);
     setOriginalBackup(null);
     setIsSavedFeedback(true);
-    setIsExpanded(false);
+    setIsExpanded(true);
     setTimeout(() => setIsSavedFeedback(false), 2000);
   };
 

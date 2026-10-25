@@ -64,15 +64,27 @@ export function ContextPanel({
 
   // Local reflection text synced with selectedDate
   const defaultMood = language === "zh" ? "陶土红 · 热情" : "Terracotta · Energized";
-  const currentMood = storedReceipts[selectedDate]?.mood || defaultMood;
-  const currentReflection = storedReceipts[selectedDate]?.custom_reflection || "";
+  const currentMood =
+    (language === "en" ? storedReceipts[selectedDate]?.mood_en : (storedReceipts[selectedDate]?.mood_zh || storedReceipts[selectedDate]?.mood)) ||
+    storedReceipts[selectedDate]?.mood ||
+    defaultMood;
+  const currentReflection =
+    (language === "en"
+      ? storedReceipts[selectedDate]?.custom_reflection_en || storedReceipts[selectedDate]?.custom_reflection
+      : storedReceipts[selectedDate]?.custom_reflection_zh || storedReceipts[selectedDate]?.custom_reflection) ||
+    "";
 
   const [reflectionText, setReflectionText] = useState(currentReflection);
   const [syncedTip, setSyncedTip] = useState(false);
 
   useEffect(() => {
-    setReflectionText(storedReceipts[selectedDate]?.custom_reflection || "");
-  }, [selectedDate, storedReceipts]);
+    const text =
+      (language === "en"
+        ? storedReceipts[selectedDate]?.custom_reflection_en || storedReceipts[selectedDate]?.custom_reflection
+        : storedReceipts[selectedDate]?.custom_reflection_zh || storedReceipts[selectedDate]?.custom_reflection) ||
+      "";
+    setReflectionText(text);
+  }, [selectedDate, storedReceipts, language]);
 
   const handleReflectionChange = (val: string) => {
     setReflectionText(val);
@@ -80,6 +92,7 @@ export function ContextPanel({
     saveDailyReceipt({
       ...receipt,
       custom_reflection: val,
+      ...(language === "en" ? { custom_reflection_en: val } : { custom_reflection_zh: val }),
       mood: currentMood,
     });
     setSyncedTip(true);
@@ -91,6 +104,7 @@ export function ContextPanel({
     saveDailyReceipt({
       ...receipt,
       custom_reflection: reflectionText,
+      ...(language === "en" ? { custom_reflection_en: reflectionText } : { custom_reflection_zh: reflectionText }),
       mood: moodStr,
     });
     setSyncedTip(true);

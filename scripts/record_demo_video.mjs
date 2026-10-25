@@ -1,11 +1,7 @@
 #!/usr/bin/env node
 /**
  * Automated High-Definition Screen Recording for Dayprint Hackathon Demo Video.
- * Uses Playwright to drive the browser through all 7 choreographed scenes,
- * capturing every module requested (Settings sovereignty, Today's Canvas,
- * AI Polish, Weave Echo, Custom Types, Morandi colors, Today's Stream, Daily Summary,
- * Heatmap, Life Stubs thermal receipt anatomy, Force Graph, Cards Mode, Link Management,
- * and Weekly Digest), then merges with the master studio voiceover.
+ * Perfectly paced continuous browser automation synchronized with the 171-second studio voiceover.
  */
 
 import { chromium } from 'playwright';
@@ -99,11 +95,11 @@ async function main() {
 
   console.log("Navigating to Dayprint (http://localhost:3000)...");
   await page.goto('http://localhost:3000', { waitUntil: 'networkidle' });
-  await sleep(1500);
+  await sleep(2500);
   const sessionStart = Date.now();
 
   // ----------------------------------------------------
-  // SCENE 1: Data Sovereignty & Step 1 Setup
+  // SCENE 1: Data Sovereignty & Step 1 Setup (~26s)
   // ----------------------------------------------------
   console.log(">>> [SCENE 1] Data Sovereignty & Step 1 - Connecting Private GitHub Repo");
   console.log("  - Opening GitHub Settings & Sovereignty modal to explain Step 1...");
@@ -117,7 +113,7 @@ async function main() {
     const patInputEl = page.locator('input[placeholder*="ghp_"]').first();
     if (await patInputEl.isVisible()) {
       await patInputEl.hover();
-      await sleep(1500);
+      await sleep(3500);
     }
 
     // Hover over Step 2 (Private repo)
@@ -125,7 +121,7 @@ async function main() {
     const repoInputEl = page.locator('input[placeholder*="my-dayprint-vault"]').first();
     if (await repoInputEl.isVisible()) {
       await repoInputEl.hover();
-      await sleep(1500);
+      await sleep(3500);
     }
 
     // Demonstrate 1-click Demo Mode Simulation
@@ -133,41 +129,46 @@ async function main() {
     const demoSyncBtn = page.locator('[data-testid="demo-sync-btn"]').first();
     if (await demoSyncBtn.isVisible()) {
       await demoSyncBtn.click();
-      await sleep(3500); // Allow 3-step progress, commit SHA 886c5e9, and confetti
+      await sleep(5500); // Allow 3-step progress, commit SHA 886c5e9, and confetti
     }
 
     const closeGhBtn = page.locator('button:has(svg.lucide-x)').first();
     if (await closeGhBtn.isVisible()) {
       await closeGhBtn.click();
-      await sleep(1500);
+      await sleep(2500);
     }
+
+    // Highlight emerald synced status badge in header
+    console.log("  - Highlighting emerald status badge in header...");
+    await page.mouse.move(960, 40);
+    await sleep(3000);
   }
 
   // ----------------------------------------------------
-  // SCENE 2: Today's Canvas & Creation Ritual
+  // SCENE 2: Today's Canvas & Creation Ritual (~37s)
   // ----------------------------------------------------
   console.log(">>> [SCENE 2] Today's Canvas, AI Polish, Weave Echo, Custom Types & Morandi Pigments");
   console.log("  - Clicking Today's Editor to expand writing desk...");
   const deskTrigger = page.locator('span:has-text("What\'s on your mind?"), input[placeholder*="Title"]').first();
   if (await deskTrigger.isVisible()) {
     await deskTrigger.click();
-    await sleep(1000);
+    await sleep(1500);
   }
 
   console.log("  - Typing Title: Async Actor Isolation Engine...");
   const titleInput = page.locator('input[placeholder*="Title"]').first();
   if (await titleInput.isVisible()) {
     await titleInput.click();
-    await titleInput.type('Async Actor Isolation Engine', { delay: 25 });
-    await sleep(500);
+    await titleInput.type('Async Actor Isolation Engine', { delay: 35 });
+    await sleep(1000);
   }
 
   console.log("  - Typing Content: Implemented memory state locks for node synchronization...");
   const textarea = page.locator('textarea[placeholder*="mind"]').first();
   if (await textarea.isVisible()) {
     await textarea.click();
-    await textarea.type('Implemented memory state locks for high-throughput node synchronization under distributed workloads.', { delay: 20 });
-    await sleep(1000);
+    await textarea.type('Implemented memory state locks for high-throughput node synchronization under distributed workloads.', { delay: 25 });
+    await sleep(1500);
   }
 
   // AI Polish: Distill into STAR brag card
@@ -175,15 +176,17 @@ async function main() {
   const polishBtn = page.locator('button:has-text("AI Polish")').first();
   if (await polishBtn.isVisible()) {
     await polishBtn.click();
-    await sleep(3000); // Allow STAR card to unfold
+    await sleep(5500); // Allow STAR card to unfold and show S, A, R breakdown
   }
 
   // Weave Echo: Temporal resonance
   console.log("  - Weaving temporal memory echo link...");
   const weaveBtn = page.locator('button:has-text("Weave Echo")').first();
   if (await weaveBtn.isVisible()) {
-    await weaveBtn.click();
+    await weaveBtn.hover();
     await sleep(1500);
+    await weaveBtn.click();
+    await sleep(3500);
   }
 
   // Custom Type Creation
@@ -191,12 +194,12 @@ async function main() {
   const newTypeBtn = page.locator('button:has-text("New Type")').first();
   if (await newTypeBtn.isVisible()) {
     await newTypeBtn.click();
-    await sleep(600);
+    await sleep(1000);
     const newTypeInput = page.locator('input[placeholder*="New type"]').first();
     if (await newTypeInput.isVisible()) {
       await newTypeInput.fill('Architecture');
       await page.keyboard.press('Enter');
-      await sleep(1200);
+      await sleep(3000);
     }
   }
 
@@ -205,11 +208,11 @@ async function main() {
   const typeColorBtn = page.locator('button:has-text("Type Color")').first();
   if (await typeColorBtn.isVisible()) {
     await typeColorBtn.click();
-    await sleep(800);
+    await sleep(1200);
     const fjordPigment = page.locator('button[title*="Fjord"], button[title*="Ice"]').first();
     if (await fjordPigment.isVisible()) {
       await fjordPigment.click();
-      await sleep(800);
+      await sleep(2000);
     }
   }
 
@@ -218,17 +221,17 @@ async function main() {
   const topicsInput = page.locator('input[placeholder*="topics"]').first();
   if (await topicsInput.isVisible()) {
     await topicsInput.click();
-    await topicsInput.type('distributed-systems, actor-model', { delay: 20 });
-    await sleep(800);
+    await topicsInput.type('distributed-systems, actor-model', { delay: 30 });
+    await sleep(1500);
   }
 
   // Print / Save
   console.log("  - Pressing Meta+Enter to print thermal receipt onto canvas...");
   await page.keyboard.press('Meta+Enter');
-  await sleep(4000); // Confetti burst and thermal paper tear
+  await sleep(5000); // Confetti burst and thermal paper tear
 
   // ----------------------------------------------------
-  // SCENE 3: Companion Panel Anatomy (Stream, Summary & Heatmap)
+  // SCENE 3: Companion Panel Anatomy (Stream, Summary & Heatmap) (~24s)
   // ----------------------------------------------------
   console.log(">>> [SCENE 3] Companion Panel Anatomy: Today's Stream, Daily Summary & Activity Heatmap");
   // Select Daily Mood Wash
@@ -236,7 +239,7 @@ async function main() {
   const sageMoodBtn = page.locator('button[title*="Sage"], button[title*="Calm"]').first();
   if (await sageMoodBtn.isVisible()) {
     await sageMoodBtn.click();
-    await sleep(1000);
+    await sleep(2500);
   }
 
   // Write Daily Closing Reflection
@@ -244,8 +247,8 @@ async function main() {
   const reflectionTextarea = page.locator('textarea[placeholder*="reflection"]').first();
   if (await reflectionTextarea.isVisible()) {
     await reflectionTextarea.click();
-    await reflectionTextarea.type('System clarity achieved through ruthless boundary isolation.', { delay: 20 });
-    await sleep(2000); // Show green Synced indicator
+    await reflectionTextarea.type('System clarity achieved through ruthless boundary isolation.', { delay: 30 });
+    await sleep(3000); // Show green Synced indicator
   }
 
   // Hover over Today's Stream showing newly printed note
@@ -253,7 +256,7 @@ async function main() {
   const streamItem = page.locator('aside h5:has-text("Async Actor Isolation Engine")').first();
   if (await streamItem.isVisible()) {
     await streamItem.hover();
-    await sleep(2000);
+    await sleep(4500);
   }
 
   // Hover over Activity Heatmap
@@ -261,54 +264,51 @@ async function main() {
   const heatmapEl = page.locator('aside').locator('text=Streak').first();
   if (await heatmapEl.isVisible()) {
     await heatmapEl.hover();
-    await sleep(2500);
+    await sleep(5500);
   }
 
   // ----------------------------------------------------
-  // SCENE 4: Life Stubs & Anatomy of Daily Thermal Receipt
+  // SCENE 4: Life Stubs & Anatomy of Daily Thermal Receipt (~29s)
   // ----------------------------------------------------
   console.log(">>> [SCENE 4] Life Stubs & Anatomy of the Daily Thermal Receipt");
   console.log("  - Opening Life Stubs (Daily Thermal Receipt)...");
   const lifeStubsBtn = page.locator('button:has-text("Life Stubs")').first();
   if (await lifeStubsBtn.isVisible()) {
     await lifeStubsBtn.click();
-    await sleep(2500);
+    await sleep(3000);
 
     // Scroll through the thermal receipt to showcase its anatomy
     console.log("  - Exploring receipt components (Masthead, Mood wash, Slips, Wax stamp, Sawtooth edge)...");
     const receiptContainer = page.locator('.fixed.inset-0 .overflow-y-auto').first();
     if (await receiptContainer.isVisible()) {
-      await receiptContainer.evaluate((el) => el.scrollBy({ top: 320, behavior: 'smooth' }));
-      await sleep(2500);
+      await receiptContainer.evaluate((el) => el.scrollBy({ top: 340, behavior: 'smooth' }));
+      await sleep(6000);
 
-      // Hover over wax stamp
-      const waxStamp = page.locator('.font-mono-meta:has-text("ARCHIVED")').first();
-      if (await waxStamp.isVisible()) {
-        await waxStamp.hover();
-        await sleep(1500);
-      }
+      // View wax stamp and reflection
+      await page.mouse.move(960, 600);
+      await sleep(5000);
 
-      await receiptContainer.evaluate((el) => el.scrollBy({ top: -320, behavior: 'smooth' }));
-      await sleep(1500);
+      await receiptContainer.evaluate((el) => el.scrollBy({ top: -340, behavior: 'smooth' }));
+      await sleep(3000);
     }
 
-    // Flip to previous day using left arrow
-    console.log("  - Reliving yesterday via left arrow flip...");
-    const prevDayBtn = page.locator('button:has(svg.lucide-chevron-left)').first();
-    if (await prevDayBtn.isVisible()) {
-      await prevDayBtn.click();
-      await sleep(2500);
+    // Flip to yesterday using right arrow (next in chronological list)
+    console.log("  - Reliving yesterday via right arrow flip...");
+    const nextDayBtn = page.locator('button:has(svg.lucide-chevron-right)').first();
+    if (await nextDayBtn.isVisible() && await nextDayBtn.isEnabled()) {
+      await nextDayBtn.click();
+      await sleep(4500);
     }
 
     const closeReceiptBtn = page.locator('.fixed.inset-0 button:has(svg.lucide-x)').first();
     if (await closeReceiptBtn.isVisible()) {
       await closeReceiptBtn.click();
-      await sleep(1500);
+      await sleep(2000);
     }
   }
 
   // ----------------------------------------------------
-  // SCENE 5: Knowledge Graph (Force Graph, Cards & Link Management)
+  // SCENE 5: Knowledge Graph (Force Graph, Cards & Link Management) (~36s)
   // ----------------------------------------------------
   console.log(">>> [SCENE 5] Knowledge Graph: Force Graph, Cards Mode & Link Management");
   console.log("  - Navigating to Knowledge Graph...");
@@ -320,19 +320,19 @@ async function main() {
 
   console.log("  - Demonstrating Force Graph spring physics...");
   await page.mouse.move(760, 480);
-  await sleep(1200);
+  await sleep(1500);
   await page.mouse.move(960, 500);
   await page.mouse.down();
-  await page.mouse.move(860, 420, { steps: 15 });
+  await page.mouse.move(860, 420, { steps: 20 });
   await page.mouse.up();
-  await sleep(2500);
+  await sleep(3500);
 
   // Switch to Cards Mode
   console.log("  - Switching to Cognitive Cards Mode (L0-L4 Hierarchy)...");
   const cardsModeBtn = page.locator('button:has-text("Cards")').first();
   if (await cardsModeBtn.isVisible()) {
     await cardsModeBtn.click();
-    await sleep(3500); // Showcase structured cards across L0-L4 tiers
+    await sleep(5500); // Showcase structured cards across L0-L4 tiers
   }
 
   // Switch back to Force Graph
@@ -340,13 +340,13 @@ async function main() {
   const forceModeBtn = page.locator('button:has-text("Force Graph")').first();
   if (await forceModeBtn.isVisible()) {
     await forceModeBtn.click();
-    await sleep(2500);
+    await sleep(3000);
   }
 
   // Link Management: Disconnect & Connect
   console.log("  - Selecting central node to open Link Node Manager...");
   await page.mouse.click(760, 480);
-  await sleep(2000);
+  await sleep(2500);
 
   const linkNodeBtn = page.locator('button:has-text("Link Node"), button:has-text("Link")').first();
   if (await linkNodeBtn.isVisible()) {
@@ -358,7 +358,7 @@ async function main() {
     const disconnectBtn = page.locator('button:has-text("Disconnect")').first();
     if (await disconnectBtn.isVisible()) {
       await disconnectBtn.click();
-      await sleep(2000);
+      await sleep(2500);
     }
 
     // Connect new link with causal reason
@@ -366,30 +366,30 @@ async function main() {
     const selectEl = page.locator('.fixed.inset-0 select').first();
     if (await selectEl.isVisible()) {
       await selectEl.selectOption({ index: 1 });
-      await sleep(800);
+      await sleep(1000);
     }
 
     const reasonInput = page.locator('.fixed.inset-0 input[placeholder*="related"], .fixed.inset-0 input[type="text"]').last();
     if (await reasonInput.isVisible()) {
       await reasonInput.fill('Direct architectural predecessor and state isolation foundation');
-      await sleep(1200);
+      await sleep(1500);
     }
 
     const submitLinkBtn = page.locator('.fixed.inset-0 button[type="submit"]').first();
     if (await submitLinkBtn.isVisible()) {
       await submitLinkBtn.click();
-      await sleep(2500);
+      await sleep(3000);
     }
 
     const closeConnBtn = page.locator('.fixed.inset-0 button:has(svg.lucide-x)').first();
     if (await closeConnBtn.isVisible()) {
       await closeConnBtn.click();
-      await sleep(1500);
+      await sleep(2000);
     }
   }
 
   // ----------------------------------------------------
-  // SCENE 6: Weekly Digest & Autonomous Synthesis
+  // SCENE 6: Weekly Digest & Autonomous Synthesis (~13s)
   // ----------------------------------------------------
   console.log(">>> [SCENE 6] Weekly Digest & Autonomous Synthesis");
   console.log("  - Opening Weekly Digest modal...");
@@ -403,7 +403,7 @@ async function main() {
     if (await digestModal.isVisible()) {
       console.log("  - Scrolling through weekly milestones and STAR achievements...");
       await digestModal.evaluate((el) => el.scrollBy({ top: 380, behavior: 'smooth' }));
-      await sleep(3000);
+      await sleep(4000);
       await digestModal.evaluate((el) => el.scrollBy({ top: -380, behavior: 'smooth' }));
       await sleep(2000);
     }
@@ -413,7 +413,7 @@ async function main() {
     const copyBtn = page.locator('.fixed.inset-0 button:has-text("Copy")').first();
     if (await copyBtn.isVisible()) {
       await copyBtn.click();
-      await sleep(1500);
+      await sleep(2000);
     }
 
     const closeDigestBtn = page.locator('.fixed.inset-0 button:has(svg.lucide-x)').first();
@@ -424,7 +424,7 @@ async function main() {
   }
 
   // ----------------------------------------------------
-  // SCENE 7: Eternal Memory & Closing
+  // SCENE 7: Eternal Memory & Closing (~8s)
   // ----------------------------------------------------
   console.log(">>> [SCENE 7] Eternal Sovereignty & Closing");
   console.log("  - Returning to Daily Journal...");
@@ -438,10 +438,10 @@ async function main() {
   const ghFinalBtn = page.locator('button:has(svg.lucide-git-branch)').first();
   if (await ghFinalBtn.isVisible()) {
     await ghFinalBtn.hover();
-    await sleep(2500);
+    await sleep(3500);
   }
 
-  // Guarantee the video covers the full master voiceover (or at least 150s)
+  // Guarantee the video covers the full master voiceover
   const TARGET_RECORDING_MS = 172000;
   const elapsed = Date.now() - sessionStart;
   if (elapsed < TARGET_RECORDING_MS) {
