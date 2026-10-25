@@ -305,7 +305,7 @@ export function MemoryOSView() {
     setIsSyncingObsidian(true);
     setSyncToast(
       language === "zh"
-        ? "正在扫描本地 You+ Vault..."
+        ? "正在扫描本地 Obsidian Vault..."
         : "Scanning local Obsidian Vault..."
     );
     try {

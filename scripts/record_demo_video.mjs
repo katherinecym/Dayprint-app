@@ -84,10 +84,15 @@ async function main() {
     await dialog.accept();
   });
 
-  // Pre-set English & Demo mode
+  // Pre-set English & Demo mode with fresh dynamic seed memories
   await page.addInitScript(() => {
     localStorage.setItem('dayprint_language', 'en');
     localStorage.setItem('dayprint_user_mode', 'demo');
+    localStorage.setItem('dayprint_app_mode', 'demo');
+    localStorage.setItem('dayprint_onboarding_completed', 'true');
+    localStorage.removeItem('dayprint_memories');
+    localStorage.removeItem('dayprint_relationships');
+    localStorage.removeItem('dayprint_collections');
   });
 
   console.log("Navigating to Dayprint (http://localhost:3000)...");
@@ -102,7 +107,7 @@ async function main() {
   await sleep(2500);
 
   // Hover over an interesting receipt
-  const cardA = page.locator('article, .group.relative.cursor-pointer').nth(2);
+  const cardA = page.locator('[data-testid="memory-card"]').nth(2);
   if (await cardA.isVisible()) {
     await cardA.hover();
     await sleep(2500);
@@ -116,7 +121,7 @@ async function main() {
   await smoothScroll(page, 0, 6000);
   await sleep(2000);
 
-  const firstCard = page.locator('article, .group.relative.cursor-pointer').first();
+  const firstCard = page.locator('[data-testid="memory-card"]').first();
   if (await firstCard.isVisible()) {
     await firstCard.hover();
     await sleep(2000);
@@ -163,7 +168,7 @@ async function main() {
 
   console.log(">>> [00:58 - 01:25] SCENE 3: Connect & Weave - The Living Constellation (Target: 26.6s)");
   // Hover over a slip to show resonance
-  const cardB = page.locator('article, .group.relative.cursor-pointer').nth(1);
+  const cardB = page.locator('[data-testid="memory-card"]').nth(1);
   if (await cardB.isVisible()) {
     await cardB.hover();
     await sleep(3500);
@@ -195,7 +200,7 @@ async function main() {
 
   console.log(">>> [01:25 - 01:55] SCENE 4: Full CRUD, Evolution Logs & Distillation (Target: 30.1s)");
   console.log("  - Opening a memory card for detail & evolution view...");
-  const memoryCard = page.locator('article, .group.relative.cursor-pointer').first();
+  const memoryCard = page.locator('[data-testid="memory-card"]').first();
   if (await memoryCard.isVisible()) {
     await memoryCard.click();
     await sleep(4500);

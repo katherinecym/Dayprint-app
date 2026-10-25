@@ -246,15 +246,18 @@ const FALLBACK_ZH_DICT: Record<string, string> = {
   "Deep Flow Rhythm & Focus Environment Preferences": "心流节律与专注环境偏好",
   "First Principles & Minimalist Engineering Creed": "第一性原理与工程极简信条",
   "Rigorous Self-Driven Inquirer Persona": "严谨自驱的探究者画像",
-  "You+ Cognitive Digital Sub-Myself Architecture & Human-in-the-Loop": "You+ 个人认知与数字分身系统架构实践",
-  "Product Architecture Focus & Deep Work Over Low-Density Socializing": "产品架构聚焦与高阶精力管理：拒绝低效社交",
-  "Katherine's Technology Selection Framework & Verification SOP": "技术选型 SOP：GitHub 活跃度与本地压测验证",
-  "Core Value: Intellectual Autonomy Over Conforming to Authority": "底层价值观：独立思考比盲从权威重要得多",
-  "Personal Habit: High-Density & Direct Communication": "个人偏好与习惯：高信息密度的极简交流",
-  "Reading Notes: Semi-Annual Bond Pricing, Convexity & YTM": "读书笔记：《固定收益证券》债券定价公式与 YTM 凸性反求",
-  "Reading Notes: Sensorial Synesthesia in Li Bai & Vico's 'Senses of Humanity'": "读书笔记：《惊艳唐诗》李白诗歌与通感联觉、维科论诗人",
-  "Obsidian Bi-directional Graph & Local White-Box Vault Integration": "Obsidian 双向链接与白盒本地第二大脑构建",
-  "GitHub & Local Markdown as Canonical Storage Over Cloud Blackboxes": "以 GitHub 与 Local Markdown 为主数据存储而非云端黑盒",
+  "AetherOS Cognitive Digital Sub-Myself Architecture & Human-in-the-Loop": "AetherOS 个人认知与数字分身系统架构实践",
+  "Architecture Focus & The Archipelago Principle: Eliminating Low-Density Noise": "架构聚焦与高阶精力管理：践行群岛原则",
+  "Technology Selection SOP: GitHub Health & Local Stress Testing": "技术选型 SOP：GitHub 活跃度与本地压测双重验证",
+  "Foundational Value: Intellectual Autonomy & First-Principles Reasoning": "底层价值观：智识自主权与第一性原理思辨",
+  "Communication Philosophy: High-Density Signal & Root-Cause Directness": "沟通哲学：极简、高信噪比与直击根因",
+  "Algorithm Study: Non-linear Convexity & Numerical Convergence in Dynamic Systems": "算法推演：非线性凸性与动态系统中的数值收敛",
+  "Synesthetic Aesthetics: Bringing Tactile Paper Warmth to Digital Interfaces": "通感美学：将纸张质感与机械音效注入数字界面",
+  "Milestone: Shipped Offline Bi-directional Linking & Constellation Compiler": "里程碑：自主研发离线双向链接与图谱编译引擎",
+  "Data Sovereignty: User-Owned Git Trees Over Proprietary Cloud Silos": "数据主权：以用户私有 Git 树为核心存储底座",
+  "Morning Cognitive Ritual: 15-Minute Frictionless Stream-of-Consciousness": "晨间认知仪式：15 分钟无阻力意识流倾泻",
+  "Systems Heuristic: Deconstructing Complex Distributed Systems to First Principles": "系统拆解法：复杂分布式架构的第一性原理降维",
+  "Weekly Review Cadence: Pruning Graph Dead Weight & Reinforcing Core Bridges": "周度复盘演进计划：修剪冗余节点与加固核心连接",
   // Contents
   "Mondrian's Broadway Boogie Woogie isn't just jazz on canvas; it is a discrete packetized information network. Small blocks of primary colors represent rhythm, pauses, and syncopated thoughts. We should structure memory items as living visual pulses.":
     "蒙德里安的《百老汇爵士乐》不仅是画布上的爵士乐，更是一个离散分包的信息网络。三原色小方块代表节拍、休止与切分思绪。我们应当将记忆条目构建为有呼吸的视觉脉冲。",
@@ -303,53 +306,68 @@ const FALLBACK_EN_DICT: Record<string, string> = {
   "心流节律与专注环境偏好": "Deep Flow Rhythm & Focus Environment Preferences",
   "第一性原理与工程极简信条": "First Principles & Minimalist Engineering Creed",
   "严谨自驱的探究者画像": "Rigorous Self-Driven Inquirer Persona",
-  "You+ 个人认知与数字分身系统架构实践": "You+ Cognitive Digital Sub-Myself Architecture & Human-in-the-Loop",
-  "产品架构聚焦与高阶精力管理：拒绝低效社交": "Product Architecture Focus & Deep Work Over Low-Density Socializing",
-  "技术选型 SOP：GitHub 活跃度与本地压测验证": "Katherine's Technology Selection Framework & Verification SOP",
-  "底层价值观：独立思考比盲从权威重要得多": "Core Value: Intellectual Autonomy Over Conforming to Authority",
-  "个人偏好与习惯：高信息密度的极简交流": "Personal Habit: High-Density & Direct Communication",
-  "读书笔记：《固定收益证券》债券定价公式与 YTM 凸性反求": "Reading Notes: Semi-Annual Bond Pricing, Convexity & YTM",
-  "读书笔记：《惊艳唐诗》李白诗歌与通感联觉、维科论诗人": "Reading Notes: Sensorial Synesthesia in Li Bai & Vico's 'Senses of Humanity'",
-  "Obsidian 双向链接与白盒本地第二大脑构建": "Obsidian Bi-directional Graph & Local White-Box Vault Integration",
-  "以 GitHub 与 Local Markdown 为主数据存储而非云端黑盒": "GitHub & Local Markdown as Canonical Storage Over Cloud Blackboxes",
+  "AetherOS 个人认知与数字分身系统架构实践": "AetherOS Cognitive Digital Sub-Myself Architecture & Human-in-the-Loop",
+  "架构聚焦与高阶精力管理：践行群岛原则": "Architecture Focus & The Archipelago Principle: Eliminating Low-Density Noise",
+  "技术选型 SOP：GitHub 活跃度与本地压测双重验证": "Technology Selection SOP: GitHub Health & Local Stress Testing",
+  "底层价值观：智识自主权与第一性原理思辨": "Foundational Value: Intellectual Autonomy & First-Principles Reasoning",
+  "沟通哲学：极简、高信噪比与直击根因": "Communication Philosophy: High-Density Signal & Root-Cause Directness",
+  "算法推演：非线性凸性与动态系统中的数值收敛": "Algorithm Study: Non-linear Convexity & Numerical Convergence in Dynamic Systems",
+  "通感美学：将纸张质感与机械音效注入数字界面": "Synesthetic Aesthetics: Bringing Tactile Paper Warmth to Digital Interfaces",
+  "里程碑：自主研发离线双向链接与图谱编译引擎": "Milestone: Shipped Offline Bi-directional Linking & Constellation Compiler",
+  "数据主权：以用户私有 Git 树为核心存储底座": "Data Sovereignty: User-Owned Git Trees Over Proprietary Cloud Silos",
+  "晨间认知仪式：15 分钟无阻力意识流倾泻": "Morning Cognitive Ritual: 15-Minute Frictionless Stream-of-Consciousness",
+  "系统拆解法：复杂分布式架构的第一性原理降维": "Systems Heuristic: Deconstructing Complex Distributed Systems to First Principles",
+  "周度复盘演进计划：修剪冗余节点与加固核心连接": "Weekly Review Cadence: Pruning Graph Dead Weight & Reinforcing Core Bridges",
 };
 
 const SEED_MEMORIES_ZH_MAP: Record<string, { title: string; content: string }> = {
-  mem_you_01: {
-    title: "You+ 个人认知与数字分身系统架构实践",
-    content: "规划并主导 You+ 个人认知系统的整体产品架构。采用飞书作为用户交互前端，底层基于 Python 与 Gemini LLM 构建数字分身大脑。设计 Human-in-the-Loop 记忆提炼流：用户发送日常消息 -> 大模型智能提炼记忆卡片 -> 飞书交互卡片主动推送 -> 用户通过快捷指令（确认/1）沉淀入库，实现零干扰、可控性强的个人知识资产闭环。",
+  mem_demo_01: {
+    title: "AetherOS 个人认知与数字分身系统架构实践",
+    content: "规划并主导 AetherOS 个人认知系统的整体产品架构。底层基于本地大语言模型与认知代理，设计 Human-in-the-Loop 记忆提炼流：日常散落随笔 -> 智能提炼认知卡片 -> 主动生成双向链接 -> 一键沉淀入库，实现零干扰、可控性强的个人知识资产闭环。",
   },
-  mem_you_02: {
-    title: "产品架构聚焦与高阶精力管理：拒绝低效社交",
-    content: "早期开发中职责边界不清晰容易导致精力分散，需明确产品架构师的核心专注点。明确自身核心定位为产品架构与交互设计（Product Architecture & UX），后端编码由系统工具与开发者配合完成。系统性拒绝无意义的低效社交聚会，将 100% 精力倾注于核心产品逻辑打磨与知识沉淀，显著提升了 You+ 系统的产品迭代速率与交互质量。",
+  mem_demo_02: {
+    title: "架构聚焦与高阶精力管理：践行群岛原则",
+    content: "早期系统开发中职责边界模糊容易导致注意力碎片化。确立「群岛原则（Archipelago Principle）」：将 100% 认知精力倾注于高杠杆系统架构、核心心智模型与人机交互打磨，系统性拒绝无意义的低密度社交与会议消耗，显著提升产品迭代速率与代码纯度。",
   },
-  mem_you_03: {
-    title: "技术选型 SOP：GitHub 活跃度与本地压测验证",
-    content: "形成了一套实用的技术选型流程：1. 先查看 GitHub star 长期增长趋势与分叉活跃度；2. 评估 issue 活跃度与 PR 合并速度，判断社区维护质量；3. 编写本地 demo 进行极限压测验证真实表现。核心准则与禁忌：坚决不盲从官方宣传与营销宣讲，不迷信文档承诺，一切用真实硬件基准与代码表现说话。",
+  mem_demo_03: {
+    title: "技术选型 SOP：GitHub 活跃度与本地压测双重验证",
+    content: "建立严谨的技术选型四步法：1. 分析 GitHub 长期 commit 频率与 PR 合并延迟；2. 检验 issue 响应速度与维护团队信噪比；3. 构建独立测试床进行边界压测；4. 核心禁忌：绝不迷信官方宣传文案与跑分演示，一切以本地物理基准与真实负载为准。",
   },
-  mem_you_04: {
-    title: "底层价值观：独立思考比盲从权威重要得多",
-    content: "认为独立思考比盲从权威重要得多。在信息爆炸与大模型同质化泛滥的时代，外界观点极其廉价，唯有基于第一性原理推导的心智模型和亲身实证才能构成个人护城河。打算在 3 年内独立创业做一个兼具极简美学、白盒可控性与真正用户数据主权的 AI 工具。",
+  mem_demo_04: {
+    title: "底层价值观：智识自主权与第一性原理思辨",
+    content: "在模型泛滥与观点同质化的时代，外界信息极其廉价且充斥杂音。唯有依托第一性原理推导的心智模型和亲身实证，才能筑起不可动摇的个人护城河。坚持白盒可控性与真正的用户数据主权，不做被动的信息搬运工。",
   },
-  mem_you_05: {
-    title: "个人偏好与习惯：高信息密度的极简交流",
-    content: "倾向于极简、高信息密度的交流方式。厌恶低信噪比的繁复客套与冗余包装，主张直击问题根源、逻辑闭环与因果链条。“少即是多（Less is more）”，无论在沟通、代码、设计还是生活日程中，删除冗余都是最高阶的优雅。",
+  mem_demo_05: {
+    title: "沟通哲学：极简、高信噪比与直击根因",
+    content: "日常交流与工程协作始终奉行极简与高信息密度。厌恶低信噪比的冗余客套与过度包装，主张开门见山直击因果链条与核心瓶颈。“删除冗余是最高阶的优雅（Deletion is the ultimate sophistication）”，在代码重构、产品设计与日常决策中皆奉此道。",
   },
-  mem_you_06: {
-    title: "读书笔记：《固定收益证券》债券定价公式与 YTM 凸性反求",
-    content: "半年付息固定利率债券定价公式：P = ∑(j=1 to 2n) [M × (c/2) / (1 + x/2)^j] + [M / (1 + x/2)^(2n)]。\n\n感悟要点：\n1. 反求收益率（YTM）本质：债券市价 P 与到期收益率 x 呈反向非线性凸性（Convexity）关系。二级市场上给定的通常是交易市价 P，必须通过数值方法（如牛顿迭代法或内插逼近法）反求内部报酬率 x。\n2. 付息频率校准：国内与美债市场多采用半年付息（Semi-annual compounding），在计算久期（Macaulay Duration）及基点价值（DV01）时，需严格将半期贴现率折半并乘以 2 进行年化校准。",
+  mem_demo_06: {
+    title: "算法推演：非线性凸性与动态系统中的数值收敛",
+    content: "推导非线性动力系统中的凸性（Convexity）曲率与收敛边界。在多变量状态转移模型中，局部极值逼近必须采用阻尼牛顿迭代法进行步长校准。理论启示：认知进化正如数值求根，无法依靠单次跃迁，而是通过连续的微观反馈逐步逼近真实解。",
   },
-  mem_you_07: {
-    title: "读书笔记：《惊艳唐诗》李白诗歌与通感联觉、维科论诗人",
-    content: "意大利学者维科在《新科学》中论述：“诗人们首先凭凡俗智慧感受到的有多少，后来哲学家们凭玄奥智慧未理解的也就有多少，所以诗人们可以说就是人类的感官，而哲学家们就是人类的理智。”\n\n个人感悟：李白诗中的通感（联觉），不仅是修辞技法，更是感官经验的互渗与重组。当视觉、嗅觉、触觉在诗意中融为一体，并叠加上“雨露恩泽”等传统文化的隐喻时，诗歌便超越了单一知觉，铸就出兼具感官张力与历史厚度的复合美感造型。优秀的界面设计同样遵循通感原则——通过纸张纹理、毛玻璃透光与温润音效唤醒指尖触感。",
+  mem_demo_07: {
+    title: "通感美学：将纸张质感与机械音效注入数字界面",
+    content: "优秀的人机交互应当遵循维科与李白的通感联觉原理：界面不应是冰冷的玻璃平面，而应具备物理世界的温度与阻尼。通过莫兰迪矿物纸张纹理、锯齿边缘撕裂动效与机械打字机微音效，将枯燥的备忘记录升华为令人愉悦的心灵仪式。",
   },
-  mem_you_08: {
-    title: "Obsidian 双向链接与白盒本地第二大脑构建",
-    content: "通过 Markdown Frontmatter 与 [[Wiki-Links]] 构建个人第二大脑：涵盖 01_Persona、02_Work、03_Learning、04_Preferences、05_Reading 五大核心目录。实体包括 Python、飞书、Gemini、Product Architecture Design 与 You+，实现了人设、技能、工作产出与知识阅读的立交桥式全息关联，摆脱任何云端专有数据库劫持。",
+  mem_demo_08: {
+    title: "里程碑：自主研发离线双向链接与图谱编译引擎",
+    content: "自主完成知识图谱编译引擎研发，支持毫秒级解析 [[Wiki-Links]] 与跨条目概念共鸣。结合力导向排布算法与拓扑聚类，将散落在日记、读书笔记与工作决策中的孤岛碎片实时编译为可交互的神经星轨图谱。",
   },
-  mem_you_09: {
-    title: "以 GitHub 与 Local Markdown 为主数据存储而非云端黑盒",
-    content: "坚定采用用户自有的本地 Markdown 树和 GitHub Git 树作为主数据存储。虽然牺牲了微秒级写入延迟，但彻底换取了零厂商锁定、不可篡改的版本树历史、与 Obsidian/VSCode 的天然兼容性，以及 100% 的个人数据主权。",
+  mem_demo_09: {
+    title: "数据主权：以用户私有 Git 树为核心存储底座",
+    content: "做出关键持久化决策：放弃托管式集中黑盒数据库，全面采用用户本地文件系统与私有 GitHub 仓库作为主存储。虽牺牲毫秒级即时推送，但彻底赢得不可篡改的版本树、明文 Markdown 可读性以及 100% 的个人记忆主权。",
+  },
+  mem_demo_10: {
+    title: "晨间认知仪式：15 分钟无阻力意识流倾泻",
+    content: "清晨 7:30，手冲一杯耶加雪菲。打开 Dayprint 输入框，不设任何标题与文件夹分类，直接将刚苏醒时大脑中无序涌现的灵感、梦境余波与当日优先项倾泻在画布上。敲击回车，伴随机械清脆声，思绪瞬间定格成一页实体小票。",
+  },
+  mem_demo_11: {
+    title: "系统拆解法：复杂分布式架构的第一性原理降维",
+    content: "学习并总结复杂系统的降维法则：当架构变得臃肿混乱时，回归最底层的三要素——状态所有权、不可变事件日志与失败隔离边界。一切高大上的抽象若无法映射到这三点，皆属于无谓的自嗨式复杂度。",
+  },
+  mem_demo_12: {
+    title: "周度复盘演进计划：修剪冗余节点与加固核心连接",
+    content: "制定周度知识沉淀规范：每周日晚利用 Dayprint 周报模块自动萃取本周高光条目，通过 AI 述职润色提炼 STAR 结构，同时在关系图谱中排查无连接的孤立节点，手动补全关联原因，保持认知网络的生命力。",
   },
   mem_20261013_today_01: {
     title: "作为离散信息网格的百老汇爵士乐",
@@ -402,41 +420,53 @@ const SEED_MEMORIES_ZH_MAP: Record<string, { title: string; content: string }> =
 };
 
 const SEED_MEMORIES_EN_MAP: Record<string, { title: string; content: string }> = {
-  mem_you_01: {
-    title: "You+ Cognitive Digital Sub-Myself Architecture & Human-in-the-Loop",
-    content: "Architected the You+ personal cognitive operating system. Utilized Feishu as the conversational frontend with Python and Gemini LLM as the cognitive brain. Designed a Human-in-the-Loop workflow: user chats casually -> LLM distills structured memory fragments -> interactive Feishu card prompts verification -> one-click confirmation persists into local Obsidian vault.",
+  mem_demo_01: {
+    title: "AetherOS Cognitive Digital Sub-Myself Architecture & Human-in-the-Loop",
+    content: "Architected the AetherOS personal cognitive operating system. Designed a Human-in-the-Loop memory distillation workflow: casual thoughts and work logs -> autonomous LLM extraction of cognitive slips -> proactive bi-directional link suggestions -> one-click verification into local storage, establishing a high-signal living digital twin.",
   },
-  mem_you_02: {
-    title: "Product Architecture Focus & Deep Work Over Low-Density Socializing",
-    content: "Clarified core positioning as Product Architect & UX Designer, focusing on macro system logic, user journey, and high-leverage product decisions. Systematically eliminated low-density social obligations to achieve deep focus on product craftsmanship, dramatically accelerating You+ system iterations.",
+  mem_demo_02: {
+    title: "Architecture Focus & The Archipelago Principle: Eliminating Low-Density Noise",
+    content: "Early-stage development often suffers from blurred boundaries and context-switching fatigue. Established the 'Archipelago Principle': allocate 100% of cognitive bandwidth to high-leverage system architecture, core mental models, and tactile UX craftsmanship while systematically eliminating low-density meetings and social noise.",
   },
-  mem_you_03: {
-    title: "Katherine's Technology Selection Framework & Verification SOP",
-    content: "Established a rigorous technology selection framework: 1. Inspect GitHub star growth trends and fork health; 2. Evaluate issue triage velocity and PR merge latency; 3. Write local testbed demos and run stress testing to verify real performance. Core taboo: Never rely solely on marketing hype or vendor documentation claims.",
+  mem_demo_03: {
+    title: "Technology Selection SOP: GitHub Health & Local Stress Testing",
+    content: "Formulated a disciplined 4-step technology evaluation SOP: 1. Audit long-term commit velocity and PR merge latency on GitHub; 2. Assess issue response quality and maintainer signal-to-noise ratio; 3. Build an isolated local testbed to stress-test edge conditions; 4. Core rule: Never trust marketing claims or vendor benchmarks without empirical verification.",
   },
-  mem_you_04: {
-    title: "Core Value: Intellectual Autonomy Over Conforming to Authority",
-    content: "Firm belief that independent critical thinking vastly outweighs obedience to conventional authority. In an era of AI homogenization, external opinions are cheap; only proprietary mental models and empirical first-principles reasoning form a durable moat. Intends to launch an independent AI product within 3 years.",
+  mem_demo_04: {
+    title: "Foundational Value: Intellectual Autonomy & First-Principles Reasoning",
+    content: "In an era of cognitive homogenization and automated content, external opinions are cheap and noisy. Only proprietary mental models derived from first principles and empirical experience form an enduring intellectual moat. Champion white-box auditability and sovereign user data ownership.",
   },
-  mem_you_05: {
-    title: "Personal Habit: High-Density & Direct Communication",
-    content: "Prefers concise, high-density communication with zero conversational fluff. Cuts straight to root causes, empirical evidence, and causal chains. Deletion is the ultimate sophistication in dialogue, code, and daily routines.",
+  mem_demo_05: {
+    title: "Communication Philosophy: High-Density Signal & Root-Cause Directness",
+    content: "Adhere strictly to high-density, low-fluff communication in both engineering and leadership. Cut straight to root causes, causal chains, and verifiable metrics. Deletion is the ultimate sophistication across code refactoring, system architecture, and daily routines.",
   },
-  mem_you_06: {
-    title: "Reading Notes: Semi-Annual Bond Pricing, Convexity & YTM",
-    content: "Semi-annual coupon bond pricing: P = ∑ [M*(c/2) / (1 + x/2)^j] + [M / (1 + x/2)^(2n)]. Bond price P and YTM x share an inverse non-linear convex relationship. Numerical solvers (Newton-Raphson) are required to back-solve yield from market price. Macaulay duration and DV01 require rigorous semi-annual compounding calibration.",
+  mem_demo_06: {
+    title: "Algorithm Study: Non-linear Convexity & Numerical Convergence in Dynamic Systems",
+    content: "Derived curvature properties and convergence boundaries in non-linear dynamic systems. Proved that local optimum convergence requires damped Newton-Raphson step-size calibration. Conceptual insight: cognitive evolution mirrors numerical solvers—it requires continuous micro-feedback loops rather than abrupt speculative leaps.",
   },
-  mem_you_07: {
-    title: "Reading Notes: Sensorial Synesthesia in Li Bai & Vico's 'Senses of Humanity'",
-    content: "From Giambattista Vico's New Science: 'Poets were the senses, philosophers the intellect of humanity.' Li Bai's synesthetic poetry is an interpenetration of sensory experiences. When sight, sound, and touch merge with historical metaphors, it achieves multidimensional aesthetic depth. Exceptional UI design follows the same principle, using paper textures, frosted glass blurs, and tactile sound.",
+  mem_demo_07: {
+    title: "Synesthetic Aesthetics: Bringing Tactile Paper Warmth to Digital Interfaces",
+    content: "Human-computer interaction should embrace sensory synesthesia: interfaces must transcend sterile glass rectangles to evoke the tactile friction of the physical world. By combining Morandi paper textures, serrated tear animations, and mechanical keystroke acoustics, note-taking transforms into a grounding ritual.",
   },
-  mem_you_08: {
-    title: "Obsidian Bi-directional Graph & Local White-Box Vault Integration",
-    content: "Built a local second brain vault with Obsidian [[Wiki-Links]] and structured Markdown across 5 core modules (Persona, Work, Learning, Habits, Reading). Connected entities across Python, Feishu, Gemini, and Product Architecture Design into an interoperable knowledge graph.",
+  mem_demo_08: {
+    title: "Milestone: Shipped Offline Bi-directional Linking & Constellation Compiler",
+    content: "Engineered an autonomous knowledge compilation engine supporting sub-millisecond [[Wiki-Links]] resolution and semantic resonance detection. Coupled with force-directed physics and topological clustering, isolated daily notes assemble into an interactive neural constellation.",
   },
-  mem_you_09: {
-    title: "GitHub & Local Markdown as Canonical Storage Over Cloud Blackboxes",
-    content: "Adopted local Markdown and GitHub repositories as the primary persistence layer. Traded away microsecond cloud latency for zero vendor lock-in, tamper-evident commit history, and complete data sovereignty.",
+  mem_demo_09: {
+    title: "Data Sovereignty: User-Owned Git Trees Over Proprietary Cloud Silos",
+    content: "Made a load-bearing persistence decision: rejected proprietary cloud databases in favor of local Markdown and user-owned private GitHub repositories. Traded microsecond cloud sync for tamper-evident commit trees, human-readable data longevity, and uncompromised privacy.",
+  },
+  mem_demo_10: {
+    title: "Morning Cognitive Ritual: 15-Minute Frictionless Stream-of-Consciousness",
+    content: "7:30 AM. Fresh cup of pour-over coffee. Opened Dayprint with zero title pressure or folder taxonomy, dumping waking thoughts, dream fragments, and daily focus areas onto the blank stream. Pressing Enter with a crisp mechanical strike seals the moment onto paper.",
+  },
+  mem_demo_11: {
+    title: "Systems Heuristic: Deconstructing Complex Distributed Systems to First Principles",
+    content: "Distilled an architectural reduction heuristic: when complex systems become bloated, strip them down to three fundamental primitives—state ownership, immutable event logs, and failure isolation boundaries. Any abstraction that fails to map cleanly is gratuitous complexity.",
+  },
+  mem_demo_12: {
+    title: "Weekly Review Cadence: Pruning Graph Dead Weight & Reinforcing Core Bridges",
+    content: "Established a weekly knowledge hygiene workflow: every Sunday evening, use Dayprint's Weekly Digest to synthesize milestones into STAR accomplishment bullets, prune disconnected nodes in the graph, and articulate latent relationship reasons.",
   },
   mem_20261013_today_01: {
     title: "Broadway Boogie Woogie as an Information Grid",

@@ -2,7 +2,7 @@
 
 > **Hackathon:** [Build With AI: Basics (Devpost Learn)](https://learn-ai-basics.devpost.com/)  
 > **Project Name:** Dayprint (今日印迹)  
-> **Tagline:** Your life, in prints. A tactile, local-first memory sanctuary that unifies scattered work, reading, and life reflections into an interconnected knowledge constellation — cultivating your living Digital Sub-Myself.  
+> **Tagline:** Your life, in prints. A tactile, local-first memory sanctuary that unifies scattered work, reading, and life reflections into an interconnected knowledge constellation — cultivating your living AI Digital Twin and cognitive confidant.  
 > **Repository:** Public Git Repository with `scope.md`, `prd.md`, `spec.md`  
 
 ---
@@ -12,7 +12,7 @@
 ### 1.1 Project Overview (项目概览)
 * **Title:** Dayprint (今日印迹)
 * **Tagline (一句话介绍):**
-  > A tactile, local-first memory sanctuary that unifies your scattered work, reading, and life reflections into an interconnected living graph — cultivating your authentic Digital Sub-Myself with eternal data sovereignty.
+  > A tactile, local-first memory sanctuary that unifies your scattered work, reading, and life reflections into an interconnected living graph — cultivating your authentic AI Digital Twin & Confidant with eternal data sovereignty.
 * **Try it out / Demo Link:** `http://localhost:3000` (Local Dev) / Vercel Live Preview Link
 * **Repository Link:** Public GitHub repository link
 
@@ -29,7 +29,7 @@ When our memories are scattered across walled gardens, we don't just lose notes 
 We asked ourselves:  
 *What if all your living thoughts — career breakthroughs, study epiphanies, and life milestones — lived in a single, unified sanctuary?*  
 *What if journaling felt as simple, warm, and delightful as receiving an espresso receipt at an old bookstore cafe?*  
-*What if your memories naturally resonated and connected into a living knowledge constellation, evolving alongside you into a true **Digital Sub-Myself** — with 100% eternal data sovereignty in your own private GitHub?*
+*What if your memories naturally resonated and connected into a living knowledge constellation, evolving alongside you into a true **AI Digital Twin & Cognitive Confidant** — with 100% eternal data sovereignty in your own private GitHub?*
 
 That is why we built **Dayprint**.
 

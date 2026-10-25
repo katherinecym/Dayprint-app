@@ -48,7 +48,7 @@ export function SmartDocumentIngestModal({ isOpen, onClose }: SmartDocumentInges
     playKeyClick();
     if (type === "feishu") {
       setPasteText(
-        `# You+ 系统与多端数据架构演进\n\n1. 核心架构认知：所有个人数据必须坚持 Local First 与白盒存储，以 GitHub 和 Markdown 为基石，云端只做只读同步与通知通道，绝不将核心认知托付给商业 SaaS 黑盒。\n\n2. 精力分配策略：高阶精力应当聚焦在有复利沉淀的架构与深度创造上，主动切断无意义的虚假社交和低密度信息流。\n\n3. 技术选型验证：选用任何开源框架前，必须查看 GitHub 最近半年的活跃度和社区 PR 处理时效，并在本地进行全量压测，不被商业宣传左右。`
+        `# AetherOS 认知系统与数据架构演进\n\n1. 核心架构认知：所有个人数据必须坚持 Local First 与白盒存储，以 GitHub 和 Markdown 为基石，云端只做只读同步与通知通道，绝不将核心认知托付给商业 SaaS 黑盒。\n\n2. 精力分配策略：高阶精力应当聚焦在有复利沉淀的架构与深度创造上，主动切断无意义的虚假社交和低密度信息流。\n\n3. 技术选型验证：选用任何开源框架前，必须查看 GitHub 最近半年的活跃度和社区 PR 处理时效，并在本地进行全量压测，不被商业宣传左右。`
       );
     } else if (type === "book") {
       setPasteText(
@@ -362,8 +362,8 @@ export function SmartDocumentIngestModal({ isOpen, onClose }: SmartDocumentInges
                     </div>
                     <p className="leading-relaxed opacity-90">
                       {language === "zh"
-                        ? "• 飞书文档：已绑定 You+ 专属企业应用 Token 自动读取；若文档属于受限私密空间，最便捷的方式是在飞书直接 Cmd+A 全选并粘贴到「粘贴笔记」标签页。"
-                        : "• Feishu: Automatically read via You+ bot. For private spaces, simply copy & paste text directly."}
+                        ? "• 飞书文档：已绑定专属企业应用 Token 自动读取；若文档属于受限私密空间，最便捷的方式是在飞书直接 Cmd+A 全选并粘贴到「粘贴笔记」标签页。"
+                        : "• Feishu: Automatically read via enterprise bot. For private spaces, simply copy & paste text directly."}
                     </p>
                     <p className="leading-relaxed opacity-90">
                       {language === "zh"

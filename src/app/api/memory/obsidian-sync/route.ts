@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 
-const DEFAULT_VAULT_DIR = "/Users/katherine/Desktop/vibe-coding-projects/digital-sub-myself/vault";
+const DEFAULT_VAULT_DIR = process.env.OBSIDIAN_VAULT_DIR || path.join(process.cwd(), "vault");
 const INBOX_FILE = path.join(process.cwd(), ".dayprint-inbox.json");
 
 function readInbox(): any[] {

@@ -25,7 +25,7 @@ SCENES = [
             "We do not just lose notes, we lose touch with who we were. "
             "Meet Dayprint: a tactile, local-first memory sanctuary that unifies "
             "your scattered work, reading, and reflections into a single living canvas: "
-            "the birth of your own Digital Sub-Myself."
+            "the birth of your living AI digital twin, an intimate thought confidant that truly knows who you are."
         ),
     },
     {
@@ -73,7 +73,7 @@ SCENES = [
             "Dayprint is one hundred percent local-first and silently backed up "
             "to your private GitHub repository as human-readable Markdown, "
             "zero subscription locks, complete data sovereignty. "
-            "Build your memory. Cultivate your digital sub-myself. "
+            "Build your memory. Cultivate your eternal AI digital twin and cognitive confidant. "
             "This is Dayprint. Your life, in prints. Thank you!"
         ),
     },

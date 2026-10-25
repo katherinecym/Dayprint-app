@@ -204,8 +204,10 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
       }
 
       if (currentMode === "demo") {
-        const hasYouPlus = loadedMems.some((m) => m.id.startsWith("mem_you_"));
-        if (!hasYouPlus || loadedMems.length === 0) {
+        // Purge any legacy mem_you_ memories to enforce 100% fictional builder persona
+        loadedMems = loadedMems.filter((m) => !m.id.startsWith("mem_you_"));
+        const hasDemo = loadedMems.some((m) => m.id.startsWith("mem_demo_"));
+        if (!hasDemo || loadedMems.length === 0) {
           const existingIds = new Set(loadedMems.map((m) => m.id));
           const missing = SEED_MEMORIES.filter((sm) => !existingIds.has(sm.id));
           loadedMems = [...loadedMems, ...missing];
@@ -226,8 +228,10 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
       }
 
       if (currentMode === "demo") {
-        const hasYouPlusRels = loadedRels.some((r) => r.id.startsWith("rel_you_"));
-        if (!hasYouPlusRels || loadedRels.length === 0) {
+        // Purge any legacy rel_you_ relationships
+        loadedRels = loadedRels.filter((r) => !r.id.startsWith("rel_you_"));
+        const hasDemoRels = loadedRels.some((r) => r.id.startsWith("rel_demo_"));
+        if (!hasDemoRels || loadedRels.length === 0) {
           const existingRelIds = new Set(loadedRels.map((r) => r.id));
           const missingRels = SEED_RELATIONSHIPS.filter((sr) => !existingRelIds.has(sr.id));
           loadedRels = [...loadedRels, ...missingRels];

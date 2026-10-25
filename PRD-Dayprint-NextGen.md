@@ -404,7 +404,7 @@ export interface Relationship {
 针对用户关心的“Feishu -> Obsidian -> GitHub -> Dayprint 是否真正打通？是否存在存储格式冲突？”，系统已完成端到端落地并确立严格的安全边界：
 
 1. **GitHub 云端单一真实源打通 (GitHub as the Single Cloud Source of Truth)**：
-   - **架构解耦**：彻底杜绝 Dayprint 依赖本地私有文件路径（`/Users/...`）。Dayprint 将 GitHub 远端仓库（`katherinecym/You-plus`）作为唯一核心云端中枢；
+   - **架构解耦**：彻底杜绝 Dayprint 依赖本地私有文件路径（`/Users/...`）。Dayprint 将 GitHub 远端仓库（`alexreed/aetheros-vault`）作为唯一核心云端中枢；
    - **直接拉取与同步**：Dayprint `/api/github/sync` 直连 GitHub REST API，自动并发拉取远端仓库的 `vault/` 目录中由 Obsidian/飞书推送的所有 Master Notes（`01_Persona ~ 05_Reading_Notes` 等），经由 `vault-parser` 纯内存无损解析为 Canonical Memory 资产；
    - **双轨无缝流转**：Obsidian 与 Feishu 负责向 GitHub 推送更新，Dayprint 前端每 20 秒及窗口聚焦时自动静默比对 GitHub 远端变更，实现跨设备、跨网络环境的云端实时无缝打通。
 2. **存储格式映射与零破坏原则 (Markdown vs. JSON Zero-Loss & Non-Destructive)**：
@@ -555,6 +555,24 @@ gantt
 
 ---
 
-## 7. 结语
+## 8. 品牌定位与术语重构演进：从 Digital Sub-Myself 到 AI数字分身与终身认知知己
+
+### 8.1 演进背景与痛点溯源
+在产品演进早期，系统曾直译使用 `Digital Sub-Myself`（数字次自我）。在真实人机交互与音频演示听感审查中发现：
+1. **听感拗口与文化隔阂**：`subdigital myself` / `sub-myself` 属于中式直译（Chinglish），容易让海外用户与评委产生歧义（以为是“次等自我”或冷僻的哲学词），缺乏科技传播感染力；
+2. **缺乏情感温度与共鸣**：“Sub-Myself”听起来像是一个冰冷的机械副本，忽略了人对记忆工具的情感依恋与心流陪伴需求。
+
+### 8.2 新术语与品牌认知矩阵
+为准确传达 Dayprint “温暖物理触感 + 个人主权数据 + 活态神经网络”的核心价值，产品正式完成概念升级：
+
+| 维度 | 原旧术语 (Deprecated) | 新核心术语 (New Standard) | 品牌内涵与心智定位 |
+| :--- | :--- | :--- | :--- |
+| **英文核心术语** | `Digital Sub-Myself` | **`AI Digital Twin & Cognitive Confidant`** | **活体数字孪生 + 亲密思维知己**。不仅是一个镜像数据副本，更是懂你心流、共同成长的硅基认知挚友。 |
+| **中文核心表达** | 数字次自我 / 子自我 | **AI 数字分身 / 互联网认知知己** | 既具备前沿科技属性（数字分身），又具备人文温度与陪伴感（知己）。 |
+| **视频演示 Slogan** | *Cultivate your digital sub-myself* | *Cultivate your eternal AI digital twin and cognitive confidant* | 语调昂扬自然，重音饱满，直击产品痛点与愿景。 |
+
+---
+
+## 9. 结语
 
 Dayprint NextGen 摒弃了生硬死板的抽象方格与空洞的概念借用，专注于为用户构建一个有温度、有呼吸感、具备自我生长能力的**实体手账画卷与个人记忆工作空间**。它让每一次微小的生活记录都拥有归宿，随岁月沉淀为可回响、可复利的智慧宝藏。

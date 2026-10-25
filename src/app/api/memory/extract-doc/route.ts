@@ -309,7 +309,7 @@ export async function POST(req: NextRequest) {
     let candidates: ExtractedCard[] = [];
 
     if (apiKey) {
-      const prompt = `你是一个终身知识管理与个人认知操作系统（Dayprint / You+）的资深架构师。
+      const prompt = `你是一个终身知识管理与个人认知操作系统（Dayprint）的资深架构师。
 下面是一份来自用户的笔记/文档原始材料（来源: ${docTitle}）。
 请深度阅读，并将其按照【认知金字塔】提炼为 2 到 6 张高度凝练、互不重叠的原子记忆卡片（Canonical Memory Cards）：
 

@@ -64,6 +64,8 @@ export function MemoryCard({
   return (
     <motion.div
       layoutId={`card-${memory.id}`}
+      data-testid="memory-card"
+      data-memory-id={memory.id}
       onClick={() => setSelectedMemoryId(memory.id)}
       style={{
         backgroundColor: hasImage ? "#FFFFFF" : isDark ? "var(--card-white)" : stock.bg,

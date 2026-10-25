@@ -1,10 +1,10 @@
-# Dayprint: The Living Canvas of Your Digital Sub-Myself
+# Dayprint: The Living Canvas of Your AI Digital Twin & Confidant
 ## Master Video Demo Blueprint & Voiceover Script (100% English)
 
 > **Event:** [Build With AI: Basics Hackathon (Devpost)](https://learn-ai-basics.devpost.com/)  
 > **Duration Target:** 2 minutes 15 seconds (Strictly within the 1–3 minute limit)  
 > **Resolution:** 1080p (1920x1080) or 4K, 60fps  
-> **Voiceover Pacing:** Articulate, reflective, and inspiring tech narrator  
+> **Voiceover Pacing:** Articulate, passionate, and inspiring tech narrator  
 > **Audio Balance:** Voiceover at -6 dB, mechanical keystrokes & paper rip effects at -14 dB  
 
 ---
@@ -13,7 +13,7 @@
 
 Our digital lives are fractured across Slack, email threads, browser bookmarks, and mobile memos. When we want to look back, our authentic past self is nowhere to be found. 
 
-**Dayprint is the single unified sanctuary for your living memory.** It weaves fleeting thoughts, engineering breakthroughs, classical reading reflections, and foundational principles into an evolving, interconnected neural constellation — the true birth of your **Digital Sub-Myself**.
+**Dayprint is the single unified sanctuary for your living memory.** It weaves fleeting thoughts, engineering breakthroughs, classical reading reflections, and foundational principles into an evolving, interconnected neural constellation — the true birth of your **AI Digital Twin & Cognitive Confidant** (AI数字分身与终身知己).
 
 ---
 
@@ -30,7 +30,7 @@ Our digital lives are fractured across Slack, email threads, browser bookmarks, 
 ## 3. Shot-by-Shot Master Storyboard & Script
 
 ### 🎬 Scene 1: The Fragmentation of "You" (0:00 – 0:24 | 24s)
-* **Core Theme:** The Problem of Scattered Silos & The Introduction of the Digital Sub-Myself.
+* **Core Theme:** The Problem of Scattered Silos & The Introduction of Your Living AI Digital Twin.
 * **On-Screen Actions:**
   1. Brief 3-second glance at fragmented digital silos (inboxes, complex folders, empty document pages).
   2. Smooth transition to Dayprint's warm Boogie Paper canvas with its harmonious scrapbook stream.
@@ -38,7 +38,7 @@ Our digital lives are fractured across Slack, email threads, browser bookmarks, 
 * **SFX:** Soft white noise fading into physical paper rustle.
 * **English Voiceover:**
   > *"Where does your authentic self actually live? Today, our lives are fractured into pieces. Our best work decisions get buried in chat threads, our study notes gather dust across random apps, and fleeting life reflections vanish into phone memos. We don’t just lose notes — we lose touch with who we were.  
-  > Meet **Dayprint**: a tactile, local-first memory sanctuary that unifies your scattered work, reading, and reflections into a single living canvas: the birth of your own **Digital Sub-Myself**."*
+  > Meet **Dayprint**: a tactile, local-first memory sanctuary that unifies your scattered work, reading, and reflections into a single living canvas: the birth of your living **AI Digital Twin**, an intimate thought confidant that truly knows who you are."*
 
 ---
 
@@ -93,7 +93,7 @@ Our digital lives are fractured across Slack, email threads, browser bookmarks, 
 * **SFX:** Soft typewriter carriage return ding (`Ding!`) on the final logo fade.
 * **English Voiceover:**
   > *"Most importantly: your digital self will **never be lost**. Dayprint is 100% local-first and silently backed up to your private GitHub repository as human-readable Markdown — zero subscription locks, complete data sovereignty.  
-  > Build your memory. Cultivate your digital sub-myself. This is Dayprint. Your life, in prints. Thank you!"*
+  > Build your memory. Cultivate your eternal AI digital twin and cognitive confidant. This is Dayprint. Your life, in prints. Thank you!"*
 
 ---
 
