@@ -101,101 +101,120 @@ async function main() {
   const sessionStart = Date.now();
 
   console.log(">>> [00:00 - 00:32] SCENE 1: The Fragmentation of You (Target: 32.0s)");
-  // Showcase daily stream and masonry layout
+  // Showcase daily stream, masonry layout, and interactive filters
   console.log("  - Smoothly scrolling down masonry receipts...");
-  await smoothScroll(page, 750, 7500);
-  await sleep(2500);
+  await smoothScroll(page, 550, 4000);
+  await sleep(1500);
 
-  // Hover over an interesting receipt
+  // Hover over a receipt to highlight resonance
   const cardA = page.locator('[data-testid="memory-card"]').nth(2);
   if (await cardA.isVisible()) {
     await cardA.hover();
-    await sleep(2500);
-  }
-
-  console.log("  - Smoothly scrolling further down...");
-  await smoothScroll(page, 1450, 7500);
-  await sleep(2500);
-
-  console.log("  - Smoothly returning to top...");
-  await smoothScroll(page, 0, 6000);
-  await sleep(2000);
-
-  const firstCard = page.locator('[data-testid="memory-card"]').first();
-  if (await firstCard.isVisible()) {
-    await firstCard.hover();
     await sleep(2000);
   }
+
+  // Interactive Filter switching: Ideas -> Decisions -> All
+  console.log("  - Demonstrating dynamic live category filtering...");
+  const ideaFilterBtn = page.locator('button:has-text("Idea"), button:has-text("IDEA")').first();
+  if (await ideaFilterBtn.isVisible()) {
+    await ideaFilterBtn.click();
+    await sleep(2200);
+  }
+
+  const decisionFilterBtn = page.locator('button:has-text("Decision"), button:has-text("DECISION")').first();
+  if (await decisionFilterBtn.isVisible()) {
+    await decisionFilterBtn.click();
+    await sleep(2200);
+  }
+
+  const allFilterBtn = page.locator('button:has-text("ALL")').first();
+  if (await allFilterBtn.isVisible()) {
+    await allFilterBtn.click();
+    await sleep(2000);
+  }
+
+  console.log("  - Smoothly returning to top hero...");
+  await smoothScroll(page, 0, 3500);
+  await sleep(1500);
 
   console.log(">>> [00:32 - 00:58] SCENE 2: Sub-Second Capture & Tactile Ritual (Target: 26.2s)");
   console.log("  - Clicking bottom dock editor...");
   const dockSpan = page.locator('span:has-text("What\'s on your mind?")').first();
   if (await dockSpan.isVisible()) {
     await dockSpan.click();
-    await sleep(1500);
+    await sleep(1200);
   }
 
-  console.log("  - Typing title and content...");
+  console.log("  - Typing title and raw unpolished note...");
   const titleInput = page.locator('input[placeholder*="Title"]').first();
   if (await titleInput.isVisible()) {
     await titleInput.click();
-    await titleInput.type('Living Sub-Myself & Unified Memory', { delay: 45 });
-    await sleep(800);
+    await titleInput.type('Distributed State Consensus', { delay: 35 });
+    await sleep(600);
   }
 
   const textarea = page.locator('textarea').first();
   if (await textarea.isVisible()) {
     await textarea.click();
-    await textarea.type('Unified cognitive sanctuary instead of fragmented apps across Slack, emails, and notes. Eternal cognitive twin.', { delay: 35 });
-    await sleep(1500);
+    await textarea.type('Investigated raft consensus versus crdt for mobile edge nodes. Need deterministic offline reconciliation without data loss.', { delay: 25 });
+    await sleep(1200);
   }
 
   console.log("  - Selecting Morandi Pigment...");
   const typeColorBtn = page.locator('button:has-text("Type Color")').first();
   if (await typeColorBtn.isVisible()) {
     await typeColorBtn.click();
-    await sleep(1000);
+    await sleep(800);
     const pigmentBtn = page.locator('button[title*="Sage"], button[title*="Almond"], button[title*="Kraft"]').first();
     if (await pigmentBtn.isVisible()) {
       await pigmentBtn.click();
-      await sleep(1000);
+      await sleep(800);
     }
+  }
+
+  // Trigger AI Polish transformation
+  console.log("  - Triggering live AI Polish transformation...");
+  const polishBtn = page.locator('button:has-text("AI Polish")').first();
+  if (await polishBtn.isVisible()) {
+    await polishBtn.click();
+    await sleep(3500); // Allow STAR extraction and confetti to show
   }
 
   console.log("  - Pressing Meta+Enter to print thermal receipt...");
   await page.keyboard.press('Meta+Enter');
-  await sleep(7000); // Wait for print animation, jagged tear, and receipt drop
+  await sleep(5500); // Wait for print animation, jagged tear, and receipt drop
 
   console.log(">>> [00:58 - 01:25] SCENE 3: Connect & Weave - The Living Constellation (Target: 26.6s)");
-  // Hover over a slip to show resonance
-  const cardB = page.locator('[data-testid="memory-card"]').nth(1);
-  if (await cardB.isVisible()) {
-    await cardB.hover();
-    await sleep(3500);
-  }
-
   console.log("  - Navigating to Knowledge Graph...");
   const graphBtn = page.locator('button:has-text("Knowledge Graph")').first();
   if (await graphBtn.isVisible()) {
     await graphBtn.click();
-    await sleep(4000);
+    await sleep(3500);
   }
 
-  console.log("  - Exploring knowledge graph nodes and connections...");
-  await page.mouse.move(720, 480);
+  console.log("  - Interacting with Knowledge Graph nodes and physics...");
+  // Hover & click a central node
+  await page.mouse.move(760, 480);
+  await sleep(2000);
+  await page.mouse.click(760, 480);
   await sleep(3000);
-  await page.mouse.move(960, 520);
+
+  // Drag node to show force physics elasticity
+  console.log("  - Dragging node to show force physics elasticity...");
+  await page.mouse.move(960, 500);
+  await page.mouse.down();
+  await page.mouse.move(860, 420, { steps: 15 });
+  await page.mouse.up();
   await sleep(3500);
-  await page.mouse.move(1120, 400);
-  await sleep(3500);
-  await page.mouse.move(860, 640);
-  await sleep(4000);
+
+  await page.mouse.move(1120, 420);
+  await sleep(2500);
 
   console.log("  - Switching back to Daily Journal...");
   const dailyBtn = page.locator('button:has-text("Daily Journal")').first();
   if (await dailyBtn.isVisible()) {
     await dailyBtn.click();
-    await sleep(4500);
+    await sleep(3500);
   }
 
   console.log(">>> [01:25 - 01:55] SCENE 4: Full CRUD, Evolution Logs & Distillation (Target: 30.1s)");
@@ -203,18 +222,12 @@ async function main() {
   const memoryCard = page.locator('[data-testid="memory-card"]').first();
   if (await memoryCard.isVisible()) {
     await memoryCard.click();
-    await sleep(4500);
-
-    const polishBtn = page.locator('button:has-text("AI Polish")').first();
-    if (await polishBtn.isVisible()) {
-      await polishBtn.hover();
-      await sleep(3500);
-    }
+    await sleep(3500);
 
     const closeBtn = page.locator('button:has(svg.lucide-x)').first();
     if (await closeBtn.isVisible()) {
       await closeBtn.click();
-      await sleep(2500);
+      await sleep(1500);
     }
   }
 
@@ -222,21 +235,21 @@ async function main() {
   const digestBtn = page.locator('button:has-text("Weekly Digest")').first();
   if (await digestBtn.isVisible()) {
     await digestBtn.click();
-    await sleep(5000);
+    await sleep(4000);
 
-    // Scroll through weekly digest
+    // Scroll through weekly digest to show populated milestones
     const digestModal = page.locator('.fixed.inset-0 .overflow-y-auto').first();
     if (await digestModal.isVisible()) {
-      await digestModal.evaluate((el) => el.scrollBy({ top: 350, behavior: 'smooth' }));
-      await sleep(4000);
-      await digestModal.evaluate((el) => el.scrollBy({ top: -350, behavior: 'smooth' }));
-      await sleep(3000);
+      await digestModal.evaluate((el) => el.scrollBy({ top: 380, behavior: 'smooth' }));
+      await sleep(3500);
+      await digestModal.evaluate((el) => el.scrollBy({ top: -380, behavior: 'smooth' }));
+      await sleep(2500);
     }
 
     const closeDigestBtn = page.locator('button:has(svg.lucide-x)').first();
     if (await closeDigestBtn.isVisible()) {
       await closeDigestBtn.click();
-      await sleep(2500);
+      await sleep(2000);
     }
   }
 
@@ -245,12 +258,20 @@ async function main() {
   const ghBtn = page.locator('button:has(svg.lucide-git-branch)').first();
   if (await ghBtn.isVisible()) {
     await ghBtn.click();
-    await sleep(6000);
+    await sleep(2000);
+
+    // Click interactive simulated demo sync button
+    console.log("  - Demonstrating 1-click GitHub sync simulation...");
+    const demoSyncBtn = page.locator('[data-testid="demo-sync-btn"]').first();
+    if (await demoSyncBtn.isVisible()) {
+      await demoSyncBtn.click();
+      await sleep(3500); // Watch 3-step progress and confetti celebration
+    }
 
     const closeGhBtn = page.locator('button:has(svg.lucide-x)').first();
     if (await closeGhBtn.isVisible()) {
       await closeGhBtn.click();
-      await sleep(2500);
+      await sleep(2000);
     }
   }
 

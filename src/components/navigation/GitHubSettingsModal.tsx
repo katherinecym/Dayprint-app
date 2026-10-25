@@ -369,6 +369,72 @@ export function GitHubSettingsModal({
     }
   };
 
+  const handleDemoSimulateSync = async () => {
+    setIsVerifyingToken(true);
+    const demoToken = "github_pat_demo_alexreed_sovereign_vault";
+    const demoRepo = "alexreed/aetheros-vault";
+    setPatInput(demoToken);
+    setRepoInput(demoRepo);
+    setDetectedUser({
+      login: "alexreed",
+      name: "Alex Reed",
+      avatar_url: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80",
+    });
+
+    setStatusMsg({
+      text:
+        language === "zh"
+          ? "[1/3] 正在验证 GitHub Token 并连接 @alexreed..."
+          : "[1/3] Authenticating token & resolving profile @alexreed...",
+      isError: false,
+    });
+
+    await new Promise((resolve) => setTimeout(resolve, 800));
+
+    setStatusMsg({
+      text:
+        language === "zh"
+          ? "[2/3] 正在将 12 条生活小票与 18 条星轨关系编译为 Git 提交树..."
+          : "[2/3] Compiling 12 Markdown memory cards & 18 graph edges into Git tree...",
+      isError: false,
+    });
+
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    const simulatedSha = "886c5e9";
+    const nowIso = new Date().toISOString();
+
+    updateSettings({
+      github: {
+        ...settings.github,
+        connected: true,
+        repo: demoRepo,
+        owner: "alexreed",
+        branch: "main",
+        pat: demoToken,
+        auto_sync: true,
+        last_sync: nowIso,
+        last_commit_sha: simulatedSha,
+      },
+    });
+
+    setIsVerifyingToken(false);
+    setStatusMsg({
+      text:
+        language === "zh"
+          ? `[3/3] 同步成功！已提交至私有仓库 main 分支 (Commit: ${simulatedSha})`
+          : `[3/3] Sync complete! Committed to private vault main branch (Commit: ${simulatedSha})`,
+      isError: false,
+    });
+
+    confetti({
+      particleCount: 45,
+      spread: 60,
+      origin: { y: 0.6 },
+      colors: ["#DD2E1E", "#1D45B8", "#F7C928", "#181818"],
+    });
+  };
+
   const handleDisconnectGitHub = () => {
     const disconnectedGithub = {
       connected: false,
@@ -686,6 +752,32 @@ export function GitHubSettingsModal({
                 </div>
               </div>
 
+              {/* Demo Mode Interactive Sync Banner */}
+              <div className="p-3.5 bg-gradient-to-r from-blue-50/90 via-indigo-50/70 to-blue-50/90 border border-blue-200/90 rounded-xl space-y-2 shadow-xs">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-blue-600 shrink-0" />
+                    <div>
+                      <span className="text-xs font-bold text-stone-900 block">
+                        {language === "zh" ? "Demo 演示：一键模拟 GitHub 绑定与云端同步" : "Demo Mode: 1-Click Interactive GitHub Sync"}
+                      </span>
+                      <span className="text-[10px] text-stone-500 block">
+                        {language === "zh" ? "无需真实 Token · 自动化全流程体验" : "No real token needed · Test full git workflow"}
+                      </span>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    data-testid="demo-sync-btn"
+                    onClick={handleDemoSimulateSync}
+                    className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white text-xs font-semibold rounded-lg shadow-xs transition-all flex items-center gap-1.5 cursor-pointer shrink-0"
+                  >
+                    <FolderGit2 className="w-3.5 h-3.5" />
+                    <span>{language === "zh" ? "体验模拟同步" : "Simulate Sync Now"}</span>
+                  </button>
+                </div>
+              </div>
+
               {/* Step 1: Personal Access Token (PAT) with Auto-Detection */}
               <div className="p-4 bg-white border border-stone-200 rounded-xl space-y-2.5 shadow-xs">
                 <div className="flex items-center justify-between">
@@ -866,6 +958,17 @@ export function GitHubSettingsModal({
                       </span>
                       <span className="font-mono text-stone-700">
                         {new Date(settings.github.last_sync).toLocaleString()}
+                      </span>
+                    </div>
+                  )}
+                  {settings.github.last_commit_sha && (
+                    <div className="flex justify-between">
+                      <span className="text-stone-600">
+                        {language === "zh" ? "Git Commit SHA：" : "Verified Commit: "}
+                      </span>
+                      <span className="font-mono text-emerald-700 font-semibold flex items-center gap-1">
+                        <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                        {settings.github.last_commit_sha}
                       </span>
                     </div>
                   )}

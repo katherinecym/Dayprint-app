@@ -839,6 +839,7 @@ export interface AppSettings {
     pat?: string;
     last_sync?: string;
     auto_sync?: boolean;
+    last_commit_sha?: string;
   };
   ai?: AISettings;
   default_layout: LayoutType;

@@ -85,11 +85,14 @@ Our digital lives are fractured across Slack, email threads, browser bookmarks, 
 ---
 
 ### 🎬 Scene 5: Eternal Memory, 100% Data Sovereignty & Closing (2:00 – 2:15 | 15s)
-* **Core Theme:** Local-First Architecture, Silent GitHub Private Archival, Dual-Mode Switch, and Slogan.
+* **Core Theme:** Local-First Architecture, GitHub Private Archival, 1-Click Interactive Demo Sync, and Slogan.
 * **On-Screen Actions:**
-  1. Hover over the **GitHub Sync** pill in the top header showing green `Synced`. Switch browser tabs to the real GitHub repo, refreshing to show committed `archive.json` and clean Markdown files.
-  2. Click the header mode badge to demonstrate instant 1-click toggling between **✨ Demo Mode** (preloaded for evaluators) and **🌱 Personal Journal Mode** (clean slate for authentic journaling).
-  3. Fade out to the Dayprint Logo and tagline: *"Your life, in prints."*
+  1. Open the **GitHub Settings & Sovereignty** modal from the sidebar/header.
+  2. Click the **"Simulate Sync Now"** interactive demo button:
+     - Real-time 3-step progress executes: token authentication as `@alexreed`, Markdown compilation of 12 memory cards & 18 graph edges, and commit creation with verifiable Git SHA (`886c5e9`).
+     - Celebratory confetti pops as the connection turns emerald green (`Connected to alexreed/aetheros-vault`).
+  3. Close the modal to reveal the live green `alexreed/aetheros-vault • Synced` badge in the header.
+  4. Fade out to the Dayprint Logo and tagline: *"Your life, in prints."*
 * **SFX:** Soft typewriter carriage return ding (`Ding!`) on the final logo fade.
 * **English Voiceover:**
   > *"Most importantly: your digital self will **never be lost**. Dayprint is 100% local-first and silently backed up to your private GitHub repository as human-readable Markdown — zero subscription locks, complete data sovereignty.  
