@@ -258,19 +258,21 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
 
       if (storedSettings) {
         const parsed = JSON.parse(storedSettings);
+        const isConnected = Boolean(
+          parsed.github?.connected &&
+          parsed.github?.pat &&
+          parsed.github?.repo
+        );
         const mergedSettings = {
           ...DEFAULT_SETTINGS,
           ...parsed,
           github: {
             ...DEFAULT_SETTINGS.github,
-            repo: parsed.github?.repo || DEFAULT_SETTINGS.github.repo,
-            owner: parsed.github?.owner || DEFAULT_SETTINGS.github.owner,
-            pat: parsed.github?.pat || DEFAULT_SETTINGS.github.pat,
-            connected: Boolean(
-              (parsed.github?.pat || DEFAULT_SETTINGS.github.pat) &&
-              (parsed.github?.repo || DEFAULT_SETTINGS.github.repo)
-            ),
-            auto_sync: parsed.github?.auto_sync !== undefined ? parsed.github.auto_sync : true,
+            repo: isConnected ? (parsed.github?.repo || "") : "",
+            owner: isConnected ? (parsed.github?.owner || "") : "",
+            pat: isConnected ? (parsed.github?.pat || "") : "",
+            connected: isConnected,
+            auto_sync: isConnected ? Boolean(parsed.github?.auto_sync) : false,
           },
         };
         setSettings(mergedSettings);
@@ -328,10 +330,16 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     let isFetching = false;
     const syncWithGitHubCloud = async () => {
+      // Guard: Only poll or fetch if user explicitly connected GitHub with valid credentials
+      if (!settings.github.connected || !settings.github.pat || !settings.github.repo) {
+        return;
+      }
       if (isFetching) return;
       isFetching = true;
       try {
-        const res = await fetch("/api/github/sync");
+        const res = await fetch(
+          `/api/github/sync?repo=${encodeURIComponent(settings.github.repo)}&pat=${encodeURIComponent(settings.github.pat)}`
+        );
         if (res.ok) {
           const result = await res.json();
           if (result.exists && result.data && Array.isArray(result.data.memories) && result.data.memories.length > 0) {
@@ -373,22 +381,27 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
       } catch {}
     };
 
-    syncWithGitHubCloud();
+    if (settings.github.connected && settings.github.pat && settings.github.repo) {
+      syncWithGitHubCloud();
+    }
     checkIngestInbox();
 
-    // Poll GitHub every 20 seconds, and on window focus
-    const ghInterval = setInterval(syncWithGitHubCloud, 20000);
+    // Poll GitHub every 20 seconds, and on window focus (only when connected)
+    const ghInterval = settings.github.connected && settings.github.pat && settings.github.repo
+      ? setInterval(syncWithGitHubCloud, 20000)
+      : null;
     const inboxInterval = setInterval(checkIngestInbox, 3000);
     window.addEventListener("focus", syncWithGitHubCloud);
 
     return () => {
-      clearInterval(ghInterval);
+      if (ghInterval) clearInterval(ghInterval);
       clearInterval(inboxInterval);
       window.removeEventListener("focus", syncWithGitHubCloud);
     };
-  }, []);
+  }, [settings.github.connected, settings.github.pat, settings.github.repo]);
 
   useEffect(() => {
+    if (!isHydrated.current) return;
     localStorage.setItem("dayprint_settings", JSON.stringify({ ...settings, language }));
     if (typeof document !== "undefined") {
       document.documentElement.setAttribute("data-theme", settings.theme || "boogie-paper");
@@ -402,7 +415,13 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
   }, [customPositions]);
 
   const updateSettings = (s: Partial<AppSettings>) => {
-    setSettings((prev) => ({ ...prev, ...s }));
+    setSettings((prev) => {
+      const next = { ...prev, ...s };
+      try {
+        localStorage.setItem("dayprint_settings", JSON.stringify({ ...next, language }));
+      } catch {}
+      return next;
+    });
   };
 
   const availableTypes = React.useMemo(() => {

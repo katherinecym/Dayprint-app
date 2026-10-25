@@ -370,21 +370,30 @@ export function GitHubSettingsModal({
   };
 
   const handleDisconnectGitHub = () => {
+    const disconnectedGithub = {
+      connected: false,
+      repo: "",
+      owner: "",
+      branch: "main",
+      pat: "",
+      auto_sync: false,
+      last_sync: undefined,
+    };
     updateSettings({
-      github: {
-        connected: false,
-        repo: "",
-        owner: "",
-        branch: "main",
-        pat: "",
-        auto_sync: false,
-        last_sync: undefined,
-      },
+      github: disconnectedGithub,
     });
     setRepoInput("");
     setPatInput("");
     setDetectedUser(null);
     setAutoSyncInput(false);
+    try {
+      const stored = localStorage.getItem("dayprint_settings");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        parsed.github = disconnectedGithub;
+        localStorage.setItem("dayprint_settings", JSON.stringify(parsed));
+      }
+    } catch {}
     setStatusMsg({
       text:
         language === "zh"

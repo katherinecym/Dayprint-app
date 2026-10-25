@@ -229,7 +229,8 @@ export function compileLLMWiki(
       const mTitle = getLocalizedTitle(m, lang);
       const mContent = getLocalizedContent(m, lang);
       if (m.type === "learning" || m.type === "decision") {
-        insights.push(`[${m.type.toUpperCase()}] ${mTitle}${mContent ? `：${mContent.slice(0, 60)}` : ""}`);
+        const colon = lang === "zh" ? "：" : ": ";
+        insights.push(`[${m.type.toUpperCase()}] ${mTitle}${mContent ? `${colon}${mContent.slice(0, 60)}` : ""}`);
       } else if (m.type === "idea" && insights.length < 3) {
         insights.push(`[IDEA] ${mTitle}`);
       }

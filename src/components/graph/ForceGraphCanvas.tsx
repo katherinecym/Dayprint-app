@@ -112,7 +112,8 @@ function precomputeStableLayout(
   edges: KnowledgeEdge[],
   memoryMap: Map<string, CanonicalMemory>,
   width: number,
-  height: number
+  height: number,
+  language: "en" | "zh" = "en"
 ): SimNode[] {
   const centerX = width / 2;
   const centerY = height / 2;
@@ -127,9 +128,13 @@ function precomputeStableLayout(
     const palette = CRAFT_PALETTE[lvl] || CRAFT_PALETTE.L0;
 
     // Calculate pill geometry
-    const isChinese = /[\u4e00-\u9fa5]/.test(n.title);
+    const isChinese = language === "zh";
     const cleanTitle = n.title.trim();
-    const rawContent = (mem?.content || mem?.content_zh || n.content || "").replace(/\s+/g, " ").trim();
+    const rawContent = (
+      language === "zh"
+        ? (mem?.content_zh || mem?.content || n.content || "")
+        : (mem?.content_en || n.content || "")
+    ).replace(/\s+/g, " ").trim();
 
     // Multi-line capsule pill width (generous up to 240px)
     const titleEstimatedWidth = cleanTitle.length * (isChinese ? 11.5 : 7.2);
@@ -146,7 +151,7 @@ function precomputeStableLayout(
     const maxSnippetChars = isChinese ? Math.floor((pillWidth - 62) / 9.5) : Math.floor((pillWidth - 62) / 6);
     const snippet = rawContent.length > maxSnippetChars
       ? rawContent.slice(0, Math.max(maxSnippetChars - 1, 6)) + "…"
-      : rawContent || (n.topics?.[0] ? `#${n.topics[0]}` : "Fragment");
+      : rawContent || (n.topics?.[0] ? `#${n.topics[0]}` : (language === "zh" ? "碎片" : "Fragment"));
 
     const rawTopic = n.topics?.[0] || mem?.topics?.[0];
     const topicTag = rawTopic ? (rawTopic.length > 7 ? rawTopic.slice(0, 6) + "…" : rawTopic) : null;
@@ -375,12 +380,12 @@ export function ForceGraphCanvas({
   useEffect(() => {
     const width = containerRef.current?.clientWidth || 900;
     const height = containerRef.current?.clientHeight || 650;
-    const computed = precomputeStableLayout(nodes, edges, memoryMap, width, height);
+    const computed = precomputeStableLayout(nodes, edges, memoryMap, width, height, language);
     setSimNodes(computed);
     simNodesRef.current = computed;
     // Auto-fit to viewport on mount or data change
     fitToScreen(computed);
-  }, [nodes, edges, memoryMap, fitToScreen]);
+  }, [nodes, edges, memoryMap, fitToScreen, language]);
 
   // Compute search matches & direct relationships with deep bilingual & metadata matching
   const searchFilter = useMemo(() => {
@@ -1123,9 +1128,12 @@ export function ForceGraphCanvas({
                         className="font-sans select-none"
                       >
                         {(() => {
-                          const fullContent = mem?.content || mem?.content_zh || node.content || "";
-                          const clean = fullContent.replace(/\s+/g, " ");
-                          return clean.length > 28 ? clean.slice(0, 27) + "…" : clean;
+                          const fullContent = (
+                            language === "zh"
+                              ? (mem?.content_zh || mem?.content || node.content || "")
+                              : (mem?.content_en || node.content || "")
+                          ).replace(/\s+/g, " ");
+                          return fullContent.length > 28 ? fullContent.slice(0, 27) + "…" : fullContent;
                         })()}
                       </text>
                       <text
@@ -1136,9 +1144,12 @@ export function ForceGraphCanvas({
                         className="font-sans select-none"
                       >
                         {(() => {
-                          const fullContent = mem?.content || mem?.content_zh || node.content || "";
-                          const clean = fullContent.replace(/\s+/g, " ");
-                          return clean.length > 28 ? clean.slice(27, 54) + (clean.length > 54 ? "…" : "") : "";
+                          const fullContent = (
+                            language === "zh"
+                              ? (mem?.content_zh || mem?.content || node.content || "")
+                              : (mem?.content_en || node.content || "")
+                          ).replace(/\s+/g, " ");
+                          return fullContent.length > 28 ? fullContent.slice(27, 54) + (fullContent.length > 54 ? "…" : "") : "";
                         })()}
                       </text>
 
