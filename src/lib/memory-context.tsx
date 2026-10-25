@@ -262,7 +262,14 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
 
       if (storedSettings) {
         const parsed = JSON.parse(storedSettings);
+        // Sanitize legacy mock repo (alexreed/aetheros-vault) so it never lingers
+        const isMockAlexreed =
+          parsed.github?.repo === "alexreed/aetheros-vault" ||
+          parsed.github?.owner === "alexreed" ||
+          (parsed.github?.pat && String(parsed.github?.pat).startsWith("github_pat_demo_"));
+
         const isConnected = Boolean(
+          !isMockAlexreed &&
           parsed.github?.connected &&
           parsed.github?.pat &&
           parsed.github?.repo
@@ -279,6 +286,11 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
             auto_sync: isConnected ? Boolean(parsed.github?.auto_sync) : false,
           },
         };
+        if (isMockAlexreed) {
+          try {
+            localStorage.setItem("dayprint_settings", JSON.stringify(mergedSettings));
+          } catch {}
+        }
         setSettings(mergedSettings);
         if (parsed.language) setLanguage(parsed.language);
         if (parsed.default_layout) setActiveLayout(parsed.default_layout);

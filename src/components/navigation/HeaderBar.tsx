@@ -232,6 +232,11 @@ export function HeaderBar({
                         ? "内置 Hackathon 评测数据、蒙德里安图谱星轨与小票"
                         : "Preloaded with mock graph, journal memories & receipts"}
                     </p>
+                    <span className="text-[10px] text-amber-800 font-semibold block mt-0.5">
+                      {language === "zh"
+                        ? "⚠️ 演示版无法持久存储用户信息"
+                        : "⚠️ Demo mode cannot persist user data"}
+                    </span>
                   </div>
                 </button>
 

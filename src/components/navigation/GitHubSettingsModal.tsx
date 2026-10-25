@@ -68,8 +68,10 @@ export function GitHubSettingsModal({
   const [activeTab, setActiveTab] = useState<"ai" | "github" | "data">(initialTab);
 
   // GitHub State
-  const [repoInput, setRepoInput] = useState(settings.github.repo || "");
-  const [patInput, setPatInput] = useState(settings.github.pat || "");
+  const sanitizeRepo = (r?: string) => (r === "alexreed/aetheros-vault" ? "" : (r || ""));
+  const sanitizePat = (p?: string) => (p?.startsWith("github_pat_demo_") ? "" : (p || ""));
+  const [repoInput, setRepoInput] = useState(sanitizeRepo(settings.github.repo));
+  const [patInput, setPatInput] = useState(sanitizePat(settings.github.pat));
   const [autoSyncInput, setAutoSyncInput] = useState<boolean>(
     Boolean(settings.github.auto_sync)
   );
@@ -99,8 +101,8 @@ export function GitHubSettingsModal({
   // Sync inputs when settings change or modal opens
   useEffect(() => {
     if (isOpen) {
-      setRepoInput(settings.github.repo || "");
-      setPatInput(settings.github.pat || "");
+      setRepoInput(sanitizeRepo(settings.github.repo));
+      setPatInput(sanitizePat(settings.github.pat));
       setAutoSyncInput(Boolean(settings.github.auto_sync));
 
       setAiProvider(settings.ai?.provider || "gemini");
@@ -369,72 +371,6 @@ export function GitHubSettingsModal({
     }
   };
 
-  const handleDemoSimulateSync = async () => {
-    setIsVerifyingToken(true);
-    const demoToken = "github_pat_demo_alexreed_sovereign_vault";
-    const demoRepo = "alexreed/aetheros-vault";
-    setPatInput(demoToken);
-    setRepoInput(demoRepo);
-    setDetectedUser({
-      login: "alexreed",
-      name: "Alex Reed",
-      avatar_url: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80",
-    });
-
-    setStatusMsg({
-      text:
-        language === "zh"
-          ? "[1/3] 正在验证 GitHub Token 并连接 @alexreed..."
-          : "[1/3] Authenticating token & resolving profile @alexreed...",
-      isError: false,
-    });
-
-    await new Promise((resolve) => setTimeout(resolve, 800));
-
-    setStatusMsg({
-      text:
-        language === "zh"
-          ? "[2/3] 正在将 12 条生活小票与 18 条星轨关系编译为 Git 提交树..."
-          : "[2/3] Compiling 12 Markdown memory cards & 18 graph edges into Git tree...",
-      isError: false,
-    });
-
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    const simulatedSha = "886c5e9";
-    const nowIso = new Date().toISOString();
-
-    updateSettings({
-      github: {
-        ...settings.github,
-        connected: true,
-        repo: demoRepo,
-        owner: "alexreed",
-        branch: "main",
-        pat: demoToken,
-        auto_sync: true,
-        last_sync: nowIso,
-        last_commit_sha: simulatedSha,
-      },
-    });
-
-    setIsVerifyingToken(false);
-    setStatusMsg({
-      text:
-        language === "zh"
-          ? `[3/3] 同步成功！已提交至私有仓库 main 分支 (Commit: ${simulatedSha})`
-          : `[3/3] Sync complete! Committed to private vault main branch (Commit: ${simulatedSha})`,
-      isError: false,
-    });
-
-    confetti({
-      particleCount: 45,
-      spread: 60,
-      origin: { y: 0.6 },
-      colors: ["#DD2E1E", "#1D45B8", "#F7C928", "#181818"],
-    });
-  };
-
   const handleDisconnectGitHub = () => {
     const disconnectedGithub = {
       connected: false,
@@ -581,7 +517,11 @@ export function GitHubSettingsModal({
                     { id: "claude", name: "Anthropic Claude", tag: "Sonnet / Haiku" },
                     { id: "deepseek", name: "DeepSeek", tag: "V3 / R1" },
                     { id: "custom", name: "Custom Proxy", tag: "OpenAI Spec" },
-                    { id: "local", name: "内置本地引擎", tag: "No Key Needed" },
+                    {
+                      id: "local",
+                      name: language === "zh" ? "内置本地引擎" : "Local Heuristic Engine",
+                      tag: language === "zh" ? "无需 Key" : "No Key Needed",
+                    },
                   ].map((p) => {
                     const isSelected = aiProvider === p.id;
                     return (
@@ -625,7 +565,10 @@ export function GitHubSettingsModal({
                       </span>
                     </span>
                     <span className="text-[10px] text-neutral-500">
-                      {aiProvider === "gemini" && "本地默认已注入，线上可留空"}
+                      {aiProvider === "gemini" &&
+                        (language === "zh"
+                          ? "本地默认已注入，线上可留空"
+                          : "Auto-injected locally, optional online")}
                       {aiProvider === "openai" && "sk-..."}
                       {aiProvider === "claude" && "sk-ant-..."}
                       {aiProvider === "deepseek" && "sk-..."}
@@ -639,7 +582,9 @@ export function GitHubSettingsModal({
                       onChange={(e) => setAiApiKey(e.target.value)}
                       placeholder={
                         aiProvider === "gemini"
-                          ? "本地自动读取 .env.local，或在此自定义粘贴"
+                          ? language === "zh"
+                            ? "本地自动读取 .env.local，或在此自定义粘贴"
+                            : "Auto-read from .env.local, or paste custom key"
                           : aiProvider === "claude"
                           ? "sk-ant-api03-..."
                           : "sk-..."
@@ -752,28 +697,40 @@ export function GitHubSettingsModal({
                 </div>
               </div>
 
-              {/* Demo Mode Interactive Sync Banner */}
-              <div className="p-3.5 bg-gradient-to-r from-blue-50/90 via-indigo-50/70 to-blue-50/90 border border-blue-200/90 rounded-xl space-y-2 shadow-xs">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-blue-600 shrink-0" />
+              {/* No GitHub Account? Try Demo Mode Guidance Banner */}
+              <div className="p-3.5 bg-gradient-to-r from-amber-50/90 via-amber-100/40 to-amber-50/90 border border-amber-200/90 rounded-xl space-y-2 shadow-xs">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-start gap-2">
+                    <Sparkles className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
                     <div>
                       <span className="text-xs font-bold text-stone-900 block">
-                        {language === "zh" ? "Demo 演示：一键模拟 GitHub 绑定与云端同步" : "Demo Mode: 1-Click Interactive GitHub Sync"}
+                        {language === "zh"
+                          ? "暂无 GitHub 账号或 Token？"
+                          : "Don't have a GitHub account or Token?"}
                       </span>
-                      <span className="text-[10px] text-stone-500 block">
-                        {language === "zh" ? "无需真实 Token · 自动化全流程体验" : "No real token needed · Test full git workflow"}
+                      <span className="text-[11px] text-stone-600 block mt-0.5 leading-relaxed">
+                        {language === "zh"
+                          ? "您可以直接切换至 Demo 演示模式体验完整交互与图谱特性。"
+                          : "You can switch to Demo Mode to explore all visual features, constellation graphs, and daily receipts."}
+                      </span>
+                      <span className="text-[10px] text-amber-800 font-semibold block mt-1">
+                        {language === "zh"
+                          ? "⚠️ 注意：Demo 模式下无法持久存储您的个人信息与手账记忆。"
+                          : "⚠️ Note: Demo mode cannot store or persist your personal info or memories."}
                       </span>
                     </div>
                   </div>
                   <button
                     type="button"
-                    data-testid="demo-sync-btn"
-                    onClick={handleDemoSimulateSync}
-                    className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white text-xs font-semibold rounded-lg shadow-xs transition-all flex items-center gap-1.5 cursor-pointer shrink-0"
+                    data-testid="switch-to-demo-btn"
+                    onClick={() => {
+                      loadDemoData();
+                      onClose();
+                    }}
+                    className="px-3 py-1.5 bg-stone-900 hover:bg-stone-800 active:scale-95 text-white text-xs font-semibold rounded-lg shadow-xs transition-all flex items-center gap-1.5 cursor-pointer shrink-0 mt-0.5"
                   >
-                    <FolderGit2 className="w-3.5 h-3.5" />
-                    <span>{language === "zh" ? "体验模拟同步" : "Simulate Sync Now"}</span>
+                    <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                    <span>{language === "zh" ? "体验 Demo 模式" : "Try Demo Mode"}</span>
                   </button>
                 </div>
               </div>
@@ -1039,8 +996,13 @@ export function GitHubSettingsModal({
                     </div>
                     <p className="text-[11px] text-stone-500 leading-relaxed">
                       {language === "zh"
-                        ? "专为 Hackathon 评测与特性探索设计。预置蒙德里安、代官山旧书店等丰富图谱、小票存根与认知档案。"
-                        : "Designed for hackathon review & feature exploration. Preloaded with rich constellation graphs, daily notes & receipts."}
+                        ? "专为评测与特性探索设计。预置蒙德里安、代官山旧书店等丰富图谱、小票存根与认知档案。"
+                        : "Designed for review & feature exploration. Preloaded with rich constellation graphs, daily notes & receipts."}
+                    </p>
+                    <p className="text-[10px] text-amber-800 font-semibold mt-1">
+                      {language === "zh"
+                        ? "⚠️ 注意：Demo 模式下无法存储用户信息与手账数据。"
+                        : "⚠️ Note: Demo mode cannot store or persist user information."}
                     </p>
                   </div>
 

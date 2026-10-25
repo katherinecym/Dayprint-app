@@ -15,6 +15,7 @@ import {
   AlertCircle,
   Key,
   ArrowRight,
+  Info,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import { DayprintLogo } from "@/components/ui/DayprintLogo";
@@ -49,7 +50,7 @@ export function WelcomeGatewayModal({
 
   const [activeTab, setActiveTab] = useState<"github" | "demo">("github");
   const [patInput, setPatInput] = useState("");
-  const [repoInput, setRepoInput] = useState("my-dayprint-vault");
+  const [repoInput, setRepoInput] = useState("");
   const [showToken, setShowToken] = useState(false);
   const [isVerifyingToken, setIsVerifyingToken] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
@@ -88,9 +89,6 @@ export function WelcomeGatewayModal({
       const data = await res.json();
       if (data.success && data.user) {
         setDetectedUser(data.user);
-        if (!repoInput.trim()) {
-          setRepoInput("my-dayprint-vault");
-        }
       } else {
         setDetectedUser(null);
       }
@@ -298,7 +296,11 @@ export function WelcomeGatewayModal({
                     type={showToken ? "text" : "password"}
                     value={patInput}
                     onChange={handlePatChange}
-                    placeholder="ghp_xxxxxxxxxxxxxxxxxxxx 或 github_pat_..."
+                    placeholder={
+                      language === "zh"
+                        ? "ghp_xxxxxxxxxxxxxxxxxxxx 或 github_pat_..."
+                        : "ghp_xxxxxxxxxxxxxxxxxxxx or github_pat_..."
+                    }
                     className="w-full h-10 px-3.5 pr-20 text-xs font-mono bg-white border border-stone-300 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 shadow-2xs"
                   />
                   <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1.5">
@@ -352,6 +354,33 @@ export function WelcomeGatewayModal({
                     ? "提示：若仓库尚未创建，Dayprint 将使用您的 Token 自动在您的账号下新建私有 (Private) 仓库。"
                     : "Tip: If the repository doesn't exist, Dayprint will automatically create a private repository on your account."}
                 </p>
+
+                {/* Fallback to Demo Mode hint */}
+                <div className="p-3 bg-amber-50/80 border border-amber-200/90 rounded-xl flex items-start gap-2.5 text-xs">
+                  <Info className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
+                  <div className="text-stone-700 leading-relaxed flex-1">
+                    <div className="font-semibold text-stone-900">
+                      {language === "zh" ? "暂无 GitHub 账号？" : "No GitHub account yet?"}
+                    </div>
+                    <div className="text-[11px] text-stone-600 mt-0.5">
+                      {language === "zh"
+                        ? "您可以先使用 Demo 模式免配置直接体验完整特性。"
+                        : "You can try Demo Mode to experience all features right away without setup."}
+                    </div>
+                    <div className="text-[11px] text-amber-800 font-semibold mt-1">
+                      {language === "zh"
+                        ? "⚠️ 注意：Demo 模式下无法存储用户信息与手账记忆。"
+                        : "⚠️ Note: Demo mode cannot store user information or memories."}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab("demo")}
+                      className="text-xs text-blue-600 hover:text-blue-800 font-bold underline mt-1.5 inline-block cursor-pointer"
+                    >
+                      {language === "zh" ? "👉 切换到 Demo 模式体验" : "👉 Switch to Demo Mode"}
+                    </button>
+                  </div>
+                </div>
               </div>
 
               {/* Status Message */}
@@ -427,6 +456,23 @@ export function WelcomeGatewayModal({
                     {language === "zh" ? "复古热敏打印风每日总结与盖章" : "Thermal-print style end-of-day reflection"}
                   </div>
                 </div>
+              </div>
+
+              {/* Ephemeral Warning Notice */}
+              <div className="p-3.5 bg-amber-50 border border-amber-300/80 rounded-xl space-y-1.5">
+                <div className="flex items-center gap-2 text-amber-950 font-bold text-xs">
+                  <AlertCircle className="w-4 h-4 text-amber-700 shrink-0" />
+                  <span>
+                    {language === "zh"
+                      ? "重要提示：Demo 模式数据非持久存储"
+                      : "Important: Demo Mode Data Is Ephemeral"}
+                  </span>
+                </div>
+                <p className="text-[11px] text-amber-900 leading-relaxed">
+                  {language === "zh"
+                    ? "⚠️ Demo 模式下无法存储用户信息与手账数据（仅供交互演示与特性评测）。若要永久保留您的个人手账，请随时切换至「连接专属 GitHub 仓库」开启正式手账。"
+                    : "⚠️ Demo mode cannot store user information or journal memories (for interactive preview only). To permanently keep your records, connect your private GitHub vault anytime."}
+                </p>
               </div>
 
               <button

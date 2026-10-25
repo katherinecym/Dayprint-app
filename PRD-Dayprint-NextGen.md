@@ -404,7 +404,9 @@ export interface Relationship {
 针对用户关心的“Feishu -> Obsidian -> GitHub -> Dayprint 是否真正打通？是否存在存储格式冲突？”，系统已完成端到端落地并确立严格的安全边界：
 
 1. **GitHub 云端单一真实源打通 (GitHub as the Single Cloud Source of Truth)**：
-   - **架构解耦**：彻底杜绝 Dayprint 依赖本地私有文件路径（`/Users/...`）。Dayprint 将 GitHub 远端仓库（`alexreed/aetheros-vault`）作为唯一核心云端中枢；
+   - **架构解耦**：彻底杜绝 Dayprint 依赖本地私有文件路径（`/Users/...`）。Dayprint 将用户自有的 GitHub 远端私有仓库（如 `your-username/my-dayprint-vault`）作为唯一核心云端中枢；绝不预填任何写死假数据或第三方仓库名；
+   - **Demo 模式免门槛体验与非持久化声明**：若用户暂无 GitHub 账号或 Token，系统引导其切换至 Demo 演示模式体验完整交互特性；同时在全链路（欢迎网关、偏好设置、模式切换菜单）强提示：**“Demo 模式仅供交互评测与体验，无法持久化存储用户个人信息与手账数据”**；
+   - **全面双语国际化 (i18n)**：所有设置弹窗、API Key 说明、占位符及模型选项严格适配中英双语，杜绝在英文模式下残留中文文本。
    - **直接拉取与同步**：Dayprint `/api/github/sync` 直连 GitHub REST API，自动并发拉取远端仓库的 `vault/` 目录中由 Obsidian/飞书推送的所有 Master Notes（`01_Persona ~ 05_Reading_Notes` 等），经由 `vault-parser` 纯内存无损解析为 Canonical Memory 资产；
    - **双轨无缝流转**：Obsidian 与 Feishu 负责向 GitHub 推送更新，Dayprint 前端每 20 秒及窗口聚焦时自动静默比对 GitHub 远端变更，实现跨设备、跨网络环境的云端实时无缝打通。
 2. **存储格式映射与零破坏原则 (Markdown vs. JSON Zero-Loss & Non-Destructive)**：
@@ -570,6 +572,42 @@ gantt
 | **英文核心术语** | `Digital Sub-Myself` | **`AI Digital Twin & Cognitive Confidant`** | **活体数字孪生 + 亲密思维知己**。不仅是一个镜像数据副本，更是懂你心流、共同成长的硅基认知挚友。 |
 | **中文核心表达** | 数字次自我 / 子自我 | **AI 数字分身 / 互联网认知知己** | 既具备前沿科技属性（数字分身），又具备人文温度与陪伴感（知己）。 |
 | **视频演示 Slogan** | *Cultivate your digital sub-myself* | *Cultivate your eternal AI digital twin and cognitive confidant* | 语调昂扬自然，重音饱满，直击产品痛点与愿景。 |
+
+### 8.3 品牌心智金字塔与场景化标语体系 (Brand Hierarchy)
+
+```
+                       ┌────────────────────────────────────────────────────────┐
+                       │                   深层哲学与长期愿景                   │
+                       │           Build your evolving digital self.            │
+                       │             (用户记录的是生活，最终构建的却是自己)             │
+                       └───────────────────────────┬────────────────────────────┘
+                                                   │
+                       ┌───────────────────────────▼────────────────────────────┐
+                       │                   情感共鸣与连接层                     │
+                       │        All the pieces of you, coming together.         │
+                       │       (让零散的记忆、思想、经历重新连接，汇聚成完整的自我)       │
+                       └───────────────────────────┬────────────────────────────┘
+                                                   │
+                       ┌───────────────────────────▼────────────────────────────┐
+                       │                   每日行动与物理仪式层                 │
+                       │                   Dayprint your life.                  │
+                       │             (每天留下一个印记，具有温度的纸质手账感)           │
+                       └────────────────────────────────────────────────────────┘
+```
+
+#### 场景化标语路由 (Scenario-based Slogan Matrix)
+1. **产品首页 / 品牌官网主标语**：
+   - **`Dayprint your life.`**
+   - **`All the pieces of you, coming together.`**
+   - *设计哲学*：温暖、易懂、不堆砌 AI 概念。用户记录的是每天的生活，但长期自然聚合成完整的数字自我。
+2. **产品愿景 / 认知分身定位**：
+   - **`Build your digital self.`**
+   - **`A digital self that grows with you.`**
+   - *设计哲学*：作为产品的长期愿景，让技术隐于幕后，AI 是帮助这一切发生的能力，而非品牌的全部。
+3. **商业宣传片 / 视频 Demo 结尾压轴**：
+   - **`Every piece tells your story.`** （每一块碎片，都在诉说你的故事。）
+   - **`Dayprint your life. All the pieces of you, coming together.`**
+   - *设计哲学*：完美契合视频从散乱信息碎片逐渐汇聚至 Dayprint 星图的视觉高潮，具有极强的电影级仪式感。
 
 ---
 

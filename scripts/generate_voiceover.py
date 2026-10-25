@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Dayprint Demo Voiceover Generator using VoxCPM2.
-Generates studio-quality 48kHz WAV files for Scene 1 to Scene 5,
+Generates studio-quality 48kHz WAV files for Scene 1 to Scene 7,
 and combines them into dayprint_voiceover_full.wav.
 """
 
@@ -14,67 +14,100 @@ from voxcpm import VoxCPM
 
 SCENES = [
     {
-        "id": "scene1_fragmentation",
-        "title": "Scene 1: The Fragmentation of You",
+        "id": "scene1_step1_sovereignty",
+        "title": "Scene 1: Data Sovereignty & Step 1 - Connecting Private GitHub Repo",
         "text": (
             "Where does your authentic self actually live? "
-            "Today, our lives are fractured into pieces. "
-            "Our best work decisions get buried in chat threads, "
-            "our study notes gather dust across random apps, "
-            "and fleeting life reflections vanish into phone memos. "
-            "We do not just lose notes, we lose touch with who we were. "
-            "Meet Dayprint: a tactile, local-first memory sanctuary that unifies "
-            "your scattered work, reading, and reflections into a single living canvas: "
-            "the birth of your living AI digital twin, an intimate thought confidant that truly knows who you are."
+            "Today, our thoughts and work decisions are scattered across a dozen cloud silos. "
+            "Because personal memories contain your most intimate thoughts, Dayprint is built on one core foundation: "
+            "zero data leakage, complete data sovereignty. "
+            "Your very first step is to open Settings and connect your private GitHub repository. "
+            "Entering your repository and personal access token ensures every memory, receipt, and graph edge "
+            "commits directly to your private repository as clean Markdown. "
+            "For this walkthrough, we will demonstrate via our instant Demo Mode, "
+            "preloaded with a systems architect's living stream."
         ),
     },
     {
-        "id": "scene2_capture",
-        "title": "Scene 2: Sub-Second Capture & Tactile Ritual",
+        "id": "scene2_today_canvas",
+        "title": "Scene 2: Today's Canvas, AI Polish, Weave Echo & Morandi Creation Ritual",
         "text": (
             "Capturing a moment is completely frictionless. "
-            "No forced folder taxonomies, no title paralysis. "
-            "Just capture your thought, attach an image, and select an authentic Morandi paper stock. "
-            "Press Command plus Enter, and you hear the mechanical keystroke. "
-            "A realistic thermal paper slip with jagged serrated edges prints instantly onto your canvas. "
-            "Recording your life suddenly transforms from an administrative chore into a delightful physical ritual."
+            "No title paralysis, no rigid folder trees. "
+            "Write down a raw thought, and click AI Polish: "
+            "Dayprint's embedded intelligence instantly structures your rough notes into a quantifiable STAR accomplishment—"
+            "Situation, Task, Action, and Result—ready for your career brag sheet. "
+            "Notice the Memory Echo bar: Dayprint detects past thoughts that resonate with what you wrote. "
+            "With one click on Weave Echo, you weave an authentic temporal thread connecting today's code with your past architectural foundations. "
+            "Categorize with flexible types, create custom types like Architecture on the fly, bind signature Morandi paper pigments, and tag your topics. "
+            "Press Command plus Enter, hear the mechanical keystroke, "
+            "and your thought prints as a physical slip onto your canvas."
         ),
     },
     {
-        "id": "scene3_constellation",
-        "title": "Scene 3: Connect & Weave - The Living Constellation",
+        "id": "scene3_companion_panel",
+        "title": "Scene 3: Companion Panel — Stream, Daily Summary Slip & Activity Heatmap",
         "text": (
-            "Instead of keeping work notes in one tool and reading notes in another, "
-            "Dayprint brings everything into one interconnected universe. "
-            "Hover over any slip, and all related thoughts across your career and life illuminate in resonance. "
-            "With bidirectional wiki-links, you can jump between connected memories with a single click. "
-            "And when you open the Knowledge Constellation, Dayprint compiles your scattered reflections "
-            "into an interactive neural graph of your evolving mind."
+            "On the right, your Companion Panel anchors your daily ritual through three elegant pillars. "
+            "At the top rests the Daily Summary Slip. "
+            "Choose your daily mood watercolor wash, and write your evening reflection or takeaway—"
+            "it automatically stamps onto today's permanent record. "
+            "In the center, Today's Stream flows in real time, "
+            "displaying every slip you captured today with precise timestamps, custom color tags, and evolution milestones. "
+            "And at the bottom, your Memory Activity Heatmap tracks your consistency, "
+            "visualizing your unbroken streak and cognitive contribution across the year."
         ),
     },
     {
-        "id": "scene4_evolution",
-        "title": "Scene 4: Full CRUD, Evolution Logs & Cognitive Distillation",
+        "id": "scene4_life_stubs_receipt",
+        "title": "Scene 4: Life Stubs & Anatomy of the Daily Thermal Receipt",
         "text": (
-            "A true digital twin must evolve. "
-            "In Dayprint, every memory is living and fully editable. "
-            "Rather than cluttering your canvas with duplicate notes, "
-            "you can append timestamped evolution logs to watch a raw hunch mature over months. "
-            "Click AI Polish to distill rough logs into quantifiable STAR achievements for your resume and reviews. "
-            "Memories graduate across an autonomous five-tier cognitive pyramid, from daily moments to habits and core principles, "
-            "ready to be exported as clean weekly digests with one click."
+            "Click Life Stubs, and your digital memories transform into a tactile scrapbook. "
+            "Every day culminates in an authentic Daily Thermal Receipt—a physical artifact of your lived experience. "
+            "Look at the meticulous anatomy: "
+            "the date masthead and mood watercolor wash at the top; "
+            "an itemized dot-matrix register of every slip, marked with timestamps, polaroid thumbnails, and topics; "
+            "the total count of your daily moments; "
+            "your personal evening reflection preserved in elegant serif typography; "
+            "the authentic tilted rubber wax stamp sealing the archive; "
+            "and the tactile jagged sawtooth edge at the bottom. "
+            "Flip through past days with a single click: reviewing your life has never felt so nostalgic and grounding."
         ),
     },
     {
-        "id": "scene5_sovereignty",
-        "title": "Scene 5: Eternal Memory & Data Sovereignty",
+        "id": "scene5_knowledge_graph",
+        "title": "Scene 5: Knowledge Graph — Force Graph, Cards Mode & Link Management",
         "text": (
-            "Most importantly: your digital self will never be lost. "
-            "Dayprint is one hundred percent local-first and silently backed up "
-            "to your private GitHub repository as human-readable Markdown, "
-            "zero subscription locks, complete data sovereignty. "
-            "Build your memory. Cultivate your eternal AI digital twin and cognitive confidant. "
-            "This is Dayprint. Your life, in prints. Thank you!"
+            "Memories never exist in isolation. "
+            "In the Knowledge Graph, Dayprint weaves your scattered reflections into a living neural constellation. "
+            "In Force Graph mode, watch your thoughts cluster organically with real physics. "
+            "Hover over any node, and its relational network illuminates across time. "
+            "Switch seamlessly to Cards Mode to inspect your thoughts categorized across a five-tier cognitive hierarchy—"
+            "from fleeting moments to habits, mental models, and core principles. "
+            "And managing links is completely transparent. "
+            "Open Link Management to prune outdated connections with one click, "
+            "or establish new causal bridges, articulating why two ideas connect. "
+            "Your knowledge network is an active, self-organizing mind."
+        ),
+    },
+    {
+        "id": "scene6_weekly_digest",
+        "title": "Scene 6: Weekly Digest & Autonomous Synthesis",
+        "text": (
+            "Every Sunday, open the Weekly Digest. "
+            "Dayprint autonomously synthesizes your entire week: "
+            "clustering your key breakthroughs, charting your cognitive growth, and extracting verified STAR accomplishments. "
+            "Click Copy Markdown to paste your weekly brag sheet straight into your team review or personal vault. "
+            "You will never have to wonder what you accomplished this week ever again."
+        ),
+    },
+    {
+        "id": "scene7_closing",
+        "title": "Scene 7: Eternal Sovereignty & Closing",
+        "text": (
+            "Your memories are safe, portable, and permanently yours. "
+            "Stop scattering your life across walled gardens. "
+            "Dayprint your life. All the pieces of you, coming together. Thank you!"
         ),
     },
 ]
@@ -84,7 +117,7 @@ def main():
     os.makedirs(output_dir, exist_ok=True)
 
     print("==================================================")
-    print(" Dayprint Demo Voiceover Generator (VoxCPM2)")
+    print(" Dayprint Master Demo Voiceover Generator (VoxCPM2)")
     print("==================================================")
 
     device = "mps" if torch.backends.mps.is_available() else "cpu"
@@ -97,8 +130,8 @@ def main():
     print(f"Model successfully loaded. Sampling rate: {sample_rate} Hz\n")
 
     full_audio_chunks = []
-    # 0.6 seconds of silence pause between scenes
-    silence_gap = np.zeros(int(sample_rate * 0.6), dtype=np.float32)
+    # 0.55 seconds of silence pause between scenes
+    silence_gap = np.zeros(int(sample_rate * 0.55), dtype=np.float32)
 
     for i, scene in enumerate(SCENES, 1):
         scene_id = scene["id"]

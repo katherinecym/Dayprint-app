@@ -2,7 +2,7 @@
 
 > **Hackathon:** [Build With AI: Basics (Devpost Learn)](https://learn-ai-basics.devpost.com/)  
 > **Project Name:** Dayprint (今日印迹)  
-> **Tagline:** Your life, in prints. A tactile, local-first memory sanctuary that unifies scattered work, reading, and life reflections into an interconnected knowledge constellation — cultivating your living AI Digital Twin and cognitive confidant.  
+> **Tagline:** Dayprint your life. All the pieces of you, coming together. A tactile, local-first memory sanctuary that unifies scattered work, reading, and reflections into an evolving digital self with eternal data sovereignty.  
 > **Repository:** Public Git Repository with `scope.md`, `prd.md`, `spec.md`  
 
 ---
@@ -12,7 +12,7 @@
 ### 1.1 Project Overview (项目概览)
 * **Title:** Dayprint (今日印迹)
 * **Tagline (一句话介绍):**
-  > A tactile, local-first memory sanctuary that unifies your scattered work, reading, and life reflections into an interconnected living graph — cultivating your authentic AI Digital Twin & Confidant with eternal data sovereignty.
+  > Dayprint your life. All the pieces of you, coming together. A tactile, local-first memory sanctuary cultivating your evolving digital self with 100% data sovereignty.
 * **Try it out / Demo Link:** `http://localhost:3000` (Local Dev) / Vercel Live Preview Link
 * **Repository Link:** Public GitHub repository link
 

@@ -25,7 +25,13 @@ function resolveSettingsOnHydration(storedSettingsJson: string | null) {
 
   if (!storedSettingsJson) return DEFAULT_SETTINGS;
   const parsed = JSON.parse(storedSettingsJson);
+  const isMockAlexreed =
+    parsed.github?.repo === "alexreed/aetheros-vault" ||
+    parsed.github?.owner === "alexreed" ||
+    (parsed.github?.pat && String(parsed.github?.pat).startsWith("github_pat_demo_"));
+
   const isConnected = Boolean(
+    !isMockAlexreed &&
     parsed.github?.connected &&
     parsed.github?.pat &&
     parsed.github?.repo
@@ -101,6 +107,26 @@ describe("Welcome Gateway & Repo Normalization", () => {
     expect(hydrated.github.connected).toBe(false);
     expect(hydrated.github.pat).toBe("");
     expect(hydrated.github.repo).toBe("");
+  });
+
+  it("should completely sanitize and wipe legacy alexreed/aetheros-vault mock credentials", () => {
+    const legacyMockState = JSON.stringify({
+      language: "en",
+      github: {
+        connected: true,
+        repo: "alexreed/aetheros-vault",
+        owner: "alexreed",
+        pat: "github_pat_demo_alexreed_sovereign_vault",
+        auto_sync: true,
+      },
+    });
+
+    const hydrated = resolveSettingsOnHydration(legacyMockState);
+    expect(hydrated.github.connected).toBe(false);
+    expect(hydrated.github.pat).toBe("");
+    expect(hydrated.github.repo).toBe("");
+    expect(hydrated.github.owner).toBe("");
+    expect(hydrated.github.auto_sync).toBe(false);
   });
 
   it("should calculate graph peek line-breaks within bounds without text overflow", () => {
