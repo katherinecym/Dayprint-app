@@ -1,85 +1,104 @@
-# Dayprint — Demo Video Storyboard & Voiceover Script
-## (1–3 Minute Hackathon Demo Video Guide)
+# Dayprint: The Living Canvas of Your Digital Sub-Myself
+## Master Video Demo Blueprint & Voiceover Script (100% English)
 
 > **Event:** [Build With AI: Basics Hackathon (Devpost)](https://learn-ai-basics.devpost.com/)  
-> **Target Duration:** 2 minutes 15 seconds (Strictly within the 1–3 minute limit)  
+> **Duration Target:** 2 minutes 15 seconds (Strictly within the 1–3 minute limit)  
 > **Resolution:** 1080p (1920x1080) or 4K, 60fps  
-> **Audio:** Clear English voiceover with physical typewriter and paper tearing sound effects (no loud background music)  
+> **Voiceover Pacing:** Articulate, reflective, and inspiring tech narrator  
+> **Audio Balance:** Voiceover at -6 dB, mechanical keystrokes & paper rip effects at -14 dB  
 
 ---
 
-## Pre-Recording Checklist
+## 1. The Core Narrative Arc
 
-- [ ] **Dev Server:** Run `pnpm dev` and open `http://localhost:3000` in fullscreen mode (`F11` or fullscreen browser window).
-- [ ] **Default Theme:** Use the default **Boogie Paper Theme (`boogie-paper`)** — its warm almond paper texture provides the best tactile feel.
-- [ ] **Sound Effects On:** Ensure the mechanical keyboard click sound is enabled in the top right header (listen for the satisfying mechanical keystrokes).
-- [ ] **Mode Check:** Verify the top bar shows **✨ Demo Mode** with preloaded constellation memories, receipts, and daily slips.
-- [ ] **Test Inputs Ready:**
-  - A short thought to type: *"Solved the offline keepalive sync challenge with Next.js 16 and GitHub REST API"*;
-  - An image ready to paste or drag onto the canvas.
+Our digital lives are fractured across Slack, email threads, browser bookmarks, and mobile memos. When we want to look back, our authentic past self is nowhere to be found. 
+
+**Dayprint is the single unified sanctuary for your living memory.** It weaves fleeting thoughts, engineering breakthroughs, classical reading reflections, and foundational principles into an evolving, interconnected neural constellation — the true birth of your **Digital Sub-Myself**.
 
 ---
 
-## Shot-by-Shot Storyboard & Voiceover Script
+## 2. Pre-Recording Checklist
 
-### Scene 1: The Problem & Blank-Page Paralysis (0:00 – 0:22) | Duration: 22s
-* **Visual Action:**
-  - Quick 2-second flash of an intimidating blank Notion/Obsidian database screen, immediately transitioning to Dayprint's warm, inviting editorial paper canvas.
-  - Smooth cursor glide across the Morandi-tinted cards with washi tape accents.
+- [ ] **Dev Server:** Run `pnpm dev` and open `http://localhost:3000` in fullscreen browser mode.
+- [ ] **Default Theme:** Use the default **Boogie Paper Theme (`boogie-paper`)** for the signature warm Morandi paper stock.
+- [ ] **Sound On:** Ensure the top-right mechanical typewriter sound toggle is active.
+- [ ] **Mode Check:** Verify the header capsule is in **✨ Demo Mode** with preloaded constellation memories and daily slips.
+- [ ] **Clipboard Ready:** Have a test note and an architectural image ready on your clipboard.
+
+---
+
+## 3. Shot-by-Shot Master Storyboard & Script
+
+### 🎬 Scene 1: The Fragmentation of "You" (0:00 – 0:24 | 24s)
+* **Core Theme:** The Problem of Scattered Silos & The Introduction of the Digital Sub-Myself.
+* **On-Screen Actions:**
+  1. Brief 3-second glance at fragmented digital silos (inboxes, complex folders, empty document pages).
+  2. Smooth transition to Dayprint's warm Boogie Paper canvas with its harmonious scrapbook stream.
+  3. Cursor glides over cards containing technical decisions, reading notes, and daily moments living together.
+* **SFX:** Soft white noise fading into physical paper rustle.
 * **English Voiceover:**
-  > *"Have you ever opened a blank page in Notion or Obsidian to write a quick reflection, only to freeze up because of complex databases, folders, and blank-page paralysis? Worse, proprietary cloud apps lock your most intimate memories behind monthly subscriptions. Meet **Dayprint** — a tactile, local-first living micro-journal that turns fleeting thoughts into physical paper slips, with zero cloud lock-in."*
+  > *"Where does your authentic self actually live? Today, our lives are fractured into pieces. Our best work decisions get buried in chat threads, our study notes gather dust across random apps, and fleeting life reflections vanish into phone memos. We don’t just lose notes — we lose touch with who we were.  
+  > Meet **Dayprint**: a tactile, local-first memory sanctuary that unifies your scattered work, reading, and reflections into a single living canvas: the birth of your own **Digital Sub-Myself**."*
 
 ---
 
-### Scene 2: Core Interaction — Sub-Second Capture & The Thermal Slip Ritual (0:22 – 0:58) | Duration: 36s
-* **Visual Action:**
-  - Click the breathing input bar at the top; it expands smoothly like an accordion.
-  - Type a quick thought: *"Solved Next.js 16 offline sync with keepalive window-unload protection"*.
-  - Paste an image; watch it instantly render as a miniature Polaroid photo.
-  - Click the Morandi color picker to cycle through physical paper stocks (Warm Almond, Fjord Grid, Sunlit Kraft).
-  - Press `Command + Enter`! Mechanical typewriter sound clicks, confetti bursts, and an authentic serrated thermal receipt drops smoothly into the scrapbook masonry stream.
+### 🎬 Scene 2: Sub-Second Capture & The Tactile Slip Ritual (0:24 – 0:52 | 28s)
+* **Core Theme:** Zero-Friction Capture & Physical Tactile Satisfaction.
+* **On-Screen Actions:**
+  1. Click the breathing input bar at the top; watch it expand smoothly.
+  2. Type a spontaneous thought: `"Solved Next.js 16 offline sync with keepalive window-unload protection"`.
+  3. Paste an image (instantly renders as a miniature Polaroid photo), then switch the paper stock to *Fjord Grid*.
+  4. Press `⌘ + Enter`! Confetti bursts, mechanical keys click, and a serrated thermal receipt tears off and drops into the canvas.
+* **SFX:** Mechanical typewriter keystrokes (`Click-Clack`), followed by the physical thermal paper tear-off (`Paper-Rip`).
 * **English Voiceover:**
-  > *"Logging a thought takes seconds. No mandatory titles, no formatting friction. Just click the input bar, type your moment, and paste an image. With a single `Command+Enter`, you hear the tactile mechanical keystroke, and a realistic thermal slip with jagged serrated edges prints right onto your daily editorial canvas. Every slip carries authentic washi tape, postal stamps, and warm Morandi paper stock."*
+  > *"Capturing a moment is completely frictionless. No forced folder taxonomies, no title paralysis. Just capture your thought, attach an image, and select an authentic Morandi paper stock.  
+  > Press `Command+Enter`, and you hear the mechanical keystroke. A realistic thermal paper slip with jagged serrated edges prints instantly onto your canvas. Recording your life suddenly transforms from an administrative chore into a delightful physical ritual."*
 
 ---
 
-### Scene 3: Cognitive Evolution & AI Polish (0:58 – 1:32) | Duration: 34s
-* **Visual Action:**
-  - Type rough notes about a project milestone.
-  - Click the **"AI Polish"** button; watch the AI transform conversational notes into a structured STAR accomplishment (Situation, Task, Action, Result) for a career brag sheet.
-  - Hover over the **L0–L4 Cognitive Stamps** at the top of cards (`L0·Raw`, `L1·Events`, `L2·Habits`, `L3·Models`, `L4·Principles`).
-  - Click the **"Zen Canvas"** toggle in the header; the side timeline collapses and the cards expand into an immersive 5-column editorial layout.
+### 🎬 Scene 3: Connect & Weave — The Living Knowledge Constellation (0:52 – 1:30 | 38s)
+* **Core Theme:** Interconnected Unified Sanctuary, Bidirectional Wiki-Links, and Graph Compilation.
+* **On-Screen Actions:**
+  1. **Hover Illumination:** Hover over a card titled *"Technology Selection Framework"*. Watch connected memories (*"Architecture Focus"*, *"Reading Notes"*) immediately light up with soft indigo glows while surrounding cards gently dim.
+  2. **Bidirectional Navigation:** Click the `NODE: [[Product Architecture Focus]]` badge on the card; watch the screen smoothly pan to the target memory.
+  3. **Constellation Graph:** Click **"Graph & Memory Hub"** in the sidebar to open the neural constellation network.
+  4. **Graph Compiler:** Click the **"Compile Graph"** button in the modal. Confetti triggers as the AI compiler discovers implicit relationships and weaves new glowing edges across the constellation.
+* **SFX:** Soft resonant chime upon hover illumination; confetti burst on graph compilation.
 * **English Voiceover:**
-  > *"Dayprint doesn't just store notes; it elevates them. Click 'AI Polish', and Dayprint automatically distills raw thoughts into professional STAR accomplishments for your career brag sheet. Each entry is tagged along an autonomous 5-tier cognitive hierarchy — from daily moments to habits and core principles. And when you want pure focus, toggle Zen Mode to expand the editorial canvas across the entire screen."*
+  > *"Instead of keeping work notes in one tool and reading notes in another, Dayprint brings everything into **one interconnected universe**.  
+  > Hover over any slip, and all related thoughts across your career and life illuminate in resonance. With bidirectional wiki-links, you can jump between connected memories with a single click. And when you open the Knowledge Constellation, Dayprint compiles your scattered reflections into an interactive neural graph of your evolving mind."*
 
 ---
 
-### Scene 4: Weekly Digest & Silent GitHub Cloud Archival (1:32 – 2:05) | Duration: 33s
-* **Visual Action:**
-  - Open the sidebar and click **"Weekly Digest"**; show the weekly reflection dashboard and 1-click Markdown export.
-  - Open **"Daily Life Stubs"**; show the horizontal carousel of physical receipt slips with wax seals and watercolor mood washes.
-  - In the header, hover over the **GitHub Sync** button showing green "Synced"; switch browser tabs to the real GitHub repo and refresh to reveal auto-committed `archive.json` and human-readable Markdown files.
+### 🎬 Scene 4: Full CRUD, Evolution Logs & Cognitive Distillation (1:30 – 2:00 | 30s)
+* **Core Theme:** White-Box Editing, Long-Term Evolution Logs, STAR Polishing, and Weekly Digests.
+* **On-Screen Actions:**
+  1. **Full CRUD & Evolution Logs:** Expand any card to show deep white-box editing. Click **"Add Evolution Log"**, type an update on how that thought matured over weeks, and save with its timestamp.
+  2. **AI Polish (STAR):** On a raw work note, click **"AI Polish"**. Watch the gold STAR container unfold with Situation, Task, Action, and Result neatly categorized for a brag sheet.
+  3. **Cognitive Hierarchy:** Highlight the L0–L4 stamps at the top of cards (`L0·Raw`, `L1·Events`, `L2·Habits`, `L3·Models`, `L4·Principles`).
+  4. **Weekly Digest:** Open **"Weekly Digest"** from the sidebar; showcase the cognitive breakdown chart and click **"Copy Digest Markdown"**.
+* **SFX:** Subtle UI tab switch click; chime when AI polish completes.
 * **English Voiceover:**
-  > *"At the end of each week, the Weekly Digest synthesizes your moments into actionable reflections and ready-to-share markdown reports. You can view your printed souvenir slip with wax seals and watercolor mood washes. Best of all: Dayprint is 100% local-first. Every slip is silently synchronized as human-readable Markdown to your private GitHub repository — guaranteed zero cloud lock-in and complete data sovereignty."*
+  > *"A true digital twin must evolve. In Dayprint, every memory is living and fully editable. Rather than cluttering your canvas with duplicate notes, you can append timestamped evolution logs to watch a raw hunch mature over months.  
+  > Click 'AI Polish' to distill rough logs into quantifiable STAR achievements for your resume and reviews. Memories graduate across an autonomous 5-tier cognitive pyramid — from daily moments to habits and core principles — ready to be exported as clean weekly digests with one click."*
 
 ---
 
-### Scene 5: Dual-Mode Architecture & Wrap-Up (2:05 – 2:20) | Duration: 15s
-* **Visual Action:**
-  - Click the top header badge to demonstrate 1-click switching between **✨ Demo Mode** (preloaded with hackathon mock data) and **🌱 Personal Journal Mode** (clean slate for authentic daily notes).
-  - Show the project root files (`scope.md`, `prd.md`, `spec.md`).
-  - Fade out to the Dayprint logo and tagline: *"Your life, in prints."*
+### 🎬 Scene 5: Eternal Memory, 100% Data Sovereignty & Closing (2:00 – 2:15 | 15s)
+* **Core Theme:** Local-First Architecture, Silent GitHub Private Archival, Dual-Mode Switch, and Slogan.
+* **On-Screen Actions:**
+  1. Hover over the **GitHub Sync** pill in the top header showing green `Synced`. Switch browser tabs to the real GitHub repo, refreshing to show committed `archive.json` and clean Markdown files.
+  2. Click the header mode badge to demonstrate instant 1-click toggling between **✨ Demo Mode** (preloaded for evaluators) and **🌱 Personal Journal Mode** (clean slate for authentic journaling).
+  3. Fade out to the Dayprint Logo and tagline: *"Your life, in prints."*
+* **SFX:** Soft typewriter carriage return ding (`Ding!`) on the final logo fade.
 * **English Voiceover:**
-  > *"With dual-mode architecture, evaluators can explore full mock graphs in Demo Mode, or switch to a clean slate for authentic journaling. Built with the Devpost Learn Skill Pack — from `scope.md` to `spec.md` — this is Dayprint. Your life, in prints. Thank you!"*
+  > *"Most importantly: your digital self will **never be lost**. Dayprint is 100% local-first and silently backed up to your private GitHub repository as human-readable Markdown — zero subscription locks, complete data sovereignty.  
+  > Build your memory. Cultivate your digital sub-myself. This is Dayprint. Your life, in prints. Thank you!"*
 
 ---
 
-## Video Production & Export Settings
+## 4. Video Production Tips
 
-1. **Recording Tool:** OBS Studio or QuickTime Player (1080p, 60fps, recording system audio).
-2. **Audio Mix:**
-   - Spoken voiceover: `-6 dB` (clear, confident, and crisp).
-   - Typing keystrokes and paper rip sound effects: `-14 dB` (natural physical ambiance).
-   - Background music: None recommended (keep physical sound effects dominant).
-3. **Cursor Size:** In macOS Accessibility settings, increase pointer size by 1 stop for enhanced visual tracking.
-4. **Publishing:** Upload to YouTube (Unlisted or Public) or Loom, and paste the URL directly into the Devpost submission form.
+1. **Screen Resolution:** Record at 1920x1080 (16:9) or 3840x2160, 60fps.
+2. **Cursor Pacing:** Move the cursor deliberately with smooth deceleration before clicking cards or buttons.
+3. **Audio Export:** Pair this script with VoxCPM2-generated English narration or record your own voice using a high-quality condenser microphone.
