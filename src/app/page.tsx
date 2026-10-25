@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { HeaderBar } from "@/components/navigation/HeaderBar";
 import { AppSidebar } from "@/components/navigation/AppSidebar";
 import { MemoryCanvas } from "@/components/canvas/MemoryCanvas";
@@ -11,6 +11,7 @@ import { DailyReceiptModal } from "@/components/receipts/DailyReceiptModal";
 import { ConstellationModal } from "@/components/constellation/ConstellationModal";
 import { ArchiveModal } from "@/components/archive/ArchiveModal";
 import { GitHubSettingsModal } from "@/components/navigation/GitHubSettingsModal";
+import { WelcomeGatewayModal } from "@/components/navigation/WelcomeGatewayModal";
 import { CareerStudioModal } from "@/components/career/CareerStudioModal";
 import { WeeklyDigestModal } from "@/components/digest/WeeklyDigestModal";
 import { MemoryOSView } from "@/components/memory-os/MemoryOSView";
@@ -34,6 +35,22 @@ export default function Home() {
   const [isConstellationOpen, setIsConstellationOpen] = useState(false);
   const [isArchiveOpen, setIsArchiveOpen] = useState(false);
   const [isGitHubSettingsOpen, setIsGitHubSettingsOpen] = useState(false);
+  const [isWelcomeOpen, setIsWelcomeOpen] = useState(false);
+
+  useEffect(() => {
+    try {
+      const hasCompleted = localStorage.getItem("dayprint_onboarding_completed");
+      const storedSettings = localStorage.getItem("dayprint_settings");
+      let hasGitHub = false;
+      if (storedSettings) {
+        const parsed = JSON.parse(storedSettings);
+        hasGitHub = Boolean(parsed.github?.pat && parsed.github?.repo);
+      }
+      if (!hasCompleted && !hasGitHub) {
+        setIsWelcomeOpen(true);
+      }
+    } catch {}
+  }, []);
 
   return (
     <div className="h-screen w-screen overflow-hidden flex bg-[var(--canvas-paper)] text-[var(--ink-primary)] transition-colors duration-200">
@@ -130,6 +147,13 @@ export default function Home() {
         <GitHubSettingsModal
           isOpen={isGitHubSettingsOpen}
           onClose={() => setIsGitHubSettingsOpen(false)}
+        />
+      )}
+
+      {isWelcomeOpen && (
+        <WelcomeGatewayModal
+          isOpen={isWelcomeOpen}
+          onClose={() => setIsWelcomeOpen(false)}
         />
       )}
     </div>

@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const pat = body.pat || process.env.GITHUB_PAT || "";
-    const repo = body.repo || process.env.GITHUB_REPO || "katherinecym/You-plus";
+    const repo = body.repo || process.env.GITHUB_REPO || "";
     const { memories, relationships, receipts, autoCreate = true } = body;
 
     if (!pat) {
@@ -247,7 +247,7 @@ export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     const pat = searchParams.get("pat") || process.env.GITHUB_PAT || "";
-    const repo = searchParams.get("repo") || process.env.GITHUB_REPO || "katherinecym/You-plus";
+    const repo = searchParams.get("repo") || process.env.GITHUB_REPO || "";
     const action = searchParams.get("action");
 
     if (!pat) {

@@ -92,12 +92,12 @@ const MemoryContext = createContext<MemoryContextType | null>(null);
 const DEFAULT_SETTINGS: AppSettings = {
   language: "zh",
   github: {
-    connected: true,
-    repo: "katherinecym/You-plus",
-    owner: "katherinecym",
+    connected: false,
+    repo: "",
+    owner: "",
     branch: "main",
-    pat: "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",
-    auto_sync: true,
+    pat: "",
+    auto_sync: false,
   },
   ai: {
     provider: "gemini",
