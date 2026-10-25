@@ -2,7 +2,7 @@
 
 > **Hackathon:** [Build With AI: Basics (Devpost Learn)](https://learn-ai-basics.devpost.com/)  
 > **Project Name:** Dayprint (今日印迹)  
-> **Tagline:** Your life, in prints. A tactile, local-first micro-journal that turns ephemeral moments into thermal paper slips and distilled cognitive assets.  
+> **Tagline:** Your life, in prints. A tactile, local-first memory sanctuary that unifies scattered work, reading, and life reflections into an interconnected knowledge constellation — cultivating your living Digital Sub-Myself.  
 > **Repository:** Public Git Repository with `scope.md`, `prd.md`, `spec.md`  
 
 ---
@@ -12,34 +12,41 @@
 ### 1.1 Project Overview (项目概览)
 * **Title:** Dayprint (今日印迹)
 * **Tagline (一句话介绍):**
-  > A tactile, local-first micro-journal that turns fleeting thoughts into thermal slips, automatically organizing life into an editorial scrapbook while silently archiving Markdown to your private GitHub.
+  > A tactile, local-first memory sanctuary that unifies your scattered work, reading, and life reflections into an interconnected living graph — cultivating your authentic Digital Sub-Myself with eternal data sovereignty.
 * **Try it out / Demo Link:** `http://localhost:3000` (Local Dev) / Vercel Live Preview Link
 * **Repository Link:** Public GitHub repository link
 
 ---
 
 ### 1.2 Inspiration (灵感与起心动念)
-In an era dominated by heavyweight productivity apps like Notion, Obsidian, and Roam, millions of thinkers and builders suffer from **"blank-page paralysis"** and **"note-taking fatigue"**. We open a blank page intending to write a quick reflection, only to be overwhelmed by databases, templates, and formatting decisions. Worse, proprietary cloud apps trap our intimate life reflections inside closed servers with recurring subscriptions and privacy risks.
+In an era dominated by app fragmentation, our authentic selves are fractured across disconnected silos:
+- Our best engineering and work decisions vanish into closed Slack channels and email threads;
+- Our reading insights and study takeaways gather digital dust across disjointed note apps;
+- Our fleeting life reflections and emotional milestones evaporate into phone memos.
+
+When our memories are scattered across walled gardens, we don't just lose notes — we lose touch with who we were and who we are becoming. Worse, proprietary cloud subscriptions hold our intimate thoughts hostage behind recurring paywalls and shutdown risks.
 
 We asked ourselves:  
-*What if journaling felt as simple and rewarding as getting an espresso receipt at an old bookstore cafe?*  
-*What if a digital note had the tactile warmth of torn paper, the sound of a typewriter, the colors of an editorial magazine, and the ironclad privacy of local-first Markdown in your own private GitHub?*
+*What if all your living thoughts — career breakthroughs, study epiphanies, and life milestones — lived in a single, unified sanctuary?*  
+*What if journaling felt as simple, warm, and delightful as receiving an espresso receipt at an old bookstore cafe?*  
+*What if your memories naturally resonated and connected into a living knowledge constellation, evolving alongside you into a true **Digital Sub-Myself** — with 100% eternal data sovereignty in your own private GitHub?*
 
 That is why we built **Dayprint**.
 
 ---
 
 ### 1.3 What it does (产品功能与用户旅程)
-Dayprint is a zero-friction personal micro-journal and living memory workspace:
+Dayprint is a tactile living memory sanctuary and cognitive twin workspace:
 
-1. **Sub-Second Micro-Capture**: Press `⌘K` or type in the bottom dock. No titles required, no mandatory folders. Just capture a fleeting thought, milestone, or photo.
-2. **Tactile Thermal Slip Ritual**: The moment you press `⌘+Enter`, Dayprint synthesizes a real-time mechanical typewriter audio effect and prints an authentic serrated-edge thermal paper receipt that tears off and drops into your daily scrapbook canvas.
-3. **Editorial Scrapbook Stream**: Daily entries naturally layout into a dynamic, responsive masonry stream with tactile Morandi paper stocks (Warm Almond, Fjord Grid, Sunlit Kraft, Twilight Lavender, Sage Herbarium).
-4. **Autonomous Cognitive Evolution (L0–L4)**: Dayprint automatically distills raw daily stream (L0) into key milestones (L1), recurring habits & SOPs (L2), mental models (L3), and core principles (L4).
-5. **AI Accomplishment Polishing & STAR Extraction**: One click converts rough fragmented notes into professional accomplishment bullets with Situation, Task, Action, and Result (STAR) breakdowns.
-6. **Weekly Reflection & Memory Maintenance Hub**: At the end of each week, Dayprint automatically synthesizes a structured weekly digest with full CRUD editing and one-click Markdown weekly report export.
-7. **Dual-Mode Engine (Demo vs. Production)**: Designed specifically for hackathon reviewers and real-world journaling alike. Features a 1-click **Demo Mode** preloaded with full knowledge graph constellations and thermal receipts for instant evaluation, alongside a clean-slate **Production Mode** for authentic personal journaling with instant 1-click demo restore capabilities.
-8. **Local-First & Silent GitHub Archival**: 100% of data is stored locally in browser storage. Changes are debounced and silently synchronized as human-readable Markdown files and a clean `archive.json` to the user's private GitHub repository, backed by `keepalive` window-unload guarantees.
+1. **Unified Memory Sanctuary (Eliminating Fragmentation)**: No more bouncing between Slack, email, Apple Notes, and bookmarks. Dayprint provides a single, distraction-free home for your career decisions, reading reflections, and life milestones.
+2. **Sub-Second Micro-Capture & Tactile Printing Ritual**: Press `⌘K` or type in the bottom dock. No folder taxonomies, no title paralysis. With real-time Web Audio mechanical keystrokes, your thought instantly prints onto the canvas as an authentic serrated-edge thermal paper receipt.
+3. **Editorial Morandi Canvas**: Daily entries naturally layout into a dynamic, responsive masonry stream with tactile Morandi paper stocks (Warm Almond, Fjord Grid, Sunlit Kraft, Twilight Lavender, Sage Herbarium).
+4. **Living Knowledge Graph & Resonance Constellation**: Memories don't sit in isolated silos. Hovering over any slip illuminates all related thoughts across your career and life. With bidirectional `[[wiki-links]]` and the interactive Knowledge Constellation compiler, your thoughts weave into an organic cognitive neural map.
+5. **Living Evolution Logs & Full CRUD**: A digital twin must evolve. Dayprint allows you to edit and refine memories at any time, or append timestamped evolution logs to trace how a raw hunch matured over months into a core philosophy.
+6. **Autonomous Cognitive Pyramids (L0–L4) & STAR Distillation**: Dayprint distills raw daily stream (L0) into milestones (L1), recurring SOPs (L2), mental models (L3), and core principles (L4). Click "AI Polish" to turn rough work logs into quantifiable STAR achievements for resumes and performance reviews.
+7. **Weekly Reflection & Memory Maintenance Hub**: Automatically synthesizes a structured weekly digest with full CRUD editing and one-click Markdown weekly report export.
+8. **Dual-Mode Engine (Demo vs. Production)**: Designed specifically for hackathon reviewers and real-world journaling alike. Features a 1-click **Demo Mode** preloaded with full knowledge graph constellations and thermal receipts for instant evaluation, alongside a clean-slate **Production Mode** for authentic personal journaling with instant 1-click demo restore capabilities.
+9. **Eternal Memory & 100% Data Sovereignty**: Stored 100% locally in browser storage, with background debounced synchronization to the user's private GitHub repository as clean, human-readable Markdown. Zero vendor lock-in, zero subscription paywalls, zero fear of data loss.
 
 ---
 
