@@ -419,6 +419,11 @@ export interface Relationship {
    - **核心边界**：严格区分「自传体亲身经历 (Episodic Personal Wins)」与「外部架构学习案例 (Semantic External Benchmarks)」；
    - **防伪造拦截**：当用户输入包含“这是人家的架构/别人做的/学习提炼一下”等提示词时，记忆引擎严禁生成以用户为主语的 STAR 工作经历，坚决不写入 `02_Work_and_Projects.md`；
    - **专用通道分流**：外部系统拓扑自动归档入 `03_Learning_and_Skills.md` 的「## 🏗️ 业界架构参考与设计模式」分区，保留系统拓扑图（Mermaid）、核心亮点、设计权衡及复用启示，彻底消除述职胜仗账本的虚假数据污染。
+5. **首次访问欢迎网关与多租户 BYOR 记忆隔离规范 (Welcome Gateway & Multi-Tenant BYOR Isolation)**：
+   - **进站智能分流 (`WelcomeGatewayModal`)**：初次访问 Dayprint 时，页面自动弹出双轨欢迎网关：
+     - **路径 A (正式专属手账)**：引导用户输入个人 GitHub PAT 与私有仓库名（默认 `my-dayprint-vault`，不存在时自动建库），无中心数据库，物理级私有隔离；
+     - **路径 B (Demo 体验模式)**：一秒载入蒙德里安图谱、生活小票存根与示例认知档案，零门槛沉浸式体验全部交互；
+   - **防串流安全底线**：默认设置与服务端绝对禁止硬编码任何开发者个人凭证与仓库名；每位用户的 Token 与手账记忆严格在当前设备 `localStorage` 和其个人 GitHub 私有仓库中流转，100% 杜绝多用户之间的数据干扰与记忆污染。
 
 ### 5.5 多模态外链三阶路由与待读/求职待办闭环 (Multi-Modal Link Routing & Ingestion)
 
