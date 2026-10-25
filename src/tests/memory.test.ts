@@ -78,7 +78,7 @@ describe("Knowledge Graph & Search Verification", () => {
     expect(graph.edges.length).toBeGreaterThan(0);
 
     // Verify search matching function
-    const query = "AI";
+    const query = "architecture";
     const matched = graph.nodes.filter(
       (n) =>
         n.title.toLowerCase().includes(query.toLowerCase()) ||

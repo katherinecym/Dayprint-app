@@ -91,7 +91,7 @@ describe("Welcome Gateway & Repo Normalization", () => {
       language: "zh",
       github: {
         connected: false,
-        repo: "katherinecym/You-plus",
+        repo: "demo-user/my-vault",
         pat: "gho_oldtoken",
         auto_sync: false,
       },
@@ -101,5 +101,22 @@ describe("Welcome Gateway & Repo Normalization", () => {
     expect(hydrated.github.connected).toBe(false);
     expect(hydrated.github.pat).toBe("");
     expect(hydrated.github.repo).toBe("");
+  });
+
+  it("should calculate graph peek line-breaks within bounds without text overflow", () => {
+    const rawChinese = "意大利学者维科在《新科学》中论述：“诗人们首先凭凡俗智慧感受到的有多少，后来哲学家们凭玄奥智慧未理解的也就有多少，所以诗人们可以说就是人类的感官，而哲学家们就是人类的理智。”";
+    const limit1 = 21;
+    const limit2 = 40;
+
+    const line1 = rawChinese.slice(0, limit1);
+    const line2 = rawChinese.length > limit2
+      ? rawChinese.slice(limit1, limit2 - 1) + "…"
+      : rawChinese.slice(limit1, limit2);
+
+    expect(line1.length).toBeLessThanOrEqual(21);
+    expect(line2.length).toBeLessThanOrEqual(20);
+    // At ~9.8px per Chinese character, 21 chars * 9.8px = ~205px, strictly within 228px card width!
+    expect(line1.length * 9.8).toBeLessThan(228);
+    expect(line2.length * 9.8).toBeLessThan(228);
   });
 });

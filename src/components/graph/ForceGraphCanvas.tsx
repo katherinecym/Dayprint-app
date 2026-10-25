@@ -1064,28 +1064,34 @@ export function ForceGraphCanvas({
                   {/* Craft/Affine Floating Note Peek Sheet (Reveals rich approximate info without kanban board) */}
                   {showHoverPeek && (
                     <g
-                      transform={`translate(0, ${node.y < 120 ? 22 : -96})`}
+                      transform={`translate(0, ${node.y < 120 ? 22 : -100})`}
                       filter="url(#craft-peek-shadow)"
                       className="transition-all duration-200 pointer-events-none"
                     >
+                      <defs>
+                        <clipPath id={`craft-peek-clip-${node.id}`}>
+                          <rect x="-114" y="0" width="228" height="84" rx="6" />
+                        </clipPath>
+                      </defs>
+
                       <rect
-                        x="-115"
+                        x="-125"
                         y="0"
-                        width="230"
-                        height="78"
-                        rx="6"
+                        width="250"
+                        height="84"
+                        rx="8"
                         fill="var(--card-white)"
                         stroke="var(--grid-line)"
                         strokeWidth="1"
                       />
                       {/* Top Accent Line */}
                       <path
-                        d="M -115 6 Q -115 0 -109 0 L 109 0 Q 115 0 115 6 L 115 7 L -115 7 Z"
+                        d="M -125 7 Q -125 0 -118 0 L 118 0 Q 125 0 125 7 L 125 8 L -125 8 Z"
                         fill={palette.dot}
                       />
 
                       {/* Header: Level Badge & Date */}
-                      <g transform="translate(-103, 20)">
+                      <g transform="translate(-112, 20)">
                         <rect
                           x="0"
                           y="-9"
@@ -1119,51 +1125,62 @@ export function ForceGraphCanvas({
                         </text>
                       </g>
 
-                      {/* Content Excerpt (2 lines) */}
-                      <text
-                        x="-103"
-                        y="40"
-                        fill="var(--ink-secondary)"
-                        fontSize="9.5"
-                        className="font-sans select-none"
-                      >
-                        {(() => {
-                          const fullContent = (
-                            language === "zh"
-                              ? (mem?.content_zh || mem?.content || node.content || "")
-                              : (mem?.content_en || node.content || "")
-                          ).replace(/\s+/g, " ");
-                          return fullContent.length > 28 ? fullContent.slice(0, 27) + "…" : fullContent;
-                        })()}
-                      </text>
-                      <text
-                        x="-103"
-                        y="54"
-                        fill="var(--ink-secondary)"
-                        fontSize="9.5"
-                        className="font-sans select-none"
-                      >
-                        {(() => {
-                          const fullContent = (
-                            language === "zh"
-                              ? (mem?.content_zh || mem?.content || node.content || "")
-                              : (mem?.content_en || node.content || "")
-                          ).replace(/\s+/g, " ");
-                          return fullContent.length > 28 ? fullContent.slice(27, 54) + (fullContent.length > 54 ? "…" : "") : "";
-                        })()}
-                      </text>
-
-                      {/* Footer: Topics */}
-                      <g transform="translate(-103, 67)">
+                      {/* Content Excerpt with strict ClipPath and language-calibrated line breaks */}
+                      <g clipPath={`url(#craft-peek-clip-${node.id})`}>
                         <text
-                          x="0"
-                          y="0"
-                          fill="var(--ink-muted)"
-                          fontSize="8"
-                          className="font-mono-meta select-none"
+                          x="-112"
+                          y="41"
+                          fill="var(--ink-secondary)"
+                          fontSize="9.5"
+                          className="font-sans select-none"
                         >
-                          {(mem?.topics || node.topics || []).slice(0, 3).map((t) => `#${t}`).join("  ")}
+                          {(() => {
+                            const fullContent = (
+                              language === "zh"
+                                ? (mem?.content_zh || mem?.content || node.content || "")
+                                : (mem?.content_en || node.content || "")
+                            ).replace(/\s+/g, " ").trim();
+                            const limit = language === "zh" ? 21 : 36;
+                            return fullContent.slice(0, limit);
+                          })()}
                         </text>
+                        <text
+                          x="-112"
+                          y="55"
+                          fill="var(--ink-secondary)"
+                          fontSize="9.5"
+                          className="font-sans select-none"
+                        >
+                          {(() => {
+                            const fullContent = (
+                              language === "zh"
+                                ? (mem?.content_zh || mem?.content || node.content || "")
+                                : (mem?.content_en || node.content || "")
+                            ).replace(/\s+/g, " ").trim();
+                            const limit1 = language === "zh" ? 21 : 36;
+                            const limit2 = language === "zh" ? 40 : 70;
+                            if (fullContent.length <= limit1) return "";
+                            return fullContent.length > limit2
+                              ? fullContent.slice(limit1, limit2 - 1) + "…"
+                              : fullContent.slice(limit1, limit2);
+                          })()}
+                        </text>
+
+                        {/* Footer: Topics */}
+                        <g transform="translate(-112, 71)">
+                          <text
+                            x="0"
+                            y="0"
+                            fill="var(--ink-muted)"
+                            fontSize="8"
+                            className="font-mono-meta select-none"
+                          >
+                            {(() => {
+                              const topics = (mem?.topics || node.topics || []).slice(0, 3).map((t) => `#${t}`).join("  ");
+                              return topics.length > 34 ? topics.slice(0, 33) + "…" : topics;
+                            })()}
+                          </text>
+                        </g>
                       </g>
                     </g>
                   )}
