@@ -17,7 +17,7 @@
 > **Product Vision:** *Build your digital self. A digital self that grows with you.*  
 > **Narrative:** *Every piece tells your story.*
 
-Dayprint is a **tactile memory sanctuary and cognitive workspace** designed to help knowledge workers, developers, and thinkers unify their fragmented thoughts into an evolving digital twin. Built with zero centralized database dependencies, Dayprint stores your notes locally in your browser and automatically synchronizes them as plain Markdown files to your own private GitHub repository—giving you 100% data sovereignty.
+Dayprint is a **tactile memory sanctuary and cognitive workspace** designed to help knowledge workers, developers, and thinkers unify their fragmented thoughts into an evolving digital twin. Built with zero centralized database dependencies, Dayprint automatically synchronizes your notes as clean Markdown files directly to your own private GitHub repository—giving you 100% data sovereignty and complete privacy.
 
 ---
 
@@ -78,20 +78,20 @@ Dayprint is structured around three core views and daily reflective rituals:
 
 ### 4. Thermal Souvenir Slips & Full Sovereignty
 - **Physical Thermal Receipt Ritual**: Generates daily retrospective slips with realistic serrated edges, timestamped entries, and procedural Web Audio typing sounds.
-- **100% Personal Data Sovereignty**: Operates without a middleman database. Notes reside in browser `localStorage` and sync directly to the user's private GitHub repository via GitHub REST API v3 as clean, Obsidian-compatible Markdown files.
+- **100% Personal Data Sovereignty**: Operates without a middleman database. Notes sync directly to your private GitHub repository via GitHub REST API v3 as clean, Obsidian-compatible Markdown files.
 
 ---
 
 ## How we built it
 
-Dayprint is built with a modern local-first fullstack architecture:
+Dayprint is built with a modern privacy-first web architecture:
 
 ### Tech Stack Matrix
 - **Core Framework:** [Next.js 16.4](https://nextjs.org/) (App Router, Turbopack, React 19, TypeScript 5)
 - **Styling & Design System:** Tailwind CSS v4, custom Morandi physical paper textures, and responsive CSS masonry grids
 - **Audio Synthesis:** Web Audio API programmatic mechanical typewriter keystroke synthesis (zero latency, zero external MP3 assets)
 - **AI Engine:** Multi-provider LLM gateway (Google Gemini Pro, Claude 3.5, OpenAI GPT-4o) for STAR distillation and semantic link suggestions
-- **Local-First Synchronization:** Client-side persistence with optimistic UI updates, debounced background GitHub commits, and `beforeunload` keepalive beacons
+- **Direct GitHub Synchronization:** Instant optimistic UI updates paired with debounced background GitHub commits and `beforeunload` keepalive beacons
 
 ### Mathematical & Algorithmic Models
 
@@ -113,10 +113,10 @@ $$H(L_0) > H(L_1) > H(L_2) > H(L_3) > H(L_4)$$
 
 $$L_{k+1} = \operatorname{Distill}\left(\{m \in L_k \mid \operatorname{confidence}(m) \ge \theta_k\}\right), \quad \theta_k \in [0.70, 0.85]$$
 
-#### 3. Local-First Zero-Data-Loss Invariant
+#### 3. Zero-Data-Loss Synchronization Invariant
 To ensure seamless offline responsiveness with reliable cloud mirroring:
 
-$$\text{State}_{\text{UI}} \xleftarrow{\Delta t = 0} \text{State}_{\text{Local}} \xrightarrow[\tau_{\text{debounce}} = 1500\text{ms}]{\text{GitHub REST v3}} \text{State}_{\text{Remote}}$$
+$$\text{State}_{\text{UI}} \xleftarrow{\Delta t = 0} \text{State}_{\text{Client}} \xrightarrow[\tau_{\text{debounce}} = 1500\text{ms}]{\text{GitHub REST v3}} \text{State}_{\text{GitHub}}$$
 
 $$\lim_{\text{tab close}} P(\text{Data Loss}) = 0 \quad \text{guaranteed via } \operatorname{fetch}(url, \{ \text{keepalive}: \text{true} \})$$
 
@@ -135,7 +135,7 @@ $$\lim_{\text{tab close}} P(\text{Data Loss}) = 0 \quad \text{guaranteed via } \
 
 - **Tactile, Calming Design**: Crafted a Morandi paper aesthetic that turns daily reflection into a restorative ritual rather than a burdensome chore.
 - **True User Ownership (Zero-Cloud Storage)**: Achieved full cross-device synchronization and version control via user-owned GitHub repositories without storing personal user notes on our own servers.
-- **Seamless Dual-Mode Experience**: Built an instant **Demo Mode** (preloaded with 136 real-world engineering notes and 85 daily slips dating back to August 2026) alongside a clean **Production Mode** with clear 3-state save indicators (`Demo (Not Saved)`, `Local Cache Only`, `GitHub Synced`).
+- **Seamless Dual-Mode Experience**: Built an instant **Demo Mode** (preloaded with 136 real-world engineering notes and 85 daily slips dating back to August 2026) alongside a clean **Production Mode** with clear 3-state save indicators (`Demo (Not Saved)`, `Browser Only`, `GitHub Synced`).
 - **Complete Hackathon Delivery**: Delivered comprehensive planning specifications (`scope.md`, `prd.md`, `spec.md`), full test coverage (51 unit & integration tests), an interactive web manual (`manual.html`), and a synchronized demo video.
 
 ---
@@ -151,9 +151,9 @@ $$\lim_{\text{tab close}} P(\text{Data Loss}) = 0 \quad \text{guaranteed via } \
 ## What's next for Dayprint
 
 - **Physical Bluetooth Thermal Printer Output**: One-click ESC/POS printing to physical thermal receipt printers (e.g., Cat Printer, PeriPage) via the Web Bluetooth API.
-- **Mobile PWA & Ambient Voice Journaling**: Installable mobile application with local whisper-based speech-to-text for frictionless voice memos on the go.
+- **Mobile PWA & Ambient Voice Journaling**: Installable mobile application with on-device speech-to-text for frictionless voice memos on the go.
 - **Interactive 3D Celestial Constellation**: Expanding the 2D Knowledge Graph into a 3D orbital constellation that maps life themes across multi-year horizons.
-- **Obsidian Two-Way Sync Plugin**: Native Obsidian community plugin to bidirectional-sync local vaults with the Dayprint Web workspace.
+- **Obsidian Two-Way Sync Plugin**: Native Obsidian community plugin to bidirectional-sync private Markdown vaults with the Dayprint Web workspace.
 
 ---
 
@@ -222,7 +222,7 @@ build-with-AI-basics/
 - Node.js 18.18+ or 20+
 - pnpm (recommended) or npm / yarn
 
-### Installation & Local Run
+### Installation & Quickstart
 ```bash
 # 1. Clone repository
 git clone https://github.com/katherinecym/Dayprint-app.git
@@ -231,7 +231,7 @@ cd Dayprint-app
 # 2. Install dependencies
 pnpm install
 
-# 3. Start local development server
+# 3. Start development server
 pnpm dev
 
 # 4. Open in browser

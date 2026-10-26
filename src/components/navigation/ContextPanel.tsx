@@ -178,7 +178,7 @@ export function ContextPanel({
               title={language === "zh" ? "未配置 GitHub 仓库，数据仅保留在当前浏览器中" : "GitHub disconnected; notes are cached in this browser only"}
             >
               <span className="w-1.5 h-1.5 rounded-full bg-stone-400" />
-              {language === "zh" ? "仅浏览器缓存" : "Local Cache Only"}
+              {language === "zh" ? "仅浏览器缓存" : "Browser Only"}
             </span>
           ) : (
             <span

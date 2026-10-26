@@ -2,7 +2,7 @@
 
 > **Hackathon:** [Build With AI: Basics (Devpost Learn)](https://learn-ai-basics.devpost.com/)  
 > **Project Name:** Dayprint  
-> **Tagline:** Dayprint your life. All the pieces of you, coming together. A tactile, local-first memory sanctuary that unifies scattered work, reading, and reflections into an evolving digital self with eternal data sovereignty.  
+> **Tagline:** Dayprint your life. All the pieces of you, coming together. A tactile memory sanctuary that unifies scattered work, reading, and reflections into an evolving digital self with eternal data sovereignty.  
 > **Repository:** Public Git Repository with `scope.md`, `prd.md`, `spec.md`  
 
 ---
@@ -12,8 +12,8 @@
 ### 1.1 Project Overview
 * **Title:** Dayprint
 * **Tagline:**
-  > Dayprint your life. All the pieces of you, coming together. A tactile, local-first memory sanctuary cultivating your evolving digital self with 100% data sovereignty.
-* **Try it out / Demo Link:** [https://dayprint-five.vercel.app/](https://dayprint-five.vercel.app/) (Live Deployment) / `http://localhost:3000` (Local Dev)
+  > Dayprint your life. All the pieces of you, coming together. A tactile memory sanctuary cultivating your evolving digital self with 100% data sovereignty.
+* **Try it out / Demo Link:** [https://dayprint-five.vercel.app/](https://dayprint-five.vercel.app/) (Live Deployment) / `http://localhost:3000`
 * **Repository Link:** Public GitHub repository link
 
 ---
@@ -46,13 +46,13 @@ Dayprint is a tactile living memory sanctuary and cognitive twin workspace:
 6. **Autonomous Cognitive Pyramids (L0–L4) & STAR Distillation**: Dayprint distills raw daily stream (L0) into milestones (L1), recurring SOPs (L2), mental models (L3), and core principles (L4). Click "AI Polish" to turn rough work logs into quantifiable STAR achievements for resumes and performance reviews.
 7. **Weekly Reflection & Memory Maintenance Hub**: Automatically synthesizes a structured weekly digest with full CRUD editing and one-click Markdown weekly report export.
 8. **Dual-Mode Engine (Demo vs. Production)**: Designed specifically for hackathon reviewers and real-world journaling alike. Features a 1-click **Demo Mode** preloaded with full knowledge graph constellations and thermal receipts for instant evaluation, alongside a clean-slate **Production Mode** for authentic personal journaling with instant 1-click demo restore capabilities.
-9. **Eternal Memory & 100% Data Sovereignty**: Stored 100% locally in browser storage, with background debounced synchronization to the user's private GitHub repository as clean, human-readable Markdown. Zero vendor lock-in, zero subscription paywalls, zero fear of data loss.
+9. **Eternal Memory & 100% Data Sovereignty**: Stored directly in browser storage, with background debounced synchronization to the user's private GitHub repository as clean, human-readable Markdown. Zero vendor lock-in, zero subscription paywalls, zero fear of data loss.
 
 ---
 
 ### 1.4 How we built it
 
-Dayprint was built from the ground up as a modern, high-performance, local-first web application:
+Dayprint was built from the ground up as a modern, high-performance, privacy-first web application:
 * **Core Framework**: Next.js 16.4 (App Router, Turbopack) + React 19 + TypeScript 5.
 * **Aesthetic & Layout**: Tailwind CSS v4, custom Morandi physical paper textures, and responsive multi-column masonry with CSS subpixel anti-jitter guards (`transform-gpu backface-hidden`).
 * **Micro-interactions & Audio**: Web Audio API programmatic mechanical typewriter keystroke synthesis (zero external audio asset latency) + Framer Motion spring physics.
@@ -66,7 +66,7 @@ Dayprint was built from the ground up as a modern, high-performance, local-first
 The **Devpost Learn Skill Pack** (`challengepost/learn-ai-basics`) completely transformed our development process through a disciplined 6-stage lifecycle:
 
 1. **`1-start`**: Established clear constraints: build a complete, cohesive proof-of-concept from a blank directory, prioritizing core problem-solution fit over feature bloat.
-2. **`2-scope` (`scope.md`)**: Enforced radical pruning. We explicitly cut heavy cloud database servers and complex WYSIWYG editors, zeroing in on the "Tactile Thermal Slip + Local-First GitHub Sync" kernel.
+2. **`2-scope` (`scope.md`)**: Enforced radical pruning. We explicitly cut heavy cloud database servers and complex WYSIWYG editors, zeroing in on the "Tactile Thermal Slip + Direct GitHub Sync" kernel.
 3. **`3-prd` (`prd.md`)**: Defined the end-to-end user journey, deterministic SSR hydration protocols, and the 5-tier (L0-L4) cognitive memory hierarchy before writing a single line of component code.
 4. **`4-spec` (`spec.md`)**: Locked in the data schema (`CanonicalMemory`, `DayprintArchive`), browser unload `keepalive` safeguards, and UI component hierarchy.
 5. **`5-build`**: Guided iterative, test-verified implementation of the Next.js 16 app with Turbopack, maintaining documentation-code parity throughout.
@@ -96,5 +96,5 @@ Spec-driven AI development is exponentially faster and more reliable than ad-hoc
 
 ### 1.9 What's next for Dayprint
 * **Bluetooth Thermal Printer Output**: Direct ESC/POS printing to physical paper receipt printers (e.g., Cat Printer, PeriPage) via Web Bluetooth API.
-* **Mobile PWA & Ambient Voice Capture**: Offline-capable mobile home screen icon with local voice transcription.
+* **Mobile PWA & Ambient Voice Capture**: Offline-capable mobile home screen icon with on-device voice transcription.
 * **Interactive Celestial Knowledge Graph**: Deeper vector-based graph clustering visualizing the serendipitous connections between years of life notes.

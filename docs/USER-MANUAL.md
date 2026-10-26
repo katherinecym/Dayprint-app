@@ -44,9 +44,9 @@
 
 ## 1. Storage & Ownership
 
-Dayprint is built on a strict **Local-First** foundation:
+Dayprint is built on a strict privacy and data sovereignty foundation:
 - **Zero Central Database**: Your personal notes, emotional logs, and career milestones never transit through proprietary third-party servers.
-- **Immediate Local Persistence**: Everything is safely persisted in your browser's `localStorage` instantly upon typing.
+- **Immediate Browser Persistence**: Everything is safely persisted in your browser instantly upon typing.
 - **100% User Custody**: Your memories belong exclusively to you, exportable as plain Markdown files and standard JSON snapshots at any time.
 
 ---
