@@ -199,16 +199,16 @@ export function WelcomeGatewayModal({
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="font-bold text-stone-900 text-base font-serif-heading">
-                  {language === "zh" ? "欢迎来到 Dayprint 记忆工坊" : "Welcome to Dayprint"}
+                  {language === "zh" ? "Dayprint your life." : "Dayprint your life."}
                 </h3>
-                <span className="text-[10px] font-mono-meta px-2 py-0.5 rounded-full bg-emerald-100/80 text-emerald-800 border border-emerald-300/60 font-semibold">
-                  Local-First & Git-Native
+                <span className="text-[10px] font-mono-meta px-2 py-0.5 rounded-full bg-stone-100 text-stone-700 border border-stone-300/80 font-semibold">
+                  {language === "zh" ? "私密私有 · Git原生" : "Private & Git-Native"}
                 </span>
               </div>
               <p className="text-xs text-stone-500 mt-0.5">
                 {language === "zh"
-                  ? "零中心数据库 · 记忆专属存储于您的 GitHub 私有仓库，绝不串流污染"
-                  : "Zero central DB · Your memories live 100% in your private GitHub vault"}
+                  ? "All the pieces of you, coming together. · 记忆专属存储于您的 GitHub 私有仓库"
+                  : "All the pieces of you, coming together. · Your memories live 100% in your private GitHub vault"}
               </p>
             </div>
           </div>

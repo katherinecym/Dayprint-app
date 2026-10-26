@@ -1,4 +1,27 @@
-# Dayprint User Guide / 操作手册
+# dayprint
+
+# Dayprint your life.
+### All the pieces of you, coming together.
+
+> *Your life, your memories, your evolving digital self.*
+
+---
+
+### Brand Hierarchy & Philosophy / 品牌理念与愿景
+
+| Layer / 层次 | Expression / 文案表达 | Intent & Philosophy / 定位与内涵 |
+| :--- | :--- | :--- |
+| **Brand Identity** | `dayprint` | 每日印记，记录生活痕迹的极简符号。 |
+| **Hero Slogan** | **Dayprint your life.** | **记录生活、留下印记** — 用户每天实际在做的事。温暖、易懂、具辨识度。 |
+| **Soul Subtitle** | **All the pieces of you, coming together.** | **让零散的记忆、思想、知识与经历重新连接** — 逐渐形成一个完整的数字自我，是产品更深层的哲学愿景。 |
+| **Brand Anchor** | *Your life, your memories, your evolving digital self.* | 连接生活事实、长程记忆与持续进化的数字生命。 |
+| **Product Vision** | **Build your digital self. A digital self that grows with you.** | 打造与你共同成长的数字自我。用户记录的是生活，最终构建的却是自己。 |
+| **Narrative Endline** | **Every piece tells your story. (每一块碎片，都在诉说你的故事。)** | 每一张卡片、每一张小票、每一条思考，都是构成完整自我的生命拼图。 |
+| **Visual Palette** | 5 种莫兰迪色块 (`#E8A752` 琥珀 · `#D86D54` 陶土 · `#7B99B7` 冰海 · `#7F9E7B` 苍青 · `#D6C4A5` 暖沙) + `+` + 黑色圆角方块白星号 `*` | 象征零散的生活切片不断汇聚（`+`），最终熔铸成一个独特而完整的数字星辰（`*`）。 |
+
+> **核心品牌原则**：不在每一句话里盲目强调 AI。AI 是帮助这一切发生的技术，而不是品牌的全部。Dayprint 真正想表达的，是一个人在数字时代如何保存、理解和延伸自己。
+
+---
 
 > **Interactive HTML Version**: [http://localhost:3000/manual.html](http://localhost:3000/manual.html)  
 > **Source File**: [public/manual.html](file:///Users/katherine/Desktop/play&fun/build-with-AI-basics/public/manual.html)  

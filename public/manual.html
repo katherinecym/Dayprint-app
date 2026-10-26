@@ -14,10 +14,11 @@
       --ink-muted: #8C827A;
       --border-subtle: #E7E3DC;
       --border-strong: #D5CFCE;
-      --accent-terracotta: #C97A63;
-      --accent-fjord: #5B7B94;
-      --accent-amber: #C49A56;
-      --accent-sage: #608066;
+      --accent-terracotta: #D86D54;
+      --accent-fjord: #7B99B7;
+      --accent-amber: #E8A752;
+      --accent-sage: #7F9E7B;
+      --accent-sand: #D6C4A5;
       --accent-twilight: #7C6F93;
       --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
       --shadow-md: 0 4px 14px rgba(0,0,0,0.06);
@@ -159,6 +160,187 @@
       max-width: 1140px;
       margin: 0 auto;
       padding: 36px 28px 80px 28px;
+    }
+
+    /* Brand Hero Section - Inspired by Dayprint Brand Aesthetics */
+    .brand-hero-card {
+      background: #FAF8F5;
+      border: 1px solid #ECE7DF;
+      border-radius: 16px;
+      padding: 52px 36px 40px;
+      margin-bottom: 56px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .brand-hero-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #E8A752, #D86D54, #7B99B7, #7F9E7B, #D6C4A5);
+    }
+    .brand-hero-badge {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: lowercase;
+      color: #8C827A;
+      margin-bottom: 12px;
+      font-family: var(--font-mono);
+    }
+    .brand-hero-title {
+      font-size: clamp(34px, 5.2vw, 48px);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      color: #1C1917;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .brand-hero-subtitle {
+      font-size: clamp(17px, 2.4vw, 22px);
+      font-weight: 400;
+      color: #66615B;
+      line-height: 1.45;
+      max-width: 660px;
+      margin: 0 auto 30px;
+    }
+    .palette-strip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #F3EFE8;
+      padding: 12px 20px;
+      border-radius: 18px;
+      border: 1px solid #E5E0D6;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .palette-pill {
+      display: block;
+      transition: transform 0.2s ease;
+      cursor: default;
+    }
+    .palette-pill:hover {
+      transform: translateY(-2px);
+    }
+    .pill-amber {
+      width: 40px;
+      height: 38px;
+      border-radius: 10px;
+      background: #E8A752;
+    }
+    .pill-terracotta {
+      width: 28px;
+      height: 48px;
+      border-radius: 10px;
+      background: #D86D54;
+    }
+    .pill-fjord {
+      width: 62px;
+      height: 38px;
+      border-radius: 10px;
+      background: #7B99B7;
+    }
+    .pill-sage {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: #7F9E7B;
+    }
+    .pill-sand {
+      width: 32px;
+      height: 28px;
+      border-radius: 8px;
+      background: #D6C4A5;
+    }
+    .palette-plus {
+      color: #A8A29E;
+      font-size: 22px;
+      font-weight: 300;
+      margin: 0 4px;
+      user-select: none;
+    }
+    .pill-asterisk {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: #1C1917;
+      color: #FFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1;
+      user-select: none;
+    }
+    .brand-hero-anchor {
+      font-size: 14px;
+      font-weight: 500;
+      color: #78716C;
+      letter-spacing: 0.02em;
+      margin-top: 22px;
+    }
+    .brand-vision-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 36px;
+      text-align: left;
+    }
+    .brand-vision-card {
+      background: #FFFFFF;
+      border: 1px solid #EBE6DE;
+      border-radius: 12px;
+      padding: 22px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .brand-vision-card:hover {
+      border-color: #D5CFCE;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+    }
+    .vision-card-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+      margin-bottom: 6px;
+    }
+    .vision-card-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #1C1917;
+      margin-bottom: 4px;
+    }
+    .vision-card-subtitle {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent-terracotta);
+      margin-bottom: 8px;
+    }
+    .vision-card-text {
+      font-size: 13.5px;
+      color: #57534E;
+      line-height: 1.6;
+    }
+    @media (max-width: 768px) {
+      .brand-vision-grid { grid-template-columns: 1fr; }
+      .brand-hero-card { padding: 32px 20px 28px; }
+      .palette-strip { gap: 6px; padding: 10px 14px; }
+      .pill-amber { width: 30px; height: 30px; }
+      .pill-terracotta { width: 22px; height: 38px; }
+      .pill-fjord { width: 44px; height: 30px; }
+      .pill-sage { width: 30px; height: 30px; }
+      .pill-sand { width: 24px; height: 22px; }
+      .pill-asterisk { width: 32px; height: 32px; font-size: 18px; }
     }
 
     section {
@@ -408,6 +590,41 @@
 
   <!-- Container -->
   <main class="container">
+
+    <!-- BRAND HERO SHOWCASE -->
+    <div class="brand-hero-card">
+      <div class="brand-hero-badge" data-i18n="hero_brand_label">dayprint</div>
+      <h1 class="brand-hero-title" data-i18n="hero_brand_title">Dayprint your life.</h1>
+      <p class="brand-hero-subtitle" data-i18n="hero_brand_subtitle">All the pieces of you, coming together.</p>
+
+      <div class="palette-strip" aria-label="Dayprint Morandi Palette and Whole Self Asterisk">
+        <span class="palette-pill pill-amber" title="Amber · Inspired"></span>
+        <span class="palette-pill pill-terracotta" title="Terracotta · Energized"></span>
+        <span class="palette-pill pill-fjord" title="Fjord · Focused"></span>
+        <span class="palette-pill pill-sage" title="Sage · Calm"></span>
+        <span class="palette-pill pill-sand" title="Sand · Grounded"></span>
+        <span class="palette-plus">+</span>
+        <span class="palette-pill pill-asterisk" title="Asterisk · The Whole Self">✱</span>
+      </div>
+
+      <div class="brand-hero-anchor" data-i18n="hero_brand_anchor">Your life, your memories, your evolving digital self.</div>
+
+      <div class="brand-vision-grid">
+        <div class="brand-vision-card">
+          <span class="vision-card-tag tag-terracotta" data-i18n="hero_v1_tag">Product Vision · Core Direction</span>
+          <h3 class="vision-card-title" data-i18n="hero_v1_title">Build your digital self.</h3>
+          <div class="vision-card-subtitle" data-i18n="hero_v1_sub">A digital self that grows with you.</div>
+          <p class="vision-card-text" data-i18n="hero_v1_text">You are not just keeping a diary or managing a to-do list. Dayprint helps you record daily reality and gradually assemble an authentic digital extension of your mind and experience.</p>
+        </div>
+
+        <div class="brand-vision-card">
+          <span class="vision-card-tag tag-fjord" data-i18n="hero_v2_tag">Brand Philosophy · Narrative</span>
+          <h3 class="vision-card-title" data-i18n="hero_v2_title">Every piece tells your story.</h3>
+          <div class="vision-card-subtitle" data-i18n="hero_v2_sub">每一块碎片，都在诉说你的故事。</div>
+          <p class="vision-card-text" data-i18n="hero_v2_text">From a fleeting morning observation to a deeply refined working principle, every note is a footprint of your journey. As time passes, these scattered pieces come together into a complete picture of who you are.</p>
+        </div>
+      </div>
+    </div>
 
     <!-- 1. OVERVIEW & STORAGE -->
     <section id="overview">
@@ -749,6 +966,18 @@
       en: {
         doc_version: "v2.4.0 Release",
         open_app_link: "Open Dayprint →",
+        hero_brand_label: "dayprint",
+        hero_brand_title: "Dayprint your life.",
+        hero_brand_subtitle: "All the pieces of you, coming together.",
+        hero_brand_anchor: "Your life, your memories, your evolving digital self.",
+        hero_v1_tag: "Product Vision · Digital Self",
+        hero_v1_title: "Build your digital self.",
+        hero_v1_sub: "A digital self that grows with you.",
+        hero_v1_text: "You are not just keeping a diary or managing a to-do list. Dayprint helps you record daily reality and gradually assemble an authentic digital extension of your mind and experience. Technology simply works quietly in the background to weave every piece into a coherent whole.",
+        hero_v2_tag: "Brand Philosophy · Narrative",
+        hero_v2_title: "Every piece tells your story.",
+        hero_v2_sub: "每一块碎片，都在诉说你的故事。",
+        hero_v2_text: "From a fleeting morning observation to a deeply refined working principle, every note is a footprint of your journey. As time passes, these scattered pieces come together into a complete picture of who you are.",
         nav_overview: "1. How It Works",
         nav_gateway: "2. Setup & Demo",
         nav_daily: "3. Tab 1: Daily Canvas",
@@ -862,6 +1091,18 @@
       zh: {
         doc_version: "v2.4.0 正式版",
         open_app_link: "打开 Dayprint →",
+        hero_brand_label: "dayprint",
+        hero_brand_title: "Dayprint your life.",
+        hero_brand_subtitle: "All the pieces of you, coming together.",
+        hero_brand_anchor: "记录生活、留下印记，零散的记忆与思想在此重新连接，汇聚成完整的数字自我。",
+        hero_v1_tag: "产品愿景 · 数字分身",
+        hero_v1_title: "Build your digital self.",
+        hero_v1_sub: "A digital self that grows with you. (与你共同成长的数字自我)",
+        hero_v1_text: "用户记录的是生活，最终构建的却是自己。技术只在背后默默赋能，而不是喧宾夺主；每一天留下一个印记，随着时间推移，这些碎片慢慢汇聚成一个更完整的自己。",
+        hero_v2_tag: "品牌叙事 · 核心情感",
+        hero_v2_title: "Every piece tells your story.",
+        hero_v2_sub: "每一块碎片，都在诉说你的故事。",
+        hero_v2_text: "从随手记下的一句晨间闪念，到踩坑反复验证的做事原则，每一步都算数。零碎的记忆与思考重新汇聚，拼凑出真实而深刻的生命画卷。",
         nav_overview: "1. 存储与归属",
         nav_gateway: "2. 新手与演示",
         nav_daily: "3. Tab 1: 每日画卷",
