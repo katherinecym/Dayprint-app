@@ -32,6 +32,7 @@ video/
 audit-artifacts/
 *.mp4
 *.webm
+*.mov
 *.wav
 *.mp3
 *.png
