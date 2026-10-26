@@ -50,8 +50,9 @@ export function ConnectionModal({ memoryId, onClose }: ConnectionModalProps) {
 
   return (
     <div
+      data-testid="connection-modal"
       onClick={onClose}
-      className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs cursor-pointer"
+      className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs cursor-pointer"
     >
       <div
         onClick={(e) => e.stopPropagation()}
@@ -66,6 +67,7 @@ export function ConnectionModal({ memoryId, onClose }: ConnectionModalProps) {
             <h3 className="font-semibold text-sm tracking-tight">{t.explore_connections}</h3>
           </div>
           <button
+            data-testid="close-connection-modal-btn"
             onClick={onClose}
             className="p-1.5 rounded-lg border border-[var(--grid-line)] bg-white text-stone-600 hover:text-stone-900 hover:bg-stone-100 transition-colors cursor-pointer shadow-2xs"
             title={language === "zh" ? "关闭 (Esc 或点击背景)" : "Close (Esc or click background)"}

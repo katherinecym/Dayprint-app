@@ -65,15 +65,15 @@ SCENES = [
     },
     {
         "id": "scene5_knowledge_graph",
-        "title": "Scene 5: Knowledge Graph — Force Graph, Cards Mode & Link Management",
+        "title": "Scene 5: Knowledge Graph — Zoom In, Archipelago Principle & Link Management",
         "budget_seconds": 34.0,
         "text": (
             "In the Knowledge Graph, reflections weave into a living constellation. "
-            "Hovering over a central hub illuminates its rich relational network. "
-            "Switch to Cards Mode to inspect thoughts across five cognitive tiers. "
-            "Managing links is transparent. Open Link Management to prune connections, "
-            "disconnecting obsolete threads with one click, "
-            "or establish new causal bridges, explaining why two ideas connect."
+            "Zoom in to inspect fine topological details. "
+            "Selecting the Architecture Focus node on the Archipelago Principle reveals its deep inspector. "
+            "Click View Card Details and Edit to unpack full context, "
+            "then explore connections to prune obsolete threads or establish new causal bridges, "
+            "explaining why two ideas connect."
         ),
     },
     {
@@ -119,6 +119,8 @@ def main():
     padded_audio_chunks = []
     cumulative_offset = 0.0
 
+    force_regen_scene = os.getenv("FORCE_REGEN_SCENE", "all")
+
     for i, scene in enumerate(SCENES, 1):
         scene_id = scene["id"]
         title = scene["title"]
@@ -130,25 +132,34 @@ def main():
         print(f"    Target Budget: {budget:.1f}s | Words: {len(text.split())}")
         print(f"    Script: {text[:65]}...")
 
-        # Maintain exact voice timbre and clean output across all scenes
-        torch.manual_seed(100 + i)
-
-        # For Scene 1, generate clean base voice if ref doesn't exist, else use ref_voice_path
-        if os.path.exists(ref_voice_path):
-            wav = model.generate(
-                text=text,
-                reference_wav_path=ref_voice_path,
-                cfg_value=2.0,
-                inference_timesteps=15,
-            )
+        # If cached wav exists and this scene is not requested to be force-regenerated, reuse it
+        if os.path.exists(out_path) and force_regen_scene != "all" and force_regen_scene != scene_id:
+            print(f"    -> Reusing cached audio: {out_path}")
+            wav, _ = sf.read(out_path)
+            if len(wav.shape) > 1:
+                wav = wav[:, 0]
         else:
-            wav = model.generate(
-                text=text,
-                cfg_value=2.0,
-                inference_timesteps=15,
-            )
-            # Create voice reference from first 6 seconds of Scene 1
-            sf.write(ref_voice_path, wav[:int(sample_rate * 6)], sample_rate)
+            # Maintain exact voice timbre and clean output across all scenes
+            torch.manual_seed(100 + i)
+
+            # For Scene 1, generate clean base voice if ref doesn't exist, else use ref_voice_path
+            if os.path.exists(ref_voice_path):
+                wav = model.generate(
+                    text=text,
+                    reference_wav_path=ref_voice_path,
+                    cfg_value=2.0,
+                    inference_timesteps=15,
+                )
+            else:
+                wav = model.generate(
+                    text=text,
+                    cfg_value=2.0,
+                    inference_timesteps=15,
+                )
+                # Create voice reference from first 6 seconds of Scene 1
+                sf.write(ref_voice_path, wav[:int(sample_rate * 6)], sample_rate)
+
+            sf.write(out_path, wav, sample_rate)
 
         raw_duration = len(wav) / sample_rate
         sf.write(out_path, wav, sample_rate)

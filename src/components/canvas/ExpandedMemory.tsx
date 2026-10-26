@@ -135,6 +135,7 @@ export function ExpandedMemoryModal({ memoryId, onClose }: ExpandedMemoryModalPr
 
   return (
     <div
+      data-testid="expanded-memory-modal"
       onClick={onClose}
       className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6 bg-black/40 backdrop-blur-xs cursor-pointer"
     >
@@ -162,6 +163,7 @@ export function ExpandedMemoryModal({ memoryId, onClose }: ExpandedMemoryModalPr
 
           <div className="flex items-center gap-2">
             <button
+              data-testid="expanded-memory-connections-btn"
               onClick={() => {
                 setConnectionModalMemoryId(memory.id);
               }}
@@ -171,6 +173,7 @@ export function ExpandedMemoryModal({ memoryId, onClose }: ExpandedMemoryModalPr
               <span>{t.explore_connections}</span>
             </button>
             <button
+              data-testid="close-expanded-memory-btn"
               onClick={onClose}
               className="p-1.5 rounded-lg border border-[var(--grid-line)] bg-white text-stone-600 hover:text-stone-950 hover:bg-stone-100 transition-colors cursor-pointer shadow-2xs"
               title={language === "zh" ? "关闭 (Esc 或点击背景)" : "Close (Esc or click background)"}

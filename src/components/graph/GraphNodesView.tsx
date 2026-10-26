@@ -550,6 +550,7 @@ export function GraphNodesView() {
                   </div>
 
                   <button
+                    data-testid="view-card-details-btn"
                     onClick={() => setSelectedMemoryId(selectedNode.id)}
                     className="w-full mt-2 px-3 py-2 bg-[#F7C928] text-black font-bold text-xs border border-black hover:bg-black hover:text-white transition-colors flex items-center justify-center gap-1 font-mono-meta"
                   >

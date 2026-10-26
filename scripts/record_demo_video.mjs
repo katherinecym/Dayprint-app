@@ -348,91 +348,111 @@ async function main() {
   // ----------------------------------------------------
   // SCENE 5: Knowledge Graph & Link Management (Budget: 34s)
   // ----------------------------------------------------
-  console.log(">>> [SCENE 5] Knowledge Graph: Force Graph, Cards Mode & Link Management (01:50 - 02:24)");
+  console.log(">>> [SCENE 5] Knowledge Graph: Zoom In, Archipelago Principle & Link Management (01:50 - 02:24)");
   const s5Start = Date.now();
 
-  // 00:00 - 00:05: Navigate to Knowledge Graph
+  // 00:00 - 00:04: Navigate to Knowledge Graph
   console.log("  - Navigating to Knowledge Graph...");
   const graphNavBtn = page.locator('button:has-text("Knowledge Graph")').first();
   if (await graphNavBtn.isVisible()) {
     await graphNavBtn.click();
-    await sleep(4000);
-  }
-
-  // 00:05 - 00:11: Demonstrate Force Graph spring physics & hover central hub
-  console.log("  - Demonstrating Force Graph spring physics and hovering hub node...");
-  await page.mouse.move(960, 500);
-  await page.mouse.down();
-  await page.mouse.move(860, 420, { steps: 25 });
-  await page.mouse.up();
-  await sleep(3000);
-  await page.mouse.move(760, 480);
-  await sleep(2500);
-
-  // 00:11 - 00:17: Switch to Cards Mode
-  console.log("  - Switching to Cognitive Cards Mode (L0-L4 Hierarchy)...");
-  const cardsModeBtn = page.locator('button:has-text("Cards")').first();
-  if (await cardsModeBtn.isVisible()) {
-    await cardsModeBtn.click();
     await sleep(3500);
-
-    // Select the high-degree central hub card: mem_demo_01 (AetherOS Architecture)
-    console.log("  - Selecting high-degree central hub card (AetherOS Architecture)...");
-    const hubCard = page.locator('div:has-text("AetherOS Cognitive Digital Sub-Myself Architecture")').first();
-    if (await hubCard.isVisible()) {
-      await hubCard.click();
-      await sleep(2500);
-    }
   }
 
-  // 00:17 - 00:22: Switch back to Force Graph & open Link Node Manager
-  console.log("  - Switching back to Force Graph Mode...");
-  const forceModeBtn = page.locator('button:has-text("Force Graph")').first();
-  if (await forceModeBtn.isVisible()) {
-    await forceModeBtn.click();
-    await sleep(3000); // Observe radiant indigo resonance network around the selected hub node
+  // 00:04 - 00:09: Zoom in on Knowledge Graph for clear visibility
+  console.log("  - Zooming in on Knowledge Graph for high-resolution clarity...");
+  const zoomInBtn = page.locator('[data-testid="graph-zoom-in"]').first();
+  if (await zoomInBtn.isVisible()) {
+    await zoomInBtn.hover();
+    await sleep(800);
+    await zoomInBtn.click();
+    await sleep(900);
+    await zoomInBtn.click();
+    await sleep(900);
+    await zoomInBtn.click();
+    await sleep(1500);
   }
 
-  console.log("  - Opening Link Node Manager from inspector...");
-  const linkNodeBtn = page.locator('button:has-text("Link Node"), button:has-text("Link")').first();
-  if (await linkNodeBtn.isVisible()) {
-    await linkNodeBtn.click();
+  // 00:09 - 00:15: Click the node: Architecture Focus & The Archipelago Principle (mem_demo_02)
+  console.log("  - Clicking node: Architecture Focus & The Archipelago Principle (mem_demo_02)...");
+  const archipelagoNode = page.locator('g[data-node-id="mem_demo_02"]').first();
+  await archipelagoNode.waitFor({ state: 'visible', timeout: 6000 }).catch(() => {});
+  if (await archipelagoNode.isVisible()) {
+    await archipelagoNode.hover();
+    await sleep(1000);
+    await archipelagoNode.click({ force: true });
+    await sleep(3500); // Inspector drawer on the right displays the full details & connections
+  }
+
+  // 00:15 - 00:20: Click 'View Card Details & Edit'
+  console.log("  - Clicking View Card Details & Edit...");
+  const viewDetailsBtn = page.locator('[data-testid="view-card-details-btn"]').first();
+  await viewDetailsBtn.waitFor({ state: 'visible', timeout: 6000 }).catch(() => {});
+  if (await viewDetailsBtn.isVisible()) {
+    await viewDetailsBtn.hover();
+    await sleep(1000);
+    await viewDetailsBtn.click();
+    await sleep(3500); // ExpandedMemoryModal opens in full focus view
+  }
+
+  // 00:20 - 00:32: Open Explore Connections & demonstrate editing connections
+  console.log("  - Opening Explore Connections modal...");
+  const expConnBtn = page.locator('[data-testid="expanded-memory-connections-btn"]').first();
+  await expConnBtn.waitFor({ state: 'visible', timeout: 6000 }).catch(() => {});
+  if (await expConnBtn.isVisible()) {
+    await expConnBtn.hover();
+    await sleep(1000);
+    await expConnBtn.click();
     await sleep(2500);
 
-    // 00:22 - 00:26: Disconnect existing link
+    // Demonstrate link disconnect
     console.log("  - Demonstrating link disconnect...");
-    const disconnectBtn = page.locator('div.z-\\[60\\] button:has-text("Disconnect")').first();
+    const disconnectBtn = page.locator('[data-testid="connection-modal"] button:has-text("Disconnect")').first();
+    await disconnectBtn.waitFor({ state: 'visible', timeout: 5000 }).catch(() => {});
     if (await disconnectBtn.isVisible()) {
+      await disconnectBtn.hover();
+      await sleep(800);
       await disconnectBtn.click();
-      await sleep(3000);
-    }
-
-    // 00:26 - 00:32: Connect new link with causal reason
-    console.log("  - Connecting new link with causal reason...");
-    const selectEl = page.locator('div.z-\\[60\\] select').first();
-    if (await selectEl.isVisible()) {
-      await selectEl.selectOption({ index: 1 });
-      await sleep(1200);
-    }
-
-    const reasonInput = page.locator('div.z-\\[60\\] input[placeholder*="related"], div.z-\\[60\\] input[type="text"]').last();
-    if (await reasonInput.isVisible()) {
-      await reasonInput.fill('Direct predecessor and state isolation foundation');
       await sleep(1800);
     }
 
-    const submitLinkBtn = page.locator('div.z-\\[60\\] button[type="submit"]').first();
-    if (await submitLinkBtn.isVisible()) {
-      await submitLinkBtn.click();
-      await sleep(3000);
+    // Connect new link with causal reason
+    console.log("  - Connecting new link with causal reason...");
+    const selectEl = page.locator('[data-testid="connection-modal"] select').first();
+    if (await selectEl.isVisible()) {
+      await selectEl.selectOption({ index: 1 });
+      await sleep(1000);
     }
 
-    // 00:32 - 00:34: Close modal
-    const closeConnBtn = page.locator('div.z-\\[60\\] button:has(svg.lucide-x)').first();
-    if (await closeConnBtn.isVisible()) {
-      await closeConnBtn.click();
+    const reasonInput = page.locator('[data-testid="connection-modal"] input[placeholder*="related"], [data-testid="connection-modal"] input[type="text"]').last();
+    if (await reasonInput.isVisible()) {
+      await reasonInput.fill('Direct predecessor and state isolation foundation');
       await sleep(1500);
     }
+
+    const submitLinkBtn = page.locator('[data-testid="connection-modal"] button[type="submit"]').first();
+    if (await submitLinkBtn.isVisible()) {
+      await submitLinkBtn.hover();
+      await sleep(800);
+      await submitLinkBtn.click();
+      await sleep(2000);
+    }
+
+    // Close ConnectionModal
+    console.log("  - Closing Connection Modal...");
+    const closeConnBtn = page.locator('[data-testid="close-connection-modal-btn"]').first();
+    if (await closeConnBtn.isVisible()) {
+      await closeConnBtn.click();
+      await sleep(1200);
+    }
+  }
+
+  // 00:32 - 00:34: Close ExpandedMemoryModal to return to zoomed-in constellation
+  console.log("  - Closing Expanded Memory Modal...");
+  const closeCardBtn = page.locator('[data-testid="close-expanded-memory-btn"]').first();
+  if (await closeCardBtn.isVisible()) {
+    await closeCardBtn.click();
+    await sleep(1200);
   }
 
   await waitSceneBudget(5, s5Start);

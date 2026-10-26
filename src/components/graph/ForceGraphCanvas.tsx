@@ -493,6 +493,7 @@ export function ForceGraphCanvas({
   // Handle Dragging Node
   const handleNodeMouseDown = (nodeId: string, e: React.MouseEvent) => {
     e.stopPropagation();
+    onSelectNode(nodeId);
     setDraggingNodeId(nodeId);
     dragStartPosRef.current = { x: e.clientX, y: e.clientY };
   };
@@ -652,6 +653,7 @@ export function ForceGraphCanvas({
       {/* 2. De Stijl Minimalist Zoom / Pan Controls Overlay */}
       <div className="absolute bottom-5 left-5 z-20 flex items-center gap-1 bg-[var(--card-white)]/95 backdrop-blur-md border border-[var(--grid-line)] p-1 text-[var(--ink-primary)] boogie-shadow">
         <button
+          data-testid="graph-zoom-in"
           onClick={() => setZoom((z) => Math.min(z * 1.2, 2.5))}
           className="p-1.5 hover:bg-[var(--panel-bg)] text-[var(--ink-primary)] border border-transparent font-bold transition-colors"
           title="Zoom In"
@@ -872,6 +874,8 @@ export function ForceGraphCanvas({
               return (
                 <g
                   key={node.id}
+                  data-node-id={node.id}
+                  data-node-title={node.title}
                   transform={`translate(${node.x}, ${node.y})`}
                   onMouseDown={(e) => handleNodeMouseDown(node.id, e)}
                   onMouseEnter={() => setHoveredNodeId(node.id)}
