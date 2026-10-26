@@ -1,54 +1,31 @@
-# Dayprint NextGen — 前端 UI/UX 体验升维与设计优化记录 (Design Enhancements)
+# Dayprint NextGen — Frontend UI/UX Design Enhancements
 
-> **归档说明：** 本文档为独立新增设计与体验优化记录文档，**严格不改动参赛主文档（如 `PRD-Dayprint-NextGen.md`、`prd.md`、`scope.md`、`spec.md`）**，确保原有 Hackathon 提交资料的原始性与完整性。
-
----
-
-## 1. 优化背景与设计目标
-
-在 Dayprint 原有实体手账画卷与活体记忆工作区的基础上，针对日常高频记录时的“垂直屏效”、“空间降噪”与“色彩辨识度”，进行专项体验升级：
-
-1. **首屏垂直屏效跃升（Vertical Real Estate）**：消除传统大面积输入表单对卡片流的挤压，实现极简打字行到全功能桌面的渐进式展开。
-2. **全局控件去重与纯净画卷模式（Chrome Deduplication & Zen Canvas）**：顶部栏与侧边栏职责分明，支持一键折叠伴随面板进入无干扰全屏画卷漫游。
-3. **实体手账纸基色彩升维（Tactile Paper Stocks）**：解决原配色中 7% 微弱色相渗透导致的“大面积泛白单调”，引入温润可辨的物理手账纸基色谱与空间画框层级对比。
+> **Archive Note:** This document records specialized design and interaction optimization history, complementing the core Hackathon submission architecture.
 
 ---
 
-## 2. 界面与交互优化明细
+## 1. Background & Design Goals
 
-### 2.1 极速记录台：渐进式呼吸展开 (Progressive Disclosure)
-- **极简折叠态**：无草稿时，呈现 44px 高度的纯粹打字机风格记录行：`随手记下此刻的想法、灵感或生活碎片... (点击开始记录)`，首屏卡片露出率增加 40% 以上。
-- **全景写作桌面**：用户点击、聚焦或输入内容时平滑展开日期、时间、双语草稿、AI 润色与贴图控件。
-- **随时收起与保存折叠**：提供优雅的「收起」按键；保存成功后自动归拢，保持画布清爽。
+Building upon Dayprint's tactile scrapbook and living memory workspace, this enhancement addresses vertical screen efficiency, noise reduction, and tactile visual clarity for daily high-frequency micro-journaling:
 
-### 2.2 顶部栏轻量化与伴随面板双态折叠 (Zen Mode)
-- **控件单一归属**：侧边栏专职负责全功能设置（主题、语言、打字音效、GitHub 同步）；
-- **顶部栏瘦身**：突出中央全局检索框（`⌘K`）与工作空间指示，新增 `PanelRightClose` / `PanelRight` 开关；
-- **纯净画卷漫游**：一键收起右侧伴随面板，主瀑布流卡片自适应展开至 1~5 列，沉浸式阅读过往岁月印记。
-
-### 2.3 记忆卡片视觉质感强化 (Cognitive Badging & Rendering)
-- **L0-L4 认知阶梯印章**：卡片顶部醒目标注 `L0·流水`、`L1·经历`、`L2·习惯`、`L3·心智`、`L4·原则`，认知深度一览无余；
-- **STAR 胜仗徽章**：AI 提炼的成果点亮专属金琥珀 `STAR` 微标；
-- **GPU 硬件加速与文字抗虚化**：卡片注入 `transform-gpu backface-hidden will-change-transform`，彻底杜绝轻微旋转倾斜下的亚像素字体渲染边缘发虚。
+1. **Vertical Real Estate Optimization**: Eliminates bulky static input forms crowding the card stream, introducing progressive disclosure from a single typewriter line to an expanded workbench.
+2. **Chrome Deduplication & Zen Canvas Mode**: Clearly separates header and sidebar responsibilities, offering a one-click toggle to collapse secondary companion panels into distraction-free fullscreen canvas browsing.
+3. **Tactile Paper Stocks Spectrum**: Replaces subtle low-contrast tinting with an authentic physical stationery palette (Warm Almond, Fjord Grid, Sunlit Kraft, Twilight Lavender, Sage Herbarium) paired with elevated spatial card framing.
 
 ---
 
-## 3. 手账实体纸基调色板规范 (Tactile Paper Stocks Matrix)
+## 2. Interaction & Interface Refinements
 
-针对“整体配色偏单调”的优化方案：
+### 2.1 Fast Capture Dock: Progressive Disclosure
+- **Compact Collapsed State**: When inactive or draft-free, presents a minimal 44px typewriter line: *"Capture a fleeting thought, insight, or life spark... (Click to expand)"*, increasing first-screen card visibility by over 40%.
+- **Panoramic Workbench**: Expands smoothly upon focus or click to reveal timestamp pickers, bilingual draft toggles, AI polish triggers, and image attachments.
+- **Fluid Dismissal**: Features a dedicated collapse control; automatically tucks away upon successful print to preserve a calm canvas.
 
-| 记忆类型 | 纸张物理意象 (Paper Stock) | 纸基背景色 (Hex) | 顶部/装饰强调色 (Hex) |
-| :--- | :--- | :--- | :--- |
-| **灵感 (Idea)** | 暖杏粉和纸 (Almond Washi) | `#FDF3EF` | `#C05A46` (陶土赭红) |
-| **思考 (Learning)** | 冰海灰蓝方格纸 (Fjord Grid) | `#EFF4F8` | `#5B7B94` (冰海雾蓝) |
-| **生活 (Moment)** | 琥珀日晒牛皮纸 (Sunlit Kraft) | `#FBF5E8` | `#C49A56` (琥珀姜黄) |
-| **决策/反思 (Decision)** | 暮山薰衣草浅笺 (Twilight Vellum) | `#F4F1F8` | `#7C6F93` (暮山紫藤) |
-| **计划 (Plan)** | 鼠尾草植物标本纸 (Sage Herbarium) | `#EFF4EE` | `#608066` (苍翠鼠尾) |
-| **胜仗 (Achievement)** | 焦糖复古羊皮纸 (Caramel Parchment) | `#F8EFEA` | `#A66B4E` (焦糖暖赭) |
-| **收藏/资料 (Collection)** | 烟灰石青纸 (Slate Cyan) | `#EFF3F5` | `#5A7D8F` (烟灰石青) |
+### 2.2 Header Streamlining & Zen Companion Toggle
+- **Unified Controls**: Sidebar exclusively houses configuration controls (themes, language toggles, typing sound synthesizer, GitHub sync).
+- **Lightweight Header**: Highlights global search (`Cmd+K`) and vault indicators, adding a quick toggle (`PanelRightClose` / `PanelRight`) to show or hide the context panel.
+- **Immersive Canvas Stream**: Collapsing the right companion panel allows the masonry card stream to adapt across 1 to 5 columns for deep reading.
 
----
-
-## 4. 架构一致性保障
-- 所有优化改动均遵循 Next.js 16.4 与 Turbopack 编译标准；
-- 本地纯文本 Vault 单向数据流与数据主权协议保持 100% 兼容。
+### 2.3 Tactile Memory Card Badging & Rendering
+- **L0–L4 Cognitive Evolution Badges**: Cards feature distinct level stamps (`L0 Stream`, `L1 Incident`, `L2 Habit`, `L3 Mental Model`, `L4 Principle`), making cognitive depth immediately recognizable.
+- **Physical Paper Textures**: Subtle serrated edges, washi-tape pins, and tactile Morandi background tones deliver authentic stationery warmth without screen fatigue.
