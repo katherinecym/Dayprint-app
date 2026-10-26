@@ -2,8 +2,9 @@
 # (This does NOT make AI conversations private; it only keeps this file out of git.)
 /devpost/learner-profile.md
 
-# Local agent memory / session state — never publish.
-.workbuddy-ai/memory/
+# Local agent workspace (memory logs + installed skills + session state) — never publish.
+# Skills can be re-installed from the plugin source, so the whole folder is kept out of git.
+.workbuddy-ai/
 .claude/settings.local.json
 
 # Credentials — ignore real secrets, allow a secret-free example file.

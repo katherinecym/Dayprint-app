@@ -30,8 +30,9 @@ This project strictly follows the **Devpost "Build With AI: Basics"** planning a
 - 🎯 **[Project Scope (Scope)](./scope.md)** (or in [devpost/scope.md](./devpost/scope.md)): Unique kernel, target user, core loop, inspiration, learner rationale, and POC boundary.
 - 📋 **[Product Requirements Document (PRD)](./prd.md)** (or in [devpost/prd.md](./devpost/prd.md)): End-to-end user journey, screen architecture, functional behavior, states, and explicit product decisions.
 - 🛠️ **[Technical Specification (Spec)](./spec.md)** (or in [devpost/spec.md](./devpost/spec.md)): Plain-language architecture, data models, component mappings, failure modes, and background GitHub sync flow.
-- 🏆 **[Devpost Submission Package](./DEVPOST-SUBMISSION.md)**: Product story, technical challenges, and learning takeaways.
-- 🎬 **[Demo Video Script](./VIDEO-DEMO-SCRIPT.md)**: Concise demonstration script and audio narration guide.
+- 🏆 **[Devpost Submission Package](./docs/DEVPOST-SUBMISSION.md)**: Product story, technical challenges, and learning takeaways.
+- 🎬 **[Demo Video Script](./docs/VIDEO-DEMO-SCRIPT.md)**: Concise demonstration script and audio narration guide.
+- 📖 **[Extended Documentation & Architecture](./docs/)**: Comprehensive architectural specs, user manual, and design documentation.
 
 ---
 
