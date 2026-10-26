@@ -19,7 +19,7 @@ Our daily lives and thoughts are deeply fractured:
 
 When we try to look back, our authentic self is nowhere to be found.
 
-**Dayprint solves this at the root.** It is a tactile, local-first memory sanctuary that gathers every fragment of your life—engineering breakthroughs, daily habits, reading notes, and foundational principles—and weaves them into an evolving neural constellation. Dayprint is not just another note-taking app; it is the **cradle of your AI Digital Twin and Cognitive Confidant (AI数字分身与终身知己)**.
+**Dayprint solves this at the root.** It is a tactile, local-first memory sanctuary that gathers every fragment of your life—engineering breakthroughs, daily habits, reading notes, and foundational principles—and weaves them into an evolving neural constellation. Dayprint is not just another note-taking app; it is the **cradle of your AI Digital Twin and Cognitive Confidant **.
 
 ---
 
@@ -30,7 +30,7 @@ When we try to look back, our authentic self is nowhere to be found.
 | 0:00 - 0:25   | Scene 1: Step 1 Setup — 100% Data Sovereignty via Private GitHub Repo & Demo Gateway             |
 | 0:25 - 0:55   | Scene 2: Today's Canvas & Creation Ritual — AI Polish, Weave Echo, Custom Types & Morandi Colors |
 | 0:55 - 1:15   | Scene 3: Companion Panel Anatomy — Today's Stream, Daily Summary Slip & Usage Activity Heatmap   |
-| 1:15 - 1:40   | Scene 4: Life Stubs & Anatomy of the Daily Thermal Receipt (每日小票)                            |
+| 1:15 - 1:40   | Scene 4: Life Stubs & Anatomy of the Daily Thermal Receipt                            |
 | 1:40 - 2:05   | Scene 5: Knowledge Graph — Force Graph, Cards Mode & Live Link Management (Disconnect & Connect) |
 | 2:05 - 2:22   | Scene 6: Weekly Digest — Weekly Synthesis, Cognitive Distribution & STAR Career Brag Sheet       |
 | 2:22 - 2:32   | Scene 7: Eternal Memory & Closing — Zero Data Leakage, Total Ownership                           |
@@ -80,7 +80,7 @@ When we try to look back, our authentic self is nowhere to be found.
        - **S · Situation & Context:** *"Distributed memory contention causing high latency spikes under multi-agent loads."*
        - **A · Action Taken:** *"Architected asynchronous actor isolation locks with lock-free atomic buffers."*
        - **R · Impact & Results:** *"Reduced sync contention by 64% and achieved sub-millisecond p99 state propagation."*
-  4. **Weave Echo (时空记忆回响):**
+  4. **Weave Echo:**
      - Highlight the amber **Memory Echo Bar**: `"Origin: Technology Selection Framework"`.
      - Click the **"Weave Echo"** button (`[title*="Weave"]`).
      - The button transforms into an emerald badge: `"Weaved Link"`, weaving an organic temporal thread between today's implementation and a past architectural decision.
@@ -112,7 +112,7 @@ When we try to look back, our authentic self is nowhere to be found.
   1. The camera glides to the right-hand **Companion Panel (`ContextPanel`)**.
   2. **Top-Right: Daily Summary Slip & Reflection Hub:**
      - Highlight the **Daily Mood Watercolor Wash** selector (`Terracotta`, `Amber`, `Sage`, `Fjord`, `Twilight`). Click **Sage (`#608066`)**; notice the subtle watercolor tint wash across the slip.
-     - Highlight the **Daily Reflection (今日复盘与结语)** textarea.
+     - Highlight the **Daily Reflection** textarea.
      - Type: `"System clarity achieved through ruthless boundary isolation."`
      - A green `"Synced"` indicator appears, auto-printing this reflection onto today's archived stub.
   3. **Middle: Today's Stream:**
@@ -132,9 +132,9 @@ When we try to look back, our authentic self is nowhere to be found.
 
 ### 🎬 Scene 4: Life Stubs & Anatomy of the Daily Thermal Receipt (1:15 – 1:40 | 25s)
 
-* **Key Message:** Life Stubs as a tactile retro scrapbook journal, and the full anatomy of the Daily Thermal Receipt (每日小票).
+* **Key Message:** Life Stubs as a tactile retro scrapbook journal, and the full anatomy of the Daily Thermal Receipt.
 * **On-Screen Visual Actions:**
-  1. Click **"Life Stubs" (生活存根)** in the left sidebar navigation (`AppSidebar`).
+  1. Click **"Life Stubs"** in the left sidebar navigation (`AppSidebar`).
   2. The **Daily Receipt Modal (`DailyReceiptModal`)** opens with a fluid animation, presenting the full-page thermal receipt.
   3. **Detailed Breakdown of the Thermal Receipt Anatomy:**
      - **① Masthead:** Point to the top header: `• DAYPRINT LIFE STUB •`, the date (`2026-10-25`), day of the week, and custom daily theme badge.
@@ -169,7 +169,7 @@ When we try to look back, our authentic self is nowhere to be found.
 
 * **Key Message:** Relational thinking via Force Graph physics, 5-tier cognitive Cards mode, and dynamic link management (disconnecting and connecting with causal rationale).
 * **On-Screen Visual Actions:**
-  1. Click **"Knowledge Graph" (关系图谱)** in the navigation sidebar.
+  1. Click **"Knowledge Graph"** in the navigation sidebar.
   2. **Dynamic Force Graph Mode:**
      - The 2D canvas springs to life with organic physics simulation.
      - Drag a node; watch connected constellation threads flex and rebound with spring tension.
@@ -207,7 +207,7 @@ When we try to look back, our authentic self is nowhere to be found.
 
 * **Key Message:** Autonomous weekly synthesis, cognitive growth breakdown, and 1-click Markdown export for 1-on-1s and performance reviews.
 * **On-Screen Visual Actions:**
-  1. Click **"Weekly Digest" (周度复盘)** in the sidebar or top bar.
+  1. Click **"Weekly Digest"** in the sidebar or top bar.
   2. The **Weekly Digest Modal** unfolds:
      - Highlight the **Executive Summary Banner**: 9 milestones captured this week across systems architecture, creative writing, and physical wellness.
      - Highlight the **Cognitive Distribution Breakdown**: showing healthy balance across L0 (Moments), L2 (Habits), and L3 (Mental Models).

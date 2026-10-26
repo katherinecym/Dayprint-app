@@ -1,24 +1,24 @@
-# Dayprint (今日印迹) — Devpost Hackathon 提交说明书 (Submission Package)
+# Dayprint — Devpost Hackathon Submission Package
 
 > **Hackathon:** [Build With AI: Basics (Devpost Learn)](https://learn-ai-basics.devpost.com/)  
-> **Project Name:** Dayprint (今日印迹)  
+> **Project Name:** Dayprint  
 > **Tagline:** Dayprint your life. All the pieces of you, coming together. A tactile, local-first memory sanctuary that unifies scattered work, reading, and reflections into an evolving digital self with eternal data sovereignty.  
 > **Repository:** Public Git Repository with `scope.md`, `prd.md`, `spec.md`  
 
 ---
 
-## 1. Devpost 提交表单标准填写内容 (Devpost Submission Form Content)
+## 1. Devpost Submission Form Content
 
-### 1.1 Project Overview (项目概览)
-* **Title:** Dayprint (今日印迹)
-* **Tagline (一句话介绍):**
+### 1.1 Project Overview
+* **Title:** Dayprint
+* **Tagline:**
   > Dayprint your life. All the pieces of you, coming together. A tactile, local-first memory sanctuary cultivating your evolving digital self with 100% data sovereignty.
 * **Try it out / Demo Link:** `http://localhost:3000` (Local Dev) / Vercel Live Preview Link
 * **Repository Link:** Public GitHub repository link
 
 ---
 
-### 1.2 Inspiration (灵感与起心动念)
+### 1.2 Inspiration
 In an era dominated by app fragmentation, our authentic selves are fractured across disconnected silos:
 - Our best engineering and work decisions vanish into closed Slack channels and email threads;
 - Our reading insights and study takeaways gather digital dust across disjointed note apps;
@@ -35,7 +35,7 @@ That is why we built **Dayprint**.
 
 ---
 
-### 1.3 What it does (产品功能与用户旅程)
+### 1.3 What it does
 Dayprint is a tactile living memory sanctuary and cognitive twin workspace:
 
 1. **Unified Memory Sanctuary (Eliminating Fragmentation)**: No more bouncing between Slack, email, Apple Notes, and bookmarks. Dayprint provides a single, distraction-free home for your career decisions, reading reflections, and life milestones.
@@ -50,7 +50,7 @@ Dayprint is a tactile living memory sanctuary and cognitive twin workspace:
 
 ---
 
-### 1.4 How we built it (技术实现与架构亮点)
+### 1.4 How we built it
 
 Dayprint was built from the ground up as a modern, high-performance, local-first web application:
 * **Core Framework**: Next.js 16.4 (App Router, Turbopack) + React 19 + TypeScript 5.
@@ -61,7 +61,7 @@ Dayprint was built from the ground up as a modern, high-performance, local-first
 
 ---
 
-### 1.5 How we used the Devpost Learn Skill Pack (技能包学习复盘)
+### 1.5 How we used the Devpost Learn Skill Pack
 
 The **Devpost Learn Skill Pack** (`challengepost/learn-ai-basics`) completely transformed our development process through a disciplined 6-stage lifecycle:
 
@@ -74,7 +74,7 @@ The **Devpost Learn Skill Pack** (`challengepost/learn-ai-basics`) completely tr
 
 ---
 
-### 1.6 Challenges we ran into (攻坚难点与工程解决方案)
+### 1.6 Challenges we ran into
 
 * **Next.js 16 SSR Timezone & Hydration Mismatch**: Dynamic date formatters like `toLocaleDateString` render differently on Node.js servers versus user client browsers, triggering hydration errors. We solved this by implementing deterministic string-slice date utilities (`YYYY-MM-DD` and `HH:mm`) with `suppressHydrationWarning` guards.
 * **Masonry Layout Jitter & Subpixel Font Blurring**: Applying CSS rotations to cards in dynamic masonry columns caused slight subpixel font rendering blur in WebKit/Blink. We applied `transform-gpu backface-hidden will-change-transform` and isolated height computations to ensure razor-sharp typography.
@@ -82,19 +82,19 @@ The **Devpost Learn Skill Pack** (`challengepost/learn-ai-basics`) completely tr
 
 ---
 
-### 1.7 Accomplishments that we're proud of (自豪的成果)
+### 1.7 Accomplishments that we're proud of
 * **Design Excellence**: Created an interface that feels genuinely warm, calm, and tactile rather than like sterile enterprise software.
 * **Zero-Cloud Data Sovereignty**: Achieved full cloud-like backup benefits through user-owned GitHub repositories without maintaining any centralized user database.
 * **High-Paced Engineering**: Took Dayprint from a raw concept in `scope.md` to a fully working, robust, test-passing product with multi-lingual support (English & Chinese) within the hackathon timeline.
 
 ---
 
-### 1.8 What we learned (我们的心得)
+### 1.8 What we learned
 Spec-driven AI development is exponentially faster and more reliable than ad-hoc prompting. By spending the first 20% of our effort rigorously pinning down `scope.md`, `prd.md`, and `spec.md`, our AI coding assistant maintained 100% architectural coherence, avoided hallucinated refactors, and produced clean, production-grade code on the first try.
 
 ---
 
-### 1.9 What's next for Dayprint (未来展望)
+### 1.9 What's next for Dayprint
 * **Bluetooth Thermal Printer Output**: Direct ESC/POS printing to physical paper receipt printers (e.g., Cat Printer, PeriPage) via Web Bluetooth API.
 * **Mobile PWA & Ambient Voice Capture**: Offline-capable mobile home screen icon with local voice transcription.
 * **Interactive Celestial Knowledge Graph**: Deeper vector-based graph clustering visualizing the serendipitous connections between years of life notes.

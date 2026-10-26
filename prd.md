@@ -3,7 +3,7 @@ doc: prd
 status: approved
 ---
 
-# Dayprint (今日印迹) — Product Requirements
+# Dayprint — Product Requirements
 
 Dayprint is a zero-friction, tactile personal micro-journal and cognitive memory hub for deep thinkers, writers, and learners who want effortless daily journaling without organizational burden or cloud privacy risks.  
 Source: `scope.md > The Unique Kernel`, `scope.md > Who It's For`.

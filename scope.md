@@ -3,7 +3,7 @@ doc: scope
 status: approved
 ---
 
-# Dayprint (今日印迹)
+# Dayprint
 
 A tactile micro-journal that turns quick thoughts into thermal paper slips, auto-organizing them into an editorial scrapbook while silently archiving raw Markdown to the user's private GitHub repository.
 

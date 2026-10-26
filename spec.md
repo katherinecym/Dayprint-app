@@ -3,7 +3,7 @@ doc: spec
 status: approved
 ---
 
-# Dayprint (今日印迹) — Technical Spec
+# Dayprint — Technical Spec
 
 ## How This Works, In Plain Language
 Dayprint runs completely inside your web browser as a Local-First Next.js application — there is no hosted centralized database to manage, no user account server, and no third-party tracking. When you type a thought and hit Enter, it instantly writes to your browser's local storage and animates onto the screen as a tactile thermal paper card. In the background, a lightweight API route communicates directly with GitHub's REST API using your personal access token, archiving all slips into human-readable Markdown files and a JSON snapshot in your private repository. A cognitive memory pipeline aggregates these slips into weekly summaries that you can review, edit, or export anytime.
