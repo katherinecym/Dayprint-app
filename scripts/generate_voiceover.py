@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 Dayprint Demo Voiceover Generator using VoxCPM2.
-Generates studio-quality 48kHz WAV files for Scene 1 to Scene 7,
-fully aligned with the calibrated second-by-second master timeline.
+Generates studio-quality 48kHz WAV files with UNIFIED VOICE TIMBRE via voice cloning reference.
+Fully aligned with the calibrated second-by-second master timeline.
 """
 
 import os
@@ -100,23 +100,23 @@ SCENES = [
 def main():
     output_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "audio"))
     os.makedirs(output_dir, exist_ok=True)
+    ref_voice_path = os.path.join(output_dir, "voice_ref.wav")
 
     print("==================================================")
     print(" Dayprint Master Demo Voiceover Generator (VoxCPM2)")
+    print(" UNIFIED TIMBRE & ZERO-NOISE MODE (with Voice Reference)")
     print("==================================================")
 
     device = "mps" if torch.backends.mps.is_available() else "cpu"
     print(f"Target Compute Device: {device.upper()}")
 
     print("Loading VoxCPM2 foundation weights...")
-    torch.manual_seed(42)
     model = VoxCPM.from_pretrained("openbmb/VoxCPM2", load_denoiser=False, device=device)
     sample_rate = getattr(model.tts_model, "sample_rate", 48000)
     print(f"Model successfully loaded. Sampling rate: {sample_rate} Hz\n")
 
     manifest = []
     padded_audio_chunks = []
-
     cumulative_offset = 0.0
 
     for i, scene in enumerate(SCENES, 1):
@@ -130,12 +130,25 @@ def main():
         print(f"    Target Budget: {budget:.1f}s | Words: {len(text.split())}")
         print(f"    Script: {text[:65]}...")
 
-        # VoxCPM2 generation with Apple Silicon GPU acceleration
-        wav = model.generate(
-            text=text,
-            cfg_value=2.0,
-            inference_timesteps=10,
-        )
+        # Maintain exact voice timbre and clean output across all scenes
+        torch.manual_seed(100 + i)
+
+        # For Scene 1, generate clean base voice if ref doesn't exist, else use ref_voice_path
+        if os.path.exists(ref_voice_path):
+            wav = model.generate(
+                text=text,
+                reference_wav_path=ref_voice_path,
+                cfg_value=2.0,
+                inference_timesteps=15,
+            )
+        else:
+            wav = model.generate(
+                text=text,
+                cfg_value=2.0,
+                inference_timesteps=15,
+            )
+            # Create voice reference from first 6 seconds of Scene 1
+            sf.write(ref_voice_path, wav[:int(sample_rate * 6)], sample_rate)
 
         raw_duration = len(wav) / sample_rate
         sf.write(out_path, wav, sample_rate)
