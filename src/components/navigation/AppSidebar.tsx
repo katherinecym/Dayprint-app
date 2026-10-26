@@ -22,6 +22,7 @@ import {
   PanelLeft,
   Search,
   Award,
+  HelpCircle,
 } from "lucide-react";
 import { isSoundEnabled, toggleSoundSetting, playKeyClick } from "@/lib/sound";
 import { DayprintLogo } from "@/components/ui/DayprintLogo";
@@ -140,6 +141,14 @@ export function AppSidebar({
       icon: FolderArchive,
       action: onOpenArchive,
       accent: "hover:text-[#7C6F93]",
+    },
+    {
+      id: "manual",
+      labelZh: "操作手册",
+      labelEn: "User Manual",
+      icon: HelpCircle,
+      action: () => window.open("/manual.html", "_blank"),
+      accent: "hover:text-[#5B7B94]",
     },
   ];
 

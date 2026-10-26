@@ -492,13 +492,23 @@ export function WelcomeGatewayModal({
                 : "Credentials stay in your local browser only"}
             </span>
           </div>
-          <button
-            type="button"
-            onClick={completeOnboarding}
-            className="text-stone-400 hover:text-stone-700 underline cursor-pointer"
-          >
-            {language === "zh" ? "稍后决定" : "Decide later"}
-          </button>
+          <div className="flex items-center gap-3">
+            <a
+              href="/manual.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-stone-600 hover:text-stone-900 underline flex items-center gap-1 cursor-pointer"
+            >
+              <span>{language === "zh" ? "📖 查阅操作手册" : "📖 User Manual"}</span>
+            </a>
+            <button
+              type="button"
+              onClick={completeOnboarding}
+              className="text-stone-400 hover:text-stone-700 underline cursor-pointer"
+            >
+              {language === "zh" ? "稍后决定" : "Decide later"}
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -24,6 +24,7 @@ import {
   RotateCcw,
   Check,
   ChevronDown,
+  HelpCircle,
 } from "lucide-react";
 import { OmniSearchModal } from "@/components/search/OmniSearchModal";
 import { isSoundEnabled, toggleSoundSetting } from "@/lib/sound";
@@ -343,6 +344,20 @@ export function HeaderBar({
               : (language === "zh" ? "极简白" : "Light")}
           </span>
         </button>
+
+        {/* User Manual Link */}
+        <a
+          href="/manual.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="h-9 px-2.5 flex items-center gap-1.5 text-xs rounded-lg border border-[var(--grid-line)] bg-white hover:bg-stone-50 text-stone-700 transition-colors shadow-2xs cursor-pointer"
+          title={language === "zh" ? "打开 Dayprint 操作手册" : "Open Dayprint User Guide"}
+        >
+          <HelpCircle className="w-3.5 h-3.5 text-stone-500" />
+          <span className="hidden xl:inline text-[11px] font-medium">
+            {language === "zh" ? "手册" : "Manual"}
+          </span>
+        </a>
 
         {/* GitHub Sync Button */}
         <div className="h-9 flex items-center rounded-lg border border-[var(--grid-line)] bg-white shadow-2xs overflow-hidden">
