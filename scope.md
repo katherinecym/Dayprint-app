@@ -14,7 +14,7 @@ The physical-digital ritual: you type a thought, hear the printer click, and wat
 A knowledge worker, creative writer, builder, or deep thinker who journals in bursts throughout the day but suffers from "blank-page paralysis" and organizing fatigue in heavyweight tools like Notion or Obsidian, and doesn't trust closed SaaS platforms with intimate thoughts. Today, they scatter notes across sticky notes, random `.txt` files, or messaging draft boxes where thoughts get lost and never reviewed.
 
 ## The Core Loop
-They open Dayprint (it loads instantly from local storage — zero login screen, zero lag). They press `Cmd+K` or click the dock, type a quick reflection, select an optional Morandi tag, and hit Enter. A thermal receipt animates down the screen with authentic paper-tear audio, settling onto the staggered masonry canvas. Later, they open the Weekly Digest to review their thoughts synthesized across L0–L4 cognitive dimensions. In the background, their private GitHub repository already has a clean, dated commit containing their Markdown slip and JSON snapshot.
+They open Dayprint (it loads instantly — zero login screen, zero lag). They press `Cmd+K` or click the dock, type a quick reflection, select an optional Morandi tag, and hit Enter. A thermal receipt animates down the screen with authentic paper-tear audio, settling onto the staggered masonry canvas. Later, they open the Weekly Digest to review their thoughts synthesized across L0–L4 cognitive dimensions. In the background, their private GitHub repository already has a clean, dated commit containing their Markdown slip and JSON snapshot.
 
 ## Inspiration & Identity
 - **Feel**: Warm, quiet, tactile, craftsman-like. Like a Japanese stationery shop crossed with a developer's terminal.
@@ -24,7 +24,7 @@ They open Dayprint (it loads instantly from local storage — zero login screen,
 - **Tone**: Understated, reflective, calm. No artificial gamification, no streak-shaming.
 
 ## Why This Matters to the Learner
-To master building a true Local-First web application with AI coding agents: understanding how to keep user data 100% private in client storage, eliminating centralized database dependencies, and orchestrating silent background synchronization to user-owned storage (GitHub REST API) using clean, plan-first agentic discipline.
+To master building a true privacy-first web application with AI coding agents: understanding how to keep user data 100% private in client storage, eliminating centralized database dependencies, and orchestrating silent background synchronization to user-owned storage (GitHub REST API) using clean, plan-first agentic discipline.
 
 ## What "Working" Looks Like
 A user types a quick note, attaches an optional image, hits Enter, and immediately watches a realistic thermal receipt slide down the screen with mechanical paper sound, dropping naturally into a staggered masonry canvas. Opening the "Weekly Digest" modal synthesizes recent entries into high-level cognitive reflections (Insights, Shifts, Milestones) with CRUD controls. Checking their GitHub repository reveals an automatically committed `archive.json` and dated Markdown file (`journals/YYYY-MM-DD.md`) with zero manual effort.
@@ -34,7 +34,7 @@ A user types a quick note, attaches an optional image, hits Enter, and immediate
 - **Tactile Thermal Receipt Experience**: CSS `@keyframes` receipt feed-out and tear-off animation with Web Audio API mechanical sound synthesis.
 - **Editorial Scrapbook Canvas**: Responsive masonry stream with date dividers, washi-tape pins, keyword search, and Morandi tag filtering.
 - **Weekly Memory Digest Modal**: Heuristic multi-tier cognitive distillation of weekly slips with interactive CRUD editing and Markdown export.
-- **Local-First & Silent Git Sync**: Instant browser `localStorage` persistence paired with debounced (2s) background push to GitHub REST API with `beforeunload` keepalive protection.
+- **Direct GitHub Synchronization**: Instant browser persistence paired with debounced background push to GitHub REST API with `beforeunload` keepalive protection.
 
 ## Later
 - Native Bluetooth thermal receipt printer hardware bridge (ESC/POS protocol).
@@ -44,4 +44,4 @@ A user types a quick note, attaches an optional image, hits Enter, and immediate
 ## Explicitly Cut
 - **Centralized User Account / Auth Server**: Cut to uphold absolute privacy and zero-backend simplicity. The user owns their GitHub token and storage directly.
 - **Heavy Rich-Text WYSIWYG Editor**: Cut to preserve frictionless sub-second micro-journaling and eliminate blank-page paralysis.
-- **Multi-Device Real-Time Sync Bus**: Cut because WebSocket / cloud sync servers violate the lightweight, zero-maintenance local-first scope of this POC.
+- **Multi-Device Real-Time Sync Bus**: Cut because WebSocket / cloud sync servers violate the lightweight, zero-maintenance privacy-first scope of this POC.

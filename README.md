@@ -8,7 +8,6 @@
 <p align="center">
   <a href="https://dayprint-five.vercel.app/"><strong>Live App Demo</strong></a> •
   <a href="https://dayprint-five.vercel.app/manual.html"><strong>Interactive User Manual</strong></a> •
-  <a href="./docs/VIDEO-DEMO-SCRIPT.md"><strong>Video Script</strong></a> •
   <a href="./docs/DEVPOST-SUBMISSION.md"><strong>Devpost Package</strong></a>
 </p>
 
@@ -136,7 +135,7 @@ $$\lim_{\text{tab close}} P(\text{Data Loss}) = 0 \quad \text{guaranteed via } \
 - **Tactile, Calming Design**: Crafted a Morandi paper aesthetic that turns daily reflection into a restorative ritual rather than a burdensome chore.
 - **True User Ownership (Zero-Cloud Storage)**: Achieved full cross-device synchronization and version control via user-owned GitHub repositories without storing personal user notes on our own servers.
 - **Seamless Dual-Mode Experience**: Built an instant **Demo Mode** (preloaded with 136 real-world engineering notes and 85 daily slips dating back to August 2026) alongside a clean **Production Mode** with clear 3-state save indicators (`Demo (Not Saved)`, `Browser Only`, `GitHub Synced`).
-- **Complete Hackathon Delivery**: Delivered comprehensive planning specifications (`scope.md`, `prd.md`, `spec.md`), full test coverage (51 unit & integration tests), an interactive web manual (`manual.html`), and a synchronized demo video.
+- **Complete Hackathon Delivery**: Delivered comprehensive planning specifications (`scope.md`, `prd.md`, `spec.md`), full test coverage (51 unit & integration tests), and an interactive web manual (`manual.html`).
 
 ---
 
@@ -173,7 +172,6 @@ build-with-AI-basics/
 │
 ├── docs/                          # Comprehensive Hackathon & Architecture Documentation
 │   ├── DEVPOST-SUBMISSION.md      # Official Devpost submission package & copy
-│   ├── VIDEO-DEMO-SCRIPT.md       # Synchronized demo video script & audio narration
 │   ├── PRD-Dayprint-NextGen.md    # Multi-tenant BYOR & living memory specification
 │   ├── TABS-SPEC.md               # Detailed specifications for Tabs 1, 2, and 3
 │   └── DESIGN-ENHANCEMENT.md      # Morandi visual system & Web Audio specifications

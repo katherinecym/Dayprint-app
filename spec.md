@@ -6,7 +6,7 @@ status: approved
 # Dayprint — Technical Spec
 
 ## How This Works, In Plain Language
-Dayprint runs completely inside your web browser as a Local-First Next.js application — there is no hosted centralized database to manage, no user account server, and no third-party tracking. When you type a thought and hit Enter, it instantly writes to your browser's local storage and animates onto the screen as a tactile thermal paper card. In the background, a lightweight API route communicates directly with GitHub's REST API using your personal access token, archiving all slips into human-readable Markdown files and a JSON snapshot in your private repository. A cognitive memory pipeline aggregates these slips into weekly summaries that you can review, edit, or export anytime.
+Dayprint runs completely inside your web browser as a privacy-first Next.js application — there is no hosted centralized database to manage, no user account server, and no third-party tracking. When you type a thought and hit Enter, it instantly writes to your browser storage and animates onto the screen as a tactile thermal paper card. In the background, a lightweight API route communicates directly with GitHub's REST API using your personal access token, archiving all slips into human-readable Markdown files and a JSON snapshot in your private repository. A cognitive memory pipeline aggregates these slips into weekly summaries that you can review, edit, or export anytime.
 
 PRD ref: `prd.md > The Core Journey`.
 
@@ -19,10 +19,10 @@ PRD ref: `prd.md > The Core Journey`.
 6. **Conflict Resolution**: If GitHub returns a SHA conflict (409), the route fetches remote state, performs a two-way union merge by slip `id`, and re-pushes.
 7. **Window Unload Guard**: If the browser tab is closed while a sync is pending, a `beforeunload` listener invokes `fetch(..., { keepalive: true })` / `navigator.sendBeacon` to ensure the commit reaches GitHub.
 
-PRD ref: `prd.md > Features and Behavior > 6. Local-First Architecture & GitHub Silent Sync`.
+PRD ref: `prd.md > Features and Behavior > 6. Direct GitHub Synchronization`.
 
 ## Stack
-- **Framework**: Next.js 16 (App Router) + React 19 + TypeScript.
+- **Framework**: Next.js 16.4.3 (App Router, Turbopack) + React 19 + TypeScript 5.
   - *Rationale*: Deterministic SSR hydration guards, file-based routing, and built-in serverless API route handlers without needing an external Express/Node backend.
   - *Doc*: [Next.js Documentation](https://nextjs.org/docs)
 - **Styling**: Tailwind CSS + custom CSS `@keyframes`.
@@ -31,7 +31,7 @@ PRD ref: `prd.md > Features and Behavior > 6. Local-First Architecture & GitHub 
 - **Icons & Visuals**: Lucide React.
   - *Doc*: [Lucide React](https://lucide.dev)
 - **Storage & State**: React Context (`MemoryContext`) + Browser Web Storage API (`localStorage`).
-  - *Rationale*: True zero-latency local-first architecture with zero external database dependencies.
+  - *Rationale*: True zero-latency architecture with zero external database dependencies.
 - **Remote Archival**: GitHub REST API v3 (Octokit-compatible fetch).
   - *Rationale*: Direct user-to-GitHub synchronization; user retains 100% data custody.
   - *Doc*: [GitHub REST API Documentation](https://docs.github.com/en/rest)
@@ -158,7 +158,7 @@ build-with-AI-basics/
     │   ├── sync/                # GitHubSyncSettings drawer
     │   └── layout/              # Header & top navigation
     ├── lib/
-    │   ├── memory-context.tsx   # Local-First reactive context & store
+    │   ├── memory-context.tsx   # Reactive context & state store
     │   └── github.ts            # GitHub REST API client & conflict resolver
     └── types/
         └── index.ts             # TypeScript definitions & data contracts
@@ -174,13 +174,13 @@ build-with-AI-basics/
 
 ## Important Failure Modes
 - **Offline / Network Interruption** → App functions with 100% normal capability using browser `localStorage`; sync marks status as "pending" and automatically recovers upon network restoration.
-- **Invalid / Revoked GitHub Token** → Sync indicator displays amber warning; non-intrusive toast notification prompts user to update PAT; local data remains strictly intact.
+- **Invalid / Revoked GitHub Token** → Sync indicator displays amber warning; non-intrusive toast notification prompts user to update PAT; data remains strictly intact.
 - **Concurrent Remote SHA Conflict** → Two-way union merge combines remote slips with local slips by unique `id` and re-commits the merged archive automatically.
 
 ## What Was Simplified and Why
 - **GitHub as the Personal Cloud instead of Hosted Supabase/Firebase**: Eliminates server maintenance, subscription costs, and user authentication infrastructure while giving the user absolute custody of their raw Markdown data.
 - **Client-Side Heuristic Cognitive Distillation instead of Mandatory LLM API**: Enables out-of-the-box operation for any user without demanding paid API keys, while keeping an extensible structure for future plug-and-play LLM models.
-- **Base64 Local Image Storage instead of S3/Cloud Storage**: Keeps the application completely self-contained without requiring third-party storage buckets for the POC.
+- **Base64 Inline Image Storage instead of S3/Cloud Storage**: Keeps the application completely self-contained without requiring third-party storage buckets for the POC.
 
 ## Decisions and Open Issues
 - **Standard ISO Calendar Weeks for Digests**: Selected over rolling 7-day windows to align neatly with weekly work rhythms and GitHub commit folders.
