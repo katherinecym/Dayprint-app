@@ -2,6 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import { useMemory } from "@/lib/memory-context";
+import { useModalDismiss } from "@/lib/use-modal-dismiss";
 import { X, Sparkles, FileText, Link as LinkIcon, Upload, Check, Loader2, ArrowRight, BookOpen, Layers, ShieldCheck, Tag, Lightbulb } from "lucide-react";
 import { MemoryType, MemoryLevel } from "@/types/memory";
 import confetti from "canvas-confetti";
@@ -40,6 +41,8 @@ export function SmartDocumentIngestModal({ isOpen, onClose }: SmartDocumentInges
   const [isImporting, setIsImporting] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useModalDismiss(onClose, { enabled: isOpen });
 
   if (!isOpen) return null;
 

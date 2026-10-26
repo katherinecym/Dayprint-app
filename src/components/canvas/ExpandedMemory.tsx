@@ -3,6 +3,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { CanonicalMemory, MemoryType, getLocalizedTitle, getLocalizedContent, getMemoryTypeBadgeStyle } from "@/types/memory";
 import { useMemory } from "@/lib/memory-context";
+import { localeOf } from "@/lib/i18n";
+import { compressImage } from "@/lib/image";
 import {
   X,
   Calendar,
@@ -66,39 +68,6 @@ export function ExpandedMemoryModal({ memoryId, onClose }: ExpandedMemoryModalPr
   };
 
   const editFileInputRef = useRef<HTMLInputElement>(null);
-
-  // Client-side lightweight image compression
-  const compressImage = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const img = new Image();
-        img.onload = () => {
-          const canvas = document.createElement("canvas");
-          let { width, height } = img;
-          const maxDim = 1200;
-          if (width > maxDim || height > maxDim) {
-            if (width > height) {
-              height = Math.round((height * maxDim) / width);
-              width = maxDim;
-            } else {
-              width = Math.round((width * maxDim) / height);
-              height = maxDim;
-            }
-          }
-          canvas.width = width;
-          canvas.height = height;
-          const ctx = canvas.getContext("2d");
-          ctx?.drawImage(img, 0, 0, width, height);
-          resolve(canvas.toDataURL("image/jpeg", 0.8));
-        };
-        img.onerror = reject;
-        img.src = e.target?.result as string;
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -164,18 +133,6 @@ export function ExpandedMemoryModal({ memoryId, onClose }: ExpandedMemoryModalPr
   );
   const relatedMemories = memories.filter((m) => relatedMemoryIds.includes(m.id));
 
-  // Harmonious Morandi Mineral Palette (matches journal & graph)
-  const typeColorMap: Record<MemoryType, string> = {
-    idea: "bg-[#C97A63] text-white",
-    learning: "bg-[#5B7B94] text-white",
-    moment: "bg-[#C49A56] text-white",
-    decision: "bg-[#475569] text-white",
-    plan: "bg-[#608066] text-white",
-    collection: "bg-[#7C6F93] text-white",
-    receipt: "bg-[#2B2420] text-white",
-    generic: "bg-[#78716C] text-white",
-  };
-
   return (
     <div
       onClick={onClose}
@@ -199,7 +156,7 @@ export function ExpandedMemoryModal({ memoryId, onClose }: ExpandedMemoryModalPr
             </span>
             <span className="text-xs font-mono-meta text-[var(--ink-secondary)] flex items-center gap-1 opacity-80">
               <Calendar className="w-3.5 h-3.5" />
-              {new Date(memory.occurred_at).toLocaleString()}
+              {new Date(memory.occurred_at).toLocaleString(localeOf(language))}
             </span>
           </div>
 
@@ -534,7 +491,7 @@ export function ExpandedMemoryModal({ memoryId, onClose }: ExpandedMemoryModalPr
 
                   <div className="relative pl-4 border-l-2 border-emerald-300 flex flex-col gap-3 ml-1.5 my-1">
                     {memory.timeline_logs.map((log, index) => {
-                      const logDateStr = new Date(log.timestamp).toLocaleString();
+                      const logDateStr = new Date(log.timestamp).toLocaleString(localeOf(language));
                       return (
                         <div key={log.id || index} className="relative flex flex-col gap-1">
                           {/* Dot indicator */}

@@ -5,6 +5,7 @@ import { useMemory } from "@/lib/memory-context";
 import { BoogieMatrixCanvas } from "./BoogieMatrixCanvas";
 
 import { getMemoryLevel } from "@/types/memory";
+import { dateKeyOf } from "@/lib/date";
 
 export function MemoryCanvas() {
   const {
@@ -35,14 +36,15 @@ export function MemoryCanvas() {
     }
 
     // 2. Temporal zoom filter
+    // 之前 day 分支直接 return true（不过滤），只有 12 条 seed 时看不出来；
+    // 数据量上来之后会让「今日记录」一次刷出全部记忆，所以必须真的按日过滤。
+    const key = m.occurred_at ? dateKeyOf(m.occurred_at) : "";
     if (temporalLevel === "day") {
-      return true;
+      return key === selectedDate;
     } else if (temporalLevel === "month") {
-      const targetMonth = selectedDate.slice(0, 7); // YYYY-MM
-      return m.occurred_at.startsWith(targetMonth);
+      return key.startsWith(selectedDate.slice(0, 7)); // YYYY-MM
     } else if (temporalLevel === "year") {
-      const targetYear = selectedDate.slice(0, 4); // YYYY
-      return m.occurred_at.startsWith(targetYear);
+      return key.startsWith(selectedDate.slice(0, 4)); // YYYY
     }
 
     return true; // "all"

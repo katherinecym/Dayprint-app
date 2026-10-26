@@ -2,6 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import { useMemory } from "@/lib/memory-context";
+import { localeOf } from "@/lib/i18n";
+import { normalizeGitHubRepo } from "@/lib/github-repo";
+import { useModalDismiss } from "@/lib/use-modal-dismiss";
 import {
   X,
   Check,
@@ -32,16 +35,6 @@ interface GitHubSettingsModalProps {
   isOpen: boolean;
   onClose: () => void;
   initialTab?: "ai" | "github" | "data";
-}
-
-function normalizeGitHubRepo(input: string): string {
-  if (!input) return "";
-  let cleaned = input.trim();
-  cleaned = cleaned.replace(/^https?:\/\//i, "");
-  cleaned = cleaned.replace(/^github\.com\//i, "");
-  cleaned = cleaned.replace(/\.git$/i, "");
-  cleaned = cleaned.replace(/^\/+|\/+$/g, "");
-  return cleaned;
 }
 
 export function GitHubSettingsModal({
@@ -154,6 +147,8 @@ export function GitHubSettingsModal({
       setDetectedUser(null);
     }
   };
+
+  useModalDismiss(onClose, { enabled: isOpen });
 
   if (!isOpen) return null;
 
@@ -914,7 +909,7 @@ export function GitHubSettingsModal({
                         {language === "zh" ? "上次同步：" : "Last Sync: "}
                       </span>
                       <span className="font-mono text-stone-700">
-                        {new Date(settings.github.last_sync).toLocaleString()}
+                        {new Date(settings.github.last_sync).toLocaleString(localeOf(language))}
                       </span>
                     </div>
                   )}

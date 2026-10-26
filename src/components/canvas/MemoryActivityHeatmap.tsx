@@ -2,6 +2,7 @@
 
 import React, { useMemo, useState, useEffect } from "react";
 import { useMemory } from "@/lib/memory-context";
+import { dateKeyOf } from "@/lib/date";
 import { Flame, Calendar } from "lucide-react";
 
 interface DayCell {
@@ -29,7 +30,7 @@ export function MemoryActivityHeatmap({ className = "" }: { className?: string }
     const map = new Map<string, number>();
     memories.forEach((m) => {
       if (!m.occurred_at || m.status === "deleted") return;
-      const dateStr = m.occurred_at.slice(0, 10);
+      const dateStr = dateKeyOf(m.occurred_at);
       if (dateStr.length === 10) {
         map.set(dateStr, (map.get(dateStr) || 0) + 1);
       }

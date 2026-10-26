@@ -31,6 +31,13 @@ export const translations = {
     nav_reflect: "Reflect",
     nav_ask: "Ask AI",
     nav_settings: "Settings",
+    // Provenance chain (Cognitive Ledger cards)
+    derived_from: "Derived from",
+    derived_from_hint: "See which raw entries produced this trait",
+    raw_entries_one: "raw entry",
+    raw_entries_many: "raw entries",
+    confidence: "Confidence",
+    confidence_unrated: "Confidence unrated",
     layout_boogie_matrix: "Boogie Woogie Matrix",
     layout_spatial: "Spatial Panoramic Canvas",
     layout_stream: "Horizontal Stream",
@@ -95,6 +102,12 @@ export const translations = {
     nav_reflect: "每日回响",
     nav_ask: "智能问索",
     nav_settings: "偏好设置",
+    derived_from: "源自",
+    derived_from_hint: "查看这条认知是从哪些原始记录中提炼的",
+    raw_entries_one: "条原始记录",
+    raw_entries_many: "条原始记录",
+    confidence: "置信度",
+    confidence_unrated: "置信度未评估",
     layout_boogie_matrix: "Boogie Woogie 动态方块滑动",
     layout_spatial: "四向全景画布 (自由探索体验)",
     layout_stream: "横向流式 (左右滑动自适应)",
@@ -131,3 +144,20 @@ export const translations = {
 
 export type Language = "en" | "zh";
 export type TranslationKey = keyof typeof translations["en"];
+
+/**
+ * BCP-47 locale for `toLocaleDateString` / `Intl` formatting.
+ *
+ * Formatting with a bare `toLocaleDateString()` follows the *system* locale,
+ * not the in-app language, so an English-speaking user on a Chinese macOS would
+ * see 2026/10/25 in an otherwise English UI. Every formatter must pass this.
+ */
+export function localeOf(lang: Language): string {
+  return lang === "zh" ? "zh-CN" : "en-US";
+}
+
+/** Value for `<html lang>`. */
+export function htmlLangOf(lang: Language): string {
+  return lang === "zh" ? "zh-CN" : "en";
+}
+

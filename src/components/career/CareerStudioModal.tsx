@@ -2,6 +2,8 @@
 
 import React, { useState, useMemo } from "react";
 import { useMemory } from "@/lib/memory-context";
+import { useModalDismiss } from "@/lib/use-modal-dismiss";
+import { todayKey, dateKeyOf } from "@/lib/date";
 import { CanonicalMemory, getLocalizedTitle, getLocalizedContent } from "@/types/memory";
 import {
   X,
@@ -31,6 +33,7 @@ type ScopeType = "this_week" | "last_14_days" | "this_month" | "all_wins";
 
 export function CareerStudioModal({ onClose }: CareerStudioModalProps) {
   const { memories, language, settings } = useMemory();
+  useModalDismiss(onClose);
   const [activeTab, setActiveTab] = useState<"report" | "resume" | "ledger">("report");
   const [scope, setScope] = useState<ScopeType>("this_week");
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
@@ -76,8 +79,10 @@ export function CareerStudioModal({ onClose }: CareerStudioModalProps) {
       const threshold = nowTime - 14 * oneDay;
       filtered = filtered.filter((m) => new Date(m.occurred_at).getTime() >= threshold);
     } else if (scope === "this_month") {
-      const yearMonth = now.toISOString().slice(0, 7);
-      filtered = filtered.filter((m) => m.occurred_at.startsWith(yearMonth));
+      // 本地年月。toISOString() 是 UTC：东八区每月 1 日 00:00–08:00 之间
+      // 会算成上个月，整月的记录突然「消失」。
+      const yearMonth = todayKey().slice(0, 7);
+      filtered = filtered.filter((m) => dateKeyOf(m.occurred_at).startsWith(yearMonth));
     }
 
     return filtered.sort((a, b) => new Date(b.occurred_at).getTime() - new Date(a.occurred_at).getTime());
@@ -90,7 +95,7 @@ export function CareerStudioModal({ onClose }: CareerStudioModalProps) {
 
   // Generate Structured Work Report (周报 / 述职报告)
   const generatedReportText = useMemo(() => {
-    const dateStr = new Date().toISOString().slice(0, 10);
+    const dateStr = todayKey();
     const scopeLabel =
       scope === "this_week"
         ? (language === "zh" ? "本周工作复盘与交付周报" : "Weekly Work & Delivery Report")
@@ -110,7 +115,7 @@ export function CareerStudioModal({ onClose }: CareerStudioModalProps) {
     const deliverables = items.map((m) => {
       const title = getLocalizedTitle(m, language);
       const content = getLocalizedContent(m, language);
-      const date = m.occurred_at.slice(0, 10);
+      const date = dateKeyOf(m.occurred_at);
       return `- **${title}** (${date})\n  ${content.replace(/\n+/g, " ").slice(0, 120)}...`;
     }).join("\n");
 
@@ -193,7 +198,7 @@ ${plans}
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `Dayprint-Work-Report-${new Date().toISOString().slice(0, 10)}.md`;
+    a.download = `Dayprint-Work-Report-${todayKey()}.md`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -210,6 +215,7 @@ ${plans}
         body: JSON.stringify({
           memories: targetMemories,
           scope,
+          date: todayKey(),
           language,
           provider: settings.ai?.provider || "gemini",
           apiKey: settings.ai?.apiKey || "",
@@ -237,7 +243,7 @@ ${plans}
       return aiStarItems.map((item) => ({
         id: item.id,
         title: item.title,
-        date: new Date().toISOString().slice(0, 10),
+        date: todayKey(),
         type: "achievement",
         topics: ["AI 深度提炼", "工作胜仗"],
         resumeBullet: item.polished_bullet,
@@ -253,7 +259,7 @@ ${plans}
     return list.map((m) => {
       const title = getLocalizedTitle(m, language);
       const content = getLocalizedContent(m, language);
-      const date = m.occurred_at.slice(0, 10);
+      const date = dateKeyOf(m.occurred_at);
 
       // Extract STAR sections: prioritize AI-extracted m.star, fallback to dynamic regex/heuristics
       const matchS = content.match(/【S[^】]*】([^【]+)/i) || content.match(/\[Situation[^\]]*\]([^\[]+)/i);
@@ -646,7 +652,7 @@ ${plans}
                             {m.type}
                           </span>
                           <span className="text-[10px] text-stone-400 font-mono-meta">
-                            {m.occurred_at.slice(0, 10)}
+                            {dateKeyOf(m.occurred_at)}
                           </span>
                         </div>
                         <h4 className="text-xs font-bold text-[var(--ink-primary)] line-clamp-1">

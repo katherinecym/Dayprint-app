@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import { useMemory } from "@/lib/memory-context";
+import { localeOf } from "@/lib/i18n";
+import { useModalDismiss } from "@/lib/use-modal-dismiss";
 import { X, FolderArchive, Filter, Calendar, Trash2 } from "lucide-react";
 import { MemoryType, getLocalizedTitle, getLocalizedContent } from "@/types/memory";
 
@@ -14,14 +16,8 @@ export function ArchiveModal({ onClose }: ArchiveModalProps) {
   const [filterType, setFilterType] = useState<string>("all");
   const [dateFilter, setDateFilter] = useState<string>("");
 
-  // Dismiss on Escape key
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [onClose]);
+  // Escape to close + lock background scroll while the archive is open.
+  useModalDismiss(onClose);
 
   const filtered = memories.filter((m) => {
     if (filterType !== "all" && m.type !== filterType) return false;
@@ -163,7 +159,7 @@ export function ArchiveModal({ onClose }: ArchiveModalProps) {
 
                   <div className="text-right shrink-0 ml-4">
                     <span className="text-[11px] font-mono-meta text-stone-400">
-                      {new Date(m.occurred_at).toLocaleDateString()}
+                      {new Date(m.occurred_at).toLocaleDateString(localeOf(language))}
                     </span>
                   </div>
                 </div>

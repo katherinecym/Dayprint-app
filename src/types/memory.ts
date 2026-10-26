@@ -532,6 +532,26 @@ export function sanitizeMemoryText(text: string): string {
     .trim();
 }
 
+const CJK_RE = /[\u4e00-\u9fa5]/;
+
+/**
+ * Decides whether a text that fell through to the "no English available" branch
+ * is genuinely untranslated Chinese, and marks it if so.
+ *
+ * Why not just `CJK_RE.test(text)`: after `sanitizeMemoryText` strips emojis and
+ * confidence labels, a mostly-English string can still legitimately contain a
+ * stray CJK fragment (e.g. a quoted Chinese term). Flagging that as
+ * "[未翻译]" is a false positive — the user reads English and sees a bogus
+ * warning. So we only mark when CJK actually dominates the string.
+ */
+function markUntranslatedIfNeeded(text: string): string {
+  const cleaned = sanitizeMemoryText(text);
+  if (!CJK_RE.test(cleaned)) return cleaned;
+  const cjkCount = (cleaned.match(/[\u4e00-\u9fa5]/g) || []).length;
+  const latinCount = (cleaned.match(/[A-Za-z]/g) || []).length;
+  return cjkCount > latinCount ? `[未翻译] ${cleaned}` : cleaned;
+}
+
 /**
  * Returns localized title based on current language mode.
  * Strictly guarantees English-only in "en" mode, and Chinese-only in "zh" mode.
@@ -539,9 +559,12 @@ export function sanitizeMemoryText(text: string): string {
 export function getLocalizedTitle(m: CanonicalMemory, lang: "en" | "zh"): string {
   let title = "";
   if (lang === "en") {
-    // 1. Prefer explicit title_en if it does not leak untranslated Chinese
-    const enCand = m.title_en?.trim();
-    if (enCand && (!/[\u4e00-\u9fa5]/.test(enCand) || !m.title_zh)) {
+    // 1. Prefer explicit title_en if it does not leak untranslated Chinese.
+    //    Sanitize first: "## 🧠 Cognitive Patterns (置信度: 80%)" is English once
+    //    the confidence label is stripped, so judging the raw value would push a
+    //    perfectly good translation down into the fallback branch.
+    const enCand = sanitizeMemoryText(m.title_en?.trim() || "");
+    if (enCand && (!CJK_RE.test(enCand) || !m.title_zh)) {
       title = enCand;
     } else if (SEED_MEMORIES_EN_MAP[m.id]?.title) {
       title = SEED_MEMORIES_EN_MAP[m.id].title;
@@ -549,10 +572,12 @@ export function getLocalizedTitle(m: CanonicalMemory, lang: "en" | "zh"): string
       title = FALLBACK_EN_DICT[m.title];
     } else if (m.title_zh && FALLBACK_EN_DICT[m.title_zh]) {
       title = FALLBACK_EN_DICT[m.title_zh];
-    } else if (m.language === "en" && m.title && !/[\u4e00-\u9fa5]/.test(m.title)) {
+    } else if (m.language === "en" && m.title && !CJK_RE.test(m.title)) {
       title = m.title;
     } else {
-      title = enCand || m.title || "Untitled Memory";
+      // 走到这里说明英文侧确实没有可用内容（翻译不可用 / 只有中文）。
+      // 与其静默把中文当英文渲染，不如显式标注，用户才知道该去补。
+      title = markUntranslatedIfNeeded(enCand || m.title || "Untitled Memory");
     }
   } else {
     // 1. Prefer explicit title_zh
@@ -581,8 +606,8 @@ export function getLocalizedTitle(m: CanonicalMemory, lang: "en" | "zh"): string
 export function getLocalizedContent(m: CanonicalMemory, lang: "en" | "zh"): string {
   let content = "";
   if (lang === "en") {
-    const enCand = m.content_en?.trim();
-    if (enCand && (!/[\u4e00-\u9fa5]/.test(enCand) || !m.content_zh)) {
+    const enCand = sanitizeMemoryText(m.content_en?.trim() || "");
+    if (enCand && (!CJK_RE.test(enCand) || !m.content_zh)) {
       content = enCand;
     } else if (SEED_MEMORIES_EN_MAP[m.id]?.content) {
       content = SEED_MEMORIES_EN_MAP[m.id].content;
@@ -590,10 +615,10 @@ export function getLocalizedContent(m: CanonicalMemory, lang: "en" | "zh"): stri
       content = FALLBACK_EN_DICT[m.content];
     } else if (m.content_zh && FALLBACK_EN_DICT[m.content_zh]) {
       content = FALLBACK_EN_DICT[m.content_zh];
-    } else if (m.language === "en" && m.content && !/[\u4e00-\u9fa5]/.test(m.content)) {
+    } else if (m.language === "en" && m.content && !CJK_RE.test(m.content)) {
       content = m.content;
     } else {
-      content = enCand || m.content || "";
+      content = markUntranslatedIfNeeded(enCand || m.content || "");
     }
   } else {
     const zhCand = m.content_zh?.trim();

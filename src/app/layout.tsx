@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { MemoryProvider } from "@/lib/memory-context";
+import { LocaleHtmlLang } from "@/components/ui/LocaleHtmlLang";
 
 export const metadata: Metadata = {
   title: "Dayprint — Your life, in prints",
@@ -54,7 +55,10 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
       </head>
       <body className="min-h-screen bg-[#F7F2E8] antialiased">
-        <MemoryProvider>{children}</MemoryProvider>
+        <MemoryProvider>
+          <LocaleHtmlLang />
+          {children}
+        </MemoryProvider>
       </body>
     </html>
   );

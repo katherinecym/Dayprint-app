@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useMemory } from "@/lib/memory-context";
+import { localeOf } from "@/lib/i18n";
 import {
   CanonicalMemory,
   MemoryLevel,
@@ -26,6 +27,8 @@ import {
   Cpu,
   UserCheck,
   Link2,
+  CornerDownLeft,
+  ChevronDown,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 
@@ -41,11 +44,16 @@ export function MemoryOSView() {
     language,
     settings,
     setViewMode,
+    t,
   } = useMemory();
 
   const [activeLevelFilter, setActiveLevelFilter] = useState<MemoryLevel | "ALL">("ALL");
   const [searchQuery, setSearchQuery] = useState("");
   const [editingMemoryId, setEditingMemoryId] = useState<string | null>(null);
+  // Which card has its "derived from" list expanded. Only one at a time —
+  // opening a second one collapses the first, which keeps the grid from
+  // reflowing into a tall uneven mess.
+  const [openProvenanceId, setOpenProvenanceId] = useState<string | null>(null);
   const [editTab, setEditTab] = useState<"zh" | "en">(language);
   const [editForm, setEditForm] = useState<{
     titleZh: string;
@@ -152,7 +160,30 @@ export function MemoryOSView() {
     }
   };
 
+  /**
+   * Maps the distillation API's `derived_from_titles` back to real memory ids.
+   *
+   * The distill route returns human-readable titles (it's also what the review
+   * modal shows), but `source_ids` — the field the PRD's "一键反查原始日记"
+   * depends on — needs ids. Without this mapping, every accepted candidate was
+   * stored with `source_ids: []`, which is why the provenance chain was
+   * permanently empty across the whole app.
+   */
+  const resolveSourceIds = (titles?: string[]): string[] => {
+    if (!titles?.length) return [];
+    const norm = (s?: string) => (s || "").trim().toLowerCase();
+    const wanted = new Set(titles.map(norm).filter(Boolean));
+    if (wanted.size === 0) return [];
+    const ids: string[] = [];
+    for (const m of memories) {
+      const names = [m.title, m.title_zh, m.title_en].map(norm).filter(Boolean);
+      if (names.some((n) => wanted.has(n))) ids.push(m.id);
+    }
+    return Array.from(new Set(ids));
+  };
+
   const handleAcceptCandidate = (cand: any) => {
+    const sourceIds = resolveSourceIds(cand.derived_from_titles);
     addMemory({
       title: cand.title,
       title_zh: cand.title_zh,
@@ -164,6 +195,7 @@ export function MemoryOSView() {
       confidence: cand.confidence,
       topics: cand.topics,
       type: cand.type || "fact",
+      source_ids: sourceIds,
       provenance: { capture_method: "ai_assisted", ai_generated: true },
     });
 
@@ -888,6 +920,121 @@ export function MemoryOSView() {
                         ))}
                       </div>
 
+                      {/* 校准信号：置信度 + 双语完整度
+                          这两项是「认知档案」独有的，也是它和关系图谱卡片的核心区别 ——
+                          这里回答「这条我有多确定、还缺哪一半」，不是「它连了几条」。 */}
+                      <div className="flex items-center gap-2 flex-wrap text-[10px] font-sans">
+                        {(() => {
+                          const conf = mem.confidence ?? null;
+                          if (conf == null) {
+                            return (
+                              <span className="text-stone-400">
+                                {t.confidence_unrated}
+                              </span>
+                            );
+                          }
+                          const pct = Math.round(conf * 100);
+                          const tone = conf >= 0.85 ? "#608066" : conf >= 0.7 ? "#C49A56" : "#C97A63";
+                          return (
+                            <span
+                              className="flex items-center gap-1"
+                              title={`${t.confidence} ${pct}%`}
+                            >
+                              <span className="w-9 h-1 rounded-full bg-stone-200 overflow-hidden">
+                                <span
+                                  className="block h-full rounded-full"
+                                  style={{ width: `${pct}%`, backgroundColor: tone }}
+                                />
+                              </span>
+                              <span className="font-mono tabular-nums" style={{ color: tone }}>
+                                {pct}%
+                              </span>
+                            </span>
+                          );
+                        })()}
+
+                        <span className="text-stone-300">·</span>
+
+                        <span className="flex items-center gap-1">
+                          <span
+                            className={
+                              mem.title_zh || mem.content_zh
+                                ? "text-stone-600 font-medium"
+                                : "text-stone-300 line-through"
+                            }
+                          >
+                            ZH
+                          </span>
+                          <span
+                            className={
+                              mem.title_en || mem.content_en
+                                ? "text-stone-600 font-medium"
+                                : "text-stone-300 line-through"
+                            }
+                          >
+                            EN
+                          </span>
+                        </span>
+                      </div>
+
+                      {/* 溯源反查：这条认知是从哪几条原始日记里升维出来的。
+                          PRD §3.2 承诺的「一键反查原始日志」在这里落地 ——
+                          也是 T2 相对 T3（只读拓扑索引）最关键的区别之一。 */}
+                      {(() => {
+                        const ids = mem.source_ids || [];
+                        if (ids.length === 0) return null;
+                        const sources = ids
+                          .map((sid) => memories.find((x) => x.id === sid))
+                          .filter((x): x is (typeof memories)[number] => Boolean(x));
+                        if (sources.length === 0) return null;
+                        const isOpen = openProvenanceId === mem.id;
+                        return (
+                          <div className="pt-1">
+                            <button
+                              onClick={() =>
+                                setOpenProvenanceId(isOpen ? null : mem.id)
+                              }
+                              className="flex items-center gap-1 text-[10px] text-[#5B7B94] hover:text-[#3F5D74] font-sans cursor-pointer transition-colors"
+                              title={t.derived_from_hint}
+                            >
+                              <CornerDownLeft className="w-3 h-3" />
+                              <span>
+                                {t.derived_from} {sources.length}{" "}
+                                {sources.length === 1
+                                  ? t.raw_entries_one
+                                  : t.raw_entries_many}
+                              </span>
+                              <ChevronDown
+                                className={`w-3 h-3 transition-transform ${
+                                  isOpen ? "rotate-180" : ""
+                                }`}
+                              />
+                            </button>
+
+                            {isOpen && (
+                              <ul className="mt-1.5 space-y-1 border-l-2 border-[#5B7B94]/25 pl-2">
+                                {sources.map((src) => (
+                                  <li key={src.id}>
+                                    <button
+                                      onClick={() => setSelectedMemoryId(src.id)}
+                                      className="text-left text-[10px] text-stone-600 hover:text-stone-900 hover:underline leading-snug cursor-pointer"
+                                    >
+                                      <span className="font-mono text-stone-400 mr-1">
+                                        {new Date(src.occurred_at).toLocaleDateString(
+                                          localeOf(language),
+                                          { month: "numeric", day: "numeric" }
+                                        )}
+                                      </span>
+                                      {getLocalizedTitle(src, language)}
+                                    </button>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                          </div>
+                        );
+                      })()}
+
                       <div className="flex items-center justify-between text-[11px] text-stone-400 font-sans">
                         <span>
                           {mem.provenance?.source === "you+obsidian"
@@ -896,7 +1043,11 @@ export function MemoryOSView() {
                             ? language === "zh" ? "飞书提炼" : "Lark Distilled"
                             : language === "zh" ? "手动录入" : "Manual Entry"}
                         </span>
-                        <span className="font-mono">{new Date(mem.occurred_at).toLocaleDateString()}</span>
+                        <span className="font-mono">
+                          {new Date(mem.occurred_at).toLocaleDateString(
+                            localeOf(language)
+                          )}
+                        </span>
                       </div>
                     </div>
                   </>
@@ -1009,7 +1160,7 @@ export function MemoryOSView() {
                           </span>
                           <span className="text-[10px] text-[var(--ink-secondary)] font-mono-meta">
                             {language === "zh"
-                              ? `可信度 ${Math.round(cand.confidence * 100)}%`
+                              ? `${t.confidence} ${Math.round(cand.confidence * 100)}%`
                               : `Confidence ${Math.round(cand.confidence * 100)}%`}
                           </span>
                         </div>

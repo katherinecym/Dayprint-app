@@ -28,7 +28,9 @@ recordings/
 # Large media assets — keep out of git
 audio/
 video/
+audit-artifacts/
 *.mp4
 *.webm
 *.wav
 *.mp3
+*.png

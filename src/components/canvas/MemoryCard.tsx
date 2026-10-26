@@ -3,6 +3,7 @@
 import React from "react";
 import { CanonicalMemory, getLocalizedTitle, getLocalizedContent, getMemoryTypeBadgeStyle, getMemoryLevel, MEMORY_LEVELS_META } from "@/types/memory";
 import { useMemory } from "@/lib/memory-context";
+import { localeOf } from "@/lib/i18n";
 import { Calendar, Link2, Sprout } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -43,7 +44,7 @@ export function MemoryCard({
     border: `${typeColor}45`,
   };
 
-  const formattedDate = new Date(memory.occurred_at).toLocaleDateString(undefined, {
+  const formattedDate = new Date(memory.occurred_at).toLocaleDateString(localeOf(language), {
     month: "short",
     day: "numeric",
   });

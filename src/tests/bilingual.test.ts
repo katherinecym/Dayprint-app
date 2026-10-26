@@ -111,6 +111,61 @@ describe("Strict Bilingual Independence & Default Auto-Translation", () => {
     expect(preserved.content_en).toBe("Custom English content");
   });
 
+  it("should NOT pollute the target-language field when translation is unavailable", async () => {
+    // translateText 在无网络 / 无 Key 时会原样返回入参。
+    // 这里断言：绝不能把中文原样写进 *_en，否则数据层就被污染了。
+    const zhOnly = await ensureBilingualMemoryFields({
+      title_zh: "一条翻译服务没覆盖到的中文标题",
+      content_zh: "一段翻译服务没覆盖到的中文正文。",
+      currentLang: "zh",
+    });
+
+    expect(zhOnly.title_zh).toBe("一条翻译服务没覆盖到的中文标题");
+    expect(zhOnly.content_zh).toBe("一段翻译服务没覆盖到的中文正文。");
+    expect(zhOnly.title_en).not.toBe("一条翻译服务没覆盖到的中文标题");
+    expect(zhOnly.content_en).not.toBe("一段翻译服务没覆盖到的中文正文。");
+  });
+
+  it("should explicitly mark untranslated content in EN mode instead of silently showing Chinese", () => {
+    // 关键：这条内容必须是「词典里没有、翻译服务也不可用」的用户自建内容。
+    // 若用 SEED/FALLBACK_EN_DICT 里已有的句子，会走真实英文分支，测的就不是这个行为了。
+    const chineseOnly: CanonicalMemory = {
+      ...sampleMemory,
+      id: "mem_user_untracked_zh_only",
+      title: "周三下午在徐汇滨江走了很久",
+      title_zh: "周三下午在徐汇滨江走了很久",
+      title_en: "",
+      content: "江风很大，把耳机里的播客吹得听不清，但心情意外地好。",
+      content_zh: "江风很大，把耳机里的播客吹得听不清，但心情意外地好。",
+      content_en: "",
+      language: "zh",
+    };
+
+    expect(getLocalizedTitle(chineseOnly, "en")).toContain("[未翻译]");
+    expect(getLocalizedContent(chineseOnly, "en")).toContain("[未翻译]");
+    // 中文模式下不受影响
+    expect(getLocalizedTitle(chineseOnly, "zh")).toBe("周三下午在徐汇滨江走了很久");
+  });
+
+  it("should NOT flag a mostly-English string that merely contains a stray CJK fragment", () => {
+    // 回归用例：曾经的 [未翻译] 判据是「只要含中文就打标」，
+    // 结果 "Fullstack engineering preference (置信度: 80%)" 被误判成未翻译。
+    const mixed: CanonicalMemory = {
+      ...sampleMemory,
+      id: "mem_user_mixed_ratio",
+      title: "Preference for 全栈 engineering roles",
+      title_zh: "",
+      title_en: "",
+      content: "I prefer fullstack work over 单一职责 splits.",
+      content_zh: "",
+      content_en: "",
+      language: "en",
+    };
+
+    expect(getLocalizedTitle(mixed, "en")).not.toContain("[未翻译]");
+    expect(getLocalizedContent(mixed, "en")).not.toContain("[未翻译]");
+  });
+
   it("should sanitize emojis and confidence labels from titles and contents", () => {
     const memoryWithEmojis: CanonicalMemory = {
       ...sampleMemory,

@@ -17,14 +17,8 @@ import {
 import confetti from "canvas-confetti";
 import { getLocalizedTitle, getLocalizedContent, formatDisplayTime } from "@/types/memory";
 import { MemoryActivityHeatmap } from "@/components/canvas/MemoryActivityHeatmap";
+import { MOOD_PRESETS, resolveMood } from "@/lib/moods";
 
-const MOOD_PRESETS = [
-  { id: "terracotta", label: "陶土红 · 热情", labelEn: "Terracotta · Energized", descZh: "充满干劲、活力与行动力", descEn: "Full of drive and vitality", color: "#C97A63" },
-  { id: "amber", label: "琥珀蜜 · 灵感", labelEn: "Amber · Inspired", descZh: "顿悟闪光、创造心流", descEn: "Creative flow and spark", color: "#C49A56" },
-  { id: "sage", label: "苍青绿 · 平和", labelEn: "Sage · Calm", descZh: "松弛从容、内心安定", descEn: "Tranquil and grounded", color: "#608066" },
-  { id: "fjord", label: "冰海蓝 · 澄澈", labelEn: "Fjord · Focused", descZh: "清醒理性、专注沉浸", descEn: "Crystal clear and focused", color: "#5B7B94" },
-  { id: "twilight", label: "暮山紫 · 内省", labelEn: "Twilight · Reflective", descZh: "深度复盘、静水流深", descEn: "Quiet introspection and depth", color: "#9A8BB8" },
-];
 
 interface ContextPanelProps {
   isOpen?: boolean;
@@ -207,13 +201,7 @@ export function ContextPanel({
 
           {/* Active Mood Explicit Indicator & Slip Tint Explanation */}
           {(() => {
-            const activePreset =
-              MOOD_PRESETS.find(
-                (m) =>
-                  currentMood.includes(m.id) ||
-                  currentMood.includes(m.color) ||
-                  currentMood === (language === "zh" ? m.label : m.labelEn)
-              ) || MOOD_PRESETS[0];
+            const activePreset = resolveMood(currentMood);
 
             return (
               <div

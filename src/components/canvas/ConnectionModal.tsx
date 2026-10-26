@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useMemory } from "@/lib/memory-context";
+import { useModalDismiss } from "@/lib/use-modal-dismiss";
 import { X, Plus, Network, Check } from "lucide-react";
 import { RelationType, getLocalizedTitle, getLocalizedContent, getLocalizedReason } from "@/types/memory";
 
@@ -45,13 +46,7 @@ export function ConnectionModal({ memoryId, onClose }: ConnectionModalProps) {
     setReason("");
   };
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [onClose]);
+  useModalDismiss(onClose);
 
   return (
     <div

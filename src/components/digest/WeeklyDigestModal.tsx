@@ -2,6 +2,8 @@
 
 import React, { useState, useMemo, useEffect } from "react";
 import { useMemory } from "@/lib/memory-context";
+import { useModalDismiss } from "@/lib/use-modal-dismiss";
+import { dateKeyOf, getWeekRange } from "@/lib/date";
 import {
   X,
   Calendar,
@@ -64,53 +66,31 @@ export function WeeklyDigestModal({ onClose }: WeeklyDigestModalProps) {
   const [formDate, setFormDate] = useState<string>("");
   const [formTopics, setFormTopics] = useState<string>("");
 
-  // Dismiss on Escape key
+  // Escape closes the inline editor first, then the modal.
+  // The shell-level hook is disabled while the editor is open so the two
+  // handlers never both fire on the same keypress.
+  const isEditingInline = Boolean(editingMemory) || isCreating;
+  useModalDismiss(onClose, { enabled: !isEditingInline });
+
   useEffect(() => {
+    if (!isEditingInline) return;
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        if (editingMemory || isCreating) {
-          setEditingMemory(null);
-          setIsCreating(false);
-        } else {
-          onClose();
-        }
-      }
+      if (e.key !== "Escape") return;
+      e.preventDefault();
+      setEditingMemory(null);
+      setIsCreating(false);
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [onClose, editingMemory, isCreating]);
+  }, [isEditingInline]);
 
   // Compute Monday-Sunday date range for current weekOffset
   const { startDateStr, endDateStr, weekLabel, daysInWeek } = useMemo(() => {
-    const now = new Date();
-    // Adjust by week offset
-    now.setDate(now.getDate() + weekOffset * 7);
-
-    // Get Monday of this week (0=Sun, 1=Mon ... 6=Sat)
-    const dayOfWeek = now.getDay();
-    const distToMon = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
-    const monday = new Date(now);
-    monday.setDate(now.getDate() + distToMon);
-
-    const sunday = new Date(monday);
-    sunday.setDate(monday.getDate() + 6);
-
-    const start = monday.toISOString().split("T")[0];
-    const end = sunday.toISOString().split("T")[0];
-
-    const days: string[] = [];
-    const cur = new Date(monday);
-    for (let i = 0; i < 7; i++) {
-      days.push(cur.toISOString().split("T")[0]);
-      cur.setDate(cur.getDate() + 1);
-    }
-
-    const label = `${start.slice(5)} ~ ${end.slice(5)}`;
-
+    const { start, end, days } = getWeekRange(weekOffset);
     return {
       startDateStr: start,
       endDateStr: end,
-      weekLabel: label,
+      weekLabel: `${start.slice(5)} ~ ${end.slice(5)}`,
       daysInWeek: days,
     };
   }, [weekOffset]);
@@ -119,7 +99,9 @@ export function WeeklyDigestModal({ onClose }: WeeklyDigestModalProps) {
   const weekMemories = useMemo(() => {
     return memories
       .filter((m) => {
-        const memDate = m.occurred_at ? m.occurred_at.split("T")[0] : "";
+        // dateKeyOf 同时兼容本地偏移串（+08:00）与旧数据的 Z 结尾串；
+        // 直接 split("T") 只对前者正确。
+        const memDate = m.occurred_at ? dateKeyOf(m.occurred_at) : "";
         return memDate >= startDateStr && memDate <= endDateStr;
       })
       .sort((a, b) => new Date(b.occurred_at).getTime() - new Date(a.occurred_at).getTime());
@@ -264,10 +246,10 @@ export function WeeklyDigestModal({ onClose }: WeeklyDigestModalProps) {
 
     md += isZh
       ? `> **本周沉淀概览**：共记录 ${weekMemories.length} 条记忆碎片，覆盖 ${
-          new Set(weekMemories.map((m) => m.occurred_at.slice(0, 10))).size
+          new Set(weekMemories.map((m) => dateKeyOf(m.occurred_at))).size
         } 天。\n\n`
       : `> **Weekly Overview**: ${weekMemories.length} memory entries captured across ${
-          new Set(weekMemories.map((m) => m.occurred_at.slice(0, 10))).size
+          new Set(weekMemories.map((m) => dateKeyOf(m.occurred_at))).size
         } days.\n\n`;
 
     md += isZh ? `### 🧠 认知分层分布\n` : `### 🧠 Cognitive Pyramid Distribution\n`;
@@ -285,7 +267,7 @@ export function WeeklyDigestModal({ onClose }: WeeklyDigestModalProps) {
       const lvlMeta = MEMORY_LEVELS_META[getMemoryLevel(m)];
       const title = getLocalizedTitle(m, language);
       const content = getLocalizedContent(m, language);
-      const date = m.occurred_at ? m.occurred_at.slice(0, 10) : "";
+      const date = dateKeyOf(m.occurred_at);
       const lvlLabel = isZh ? lvlMeta.shortZh : lvlMeta.shortEn;
       md += `#### ${idx + 1}. [${lvlLabel}] ${title} (${date})\n`;
       if (content) md += `${content}\n`;
@@ -395,7 +377,7 @@ export function WeeklyDigestModal({ onClose }: WeeklyDigestModalProps) {
             </span>
             <span className="text-stone-300">•</span>
             <span className="text-stone-600 text-[11px]">
-              {new Set(weekMemories.map((m) => m.occurred_at.slice(0, 10))).size} {language === "zh" ? "天活跃" : "active days"}
+              {new Set(weekMemories.map((m) => dateKeyOf(m.occurred_at))).size} {language === "zh" ? "天活跃" : "active days"}
             </span>
           </div>
 

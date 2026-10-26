@@ -2,6 +2,8 @@
 
 import React, { useState, useMemo } from "react";
 import { useMemory } from "@/lib/memory-context";
+import { dateKeyOf } from "@/lib/date";
+import { useModalDismiss } from "@/lib/use-modal-dismiss";
 import {
   X,
   Network,
@@ -25,6 +27,7 @@ import {
 } from "@/lib/graph-engineering";
 import confetti from "canvas-confetti";
 import { motion, AnimatePresence } from "framer-motion";
+import { getMemoryTypeBadgeStyle } from "@/types/memory";
 
 interface ConstellationModalProps {
   onClose: () => void;
@@ -39,6 +42,8 @@ export function ConstellationModal({ onClose }: ConstellationModalProps) {
     language,
     t,
   } = useMemory();
+
+  useModalDismiss(onClose);
 
   // Active view: Graph Engineering Canvas or LLM Personal Wiki
   const [activeTab, setActiveTab] = useState<"graph" | "wiki">("graph");
@@ -133,15 +138,8 @@ export function ConstellationModal({ onClose }: ConstellationModalProps) {
     setTimeout(() => setCompilerFeedback(null), 3500);
   };
 
-  const typeColorMap: Record<string, string> = {
-    idea: "#C97A63",
-    learning: "#5B7B94",
-    moment: "#C49A56",
-    decision: "#7C6F93",
-    plan: "#608066",
-    collection: "#5A7D8F",
-    receipt: "#292524",
-  };
+  // 配色统一走全局 DEFAULT_TYPE_COLORS，避免与日记画布/图谱产生色差
+  const nodeColor = (type: string) => getMemoryTypeBadgeStyle(type).hex;
 
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-2 sm:p-4 md:p-6 bg-stone-900/60 backdrop-blur-xs select-none overflow-hidden">
@@ -285,7 +283,7 @@ export function ConstellationModal({ onClose }: ConstellationModalProps) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
                   {filteredNodes.map((node) => {
                     const isSelected = selectedNodeId === node.id;
-                    const nodeBg = typeColorMap[node.type] || "#5B7B94";
+                    const nodeBg = nodeColor(node.type);
 
                     return (
                       <div
@@ -383,7 +381,7 @@ export function ConstellationModal({ onClose }: ConstellationModalProps) {
                       <span
                         style={{
                           backgroundColor:
-                            typeColorMap[selectedNode.type] || "#5B7B94",
+                            nodeColor(selectedNode.type),
                         }}
                         className="text-[10px] font-medium text-white uppercase px-2 py-0.5 rounded-md inline-block mb-1.5"
                       >
@@ -393,7 +391,7 @@ export function ConstellationModal({ onClose }: ConstellationModalProps) {
                         {selectedNode.title}
                       </h3>
                       <p className="text-[11px] text-stone-400 font-mono mt-0.5">
-                        {selectedNode.occurred_at.slice(0, 10)}
+                        {dateKeyOf(selectedNode.occurred_at)}
                       </p>
                     </div>
 

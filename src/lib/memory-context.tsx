@@ -14,7 +14,7 @@ import {
   MORANDI_PIGMENTS,
   MemoryTimelineLog,
 } from "@/types/memory";
-import { SEED_MEMORIES, SEED_RELATIONSHIPS, SEED_COLLECTIONS } from "@/lib/seed";
+import { SEED_MEMORIES, SEED_RELATIONSHIPS, SEED_COLLECTIONS, getDemoReceipts } from "@/lib/seed";
 import { Language, translations } from "@/lib/i18n";
 import { ensureBilingualMemoryFields } from "@/lib/translator";
 
@@ -118,7 +118,9 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
   const [activeLayout, setActiveLayout] = useState<LayoutType>("boogie_matrix");
   const [sortOrder, setSortOrder] = useState<SortOrder>("newest");
   const [selectedMemoryId, setSelectedMemoryId] = useState<string | null>(null);
-  const [temporalLevel, setTemporalLevel] = useState<"all" | "year" | "month" | "day">("day");
+  // 默认「本月」而不是「当日」：画布是矩阵式浏览视图，一个月（约 40 条）才填得满；
+  // 只看当日会让首屏显得空。用户可通过画布工具栏的时间尺度切到 当日 / 全部。
+  const [temporalLevel, setTemporalLevel] = useState<"all" | "year" | "month" | "day">("month");
   // Default to today's date (set dynamically on mount to avoid Next.js prerender error)
   const [selectedDate, setSelectedDate] = useState<string>("2026-10-15");
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -206,10 +208,12 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
       if (currentMode === "demo") {
         // Purge any legacy mem_you_ memories to enforce 100% fictional builder persona
         loadedMems = loadedMems.filter((m) => !m.id.startsWith("mem_you_"));
-        const hasDemo = loadedMems.some((m) => m.id.startsWith("mem_demo_"));
-        if (!hasDemo || loadedMems.length === 0) {
-          const existingIds = new Set(loadedMems.map((m) => m.id));
-          const missing = SEED_MEMORIES.filter((sm) => !existingIds.has(sm.id));
+        // 注意：这里必须按「缺哪些」补齐，而不是按「有没有 demo 记忆」判断。
+        // 早期写法 `if (!hasDemo || loadedMems.length === 0)` 会导致已有旧 demo 数据的用户
+        // 永远拿不到后来新增的长尾条目 —— 表现为「demo 内容一直很稀薄」。
+        const existingIds = new Set(loadedMems.map((m) => m.id));
+        const missing = SEED_MEMORIES.filter((sm) => !existingIds.has(sm.id));
+        if (missing.length > 0) {
           loadedMems = [...loadedMems, ...missing];
           localStorage.setItem("dayprint_memories", JSON.stringify(loadedMems));
         }
@@ -230,10 +234,10 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
       if (currentMode === "demo") {
         // Purge any legacy rel_you_ relationships
         loadedRels = loadedRels.filter((r) => !r.id.startsWith("rel_you_"));
-        const hasDemoRels = loadedRels.some((r) => r.id.startsWith("rel_demo_"));
-        if (!hasDemoRels || loadedRels.length === 0) {
-          const existingRelIds = new Set(loadedRels.map((r) => r.id));
-          const missingRels = SEED_RELATIONSHIPS.filter((sr) => !existingRelIds.has(sr.id));
+        // 同上：按缺失补齐，保证老用户也能拿到新增关系
+        const existingRelIds = new Set(loadedRels.map((r) => r.id));
+        const missingRels = SEED_RELATIONSHIPS.filter((sr) => !existingRelIds.has(sr.id));
+        if (missingRels.length > 0) {
           loadedRels = [...loadedRels, ...missingRels];
           localStorage.setItem("dayprint_relationships", JSON.stringify(loadedRels));
         }
@@ -256,9 +260,29 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
       }
       setCollections(loadedCols);
 
+      // 4. Load receipts — demo 模式下补齐「每日心情水彩」与复盘，
+      //    否则所有日期都会回退到同一个默认心情，Mood Wash 看起来只有一种。
+      let loadedRcpts: Record<string, DailyReceipt> = {};
       if (storedRcpts !== null) {
-        setStoredReceipts(JSON.parse(storedRcpts));
+        try {
+          const parsed = JSON.parse(storedRcpts);
+          if (parsed && typeof parsed === "object") loadedRcpts = parsed;
+        } catch {}
       }
+      if (currentMode === "demo") {
+        const demoRcpts = getDemoReceipts();
+        let changed = false;
+        Object.keys(demoRcpts).forEach((d) => {
+          if (!loadedRcpts[d]) {
+            loadedRcpts[d] = demoRcpts[d];
+            changed = true;
+          }
+        });
+        if (changed) {
+          localStorage.setItem("dayprint_receipts", JSON.stringify(loadedRcpts));
+        }
+      }
+      setStoredReceipts(loadedRcpts);
 
       if (storedSettings) {
         const parsed = JSON.parse(storedSettings);
@@ -917,12 +941,14 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
     setMemories(SEED_MEMORIES);
     setRelationships(SEED_RELATIONSHIPS);
     setCollections(SEED_COLLECTIONS);
-    setStoredReceipts({});
+    const demoRcpts = getDemoReceipts();
+    setStoredReceipts(demoRcpts);
     try {
       localStorage.setItem("dayprint_app_mode", "demo");
       localStorage.setItem("dayprint_memories", JSON.stringify(SEED_MEMORIES));
       localStorage.setItem("dayprint_relationships", JSON.stringify(SEED_RELATIONSHIPS));
       localStorage.setItem("dayprint_collections", JSON.stringify(SEED_COLLECTIONS));
+      localStorage.setItem("dayprint_receipts", JSON.stringify(demoRcpts));
       localStorage.removeItem("dayprint_test_cleaned_v2");
     } catch {}
   };

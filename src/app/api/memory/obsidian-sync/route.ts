@@ -2,13 +2,19 @@ import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 
+// 这条路由直接读写用户本机的 Obsidian vault，只能在 Node 运行时下工作。
+// 注意：本项目启用了 nextConfig.cacheComponents，因此**不能**声明
+// `export const runtime` / `export const dynamic` —— Turbopack 会直接报错
+// "Route segment config is not compatible with nextConfig.cacheComponents"。
+// 想强制动态执行请用 `await connection()` 或 cacheComponents 的语义，别加段配置。
+
 const DEFAULT_VAULT_DIR = process.env.OBSIDIAN_VAULT_DIR || path.join(process.cwd(), "vault");
 const INBOX_FILE = path.join(process.cwd(), ".dayprint-inbox.json");
 
 function readInbox(): any[] {
   try {
-    if (fs.existsSync(INBOX_FILE)) {
-      return JSON.parse(fs.readFileSync(INBOX_FILE, "utf-8"));
+    if (fs.existsSync(/*turbopackIgnore: true*/ INBOX_FILE)) {
+      return JSON.parse(fs.readFileSync(/*turbopackIgnore: true*/ INBOX_FILE, "utf-8"));
     }
   } catch {
     // fallback
@@ -18,7 +24,7 @@ function readInbox(): any[] {
 
 function writeInbox(items: any[]) {
   try {
-    fs.writeFileSync(INBOX_FILE, JSON.stringify(items, null, 2), "utf-8");
+    fs.writeFileSync(/*turbopackIgnore: true*/ INBOX_FILE, JSON.stringify(items, null, 2), "utf-8");
   } catch (e) {
     console.error("Failed to write inbox:", e);
   }
@@ -34,8 +40,8 @@ interface ParsedMemory {
 }
 
 function parseMarkdownFile(filePath: string): ParsedMemory[] {
-  if (!fs.existsSync(filePath)) return [];
-  const text = fs.readFileSync(filePath, "utf-8");
+  if (!fs.existsSync(/*turbopackIgnore: true*/ filePath)) return [];
+  const text = fs.readFileSync(/*turbopackIgnore: true*/ filePath, "utf-8");
   const fileName = path.basename(filePath);
   const results: ParsedMemory[] = [];
   const now = new Date().toISOString();
@@ -199,7 +205,7 @@ export async function POST(req: NextRequest) {
       // no custom body
     }
 
-    if (!fs.existsSync(vaultDir)) {
+    if (!fs.existsSync(/*turbopackIgnore: true*/ vaultDir)) {
       return NextResponse.json(
         { error: `Vault directory not found at: ${vaultDir}` },
         { status: 404 }
@@ -215,8 +221,8 @@ export async function POST(req: NextRequest) {
     ];
 
     const booksDir = path.join(vaultDir, "books");
-    if (fs.existsSync(booksDir)) {
-      const bookFiles = fs.readdirSync(booksDir);
+    if (fs.existsSync(/*turbopackIgnore: true*/ booksDir)) {
+      const bookFiles = fs.readdirSync(/*turbopackIgnore: true*/ booksDir);
       for (const bf of bookFiles) {
         if (bf.endsWith(".md")) {
           filesToScan.push(path.join(booksDir, bf));
@@ -272,7 +278,10 @@ export async function POST(req: NextRequest) {
 
 export async function GET() {
   // Return status of Obsidian Vault
-  const exists = fs.existsSync(DEFAULT_VAULT_DIR);
+  // turbopackIgnore: 这个路径来自运行时配置，不是静态可分析的。不加注释的话
+  // Next 会把「整个项目目录」都判定为被追踪，于是 public/ 和所有源码都被打进
+  // server bundle —— 部署体积暴涨，大项目会直接撞上大小限制。
+  const exists = fs.existsSync(/*turbopackIgnore: true*/ /* turbopackIgnore: true */ DEFAULT_VAULT_DIR);
   return NextResponse.json({
     status: exists ? "connected" : "path_not_found",
     vault_path: DEFAULT_VAULT_DIR,

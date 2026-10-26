@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "vitest run",
+    "audit:i18n": "node scripts/audit-i18n.mjs",
+    "audit:i18n:baseline": "node scripts/audit-i18n.mjs --write-baseline"
   },
   "dependencies": {
     "canvas-confetti": "^1.9.4",

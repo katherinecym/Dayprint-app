@@ -18,6 +18,8 @@ import {
   Link2,
 } from "lucide-react";
 import { useMemory } from "@/lib/memory-context";
+import { dateKeyOf } from "@/lib/date";
+import { useModalDismiss } from "@/lib/use-modal-dismiss";
 import {
   CanonicalMemory,
   MemoryLevel,
@@ -64,17 +66,8 @@ export function OmniSearchModal({ isOpen, onClose }: OmniSearchModalProps) {
     }
   }, [isOpen]);
 
-  // Global hotkey ESC
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (!isOpen) return;
-      if (e.key === "Escape") {
-        onClose();
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, onClose]);
+  // Global hotkey ESC + lock the page behind the palette.
+  useModalDismiss(onClose, { enabled: isOpen });
 
   // Hybrid Retrieval Simulation: Keyword + Semantic Intent Matching
   const searchResults: ScoredMemory[] = useMemo(() => {
@@ -310,7 +303,7 @@ export function OmniSearchModal({ isOpen, onClose }: OmniSearchModalProps) {
                             {res.memory.type}
                           </span>
                           <span className="text-neutral-400">
-                            {res.memory.occurred_at.slice(0, 10)}
+                            {dateKeyOf(res.memory.occurred_at)}
                           </span>
                           <span className="ml-auto text-[#1D45B8] font-bold bg-[#E5EBFA] px-1.5 py-0.2 border border-[#1D45B8]/30">
                             {res.matchedReason} ({res.similarityPercent}%)

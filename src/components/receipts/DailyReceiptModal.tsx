@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useMemory } from "@/lib/memory-context";
+import { localeOf } from "@/lib/i18n";
 import { getLocalizedTitle, getLocalizedContent } from "@/types/memory";
 import {
   X,
@@ -22,18 +23,14 @@ import {
 import confetti from "canvas-confetti";
 import { motion } from "framer-motion";
 import { formatDisplayTime } from "@/types/memory";
+import { todayKey, yesterdayKey, dateKeyOf } from "@/lib/date";
+import { useModalDismiss } from "@/lib/use-modal-dismiss";
+import { MOOD_PRESETS, resolveMood } from "@/lib/moods";
 
 interface DailyReceiptModalProps {
   onClose: () => void;
 }
 
-const MOOD_PRESETS = [
-  { id: "terracotta", label: "陶土红 · 热情", labelEn: "Terracotta · Energized", shortZh: "热情", shortEn: "Energized", descZh: "充满干劲、活力与行动力", color: "#C97A63", wash: "rgba(201, 122, 99, 0.24)" },
-  { id: "amber", label: "琥珀蜜 · 灵感", labelEn: "Amber · Inspired", shortZh: "灵感", shortEn: "Inspired", descZh: "顿悟闪光、创造心流", color: "#C49A56", wash: "rgba(196, 154, 86, 0.24)" },
-  { id: "sage", label: "苍青绿 · 平和", labelEn: "Sage · Calm", shortZh: "平和", shortEn: "Calm", descZh: "松弛从容、内心安定", color: "#608066", wash: "rgba(96, 128, 102, 0.24)" },
-  { id: "fjord", label: "冰海蓝 · 澄澈", labelEn: "Fjord · Focused", shortZh: "澄澈", shortEn: "Focused", descZh: "清醒理性、专注沉浸", color: "#5B7B94", wash: "rgba(91, 123, 148, 0.24)" },
-  { id: "twilight", label: "暮山紫 · 内省", labelEn: "Twilight · Reflective", shortZh: "内省", shortEn: "Reflective", descZh: "深度复盘、静水流深", color: "#9A8BB8", wash: "rgba(154, 139, 184, 0.24)" },
-];
 
 export function DailyReceiptModal({ onClose }: DailyReceiptModalProps) {
   const {
@@ -50,14 +47,17 @@ export function DailyReceiptModal({ onClose }: DailyReceiptModalProps) {
   const allRecordedDates = useMemo(() => {
     const dates = new Set<string>();
     memories.forEach((m) => {
-      if (m.occurred_at) dates.add(m.occurred_at.slice(0, 10));
+      if (m.occurred_at) dates.add(dateKeyOf(m.occurred_at));
     });
     Object.keys(storedReceipts).forEach((d) => dates.add(d));
-    if (selectedDate) dates.add(selectedDate);
 
-    // Ensure today's date is included
-    const todayStr = new Date().toISOString().slice(0, 10);
-    dates.add(todayStr);
+    // 今天始终保留：留白的一天也是记录的一部分（空态文案就是为它写的）
+    dates.add(todayKey());
+
+    // selectedDate 只有在该日确实有内容时才补进来。
+    // 早期无条件 add(selectedDate) 会凭空造出一张「0 条记录」的小票，
+    // 这正是「TOTAL RECORDED 都是空的」的直接来源。
+    if (selectedDate && dates.has(selectedDate)) dates.add(selectedDate);
 
     return Array.from(dates).sort().reverse();
   }, [memories, storedReceipts, selectedDate]);
@@ -144,13 +144,14 @@ export function DailyReceiptModal({ onClose }: DailyReceiptModalProps) {
       } else if (e.key === "ArrowRight") {
         e.preventDefault();
         scrollToIndex(Math.min(allRecordedDates.length - 1, activeIndex + 1));
-      } else if (e.key === "Escape") {
-        onClose();
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activeIndex, allRecordedDates.length, onClose]);
+  }, [activeIndex, allRecordedDates.length]);
+
+  // Escape to close + lock background scroll (the carousel itself only owns ←/→).
+  useModalDismiss(onClose);
 
   // Scroll spy to detect active card when user swipes/scrolls horizontally
   const handleScroll = () => {
@@ -200,15 +201,10 @@ export function DailyReceiptModal({ onClose }: DailyReceiptModalProps) {
   };
 
   const getDateLabel = (dateStr: string) => {
-    const todayStr = new Date().toISOString().slice(0, 10);
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    const yesterdayStr = yesterday.toISOString().slice(0, 10);
-
-    if (dateStr === todayStr) {
+    if (dateStr === todayKey()) {
       return language === "zh" ? "今天" : "Today";
     }
-    if (dateStr === yesterdayStr) {
+    if (dateStr === yesterdayKey()) {
       return language === "zh" ? "昨天" : "Yesterday";
     }
     return null;
@@ -358,17 +354,10 @@ export function DailyReceiptModal({ onClose }: DailyReceiptModalProps) {
 
             // Memories for this specific date
             const dayMems = memories
-              .filter((m) => m.occurred_at && m.occurred_at.startsWith(date))
+              .filter((m) => m.occurred_at && dateKeyOf(m.occurred_at) === date)
               .sort((a, b) => a.occurred_at.localeCompare(b.occurred_at));
 
-            const activePreset =
-              MOOD_PRESETS.find(
-                (p) =>
-                  currentMood.includes(p.id) ||
-                  currentMood.includes(p.shortZh) ||
-                  currentMood.includes(p.shortEn) ||
-                  currentMood.includes(p.label)
-              ) || MOOD_PRESETS[0];
+            const activePreset = resolveMood(currentMood);
             const dipDyeWash = activePreset.wash;
 
             return (
@@ -416,7 +405,7 @@ export function DailyReceiptModal({ onClose }: DailyReceiptModalProps) {
                     <div className="flex items-center justify-center gap-2 text-xs text-stone-600 mt-1 font-medium">
                       <span>
                         {new Date(date + "T00:00:00").toLocaleDateString(
-                          language === "zh" ? "zh-CN" : "en-US",
+                          localeOf(language),
                           { weekday: "long" }
                         )}
                       </span>

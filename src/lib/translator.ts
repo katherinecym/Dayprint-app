@@ -118,17 +118,25 @@ export async function ensureBilingualMemoryFields(input: {
   }
 
   // Auto-translate missing title
+  // ⚠ 只有「真的翻译出了不同文本」才写入对侧字段。
+  // translateText 在离线 / 无 Key / 请求失败时会原样返回入参，
+  // 早期写法直接赋值，会把中文写进 title_en，污染数据源，
+  // 最终表现为「英文模式下显示中文且无法追溯」。
   if (titleZh && !titleEn) {
-    titleEn = await translateText(titleZh, "en");
+    const translated = await translateText(titleZh, "en");
+    if (translated && translated !== titleZh) titleEn = translated;
   } else if (titleEn && !titleZh) {
-    titleZh = await translateText(titleEn, "zh");
+    const translated = await translateText(titleEn, "zh");
+    if (translated && translated !== titleEn) titleZh = translated;
   }
 
   // Auto-translate missing content
   if (contentZh && !contentEn) {
-    contentEn = await translateText(contentZh, "en");
+    const translated = await translateText(contentZh, "en");
+    if (translated && translated !== contentZh) contentEn = translated;
   } else if (contentEn && !contentZh) {
-    contentZh = await translateText(contentEn, "zh");
+    const translated = await translateText(contentEn, "zh");
+    if (translated && translated !== contentEn) contentZh = translated;
   }
 
   const primaryTitle = input.currentLang === "zh" ? (titleZh || titleEn) : (titleEn || titleZh);
@@ -136,10 +144,12 @@ export async function ensureBilingualMemoryFields(input: {
 
   return {
     title: primaryTitle || "Untitled Memory",
-    title_zh: titleZh || titleEn,
-    title_en: titleEn || titleZh,
+    // 留空而不是回填另一种语言 —— 让 getLocalized* 能识别「这一侧确实缺失」，
+    // 从而显式标注「未翻译」，而不是静默展示错语言。
+    title_zh: titleZh,
+    title_en: titleEn,
     content: primaryContent,
-    content_zh: contentZh || contentEn,
-    content_en: contentEn || contentZh,
+    content_zh: contentZh,
+    content_en: contentEn,
   };
 }

@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import { useMemory } from "@/lib/memory-context";
+import { dateKeyOf } from "@/lib/date";
 import {
   Network,
   BookOpen,
@@ -23,7 +24,7 @@ import {
   autoCompileGraphRelationships,
 } from "@/lib/graph-engineering";
 import confetti from "canvas-confetti";
-import { MEMORY_LEVELS_META, getMemoryLevel, MemoryLevel, getLocalizedTitle, getLocalizedContent } from "@/types/memory";
+import { MEMORY_LEVELS_META, getMemoryLevel, MemoryLevel, getLocalizedTitle, getLocalizedContent, getMemoryTypeBadgeStyle } from "@/types/memory";
 import { ForceGraphCanvas } from "./ForceGraphCanvas";
 
 export function GraphNodesView() {
@@ -88,7 +89,13 @@ export function GraphNodesView() {
         return lvl === activeLevelFilter;
       });
     }
-    return nodes;
+    // 拓扑索引按「连结数降序」排列，而不是沿用 memories 的时间序。
+    // 这个视图回答的是「哪些概念正在聚拢」，按时间排会把它变成第二个日记流。
+    return [...nodes].sort(
+      (a, b) =>
+        b.connectionsCount - a.connectionsCount ||
+        b.occurred_at.localeCompare(a.occurred_at)
+    );
   }, [graph.nodes, activeTopic, activeLevelFilter, memories]);
 
   // All unique topics
@@ -142,16 +149,10 @@ export function GraphNodesView() {
     setTimeout(() => setCompilerFeedback(null), 3500);
   };
 
-  // Morandi Mineral palette for node types
-  const typeColorMap: Record<string, string> = {
-    idea: "#C97A63",
-    learning: "#5B7B94",
-    moment: "#C49A56",
-    decision: "#475569",
-    plan: "#608066",
-    collection: "#7C6F93",
-    receipt: "#2B2420",
-  };
+  // 节点配色统一走 types/memory 的 DEFAULT_TYPE_COLORS（经 getMemoryTypeBadgeStyle）。
+  // 之前这里有一份本地 typeColorMap，把 decision 与 collection 的取值和全局调换了，
+  // 导致同一条记忆在日记画布与图谱里颜色不一致。
+  const nodeColor = (type: string) => getMemoryTypeBadgeStyle(type).hex;
 
   return (
     <div className="w-full flex-1 flex flex-col overflow-hidden bg-[var(--canvas-paper)] select-none font-sans">
@@ -355,7 +356,7 @@ export function GraphNodesView() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
                     {filteredNodes.map((node) => {
                       const isSelected = selectedNodeId === node.id;
-                      const nodeBg = typeColorMap[node.type] || "#FFFFFF";
+                      const nodeBg = nodeColor(node.type);
                       const isLight = node.type === "moment" || node.type === "plan";
 
                       // Find full memory object to get level
@@ -384,7 +385,7 @@ export function GraphNodesView() {
                                   }}
                                   className="text-[9px] font-black uppercase px-1.5 py-0.2 border border-black/40"
                                 >
-                                  {node.type}
+                                  {t[`memory_type_${node.type}` as keyof typeof t] || node.type}
                                 </span>
                                 <span
                                   style={{ backgroundColor: levelMeta.color }}
@@ -400,17 +401,13 @@ export function GraphNodesView() {
                               </span>
                             </div>
 
-                            {/* Node Title */}
+                            {/* Node Title
+                                刻意不渲染正文：正文由右侧 Node Inspector 完整呈现。
+                                卡片与 T2 认知档案的差异就在这里 —— 这里是「节点」，
+                                只回答「叫什么、属于哪层、连了几条」，不承担阅读职责。 */}
                             <h4 className="text-xs font-bold text-[var(--ink-primary)] line-clamp-2 leading-snug">
                               {node.title}
                             </h4>
-
-                            {/* Node Content */}
-                            {node.content && (
-                              <p className="text-[11px] text-[var(--ink-secondary)] line-clamp-2 mt-1 leading-relaxed font-sans">
-                                {node.content}
-                              </p>
-                            )}
 
                             {/* Image preview thumbnail if present */}
                             {node.media_url && (
@@ -469,7 +466,7 @@ export function GraphNodesView() {
                     <span
                       style={{
                         backgroundColor:
-                          typeColorMap[selectedNode.type] || "#111",
+                          nodeColor(selectedNode.type),
                         color:
                           selectedNode.type === "moment" ? "#111" : "#FFF",
                       }}
@@ -481,7 +478,7 @@ export function GraphNodesView() {
                       {selectedNode.title}
                     </h3>
                     <p className="text-[10px] font-mono-meta text-[var(--ink-secondary)] mt-0.5">
-                      {selectedNode.occurred_at.slice(0, 10)}
+                      {dateKeyOf(selectedNode.occurred_at)}
                     </p>
                   </div>
 
@@ -688,7 +685,7 @@ export function GraphNodesView() {
                                 {getLocalizedTitle(mem, language)}
                               </span>
                               <span className="text-[10px] text-neutral-500 font-mono-meta">
-                                {t[`memory_type_${mem.type}` as keyof typeof t] || mem.type} • {mem.occurred_at.slice(0, 10)}
+                                {t[`memory_type_${mem.type}` as keyof typeof t] || mem.type} • {dateKeyOf(mem.occurred_at)}
                               </span>
                             </div>
                             <ExternalLink className="w-3.5 h-3.5 text-neutral-600 shrink-0" />

@@ -1,4 +1,5 @@
 import { CanonicalMemory, Relationship, RelationType, MemoryType, getLocalizedTitle, getLocalizedContent } from "../types/memory";
+import { dateKeyOf } from "./date";
 
 export interface KnowledgeNode {
   id: string;
@@ -217,7 +218,7 @@ export function compileLLMWiki(
         return {
           id: m.id,
           title: localizedTitle,
-          date: m.occurred_at.slice(0, 10),
+          date: dateKeyOf(m.occurred_at),
           type: m.type,
           snippet: localizedContent ? localizedContent.slice(0, 75) + "..." : localizedTitle,
         };

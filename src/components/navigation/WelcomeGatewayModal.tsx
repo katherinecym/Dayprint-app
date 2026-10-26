@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import { useMemory } from "@/lib/memory-context";
+import { normalizeGitHubRepo } from "@/lib/github-repo";
+import { useModalDismiss } from "@/lib/use-modal-dismiss";
 import {
   FolderGit2,
   Sparkles,
@@ -23,16 +25,6 @@ import { DayprintLogo } from "@/components/ui/DayprintLogo";
 interface WelcomeGatewayModalProps {
   isOpen: boolean;
   onClose: () => void;
-}
-
-function normalizeGitHubRepo(input: string): string {
-  if (!input) return "";
-  let cleaned = input.trim();
-  cleaned = cleaned.replace(/^https?:\/\//i, "");
-  cleaned = cleaned.replace(/^github\.com\//i, "");
-  cleaned = cleaned.replace(/\.git$/i, "");
-  cleaned = cleaned.replace(/^\/+|\/+$/g, "");
-  return cleaned;
 }
 
 export function WelcomeGatewayModal({
@@ -63,6 +55,8 @@ export function WelcomeGatewayModal({
     text: string;
     isError?: boolean;
   } | null>(null);
+
+  useModalDismiss(onClose, { enabled: isOpen });
 
   if (!isOpen) return null;
 

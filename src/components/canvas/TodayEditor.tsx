@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect, useMemo } from "react";
 import { useMemory } from "@/lib/memory-context";
+import { compressImage } from "@/lib/image";
 import { Calendar, Send, Tag, Layers, Clock, Image as ImageIcon, X, Hourglass, Palette, CornerDownLeft, Link2, Check, Plus, GitMerge, Sparkles, Loader2, Undo2, Award, Zap, Sprout, ArrowLeftRight, FileUp, Lightbulb, ChevronUp, PenTool } from "lucide-react";
 import { MemoryType, MemoryLevel, getLocalizedTitle, getMemoryTypeBadgeStyle, MORANDI_PIGMENTS, MemoryStarImpact, CanonicalMemory } from "@/types/memory";
 import { playKeyClick, playWaxStampSound } from "@/lib/sound";
@@ -153,39 +154,6 @@ export function TodayEditor({ initialPrompt }: TodayEditorProps) {
     });
     setPastMemoryEcho(older.length > 0 ? older[Math.floor(Math.random() * older.length)] : null);
   }, [memories]);
-
-  // Native lightweight canvas image compression (WebP/JPEG, ~80-120KB)
-  const compressImage = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const img = new Image();
-        img.onload = () => {
-          const canvas = document.createElement("canvas");
-          let { width, height } = img;
-          const maxDim = 1200;
-          if (width > maxDim || height > maxDim) {
-            if (width > height) {
-              height = Math.round((height * maxDim) / width);
-              width = maxDim;
-            } else {
-              width = Math.round((width * maxDim) / height);
-              height = maxDim;
-            }
-          }
-          canvas.width = width;
-          canvas.height = height;
-          const ctx = canvas.getContext("2d");
-          ctx?.drawImage(img, 0, 0, width, height);
-          resolve(canvas.toDataURL("image/jpeg", 0.8));
-        };
-        img.onerror = reject;
-        img.src = e.target?.result as string;
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -418,17 +386,6 @@ export function TodayEditor({ initialPrompt }: TodayEditorProps) {
     setIsSavedFeedback(true);
     setIsExpanded(true);
     setTimeout(() => setIsSavedFeedback(false), 2000);
-  };
-
-  const typeColorMap: Record<MemoryType, string> = {
-    idea: "bg-[#C97A63] text-white",
-    learning: "bg-[#5B7B94] text-white",
-    moment: "bg-[#C49A56] text-white",
-    decision: "bg-[#7C6F93] text-white",
-    plan: "bg-[#608066] text-white",
-    collection: "bg-[#5A7D8F] text-white",
-    receipt: "bg-stone-800 text-stone-100",
-    generic: "bg-stone-200 text-stone-800",
   };
 
   const currentTitleValue = activeTab === "zh" ? titleZh : titleEn;

@@ -1,0 +1,143 @@
+{
+  "generatedAt": "2026-10-25",
+  "totals": {
+    "trilingual": 741,
+    "localeBare": 0,
+    "rawField": 4,
+    "cjkLiteral": 786,
+    "keyAccess": 37
+  },
+  "i18n": {
+    "totalKeys": 68,
+    "usedKeys": 36,
+    "unusedKeys": 32
+  },
+  "htmlLang": "en",
+  "files": {
+    "src/components/navigation/GitHubSettingsModal.tsx": {
+      "trilingual": 91,
+      "cjkLiteral": 89,
+      "localeBare": 0
+    },
+    "src/components/memory-os/MemoryOSView.tsx": {
+      "trilingual": 89,
+      "cjkLiteral": 83,
+      "localeBare": 0
+    },
+    "src/components/canvas/TodayEditor.tsx": {
+      "trilingual": 72,
+      "cjkLiteral": 73,
+      "localeBare": 0
+    },
+    "src/components/career/CareerStudioModal.tsx": {
+      "trilingual": 46,
+      "cjkLiteral": 68,
+      "localeBare": 0
+    },
+    "src/components/canvas/SmartDocumentIngestModal.tsx": {
+      "trilingual": 41,
+      "cjkLiteral": 42,
+      "localeBare": 0
+    },
+    "src/components/navigation/WelcomeGatewayModal.tsx": {
+      "trilingual": 36,
+      "cjkLiteral": 34,
+      "localeBare": 0
+    },
+    "src/components/canvas/ExpandedMemory.tsx": {
+      "trilingual": 34,
+      "cjkLiteral": 32,
+      "localeBare": 0
+    },
+    "src/components/canvas/BoogieMatrixCanvas.tsx": {
+      "trilingual": 33,
+      "cjkLiteral": 31,
+      "localeBare": 0
+    },
+    "src/components/digest/WeeklyDigestModal.tsx": {
+      "trilingual": 33,
+      "cjkLiteral": 30,
+      "localeBare": 0
+    },
+    "src/components/graph/GraphNodesView.tsx": {
+      "trilingual": 30,
+      "cjkLiteral": 28,
+      "localeBare": 0
+    },
+    "src/components/navigation/HeaderBar.tsx": {
+      "trilingual": 28,
+      "cjkLiteral": 32,
+      "localeBare": 0
+    },
+    "src/components/constellation/ConstellationModal.tsx": {
+      "trilingual": 26,
+      "cjkLiteral": 26,
+      "localeBare": 0
+    },
+    "src/components/graph/ForceGraphCanvas.tsx": {
+      "trilingual": 24,
+      "cjkLiteral": 15,
+      "localeBare": 0
+    },
+    "src/components/search/OmniSearchModal.tsx": {
+      "trilingual": 23,
+      "cjkLiteral": 50,
+      "localeBare": 0
+    },
+    "src/components/receipts/DailyReceiptModal.tsx": {
+      "trilingual": 22,
+      "cjkLiteral": 19,
+      "localeBare": 0
+    },
+    "src/components/navigation/ContextPanel.tsx": {
+      "trilingual": 22,
+      "cjkLiteral": 18,
+      "localeBare": 0
+    },
+    "src/components/navigation/AppSidebar.tsx": {
+      "trilingual": 21,
+      "cjkLiteral": 29,
+      "localeBare": 0
+    },
+    "src/components/canvas/ConnectionModal.tsx": {
+      "trilingual": 17,
+      "cjkLiteral": 17,
+      "localeBare": 0
+    },
+    "src/lib/memory-context.tsx": {
+      "trilingual": 17,
+      "cjkLiteral": 0,
+      "localeBare": 0
+    },
+    "src/components/archive/ArchiveModal.tsx": {
+      "trilingual": 11,
+      "cjkLiteral": 11,
+      "localeBare": 0
+    },
+    "src/components/canvas/MemoryActivityHeatmap.tsx": {
+      "trilingual": 11,
+      "cjkLiteral": 7,
+      "localeBare": 0
+    },
+    "src/components/canvas/DailyMuseSlip.tsx": {
+      "trilingual": 9,
+      "cjkLiteral": 45,
+      "localeBare": 0
+    },
+    "src/components/canvas/MemoryCard.tsx": {
+      "trilingual": 3,
+      "cjkLiteral": 1,
+      "localeBare": 0
+    },
+    "src/types/memory.ts": {
+      "trilingual": 2,
+      "cjkLiteral": 0,
+      "localeBare": 0
+    },
+    "src/components/ui/DayprintLogo.tsx": {
+      "trilingual": 0,
+      "cjkLiteral": 6,
+      "localeBare": 0
+    }
+  }
+}

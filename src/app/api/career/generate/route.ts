@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { dateKeyOf } from "@/lib/date";
 import { CanonicalMemory, getLocalizedTitle, getLocalizedContent } from "@/types/memory";
 
 interface CareerStarItem {
@@ -30,9 +31,9 @@ function cleanJsonText(raw: string): string {
 function localRuleFallback(
   memories: CanonicalMemory[],
   scope: string,
-  lang: "zh" | "en"
+  lang: "zh" | "en",
+  dateStr: string
 ): CareerGenerateResponse {
-  const dateStr = new Date().toISOString().slice(0, 10);
   const scopeLabel =
     scope === "this_week"
       ? (lang === "zh" ? "本周工作复盘与交付周报" : "Weekly Work & Delivery Report")
@@ -133,6 +134,14 @@ export async function POST(req: Request) {
     const body = await req.json();
     const memories: CanonicalMemory[] = body.memories || [];
     const scope: string = body.scope || "this_week";
+    // The report is dated in the *user's* calendar, not the server's. The route
+    // can run in any timezone (UTC in most deployments), so deriving it from
+    // `new Date()` here stamps yesterday's date for anyone east of the server
+    // between local midnight and the UTC offset. The client sends its own day.
+    const clientDate: string =
+      typeof body.date === "string" && /^\d{4}-\d{2}-\d{2}$/.test(body.date)
+        ? body.date
+        : new Date().toISOString().slice(0, 10);
     const lang: "zh" | "en" = body.language === "en" ? "en" : "zh";
     const provider: string = body.provider || "gemini";
     const userApiKey: string = (body.apiKey || "").trim();
@@ -140,7 +149,7 @@ export async function POST(req: Request) {
     const model: string = (body.model || "").trim();
 
     if (!memories || memories.length === 0) {
-      return NextResponse.json(localRuleFallback([], scope, lang));
+      return NextResponse.json(localRuleFallback([], scope, lang, clientDate));
     }
 
     // Determine effective key
@@ -153,7 +162,7 @@ export async function POST(req: Request) {
 
     const promptMemories = memories.slice(0, 15).map((m) => ({
       id: m.id,
-      date: m.occurred_at.slice(0, 10),
+      date: dateKeyOf(m.occurred_at),
       title: getLocalizedTitle(m, lang),
       content: getLocalizedContent(m, lang),
       type: m.type,
@@ -377,7 +386,7 @@ Return ONLY a valid JSON object matching this schema without any markdown format
     }
 
     // Fallback: local rule-based generation
-    return NextResponse.json(localRuleFallback(memories, scope, lang));
+    return NextResponse.json(localRuleFallback(memories, scope, lang, clientDate));
   } catch (err: any) {
     console.error("Career Generate Error:", err);
     return NextResponse.json(

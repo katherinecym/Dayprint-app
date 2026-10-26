@@ -40,6 +40,8 @@ export function BoogieMatrixCanvas({ memories }: BoogieMatrixCanvasProps) {
     settings,
     appMode,
     loadDemoData,
+    temporalLevel,
+    setTemporalLevel,
   } = useMemory();
 
   const [shuffleSeed, setShuffleSeed] = useState(0);
@@ -277,6 +279,35 @@ export function BoogieMatrixCanvas({ memories }: BoogieMatrixCanvasProps) {
 
           {/* Right: Compact Sort & Paper Pattern Selectors */}
           <div className="flex items-center gap-3 flex-wrap">
+            {/* Temporal Zoom: All / Year / Month / Day
+                之前 setTemporalLevel 没有任何 UI 入口，用户被永久锁在默认尺度里，
+                而 day 分支又不过滤 —— 等于「时间尺度」这个能力整体不存在。
+                文案走 i18n.ts 的 temporal_* key（此前 4 个 key 全部无人消费）。 */}
+            <div className="flex items-center gap-0.5 bg-[var(--panel-bg)] border border-[var(--grid-line)] rounded-lg p-0.5">
+              {(
+                [
+                  { id: "all", label: t.temporal_all },
+                  { id: "year", label: t.temporal_year },
+                  { id: "month", label: t.temporal_month },
+                  { id: "day", label: t.temporal_day },
+                ] as const
+              ).map((opt) => (
+                <button
+                  key={opt.id}
+                  onClick={() => setTemporalLevel(opt.id)}
+                  className={`px-2 py-1 text-[11px] rounded-md font-medium transition-colors cursor-pointer ${
+                    temporalLevel === opt.id
+                      ? "bg-[var(--card-white)] text-[var(--ink-primary)] shadow-2xs"
+                      : "text-[var(--ink-secondary)] hover:text-[var(--ink-primary)]"
+                  }`}
+                  title={opt.label}
+                  aria-pressed={temporalLevel === opt.id}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+
             {/* Compact Sort Control */}
             <div className="flex items-center gap-1.5">
               <span className="text-[var(--ink-secondary)] font-medium flex items-center gap-1 text-[11px]">
