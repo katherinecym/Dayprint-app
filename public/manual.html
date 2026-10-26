@@ -34,7 +34,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Top Navigation Header */
     header {
       position: sticky;
       top: 0;
@@ -122,7 +121,6 @@
       background: #B66953;
     }
 
-    /* Sub-nav Category Tabs */
     .section-nav {
       background: #FFF;
       border-bottom: 1px solid var(--border-subtle);
@@ -157,14 +155,12 @@
       border-color: var(--ink-primary);
     }
 
-    /* Main Container */
     .container {
       max-width: 1140px;
       margin: 0 auto;
       padding: 36px 28px 80px 28px;
     }
 
-    /* Section Structure */
     section {
       margin-bottom: 64px;
       scroll-margin-top: 115px;
@@ -197,7 +193,6 @@
       line-height: 1.6;
     }
 
-    /* Card Grids */
     .grid-2 {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
@@ -308,7 +303,6 @@
       font-weight: bold;
     }
 
-    /* Clean Status Badges */
     .status-badge {
       display: inline-block;
       font-size: 11px;
@@ -321,7 +315,6 @@
       border: 1px solid var(--border-subtle);
     }
 
-    /* Mood Swatches */
     .swatch-group {
       display: flex;
       gap: 8px;
@@ -338,7 +331,6 @@
       font-family: var(--font-sans);
     }
 
-    /* Lightbox */
     .lightbox-modal {
       display: none;
       position: fixed;
@@ -405,64 +397,64 @@
 
   <!-- Navigation Bar -->
   <nav class="section-nav">
-    <a href="#overview" class="nav-pill active" data-i18n="nav_overview">1. Data Ownership</a>
+    <a href="#overview" class="nav-pill active" data-i18n="nav_overview">1. How It Works</a>
     <a href="#gateway" class="nav-pill" data-i18n="nav_gateway">2. Setup & Demo</a>
     <a href="#tab1-daily" class="nav-pill" data-i18n="nav_daily">3. Tab 1: Daily Canvas</a>
     <a href="#tab2-memoryos" class="nav-pill" data-i18n="nav_memoryos">4. Tab 2: Cognitive Ledger</a>
     <a href="#tab3-graph" class="nav-pill" data-i18n="nav_graph">5. Tab 3: Knowledge Graph</a>
     <a href="#receipts" class="nav-pill" data-i18n="nav_receipts">6. Daily Receipts</a>
-    <a href="#studios" class="nav-pill" data-i18n="nav_studios">7. Studio Tools</a>
+    <a href="#studios" class="nav-pill" data-i18n="nav_studios">7. Helpful Tools</a>
   </nav>
 
   <!-- Container -->
   <main class="container">
 
-    <!-- 1. OVERVIEW & DATA SOVEREIGNTY -->
+    <!-- 1. OVERVIEW & STORAGE -->
     <section id="overview">
       <div class="section-header">
-        <div class="section-num" data-i18n="sec1_num">Overview · Core Design</div>
-        <h2 class="section-title" data-i18n="sec1_title">Local-First Architecture & Complete Data Ownership</h2>
+        <div class="section-num" data-i18n="sec1_num">Overview · Storage & Ideas</div>
+        <h2 class="section-title" data-i18n="sec1_title">Your Notes Stay in Your Hands</h2>
         <p class="section-desc" data-i18n="sec1_desc">
-          Most personal thoughts get lost across Slack threads, quick scratchpads, and phone memos. When you actually need them later—for a promotion review, an architecture decision, or recalling how you solved a tough bug three months ago—they are nearly impossible to find. Dayprint provides a focused, local-first workspace that connects straight to your private GitHub repository as plain Markdown files.
+          Most of what we build and learn ends up scattered across Slack discussions, temporary text files, and phone memos. When you actually need them later—for a promotion review, an engineering retrospective, or recalling how you solved a tough bug three months ago—they are almost impossible to find. Dayprint gives you a clean space to capture daily thoughts and syncs them straight to your private GitHub repository as plain Markdown files.
         </p>
       </div>
 
       <div class="grid-3">
         <div class="card">
           <div class="card-content">
-            <span class="meta-tag tag-terracotta" data-i18n="c1_tag">Storage Model</span>
+            <span class="meta-tag tag-terracotta" data-i18n="c1_tag">Storage</span>
             <h3 class="card-title" data-i18n="c1_title">Direct GitHub Sync</h3>
-            <p class="card-text" data-i18n="c1_text">No central databases and no proprietary cloud formats. Every note card, daily slip, and relationship compiles into standard Markdown files in your private GitHub vault.</p>
+            <p class="card-text" data-i18n="c1_text">No company databases and no proprietary file formats. Every note, daily receipt, and link is saved as standard Markdown in your private repository.</p>
             <ul class="feature-points">
-              <li data-i18n="c1_p1">Direct client calls to GitHub REST API</li>
-              <li data-i18n="c1_p2">Personal token stored only in local browser</li>
-              <li data-i18n="c1_p3">Full compatibility with local Obsidian vaults</li>
+              <li data-i18n="c1_p1">Connects straight to GitHub without middleman servers</li>
+              <li data-i18n="c1_p2">Your token stays encrypted in your own browser only</li>
+              <li data-i18n="c1_p3">Open and edit your files anytime in Obsidian or VS Code</li>
             </ul>
           </div>
         </div>
 
         <div class="card">
           <div class="card-content">
-            <span class="meta-tag tag-amber" data-i18n="c2_tag">Visual Craft</span>
-            <h3 class="card-title" data-i18n="c2_title">Tactile Paper & Ink</h3>
-            <p class="card-text" data-i18n="c2_text">Moving past cold glass interfaces. Dayprint uses warm Morandi paper tones, mechanical keystroke sounds, physical torn-paper edges, and watercolor wash glow.</p>
+            <span class="meta-tag tag-amber" data-i18n="c2_tag">Look & Feel</span>
+            <h3 class="card-title" data-i18n="c2_title">Warm Paper Style</h3>
+            <p class="card-text" data-i18n="c2_text">Instead of a harsh white screen, Dayprint uses gentle paper colors, thermal receipt edges, and soft typing sounds that feel comfortable for daily writing.</p>
             <ul class="feature-points">
-              <li data-i18n="c2_p1">Clean paper textures and warm background</li>
-              <li data-i18n="c2_p2">5 watercolor mood washes for daily reflection</li>
-              <li data-i18n="c2_p3">Realistic thermal receipt sawtooth cuts</li>
+              <li data-i18n="c2_p1">Warm paper background that is easy on the eyes</li>
+              <li data-i18n="c2_p2">5 watercolor mood washes for your daily recap</li>
+              <li data-i18n="c2_p3">Torn-paper edges on daily summary receipts</li>
             </ul>
           </div>
         </div>
 
         <div class="card">
           <div class="card-content">
-            <span class="meta-tag tag-fjord" data-i18n="c3_tag">Cognition</span>
-            <h3 class="card-title" data-i18n="c3_title">Structured Knowledge</h3>
-            <p class="card-text" data-i18n="c3_text">Beyond random scratchpads. Dayprint organizes knowledge across a vertical L0~L4 cognitive pyramid paired with a horizontal semantic network graph.</p>
+            <span class="meta-tag tag-fjord" data-i18n="c3_tag">Organization</span>
+            <h3 class="card-title" data-i18n="c3_title">Structured Notes</h3>
+            <p class="card-text" data-i18n="c3_text">Not all notes carry the same weight. Dayprint helps you organize quick scratchpads into reusable habits, mental models, and principles you work by.</p>
             <ul class="feature-points">
-              <li data-i18n="c3_p1">From L0 raw scratchpads to L4 core beliefs</li>
-              <li data-i18n="c3_p2">Clickable source provenance linking back to origins</li>
-              <li data-i18n="c3_p3">Automatic latent link compiler</li>
+              <li data-i18n="c3_p1">Sort notes from quick scratchpads up to key rules</li>
+              <li data-i18n="c3_p2">Clickable links back to where each idea first started</li>
+              <li data-i18n="c3_p3">Automatic suggestions for notes discussing related topics</li>
             </ul>
           </div>
         </div>
@@ -472,10 +464,10 @@
     <!-- 2. WELCOME GATEWAY & DEMO MODE -->
     <section id="gateway">
       <div class="section-header">
-        <div class="section-num" data-i18n="sec2_num">Onboarding · Initial Setup</div>
-        <h2 class="section-title" data-i18n="sec2_title">Welcome Gateway & Instant Demo Sandbox</h2>
+        <div class="section-num" data-i18n="sec2_num">Getting Started · Choose a Mode</div>
+        <h2 class="section-title" data-i18n="sec2_title">Welcome Gateway & Demo Sandbox</h2>
         <p class="section-desc" data-i18n="sec2_desc">
-          When you open Dayprint for the first time, the Welcome Gateway opens. You can either connect your private GitHub repository for production use, or jump straight into Demo Mode to test every feature.
+          When you open Dayprint for the first time, you can either connect your private GitHub repository to save your own notes, or jump right into Demo Mode to try everything out.
         </p>
       </div>
 
@@ -486,13 +478,13 @@
             <span class="zoom-badge">Click to enlarge</span>
           </div>
           <div class="card-content">
-            <span class="meta-tag tag-fjord" data-i18n="gw1_tag">Production Mode</span>
-            <h3 class="card-title" data-i18n="gw1_title">Private GitHub Repository Setup</h3>
-            <p class="card-text" data-i18n="gw1_text">Enter your repository name (e.g. <code>username/my-vault</code>) and a GitHub Personal Access Token with repo scope. Dayprint commits changes directly with SHA hashes.</p>
+            <span class="meta-tag tag-fjord" data-i18n="gw1_tag">Saving Your Notes</span>
+            <h3 class="card-title" data-i18n="gw1_title">Connect Your Private GitHub Repo</h3>
+            <p class="card-text" data-i18n="gw1_text">Enter your repository name (like <code>username/my-vault</code>) and a GitHub Personal Access Token. Dayprint commits your notes directly with clean revision history.</p>
             <ul class="feature-points">
-              <li data-i18n="gw1_p1">Changes committed directly via official GitHub API</li>
-              <li data-i18n="gw1_p2">Disconnect button cleanly purges tokens from local storage</li>
-              <li data-i18n="gw1_p3">No lingering pre-filled mock credentials</li>
+              <li data-i18n="gw1_p1">Syncs straight to your GitHub account with verified commits</li>
+              <li data-i18n="gw1_p2">Clicking disconnect removes your token from browser memory</li>
+              <li data-i18n="gw1_p3">No pre-filled mock accounts left behind</li>
             </ul>
           </div>
         </div>
@@ -503,13 +495,13 @@
             <span class="zoom-badge">Click to enlarge</span>
           </div>
           <div class="card-content">
-            <span class="meta-tag tag-amber" data-i18n="gw2_tag">Sandbox Mode</span>
-            <h3 class="card-title" data-i18n="gw2_title">Interactive Demo (Alex Reed Persona)</h3>
-            <p class="card-text" data-i18n="gw2_text">Loads 136 realistic engineering and life notes dating back to August 1, 2026. A clear notice indicates: <code>[Demo Notice: Personal data is not persisted in demo mode]</code>.</p>
+            <span class="meta-tag tag-amber" data-i18n="gw2_tag">Test Drive</span>
+            <h3 class="card-title" data-i18n="gw2_title">Interactive Demo Sandbox</h3>
+            <p class="card-text" data-i18n="gw2_text">Loads 136 realistic tech and lifestyle notes along with 85 daily receipts dating back to August 1, 2026. A clear banner notes: <code>[Demo Notice: Personal data is not saved in demo mode]</code>.</p>
             <ul class="feature-points">
-              <li data-i18n="gw2_p1">136 realistic notes and 85 daily thermal receipts</li>
-              <li data-i18n="gw2_p2">Continuous history spanning August 1 to present day</li>
-              <li data-i18n="gw2_p3">Zero personal privacy risk; fictional tech persona</li>
+              <li data-i18n="gw2_p1">136 realistic notes and 85 daily slips ready to explore</li>
+              <li data-i18n="gw2_p2">Continuous history from August 1 to today without missing days</li>
+              <li data-i18n="gw2_p3">Uses a fictional persona so your own data stays untouched</li>
             </ul>
           </div>
         </div>
@@ -519,10 +511,10 @@
     <!-- 3. TAB 1: DAILY CANVAS -->
     <section id="tab1-daily">
       <div class="section-header">
-        <div class="section-num" data-i18n="sec3_num">Workspace · Daily Canvas</div>
+        <div class="section-num" data-i18n="sec3_num">Workspace · Daily Writing</div>
         <h2 class="section-title" data-i18n="sec3_title">Tab 1: Daily Canvas & Today's Notes</h2>
         <p class="section-desc" data-i18n="sec3_desc">
-          Your daily thinking desk. Today's Notes opens expanded by default so you can start typing immediately without unfolding. It includes AI STAR polish, temporal zoom, and the Context Panel.
+          Your daily thinking desk. Today's Notes opens expanded by default so you can start typing immediately without having to click around. Includes AI STAR polish, timeline zoom, and a handy companion panel.
         </p>
       </div>
 
@@ -533,13 +525,13 @@
             <span class="zoom-badge">Click to enlarge</span>
           </div>
           <div class="card-content">
-            <span class="meta-tag tag-terracotta" data-i18n="t1_tag1">Writing Desk</span>
-            <h3 class="card-title" data-i18n="t1_title1">Default Expanded Editor & AI Polish</h3>
-            <p class="card-text" data-i18n="t1_text1">Today's Notes is expanded by default. Type quick thoughts and click 'AI Polish' to automatically structure them into Situation, Task, Action, and Result (STAR) career brag points.</p>
+            <span class="meta-tag tag-terracotta" data-i18n="t1_tag1">Fast Writing</span>
+            <h3 class="card-title" data-i18n="t1_title1">Ready-to-Type Editor & AI Polish</h3>
+            <p class="card-text" data-i18n="t1_text1">Today's Notes is expanded by default. Type quick thoughts and click 'AI Polish' to automatically structure them into Situation, Task, Action, and Result (STAR) bullet points for your work reviews.</p>
             <ul class="feature-points">
-              <li data-i18n="t1_p1">Independent Chinese and English tabs that do not overwrite each other</li>
-              <li data-i18n="t1_p2">Weave Echo queries notes from 2-4 weeks ago sharing semantic affinity</li>
-              <li data-i18n="t1_p3">Smart Document Ingest parses long docs into atomic cards</li>
+              <li data-i18n="t1_p1">Separate Chinese and English tabs that do not overwrite each other</li>
+              <li data-i18n="t1_p2">Weave Echo brings up past notes from 2-4 weeks ago on related topics</li>
+              <li data-i18n="t1_p3">Paste long meeting notes to automatically split them into separate cards</li>
             </ul>
           </div>
         </div>
@@ -551,12 +543,12 @@
           </div>
           <div class="card-content">
             <span class="meta-tag tag-sage" data-i18n="t1_tag2">Companion Panel</span>
-            <h3 class="card-title" data-i18n="t1_title2">Right Companion Panel & Mood Wash</h3>
-            <p class="card-text" data-i18n="t1_text2">The right-hand panel gives you today's timeline pulse, a reflection note field synced with today's receipt, the annual Activity Heatmap, and an instant 5-color mood picker.</p>
+            <h3 class="card-title" data-i18n="t1_title2">Timeline Panel & Mood Wash</h3>
+            <p class="card-text" data-i18n="t1_text2">The right-hand panel gives you today's timeline, an evening reflection field that syncs with today's receipt, an annual activity heatmap, and an instant 5-color mood picker.</p>
             <ul class="feature-points">
-              <li data-i18n="t1_p4">Temporal Zoom: Switch between Day, Week, and Month</li>
-              <li data-i18n="t1_p5">Card detail inspector with [[wikilink]] expansion</li>
-              <li data-i18n="t1_p6">Reflection notes sync in real-time with today's thermal receipt</li>
+              <li data-i18n="t1_p4">Timeline Zoom: Switch between Day, Week, and Month views</li>
+              <li data-i18n="t1_p5">Click any card to inspect connected [[wikilinks]]</li>
+              <li data-i18n="t1_p6">Reflection notes update today's thermal receipt in real time</li>
             </ul>
           </div>
         </div>
@@ -566,10 +558,10 @@
     <!-- 4. TAB 2: COGNITIVE LEDGER -->
     <section id="tab2-memoryos">
       <div class="section-header">
-        <div class="section-num" data-i18n="sec4_num">Calibration · Cognitive Ledger</div>
+        <div class="section-num" data-i18n="sec4_num">Refining Ideas · Cognitive Ledger</div>
         <h2 class="section-title" data-i18n="sec4_title">Tab 2: Cognitive Ledger (Memory OS)</h2>
         <p class="section-desc" data-i18n="sec4_desc">
-          The primary read-and-write calibration workbench in Dayprint. Here, casual fragments are organized into five cognitive layers with visible confidence scores, bilingual readiness indicators, and clickable source provenance.
+          The place where you refine and organize your thinking. Instead of keeping all notes in one flat list, you can group them into five clear stages, see your confidence in each rule, and click through to where each idea originated.
         </p>
       </div>
 
@@ -580,12 +572,12 @@
             <span class="zoom-badge">Click to enlarge</span>
           </div>
           <div class="card-content">
-            <span class="meta-tag tag-twilight" data-i18n="t2_tag1">Layered Hierarchy</span>
-            <h3 class="card-title" data-i18n="t2_title1">L0~L4 Cognitive Pyramid</h3>
-            <p class="card-text" data-i18n="t2_text1">Groups thoughts from L0 Raw Stream up to L1 Wins, L2 Habits/SOPs, L3 Mental Models, and L4 Core Beliefs. Includes the AI Distill tool to synthesize high-order principles.</p>
+            <span class="meta-tag tag-twilight" data-i18n="t2_tag1">Five Levels</span>
+            <h3 class="card-title" data-i18n="t2_title1">From Raw Scratchpads to Principles</h3>
+            <p class="card-text" data-i18n="t2_text1">Sorts notes from L0 quick thoughts to L1 key wins, L2 workflows, L3 thinking models, and L4 core principles. You can also use AI Distill to turn recent notes into candidate principles.</p>
             <ul class="feature-points">
-              <li data-i18n="t2_p1">Sorted by calibration need (items needing edits rank first)</li>
-              <li data-i18n="t2_p2">Visible Confidence Meter color bar (≥85%, ≥70%, &lt;70%)</li>
+              <li data-i18n="t2_p1">Ranked so cards needing edits or translations float to the top</li>
+              <li data-i18n="t2_p2">Visible confidence score bar (85% and up green, 70% amber, under 70% red)</li>
               <li data-i18n="t2_p3">Clean bilingual readiness tags: <span class="status-badge">ZH Ready · EN Pending</span></li>
             </ul>
           </div>
@@ -594,11 +586,11 @@
         <div class="card">
           <div class="card-content">
             <span class="meta-tag tag-fjord" data-i18n="t2_tag2">Traceability</span>
-            <h3 class="card-title" data-i18n="t2_title2">Source Provenance Chain (source_ids)</h3>
-            <p class="card-text" data-i18n="t2_text2">Higher-level principles (L3/L4) explicitly display "Derived from N notes". Click to expand and highlight the exact historical notes where the insight was originally recorded.</p>
+            <h3 class="card-title" data-i18n="t2_title2">Source Links Back to Original Notes</h3>
+            <p class="card-text" data-i18n="t2_text2">Higher-level rules display 'Derived from N notes'. Click the link to jump straight back to the original daily entry where the idea first started, so every rule is grounded in real experience.</p>
             <ul class="feature-points">
-              <li data-i18n="t2_p4">Clickable provenance back to origin daily notes</li>
-              <li data-i18n="t2_p5">Inline editing of bilingual text and topics directly on cards</li>
+              <li data-i18n="t2_p4">Click to inspect original notes behind each principle</li>
+              <li data-i18n="t2_p5">Edit text and topic tags directly on the card without modal dialogs</li>
               <li data-i18n="t2_p6">Exports standard frontmatter compatible with Obsidian</li>
             </ul>
           </div>
@@ -609,10 +601,10 @@
     <!-- 5. TAB 3: KNOWLEDGE GRAPH -->
     <section id="tab3-graph">
       <div class="section-header">
-        <div class="section-num" data-i18n="sec5_num">Relational Map · Knowledge Graph</div>
+        <div class="section-num" data-i18n="sec5_num">Connecting Notes · Knowledge Graph</div>
         <h2 class="section-title" data-i18n="sec5_title">Tab 3: Knowledge Graph</h2>
         <p class="section-desc" data-i18n="sec5_desc">
-          The horizontal relational network topology. Explore concepts through an interactive force-directed canvas with auto-linking compilers, or inspect degree centrality via compact read-only Topology Capsules.
+          Notes become much more useful when they link to each other. Explore connections visually through the interactive graph canvas, or switch to the Topology Index to find your most connected hub topics.
         </p>
       </div>
 
@@ -623,26 +615,26 @@
             <span class="zoom-badge">Click to enlarge</span>
           </div>
           <div class="card-content">
-            <span class="meta-tag tag-fjord" data-i18n="t3_tag1">Interactive Canvas</span>
-            <h3 class="card-title" data-i18n="t3_title1">Force Graph & Auto-Link Compiler</h3>
-            <p class="card-text" data-i18n="t3_text1">Nodes cluster naturally by topic and wikilink affinity with physics spring forces. Clicking 'Auto-Link Graph' runs local heuristics to detect latent relationships across your vault.</p>
+            <span class="meta-tag tag-fjord" data-i18n="t3_tag1">Visual Map</span>
+            <h3 class="card-title" data-i18n="t3_title1">Interactive Graph & Auto-Link</h3>
+            <p class="card-text" data-i18n="t3_text1">Related notes cluster together on the screen. Clicking 'Auto-Link Graph' scans your notes and suggests connections between cards discussing similar topics.</p>
             <ul class="feature-points">
-              <li data-i18n="t3_p1">Smooth zoom, pan, and interactive node dragging</li>
-              <li data-i18n="t3_p2">Auto-Link Compiler discovers hidden semantic relationships</li>
-              <li data-i18n="t3_p3">Nodes color-coded by their cognitive level</li>
+              <li data-i18n="t3_p1">Smooth zoom, pan, and drag to explore connections</li>
+              <li data-i18n="t3_p2">Auto-Link suggests connections you might have missed</li>
+              <li data-i18n="t3_p3">Nodes are color-coded by their note stage</li>
             </ul>
           </div>
         </div>
 
         <div class="card">
           <div class="card-content">
-            <span class="meta-tag tag-terracotta" data-i18n="t3_tag2">Centrality Ranking</span>
-            <h3 class="card-title" data-i18n="t3_title2">Topology Index Capsules</h3>
-            <p class="card-text" data-i18n="t3_text2">The card switcher toggles to a clean 5~6 column Topology Capsule view. Stripped of body text, it ranks nodes strictly by connection count (Links) to surface hub concepts.</p>
+            <span class="meta-tag tag-terracotta" data-i18n="t3_tag2">Clean Overview</span>
+            <h3 class="card-title" data-i18n="t3_title2">Topology Index (Most Connected Topics)</h3>
+            <p class="card-text" data-i18n="t3_text2">If you just want a clean list of which topics are mentioned the most, switch to the Topology Index. It lists your key topics by how many notes connect to them, without cluttering the screen with full paragraphs.</p>
             <ul class="feature-points">
-              <li data-i18n="t3_p4">Sorted strictly by degree centrality (most links first)</li>
-              <li data-i18n="t3_p5">Clean compact capsules: type + level + title + link count</li>
-              <li data-i18n="t3_p6">Clicking any capsule highlights the node in the canvas</li>
+              <li data-i18n="t3_p4">Ranked with the most connected notes at the top</li>
+              <li data-i18n="t3_p5">Clean compact view: type + level + title + connection count</li>
+              <li data-i18n="t3_p6">Clicking any topic highlights it in the visual map</li>
             </ul>
           </div>
         </div>
@@ -652,10 +644,10 @@
     <!-- 6. DAILY THERMAL RECEIPTS -->
     <section id="receipts">
       <div class="section-header">
-        <div class="section-num" data-i18n="sec6_num">Life Stubs · Daily Receipts</div>
+        <div class="section-num" data-i18n="sec6_num">Daily Recap · Thermal Receipts</div>
         <h2 class="section-title" data-i18n="sec6_title">Daily Thermal Receipts & 5 Mood Washes</h2>
         <p class="section-desc" data-i18n="sec6_desc">
-          Click 'Life Stubs' in the sidebar or companion panel to summon the thermal receipt carousel. Demo mode comes preloaded with 85 continuous slips spanning from August 1 to today.
+          At the end of each day, click 'Life Stubs' to see your notes packaged into a neat paper-style receipt. Demo mode comes preloaded with 85 continuous daily slips starting from August 1, 2026.
         </p>
       </div>
 
@@ -666,22 +658,22 @@
             <span class="zoom-badge">Click to enlarge</span>
           </div>
           <div class="card-content">
-            <span class="meta-tag tag-terracotta" data-i18n="rcpt_tag1">Receipt Anatomy</span>
-            <h3 class="card-title" data-i18n="rcpt_title1">Sawtooth Perforation & Real Counts</h3>
-            <p class="card-text" data-i18n="rcpt_text1">Every single receipt date matches real canonical memories. The 'TOTAL RECORDED' counter shows 2 ITEMS, 3 ITEMS, etc., with zero empty dates. Includes tactile wax 'ARCHIVED' stamps.</p>
+            <span class="meta-tag tag-terracotta" data-i18n="rcpt_tag1">Receipt Details</span>
+            <h3 class="card-title" data-i18n="rcpt_title1">Torn-Paper Edges & Verified Counts</h3>
+            <p class="card-text" data-i18n="rcpt_text1">Every single receipt date matches real notes in your vault. The counter shows '2 ITEMS', '3 ITEMS', etc., with zero empty dates. Includes a physical-style 'ARCHIVED' wax stamp.</p>
             <ul class="feature-points">
-              <li data-i18n="rcpt_p1">85 slips from August 1 to present in Demo mode</li>
-              <li data-i18n="rcpt_p2">Detailed timestamped breakdown of items</li>
-              <li data-i18n="rcpt_p3">Bilingual Daily Reflection box with italic serif font</li>
+              <li data-i18n="rcpt_p1">85 daily slips from August 1 to today in Demo mode</li>
+              <li data-i18n="rcpt_p2">Detailed timestamped breakdown of what happened that day</li>
+              <li data-i18n="rcpt_p3">Dedicated box for your daily evening reflection</li>
             </ul>
           </div>
         </div>
 
         <div class="card">
           <div class="card-content">
-            <span class="meta-tag tag-amber" data-i18n="rcpt_tag2">Mood Spectrum</span>
-            <h3 class="card-title" data-i18n="rcpt_title2">The 5 Morandi Mood Washes</h3>
-            <p class="card-text" data-i18n="rcpt_text2">Each day's slip features a watercolor wash dyed across the top and bottom edges, matching your daily reflection tone:</p>
+            <span class="meta-tag tag-amber" data-i18n="rcpt_tag2">Mood Palette</span>
+            <h3 class="card-title" data-i18n="rcpt_title2">The 5 Watercolor Mood Washes</h3>
+            <p class="card-text" data-i18n="rcpt_text2">Each day's slip features a watercolor wash dyed across the edges, matching your daily reflection tone:</p>
 
             <div class="swatch-group">
               <div class="swatch-item" style="background:#C97A63;">Terracotta<br>Energized</div>
@@ -698,10 +690,10 @@
     <!-- 7. STUDIOS & UTILITIES -->
     <section id="studios">
       <div class="section-header">
-        <div class="section-num" data-i18n="sec7_num">Specialized Tools · Growth</div>
-        <h2 class="section-title" data-i18n="sec7_title">Career Studio, Weekly Digest, Constellation & OmniSearch</h2>
+        <div class="section-num" data-i18n="sec7_num">Helpful Tools · Practical Use</div>
+        <h2 class="section-title" data-i18n="sec7_title">Career Studio, Weekly Digest & Fast Search</h2>
         <p class="section-desc" data-i18n="sec7_desc">
-          Dedicated studios that transform your daily notes into career highlights, weekly retrospectives, and fast search.
+          Tools that turn everyday notes into practical career material, weekly recaps, and instant search.
         </p>
       </div>
 
@@ -714,7 +706,7 @@
           <div class="card-content">
             <span class="meta-tag tag-terracotta">Career</span>
             <h3 class="card-title" data-i18n="st1_title">Career Studio</h3>
-            <p class="card-text" data-i18n="st1_text">Aggregates STAR brag sheet achievements and auto-generates bilingual career summaries and promotion bullets from your verified notes.</p>
+            <p class="card-text" data-i18n="st1_text">Pulls together key wins and project highlights into ready-to-use bullet points for your resume and performance reviews.</p>
           </div>
         </div>
 
@@ -726,7 +718,7 @@
           <div class="card-content">
             <span class="meta-tag tag-sage">Retrospective</span>
             <h3 class="card-title" data-i18n="st2_title">Weekly Digest</h3>
-            <p class="card-text" data-i18n="st2_text">Analyzes 7-day emotional rhythms and cognitive milestones with local-timezone accuracy (Monday to Sunday) and key habit maintenance stats.</p>
+            <p class="card-text" data-i18n="st2_text">Summarizes how your week went, what you learned, and how your mood shifted from Monday through Sunday in your local timezone.</p>
           </div>
         </div>
 
@@ -736,9 +728,9 @@
             <span class="zoom-badge">Click to enlarge</span>
           </div>
           <div class="card-content">
-            <span class="meta-tag tag-fjord">Search & Tree</span>
-            <h3 class="card-title" data-i18n="st3_title">OmniSearch (⌘K) & Archive</h3>
-            <p class="card-text" data-i18n="st3_text">Sub-millisecond fuzzy search across English and Chinese notes, coupled with an annual and monthly chronological tree archive.</p>
+            <span class="meta-tag tag-fjord">Search</span>
+            <h3 class="card-title" data-i18n="st3_title">Search (Command-K) & Archive</h3>
+            <p class="card-text" data-i18n="st3_text">Press Command-K to find any note in milliseconds by typing a few words, or browse past notes by year and month.</p>
           </div>
         </div>
       </div>
@@ -757,228 +749,228 @@
       en: {
         doc_version: "v2.4.0 Release",
         open_app_link: "Open Dayprint →",
-        nav_overview: "1. Data Ownership",
+        nav_overview: "1. How It Works",
         nav_gateway: "2. Setup & Demo",
         nav_daily: "3. Tab 1: Daily Canvas",
         nav_memoryos: "4. Tab 2: Cognitive Ledger",
         nav_graph: "5. Tab 3: Knowledge Graph",
         nav_receipts: "6. Daily Receipts",
-        nav_studios: "7. Studio Tools",
-        sec1_num: "Overview · Core Design",
-        sec1_title: "Local-First Architecture & Complete Data Ownership",
-        sec1_desc: "Most personal thoughts get lost across Slack threads, quick scratchpads, and phone memos. When you actually need them later—for a promotion review, an architecture decision, or recalling how you solved a tough bug three months ago—they are nearly impossible to find. Dayprint provides a focused, local-first workspace that connects straight to your private GitHub repository as plain Markdown files.",
-        c1_tag: "Storage Model",
+        nav_studios: "7. Helpful Tools",
+        sec1_num: "Overview · Storage & Ideas",
+        sec1_title: "Your Notes Stay in Your Hands",
+        sec1_desc: "Most of what we build and learn ends up scattered across Slack discussions, temporary text files, and phone memos. When you actually need them later—for a promotion review, an engineering retrospective, or recalling how you solved a tough bug three months ago—they are almost impossible to find. Dayprint gives you a clean space to capture daily thoughts and syncs them straight to your private GitHub repository as plain Markdown files.",
+        c1_tag: "Storage",
         c1_title: "Direct GitHub Sync",
-        c1_text: "No central databases and no proprietary cloud formats. Every note card, daily slip, and relationship compiles into standard Markdown files in your private GitHub vault.",
-        c1_p1: "Direct client calls to GitHub REST API",
-        c1_p2: "Personal token stored only in local browser",
-        c1_p3: "Full compatibility with local Obsidian vaults",
-        c2_tag: "Visual Craft",
-        c2_title: "Tactile Paper & Ink",
-        c2_text: "Moving past cold glass interfaces. Dayprint uses warm Morandi paper tones, mechanical keystroke sounds, physical torn-paper edges, and watercolor wash glow.",
-        c2_p1: "Clean paper textures and warm background",
-        c2_p2: "5 watercolor mood washes for daily reflection",
-        c2_p3: "Realistic thermal receipt sawtooth cuts",
-        c3_tag: "Cognition",
-        c3_title: "Structured Knowledge",
-        c3_text: "Beyond random scratchpads. Dayprint organizes knowledge across a vertical L0~L4 cognitive pyramid paired with a horizontal semantic network graph.",
-        c3_p1: "From L0 raw scratchpads to L4 core beliefs",
-        c3_p2: "Clickable source provenance linking back to origins",
-        c3_p3: "Automatic latent link compiler",
-        sec2_num: "Onboarding · Initial Setup",
-        sec2_title: "Welcome Gateway & Instant Demo Sandbox",
-        sec2_desc: "When you open Dayprint for the first time, the Welcome Gateway opens. You can either connect your private GitHub repository for production use, or jump straight into Demo Mode to test every feature.",
-        gw1_tag: "Production Mode",
-        gw1_title: "Private GitHub Repository Setup",
-        gw1_text: "Enter your repository name (e.g. username/my-vault) and a GitHub Personal Access Token with repo scope. Dayprint commits changes directly with SHA hashes.",
-        gw1_p1: "Changes committed directly via official GitHub API",
-        gw1_p2: "Disconnect button cleanly purges tokens from local storage",
-        gw1_p3: "No lingering pre-filled mock credentials",
-        gw2_tag: "Sandbox Mode",
-        gw2_title: "Interactive Demo (Alex Reed Persona)",
-        gw2_text: "Loads 136 realistic engineering and life notes dating back to August 1, 2026. A clear notice indicates: [Demo Notice: Personal data is not persisted in demo mode].",
-        gw2_p1: "136 realistic notes and 85 daily thermal receipts",
-        gw2_p2: "Continuous history spanning August 1 to present day",
-        gw2_p3: "Zero personal privacy risk; fictional tech persona",
-        sec3_num: "Workspace · Daily Canvas",
+        c1_text: "No company databases and no proprietary file formats. Every note, daily receipt, and link is saved as standard Markdown in your private repository.",
+        c1_p1: "Connects straight to GitHub without middleman servers",
+        c1_p2: "Your token stays encrypted in your own browser only",
+        c1_p3: "Open and edit your files anytime in Obsidian or VS Code",
+        c2_tag: "Look & Feel",
+        c2_title: "Warm Paper Style",
+        c2_text: "Instead of a harsh white screen, Dayprint uses gentle paper colors, thermal receipt edges, and soft typing sounds that feel comfortable for daily writing.",
+        c2_p1: "Warm paper background that is easy on the eyes",
+        c2_p2: "5 watercolor mood washes for your daily recap",
+        c2_p3: "Torn-paper edges on daily summary receipts",
+        c3_tag: "Organization",
+        c3_title: "Structured Notes",
+        c3_text: "Not all notes carry the same weight. Dayprint helps you organize quick scratchpads into reusable habits, mental models, and principles you work by.",
+        c3_p1: "Sort notes from quick scratchpads up to key rules",
+        c3_p2: "Clickable links back to where each idea first started",
+        c3_p3: "Automatic suggestions for notes discussing related topics",
+        sec2_num: "Getting Started · Choose a Mode",
+        sec2_title: "Welcome Gateway & Demo Sandbox",
+        sec2_desc: "When you open Dayprint for the first time, you can either connect your private GitHub repository to save your own notes, or jump right into Demo Mode to try everything out.",
+        gw1_tag: "Saving Your Notes",
+        gw1_title: "Connect Your Private GitHub Repo",
+        gw1_text: "Enter your repository name (like username/my-vault) and a GitHub Personal Access Token. Dayprint commits your notes directly with clean revision history.",
+        gw1_p1: "Syncs straight to your GitHub account with verified commits",
+        gw1_p2: "Clicking disconnect removes your token from browser memory",
+        gw1_p3: "No pre-filled mock accounts left behind",
+        gw2_tag: "Test Drive",
+        gw2_title: "Interactive Demo Sandbox",
+        gw2_text: "Loads 136 realistic tech and lifestyle notes along with 85 daily receipts dating back to August 1, 2026. A clear banner notes: [Demo Notice: Personal data is not saved in demo mode].",
+        gw2_p1: "136 realistic notes and 85 daily slips ready to explore",
+        gw2_p2: "Continuous history from August 1 to today without missing days",
+        gw2_p3: "Uses a fictional persona so your own data stays untouched",
+        sec3_num: "Workspace · Daily Writing",
         sec3_title: "Tab 1: Daily Canvas & Today's Notes",
-        sec3_desc: "Your daily thinking desk. Today's Notes opens expanded by default so you can start typing immediately without unfolding. It includes AI STAR polish, temporal zoom, and the Context Panel.",
-        t1_tag1: "Writing Desk",
-        t1_title1: "Default Expanded Editor & AI Polish",
-        t1_text1: "Today's Notes is expanded by default. Type quick thoughts and click 'AI Polish' to automatically structure them into Situation, Task, Action, and Result (STAR) career brag points.",
-        t1_p1: "Independent Chinese and English tabs that do not overwrite each other",
-        t1_p2: "Weave Echo queries notes from 2-4 weeks ago sharing semantic affinity",
-        t1_p3: "Smart Document Ingest parses long docs into atomic cards",
+        sec3_desc: "Your daily thinking desk. Today's Notes opens expanded by default so you can start typing immediately without having to click around. Includes AI STAR polish, timeline zoom, and a handy companion panel.",
+        t1_tag1: "Fast Writing",
+        t1_title1: "Ready-to-Type Editor & AI Polish",
+        t1_text1: "Today's Notes is expanded by default. Type quick thoughts and click 'AI Polish' to automatically structure them into Situation, Task, Action, and Result (STAR) bullet points for your work reviews.",
+        t1_p1: "Separate Chinese and English tabs that do not overwrite each other",
+        t1_p2: "Weave Echo brings up past notes from 2-4 weeks ago on related topics",
+        t1_p3: "Paste long meeting notes to automatically split them into separate cards",
         t1_tag2: "Companion Panel",
-        t1_title2: "Right Companion Panel & Mood Wash",
-        t1_text2: "The right-hand panel gives you today's timeline pulse, a reflection note field synced with today's receipt, the annual Activity Heatmap, and an instant 5-color mood picker.",
-        t1_p4: "Temporal Zoom: Switch between Day, Week, and Month",
-        t1_p5: "Card detail inspector with [[wikilink]] expansion",
-        t1_p6: "Reflection notes sync in real-time with today's thermal receipt",
-        sec4_num: "Calibration · Cognitive Ledger",
+        t1_title2: "Timeline Panel & Mood Wash",
+        t1_text2: "The right-hand panel gives you today's timeline, an evening reflection field that syncs with today's receipt, an annual activity heatmap, and an instant 5-color mood picker.",
+        t1_p4: "Timeline Zoom: Switch between Day, Week, and Month views",
+        t1_p5: "Click any card to inspect connected [[wikilinks]]",
+        t1_p6: "Reflection notes update today's thermal receipt in real time",
+        sec4_num: "Refining Ideas · Cognitive Ledger",
         sec4_title: "Tab 2: Cognitive Ledger (Memory OS)",
-        sec4_desc: "The primary read-and-write calibration workbench in Dayprint. Here, casual fragments are organized into five cognitive layers with visible confidence scores, bilingual readiness indicators, and clickable source provenance.",
-        t2_tag1: "Layered Hierarchy",
-        t2_title1: "L0~L4 Cognitive Pyramid",
-        t2_text1: "Groups thoughts from L0 Raw Stream up to L1 Wins, L2 Habits/SOPs, L3 Mental Models, and L4 Core Beliefs. Includes the AI Distill tool to synthesize high-order principles.",
-        t2_p1: "Sorted by calibration need (items needing edits rank first)",
-        t2_p2: "Visible Confidence Meter color bar (≥85%, ≥70%, <70%)",
+        sec4_desc: "The place where you refine and organize your thinking. Instead of keeping all notes in one flat list, you can group them into five clear stages, see your confidence in each rule, and click through to where each idea originated.",
+        t2_tag1: "Five Levels",
+        t2_title1: "From Raw Scratchpads to Principles",
+        t2_text1: "Sorts notes from L0 quick thoughts to L1 key wins, L2 workflows, L3 thinking models, and L4 core principles. You can also use AI Distill to turn recent notes into candidate principles.",
+        t2_p1: "Ranked so cards needing edits or translations float to the top",
+        t2_p2: "Visible confidence score bar (85% and up green, 70% amber, under 70% red)",
         t2_p3: "Clean bilingual readiness tags: <span class=\"status-badge\">ZH Ready · EN Pending</span>",
         t2_tag2: "Traceability",
-        t2_title2: "Source Provenance Chain (source_ids)",
-        t2_text2: "Higher-level principles (L3/L4) explicitly display 'Derived from N notes'. Click to expand and highlight the exact historical notes where the insight was originally recorded.",
-        t2_p4: "Clickable provenance back to origin daily notes",
-        t2_p5: "Inline editing of bilingual text and topics directly on cards",
+        t2_title2: "Source Links Back to Original Notes",
+        t2_text2: "Higher-level rules display 'Derived from N notes'. Click the link to jump straight back to the original daily entry where the idea first started, so every rule is grounded in real experience.",
+        t2_p4: "Click to inspect original notes behind each principle",
+        t2_p5: "Edit text and topic tags directly on the card without modal dialogs",
         t2_p6: "Exports standard frontmatter compatible with Obsidian",
-        sec5_num: "Relational Map · Knowledge Graph",
+        sec5_num: "Connecting Notes · Knowledge Graph",
         sec5_title: "Tab 3: Knowledge Graph",
-        sec5_desc: "The horizontal relational network topology. Explore concepts through an interactive force-directed canvas with auto-linking compilers, or inspect degree centrality via compact read-only Topology Capsules.",
-        t3_tag1: "Interactive Canvas",
-        t3_title1: "Force Graph & Auto-Link Compiler",
-        t3_text1: "Nodes cluster naturally by topic and wikilink affinity with physics spring forces. Clicking 'Auto-Link Graph' runs local heuristics to detect latent relationships across your vault.",
-        t3_p1: "Smooth zoom, pan, and interactive node dragging",
-        t3_p2: "Auto-Link Compiler discovers hidden semantic relationships",
-        t3_p3: "Nodes color-coded by their cognitive level",
-        t3_tag2: "Centrality Ranking",
-        t3_title2: "Topology Index Capsules",
-        t3_text2: "The card switcher toggles to a clean 5~6 column Topology Capsule view. Stripped of body text, it ranks nodes strictly by connection count (Links) to surface hub concepts.",
-        t3_p4: "Sorted strictly by degree centrality (most links first)",
-        t3_p5: "Clean compact capsules: type + level + title + link count",
-        t3_p6: "Clicking any capsule highlights the node in the canvas",
-        sec6_num: "Life Stubs · Daily Receipts",
+        sec5_desc: "Notes become much more useful when they link to each other. Explore connections visually through the interactive graph canvas, or switch to the Topology Index to find your most connected hub topics.",
+        t3_tag1: "Visual Map",
+        t3_title1: "Interactive Graph & Auto-Link",
+        t3_text1: "Related notes cluster together on the screen. Clicking 'Auto-Link Graph' scans your notes and suggests connections between cards discussing similar topics.",
+        t3_p1: "Smooth zoom, pan, and drag to explore connections",
+        t3_p2: "Auto-Link suggests connections you might have missed",
+        t3_p3: "Nodes are color-coded by their note stage",
+        t3_tag2: "Clean Overview",
+        t3_title2: "Topology Index (Most Connected Topics)",
+        t3_text2: "If you just want a clean list of which topics are mentioned the most, switch to the Topology Index. It lists your key topics by how many notes connect to them, without cluttering the screen with full paragraphs.",
+        t3_p4: "Ranked with the most connected notes at the top",
+        t3_p5: "Clean compact view: type + level + title + connection count",
+        t3_p6: "Clicking any topic highlights it in the visual map",
+        sec6_num: "Daily Recap · Thermal Receipts",
         sec6_title: "Daily Thermal Receipts & 5 Mood Washes",
-        sec6_desc: "Click 'Life Stubs' in the sidebar or companion panel to summon the thermal receipt carousel. Demo mode comes preloaded with 85 continuous slips spanning from August 1 to today.",
-        rcpt_tag1: "Receipt Anatomy",
-        rcpt_title1: "Sawtooth Perforation & Real Counts",
-        rcpt_text1: "Every single receipt date matches real canonical memories. The 'TOTAL RECORDED' counter shows 2 ITEMS, 3 ITEMS, etc., with zero empty dates. Includes tactile wax 'ARCHIVED' stamps.",
-        rcpt_p1: "85 slips from August 1 to present in Demo mode",
-        rcpt_p2: "Detailed timestamped breakdown of items",
-        rcpt_p3: "Bilingual Daily Reflection box with italic serif font",
-        rcpt_tag2: "Mood Spectrum",
-        rcpt_title2: "The 5 Morandi Mood Washes",
-        rcpt_text2: "Each day's slip features a watercolor wash dyed across the top and bottom edges, matching your daily reflection tone: Terracotta (Energized), Amber (Inspired), Sage (Calm), Fjord (Focused), and Twilight (Reflective).",
-        sec7_num: "Specialized Tools · Growth",
-        sec7_title: "Career Studio, Weekly Digest, Constellation & OmniSearch",
-        sec7_desc: "Dedicated studios that transform your daily notes into career highlights, weekly retrospectives, and fast search.",
+        sec6_desc: "At the end of each day, click 'Life Stubs' to see your notes packaged into a neat paper-style receipt. Demo mode comes preloaded with 85 continuous daily slips starting from August 1, 2026.",
+        rcpt_tag1: "Receipt Details",
+        rcpt_title1: "Torn-Paper Edges & Verified Counts",
+        rcpt_text1: "Every single receipt date matches real notes in your vault. The counter shows '2 ITEMS', '3 ITEMS', etc., with zero empty dates. Includes a physical-style 'ARCHIVED' wax stamp.",
+        rcpt_p1: "85 daily slips from August 1 to today in Demo mode",
+        rcpt_p2: "Detailed timestamped breakdown of what happened that day",
+        rcpt_p3: "Dedicated box for your daily evening reflection",
+        rcpt_tag2: "Mood Palette",
+        rcpt_title2: "The 5 Watercolor Mood Washes",
+        rcpt_text2: "Each day's slip features a watercolor wash dyed across the edges, matching your daily reflection tone: Terracotta (Energized), Amber (Inspired), Sage (Calm), Fjord (Focused), and Twilight (Reflective).",
+        sec7_num: "Helpful Tools · Practical Use",
+        sec7_title: "Career Studio, Weekly Digest & Fast Search",
+        sec7_desc: "Tools that turn everyday notes into practical career material, weekly recaps, and instant search.",
         st1_title: "Career Studio",
-        st1_text: "Aggregates STAR brag sheet achievements and auto-generates bilingual career summaries and promotion bullets from your verified notes.",
+        st1_text: "Pulls together key wins and project highlights into ready-to-use bullet points for your resume and performance reviews.",
         st2_title: "Weekly Digest",
-        st2_text: "Analyzes 7-day emotional rhythms and cognitive milestones with local-timezone accuracy (Monday to Sunday) and key habit maintenance stats.",
-        st3_title: "OmniSearch (⌘K) & Archive",
-        st3_text: "Sub-millisecond fuzzy search across English and Chinese notes, coupled with an annual and monthly chronological tree archive."
+        st2_text: "Summarizes how your week went, what you learned, and how your mood shifted from Monday through Sunday in your local timezone.",
+        st3_title: "Search (Command-K) & Archive",
+        st3_text: "Press Command-K to find any note in milliseconds by typing a few words, or browse past notes by year and month."
       },
       zh: {
         doc_version: "v2.4.0 正式版",
         open_app_link: "打开 Dayprint →",
-        nav_overview: "1. 数据主权",
-        nav_gateway: "2. 新手与Demo",
+        nav_overview: "1. 存储与归属",
+        nav_gateway: "2. 新手与演示",
         nav_daily: "3. Tab 1: 每日画卷",
         nav_memoryos: "4. Tab 2: 认知中枢",
         nav_graph: "5. Tab 3: Knowledge Graph",
         nav_receipts: "6. 每日小票",
-        nav_studios: "7. 专属工具",
-        sec1_num: "产品概述 · 核心架构",
-        sec1_title: "本地优先架构与 100% 数据归属",
-        sec1_desc: "在日常开发和生活中，很多有价值的思考容易散落在 Slack 讨论、临时文本和备忘录里。等到写晋升述职、做技术选型复盘，或者想查几个月前解决某个 Bug 的思路时，往往很难拼凑完整。Dayprint 采用本地优先（Local-First）设计，直接把笔记同步到你自己的私有 GitHub 仓库，存成最干净、随时可迁移的 Markdown 文件。",
-        c1_tag: "存储机制",
-        c1_title: "直连私有 GitHub 仓库",
-        c1_text: "没有中心化黑盒数据库，没有专有格式绑定。所有笔记卡片、每日小票与双向关系，都以人类可读的 Markdown 文件保存在你自己的仓库中。",
-        c1_p1: "纯客户端调用 GitHub 官方 REST API",
-        c1_p2: "密钥 Token 仅加密保存在本地浏览器",
-        c1_p3: "原生兼容本地 Obsidian 知识库格式",
-        c2_tag: "视觉触感",
-        c2_title: "纸张质感与温润排版",
-        c2_text: "告别冰冷单调的纯白界面。Dayprint 选用温暖的莫兰迪纸张底色、机械键盘敲击音效、真实的撕裂齿纹小票与水彩洗色光晕。",
-        c2_p1: "温暖细腻的纸张噪点与底色",
+        nav_studios: "7. 实用工具",
+        sec1_num: "产品概述 · 数据归属",
+        sec1_title: "你的所有笔记，都保存在你自己手中",
+        sec1_desc: "在日常开发和生活中，很多有价值的思考容易散落在各个聊天群、临时文档和手机备忘录里。等到写晋升述职、做技术复盘，或者想查几个月前解决某个问题的思路时，往往很难把这些零散的记忆拼凑完整。Dayprint 给你一个安静、干净的书写空间，直接把笔记同步到你自己的私有 GitHub 仓库，存成最普通的 Markdown 纯文本文件，随时可用任何编辑器打开。",
+        c1_tag: "存储方式",
+        c1_title: "直接同步到 GitHub 仓库",
+        c1_text: "没有中间商的云数据库，不搞私有格式绑定。所有日记、小票与关联，都以通用的 Markdown 格式保存在你自己的仓库中。",
+        c1_p1: "纯客户端直接连接 GitHub，没有第三方服务器",
+        c1_p2: "你的密钥 Token 只加密存放在你自己的浏览器里",
+        c1_p3: "随时可以用任何文本编辑器或 Obsidian 打开阅读修改",
+        c2_tag: "视觉体验",
+        c2_title: "温暖的纸张书写感",
+        c2_text: "告别刺眼的纯白屏幕，Dayprint 采用柔和的莫兰迪纸张底色、带有撕裂齿纹的手账小票，以及轻快的打字按键声，让人更愿意每天坐下来写几句。",
+        c2_p1: "护眼温润的纸张背景与排版",
         c2_p2: "5 种情绪水彩洗色辅助每日复盘",
-        c2_p3: "逼真的热敏小票齿纹撕口设计",
-        c3_tag: "认知进阶",
-        c3_title: "结构化知识沉淀",
-        c3_text: "不只是无序的便签记录。Dayprint 搭建了纵向 L0 到 L4 的认知层级金字塔，并配合横向概念网络图谱，帮助思考沉淀为做事准则。",
-        c3_p1: "从 L0 随手草稿到 L4 底层信条清晰分层",
-        c3_p2: "支持点击溯源链，随时跳回最早记录的日记",
-        c3_p3: "自动挖掘未标记的潜在关联与因果关系",
-        sec2_num: "新手接入 · 模式选择",
-        sec2_title: "欢迎网关与即时体验 Demo 沙盒",
-        sec2_desc: "初次打开 Dayprint 时，系统会弹出欢迎网关。你可以选择连接自己的私有 GitHub 仓库开启正式记录，也可以直接进入 Demo 模式完整体验各项功能。",
-        gw1_tag: "正式模式",
-        gw1_title: "配置私有 GitHub 笔记仓库",
-        gw1_text: "输入你的 GitHub 仓库路径（如 username/my-vault）与具备读写权限的个人访问令牌（PAT）。Dayprint 会在每次保存时自动提交并生成提交哈希。",
-        gw1_p1: "直接调用 GitHub 官方 API 自动提交更改",
+        c2_p3: "逼真的热敏小票锯齿边缘撕口设计",
+        c3_tag: "结构整理",
+        c3_title: "有层次的思考沉淀",
+        c3_text: "并不是所有笔记都一样重要。Dayprint 帮你把零碎的想法逐步沉淀为可以反复复用的工作流程、思维参考以及做事原则。",
+        c3_p1: "将笔记从临时随笔一步步理清为长期原则",
+        c3_p2: "支持点击来源链接，直接翻回最初写下那篇日记的现场",
+        c3_p3: "自动提示讨论相似话题的其他笔记，方便触类旁通",
+        sec2_num: "开始使用 · 模式选择",
+        sec2_title: "欢迎网关与演示沙盒",
+        sec2_desc: "第一次打开 Dayprint 时，你可以选择连接自己的 GitHub 私有仓库开始正式记录，也可以直接进入演示模式体验全部功能。",
+        gw1_tag: "保存自己的笔记",
+        gw1_title: "配置私有 GitHub 仓库",
+        gw1_text: "输入你的仓库名称（例如 username/my-vault）和个人访问令牌（PAT）。Dayprint 会在每次保存时自动提交并留下清晰的修改记录。",
+        gw1_p1: "直接提交到你的 GitHub 账号，记录清晰可查",
         gw1_p2: "点击断开连接可立即彻底清除本地存储的密钥",
         gw1_p3: "刷新后保持断开状态，绝无多余模拟账号残留",
-        gw2_tag: "沙盒模式",
-        gw2_title: "即时体验 Demo（Alex Reed 虚构人设）",
-        gw2_text: "预载入自 2026 年 8 月 1 日起的 136 条真实工程手账与 85 张每日小票。页面明确提示：[Demo 说明：演示模式下不会保存用户个人数据]。",
+        gw2_tag: "快速体验",
+        gw2_title: "交互式演示模式",
+        gw2_text: "预载入自 2026 年 8 月 1 日起的 136 条真实工程手账与 85 张每日小票。页面明确提示：[演示说明：演示模式下不会保存用户个人数据]。",
         gw2_p1: "136 条涵盖技术与生活的真实记录，85 张小票",
         gw2_p2: "从 8 月 1 日至今连续完整，没有任何断层日期",
         gw2_p3: "完全使用虚构技术专家人设，零用户隐私隐患",
-        sec3_num: "核心画卷 · 日常记录",
-        sec3_title: "Tab 1: 每日记忆画卷与速记台",
-        sec3_desc: "日常记录的主工作台。今日速记台默认保持展开状态，打开就能直接写。配备 AI STAR 战绩提炼、时空缩放视图和右侧伴随面板。",
-        t1_tag1: "沉浸书写台",
-        t1_title1: "默认展开速记台与 AI 润色",
-        t1_text1: "速记台默认展开。输入随手记录后点击 ✨ 润色，AI 会自动帮你把口语化碎记梳理为情境（Situation）、任务（Task）、行动（Action）与结果（Result）的 STAR 战绩格式。",
+        sec3_num: "日常书写 · 主工作台",
+        sec3_title: "Tab 1: 每日画卷与速记台",
+        sec3_desc: "日常记录的主工作台。今日速记台默认保持展开状态，打开就能直接写。配备 AI STAR 战绩提炼、时间线缩放视图和右侧伴随面板。",
+        t1_tag1: "即时输入",
+        t1_title1: "打开即写的速记台与 AI 润色",
+        t1_text1: "速记台默认展开。输入随手记录后点击 ✨ 润色，AI 会自动帮你把口语化碎记梳理为情境（Situation）、任务（Task）、行动（Action）与结果（Result）的 STAR 战绩格式，方便写周报和述职。",
         t1_p1: "中英双语独立编辑选项卡，互不覆盖丢失",
         t1_p2: "回声编织自动唤醒两到四周前的相关思考",
-        t1_p3: "智能文档提取将整篇会议纪要一键切分为原子卡片",
+        t1_p3: "粘贴长篇会议纪要可自动切分为独立的知识卡片",
         t1_tag2: "伴随面板",
-        t1_title2: "右侧伴随面板与心情洗色",
+        t1_title2: "时间线面板与心情洗色",
         t1_text2: "右侧面板展现当天的时间脉络、与小票实时双向同步的复盘便签、年度记录热力图以及 5 种心情色彩选择器。",
-        t1_p4: "时空缩放：日（Day）、周（Week）、月（Month）自由切换",
-        t1_p5: "卡片详情弹窗支持 [[wikilink]] 双向关系展开",
+        t1_p4: "时间缩放：日（Day）、周（Week）、月（Month）自由切换",
+        t1_p5: "卡片详情弹窗支持 [[wikilink]] 关系展开",
         t1_p6: "即时复盘便签与当天的热敏小票双向实时同步",
-        sec4_num: "认知校准 · 工作台",
+        sec4_num: "整理反思 · 认知账本",
         sec4_title: "Tab 2: 认知中枢账本 (Cognitive Ledger)",
-        sec4_desc: "Dayprint 全系统唯一的读写校准工作台。在这里，日常碎片会被系统化整理进 L0 到 L4 的认知阶梯，配备清晰的置信度色条、双语就绪状态和来源溯源链接。",
-        t2_tag1: "分层体系",
-        t2_title1: "L0~L4 认知金字塔",
-        t2_text1: "涵盖 L0 随笔、L1 战绩、L2 习惯SOP、L3 心智模型到 L4 底层信条。配备 AI Distill 引擎，能从低阶记录中提炼出高阶做事准则。",
-        t2_p1: "按待校准度降序排列（需要补全的卡片排在最前）",
-        t2_p2: "卡片显式呈现置信度色条（≥85% 苍绿 / ≥70% 琥珀 / <70% 陶土红）",
-        t2_p3: "双语就绪状态标签：<span class=\"status-badge\">中文已就绪 · 英文待补全</span>",
-        t2_tag2: "溯源追踪",
-        t2_title2: "来源溯源反查链 (source_ids)",
-        t2_text2: "每一条高阶心智（L3/L4）都会明确标注“源自 N 条原始记录”。点击可直接展开对应日期的日记，确保每条信条都言之有据。",
-        t2_p4: "点击溯源可直接反查最初记录的日记上下文",
-        t2_p5: "在卡片上直接修改中英文案与标签主题",
-        t2_p6: "一键导出符合 Obsidian 官方标准的前置元数据",
-        sec5_num: "关联网络 · 拓扑分析",
+        sec4_desc: "整理和打磨核心认知的地方。在这里，散落的碎片会被归类进 5 个清晰阶段，你可以为每条原则标注置信度打分，并随时反查每条原则最初产生的那篇日记。",
+        t2_tag1: "五个阶段",
+        t2_title1: "从闪念随笔到核心做事原则",
+        t2_text1: "涵盖 L0 随笔、L1 成果、L2 工作流、L3 思维模型到 L4 核心原则。你也可以让 AI 研读最近的日常笔记，提炼出可供参考的总结原则。",
+        t2_p1: "需要修改或补全双语翻译的卡片会自动浮到最前面",
+        t2_p2: "卡片显式呈现置信度色条（85% 及以上绿色，70% 琥珀色，70% 以下红色）",
+        t2_p3: "清晰的纯文字双语状态标签：<span class=\"status-badge\">中文已就绪 · 英文待补全</span>",
+        t2_tag2: "有据可查",
+        t2_title2: "点击来源反查原始日记",
+        t2_text2: "每一条高阶原则都会明确标注“源自 N 条原始记录”。点击可直接展开对应日期的日记，确保每条原则都是自己踩坑沉淀出来的真实经验。",
+        t2_p4: "点击来源链接直接反查最初记录的日记现场",
+        t2_p5: "直接在卡片上修改中英文案与标签，无需多层弹窗",
+        t2_p6: "导出标准的 Markdown 格式，原生兼容 Obsidian",
+        sec5_num: "概念关联 · 知识图谱",
         sec5_title: "Tab 3: Knowledge Graph",
-        sec5_desc: "横向概念网络与拓扑结构分析台。既可以在力导向动态画布中漫游概念聚类，也可以切换到紧凑的拓扑索引胶囊，按连结数量快速检索核心概念。",
-        t3_tag1: "动态画布",
-        t3_title1: "力导向星轨引擎与自动连线编译",
-        t3_text1: "概念节点在物理斥力与引力下自然形成主题星团。点击“编织潜在星轨”，本地启发式算法会自动扫描笔记，挖掘潜在的语义因果连线。",
-        t3_p1: "丝滑缩放、平移与节点拖拽物理回弹",
-        t3_p2: "Auto-Link 自动编译发现未显式标记的双向关系",
-        t3_p3: "节点按认知层级莫兰迪色彩区分展示",
-        t3_tag2: "中心度索引",
-        t3_title2: "拓扑索引胶囊（无冗余正文）",
-        t3_text2: "右上角切换到拓扑索引视图，以 5 到 6 列紧凑胶囊排布。移除了冗余正文，严格按连结数量（Links）从高到低排列，直观展现核心枢纽概念。",
-        t3_p4: "按连接度中心性（连结数从高到低）排序",
-        t3_p5: "紧凑胶囊结构：类型 + 层级 + 标题 + 连结数",
-        t3_p6: "点击任一胶囊即可在右侧抽屉检视出入度连线并在画布高亮",
-        sec6_num: "手账存根 · 实体感",
-        sec6_title: "每日复盘小票与 5 色心情洗色画廊",
-        sec6_desc: "点击侧边栏或伴随面板的“生活存根”，展开实体风格热敏小票画廊。Demo 模式预置了自 8 月 1 日至今的 85 张连续小票，覆盖 5 种情绪水彩洗色。",
+        sec5_desc: "笔记一旦互相连起来，价值就会大很多。既可以在动态画布中直观浏览概念聚类，也可以切换到拓扑索引视图，快速找到被引用最多的核心话题。",
+        t3_tag1: "可视化图谱",
+        t3_title1: "动态关系图与自动连线",
+        t3_text1: "相关的笔记会自动靠拢形成话题群。点击“编织潜在星轨”，系统会自动扫描笔记内容，提示可能讨论同一主题的潜在连线。",
+        t3_p1: "支持平滑缩放、平移和拖拽查看笔记关系",
+        t3_p2: "自动连线功能帮你发现可能漏掉的双向关联",
+        t3_p3: "不同阶段的笔记采用不同的颜色区分展示",
+        t3_tag2: "清晰概览",
+        t3_title2: "拓扑索引（被引用最多的核心话题）",
+        t3_text2: "如果你只想看一份清爽的核心概念清单，切换到拓扑索引即可。它按连接数量从多到少排序，去掉了冗长正文，让你一眼看清当前关注的核心主题。",
+        t3_p4: "按连接数量从高到低排列，重要节点排在前面",
+        t3_p5: "紧凑清爽的卡片：类型 + 层级 + 标题 + 连接数",
+        t3_p6: "点击任一话题即可在画布中高亮定位",
+        sec6_num: "每日存根 · 实体感",
+        sec6_title: "每日复盘小票与 5 色心情洗色",
+        sec6_desc: "每天结束时，点击“生活存根”，当天记下的所有内容就会被整齐打成一张手账风格的小票。Demo 模式预置了从 8 月 1 日至今的 85 张真实小票。",
         rcpt_tag1: "小票结构",
-        rcpt_title1: "齿纹撕口与零空卡保障",
-        rcpt_text1: "每个小票日期均对应真实日记卡片，TOTAL RECORDED 计数显示 2 ITEMS、3 ITEMS，绝无空卡。底部盖有拟物的火漆归档印章。",
+        rcpt_title1: "齿纹撕口与真实条目统计",
+        rcpt_text1: "每个小票日期均对应真实的笔记卡片，计数清晰显示 2 ITEMS、3 ITEMS，绝无空卡。底部盖有拟物的火漆归档印章。",
         rcpt_p1: "Demo 模式涵盖 8 月 1 日至今的 85 张完整小票",
-        rcpt_p2: "详细列出当天每个时间点记录的事件与灵感",
-        rcpt_p3: "优雅的中英双语今日复盘与结语感悟卡",
-        rcpt_tag2: "情绪光谱",
+        rcpt_p2: "详细列出当天每个时间点记录的具体事件",
+        rcpt_p3: "优雅的中英双语今日结语框，适合写下一两句复盘",
+        rcpt_tag2: "心情水彩",
         rcpt_title2: "五大莫兰迪心情水彩洗色",
-        rcpt_text2: "每张小票的上下边缘浸染当天的心情水彩：陶土红（热情）、琥珀蜜（灵感）、苍青绿（平和）、冰海蓝（澄澈）与暮山紫（内省）。",
-        sec7_num: "专属工作台 · 进阶成长",
-        sec7_title: "Career Studio、周报复盘、星轨罗盘与全知检索",
-        sec7_desc: "深度赋能职场复盘与认知归档的专属工具，让平时的随想成为你职业生涯的坚实证据。",
+        rcpt_text2: "每张小票的上下边缘浸染当天的心情水彩：陶土红（干劲十足）、琥珀蜜（灵感迸发）、苍青绿（从容平和）、冰海蓝（冷静专注）与暮山紫（内省深思）。",
+        sec7_num: "实用工具 · 日常助力",
+        sec7_title: "Career Studio、周报复盘与全局搜索",
+        sec7_desc: "把平时的零碎记录变成年终述职的现成素材、每周节奏复盘与毫秒级搜索。",
         st1_title: "Career Studio (职场战绩库)",
-        st1_text: "汇总历次 AI 润色提炼的 STAR 战绩，一键推演生成中英文述职亮点与量化简历要点，年终复盘不再抓瞎。",
+        st1_text: "汇总你平时沉淀的关键成果与解决的难题，一键生成用于简历和述职报告的量化战绩要点。",
         st2_title: "Weekly Digest (周报复盘)",
-        st2_text: "汇总 7 天的情绪节奏与关键认知产出。精准匹配本地周一至周日周期，生成周度金句与习惯维持率统计。",
-        st3_title: "OmniSearch (⌘K) 与时光归档",
-        st3_text: "毫秒级中英文全文模糊检索，搭配按年份、月份树状折叠的历史归档抽屉，随时随地回溯往昔。"
+        st2_text: "汇总 7 天的心情走势与关键收获。精准匹配本地周一到周日周期，复盘一周节奏。",
+        st3_title: "全局搜索 (Command-K) 与时光归档",
+        st3_text: "按下 Command-K 输入关键词毫秒级找出过去的笔记，也可以按年份和月份树状回溯历史。"
       }
     };
 
