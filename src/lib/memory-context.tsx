@@ -60,7 +60,11 @@ interface MemoryContextType {
   addRelationship: (rel: Omit<Relationship, "id" | "created_at">) => void;
   bulkAddRelationships: (rels: Relationship[]) => void;
   deleteRelationship: (id: string) => void;
-  syncWithGitHub: () => Promise<{ success: boolean; message: string }>;
+  syncWithGitHub: (overrideData?: {
+    memories?: CanonicalMemory[];
+    relationships?: Relationship[];
+    receipts?: Record<string, DailyReceipt>;
+  }) => Promise<{ success: boolean; message: string }>;
   pullFromGitHub: () => Promise<{ success: boolean; message: string }>;
   isSyncing: boolean;
   resetDemoData: () => void;
@@ -217,6 +221,9 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
           loadedMems = [...loadedMems, ...missing];
           localStorage.setItem("dayprint_memories", JSON.stringify(loadedMems));
         }
+      } else if (currentMode === "production") {
+        // In personal journal mode, never allow demo mock data to pollute the user's canvas
+        loadedMems = loadedMems.filter((m) => !m.id.startsWith("mem_demo_"));
       }
       setMemories(loadedMems);
 
@@ -241,6 +248,8 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
           loadedRels = [...loadedRels, ...missingRels];
           localStorage.setItem("dayprint_relationships", JSON.stringify(loadedRels));
         }
+      } else if (currentMode === "production") {
+        loadedRels = loadedRels.filter((r) => !r.id.startsWith("rel_demo_"));
       }
       setRelationships(loadedRels);
 
@@ -384,12 +393,17 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
           const result = await res.json();
           if (result.exists && result.data && Array.isArray(result.data.memories) && result.data.memories.length > 0) {
             setMemories((prev) => {
-              const isOnlySeed = prev.length > 0 && prev.every((m) => m.id.startsWith("mem_00") || m.id.startsWith("mem_01"));
+              // In production mode, filter out any demo memories that might have been accidentally saved in GitHub previously
+              const incoming = appMode === "production"
+                ? result.data.memories.filter((m: any) => !m.id.startsWith("mem_demo_"))
+                : result.data.memories;
+
+              const isOnlySeed = prev.length > 0 && prev.every((m) => m.id.startsWith("mem_demo_") || m.id.startsWith("mem_00") || m.id.startsWith("mem_01"));
               if (isOnlySeed) {
-                return result.data.memories;
+                return incoming;
               }
               const existingIds = new Set(prev.map((m) => m.id));
-              const freshItems = result.data.memories.filter((m: any) => !existingIds.has(m.id));
+              const freshItems = incoming.filter((m: any) => !existingIds.has(m.id));
               return freshItems.length > 0 ? [...freshItems, ...prev] : prev;
             });
           }
@@ -409,9 +423,12 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
         const data = await res.json();
         if (data.success && Array.isArray(data.memories) && data.memories.length > 0) {
           setMemories((prev) => {
-            const isOnlySeed = prev.length > 0 && prev.every((m) => m.id.startsWith("mem_00") || m.id.startsWith("mem_01"));
+            const incoming = appMode === "production"
+              ? data.memories.filter((m: any) => !m.id.startsWith("mem_demo_"))
+              : data.memories;
+            const isOnlySeed = prev.length > 0 && prev.every((m) => m.id.startsWith("mem_demo_") || m.id.startsWith("mem_00") || m.id.startsWith("mem_01"));
             const existingIds = new Set(prev.map((m) => m.id));
-            const freshItems = data.memories.filter((m: any) => !existingIds.has(m.id));
+            const freshItems = incoming.filter((m: any) => !existingIds.has(m.id));
             if (isOnlySeed && freshItems.length > 0) {
               return freshItems;
             }
@@ -761,7 +778,13 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
     setRelationships((prev) => prev.filter((r) => r.id !== id));
   };
 
-  const syncWithGitHub = async (): Promise<{ success: boolean; message: string }> => {
+  const syncWithGitHub = async (
+    overrideData?: {
+      memories?: CanonicalMemory[];
+      relationships?: Relationship[];
+      receipts?: Record<string, DailyReceipt>;
+    }
+  ): Promise<{ success: boolean; message: string }> => {
     if (!settings.github.pat || !settings.github.repo) {
       return {
         success: false,
@@ -774,15 +797,24 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
 
     setIsSyncing(true);
     try {
+      const isProd = appMode === "production";
+      const payloadMems =
+        overrideData?.memories ??
+        (isProd ? memories.filter((m) => !m.id.startsWith("mem_demo_")) : memories);
+      const payloadRels =
+        overrideData?.relationships ??
+        (isProd ? relationships.filter((r) => !r.id.startsWith("rel_demo_")) : relationships);
+      const payloadRcpts = overrideData?.receipts ?? storedReceipts;
+
       const res = await fetch("/api/github/sync", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           repo: settings.github.repo,
           pat: settings.github.pat,
-          memories,
-          relationships,
-          receipts: storedReceipts,
+          memories: payloadMems,
+          relationships: payloadRels,
+          receipts: payloadRcpts,
         }),
       });
 
