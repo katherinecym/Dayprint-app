@@ -245,7 +245,7 @@ ${plans}
         title: item.title,
         date: todayKey(),
         type: "achievement",
-        topics: ["AI 深度提炼", "工作胜仗"],
+        topics: language === "zh" ? ["AI 深度提炼", "工作胜仗"] : ["AI Distilled", "Key Win"],
         resumeBullet: item.polished_bullet,
         star: {
           situation: item.situation,

@@ -541,7 +541,7 @@ const CJK_RE = /[\u4e00-\u9fa5]/;
  * Why not just `CJK_RE.test(text)`: after `sanitizeMemoryText` strips emojis and
  * confidence labels, a mostly-English string can still legitimately contain a
  * stray CJK fragment (e.g. a quoted Chinese term). Flagging that as
- * "[未翻译]" is a false positive — the user reads English and sees a bogus
+ * "[Untranslated]" is a false positive — the user reads English and sees a bogus
  * warning. So we only mark when CJK actually dominates the string.
  */
 function markUntranslatedIfNeeded(text: string): string {
@@ -549,7 +549,7 @@ function markUntranslatedIfNeeded(text: string): string {
   if (!CJK_RE.test(cleaned)) return cleaned;
   const cjkCount = (cleaned.match(/[\u4e00-\u9fa5]/g) || []).length;
   const latinCount = (cleaned.match(/[A-Za-z]/g) || []).length;
-  return cjkCount > latinCount ? `[未翻译] ${cleaned}` : cleaned;
+  return cjkCount > latinCount ? `[Untranslated] ${cleaned}` : cleaned;
 }
 
 /**

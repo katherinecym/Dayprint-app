@@ -319,29 +319,15 @@ export function HeaderBar({
 
       {/* Action Controls & Utilities */}
       <div className="flex items-center gap-2">
-        {/* Quick Theme Cycle Button */}
+        {/* Language Switcher Button (EN / 中文) */}
         <button
-          onClick={() => {
-            const themes = ["boogie-paper", "obsidian-dark", "studio-light"] as const;
-            const nextIdx = (themes.indexOf(settings.theme as any) + 1) % themes.length;
-            updateSettings({ theme: themes[nextIdx] });
-          }}
-          className="h-9 px-2.5 flex items-center gap-1.5 text-xs rounded-lg border border-[var(--grid-line)] bg-white hover:bg-stone-50 text-stone-700 transition-colors shadow-2xs cursor-pointer"
-          title={language === "zh" ? "切换画布外观主题 (米黄/暗黑/极简白)" : "Cycle theme (Paper / Dark / Light)"}
+          onClick={() => setLanguage(language === "en" ? "zh" : "en")}
+          className="h-9 px-2.5 flex items-center gap-1.5 text-xs rounded-lg border border-[var(--grid-line)] bg-white hover:bg-stone-50 text-stone-700 transition-colors shadow-2xs cursor-pointer font-medium"
+          title={language === "zh" ? "切换界面语言 (English / 中文)" : "Switch language (English / 中文)"}
         >
-          {settings.theme === "boogie-paper" ? (
-            <Sun className="w-3.5 h-3.5 text-amber-600" />
-          ) : settings.theme === "obsidian-dark" ? (
-            <Moon className="w-3.5 h-3.5 text-indigo-400" />
-          ) : (
-            <Laptop className="w-3.5 h-3.5 text-stone-600" />
-          )}
-          <span className="hidden xl:inline text-[11px] font-medium">
-            {settings.theme === "boogie-paper"
-              ? (language === "zh" ? "米黄纸" : "Paper")
-              : settings.theme === "obsidian-dark"
-              ? (language === "zh" ? "暗黑" : "Dark")
-              : (language === "zh" ? "极简白" : "Light")}
+          <Globe className="w-3.5 h-3.5 text-stone-600" />
+          <span className="text-[11px] font-semibold">
+            {language === "en" ? "EN / 中" : "中 / EN"}
           </span>
         </button>
 

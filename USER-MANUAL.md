@@ -33,7 +33,7 @@
 ## Contents / 目录
 - [Part 1 (English): Dayprint User Guide](#part-1-english-dayprint-user-guide)
   - [1. Storage & Ownership](#1-storage--ownership)
-  - [2. Welcome Gateway & Demo Mode](#2-welcome-gateway--demo-mode)
+  - [2. Setup & Demo](#2-setup--demo)
   - [3. Tab 1: Daily Canvas & Today's Notes](#3-tab-1-daily-canvas--todays-notes)
   - [4. Tab 2: Cognitive Ledger](#4-tab-2-cognitive-ledger)
   - [5. Tab 3: Knowledge Graph](#5-tab-3-knowledge-graph)
@@ -41,7 +41,7 @@
   - [7. Helpful Tools](#7-helpful-tools)
 - [Part 2 (中文): Dayprint 操作手册](#part-2-中文-dayprint-操作手册)
   - [1. 存储与归属](#1-存储与归属)
-  - [2. 新手欢迎网关与演示模式](#2-新手欢迎网关与演示模式)
+  - [2. 设置与演示 (Setup & Demo)](#2-设置与演示-setup--demo)
   - [3. Tab 1: 每日画卷与速记台](#3-tab-1-每日画卷与速记台)
   - [4. Tab 2: 认知中枢账本](#4-tab-2-认知中枢账本)
   - [5. Tab 3: Knowledge Graph](#5-tab-3-knowledge-graph-1)
@@ -65,7 +65,7 @@ Dayprint gives you a clean, quiet space to capture daily thoughts and syncs them
 
 ---
 
-## 2. Welcome Gateway & Demo Mode
+## 2. Setup & Demo
 
 When opening Dayprint for the first time without configured credentials, the Welcome Gateway appears.
 
@@ -119,7 +119,6 @@ The primary thinking surface for immediate capture and chronological review.
 ### 4.2 Key Features
 - **Sorted by Need**: Cards that need translations or missing tags float to the top.
 - **Visible Confidence Meter**: Explicit percentage color bar (85% and above green, 70% amber, below 70% red).
-- **Bilingual Readiness Tags**: Displays clean indicators such as `ZH Ready · EN Pending`.
 - **Source Links Back to Original Notes (`source_ids`)**: High-level principles display "Derived from N notes". Click to jump straight back to the original daily entry where the idea first started, so every rule is grounded in real experience.
 - **AI Distill Tool**: Synthesizes higher-order principles from recent notes upon review.
 - **Obsidian Sync**: Exports standard YAML frontmatter for native Obsidian compatibility.
@@ -189,7 +188,7 @@ Dayprint 给你一个安静、干净的书写空间，直接把笔记同步到�
 
 ---
 
-## 2. 新手欢迎网关与演示模式
+## 2. 设置与演示 (Setup & Demo)
 
 初次打开 Dayprint 且未配置凭据时，系统会自动弹出欢迎网关。
 
@@ -243,7 +242,6 @@ Dayprint 给你一个安静、干净的书写空间，直接把笔记同步到�
 ### 4.2 核心功能
 - **按需要完善的程度排序**：需要修改文案、补充双语翻译或缺少来源的卡片会自动浮到最前面。
 - **置信度色条**：卡片上直观显示置信度打分（85% 及以上绿色，70% 琥珀色，70% 以下红色）。
-- **双语就绪状态**：显示纯文字状态标签（如 `中文已就绪 · 英文待补全`）。
 - **点击来源反查原始日记 (`source_ids`)**：每一条高阶原则都会明确标注“源自 N 条原始记录”。点击可直接展开对应日期的日记，确保每条原则都是自己踩坑沉淀出来的真实经验。
 - **AI 提炼工具**：一键研读近期随想，提炼可供参考的总结原则。
 - **Obsidian 兼容**：导出标准的 Markdown 格式与前置信息，原生兼容 Obsidian。

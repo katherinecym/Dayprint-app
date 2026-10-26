@@ -49,6 +49,7 @@ export function ContextPanel({
     language,
     t,
     settings,
+    appMode,
     deleteMemory,
     getTypeColor,
     getDailyReceipt,
@@ -163,10 +164,31 @@ export function ContextPanel({
             <Receipt className="w-3.5 h-3.5 text-[#C97A63]" />
             {language === "zh" ? "今日生活存根" : t.daily_receipt_title}
           </span>
-          <span className="text-[9px] bg-emerald-50 text-emerald-800 border border-emerald-200/60 px-1.5 py-0.5 rounded font-mono-meta font-medium flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            {language === "zh" ? "实时自动存盘" : "Auto-Saved"}
-          </span>
+          {appMode === "demo" ? (
+            <span
+              className="text-[9px] bg-amber-50 text-amber-800 border border-amber-200/60 px-1.5 py-0.5 rounded font-mono-meta font-medium flex items-center gap-1"
+              title={language === "zh" ? "演示模式下个人数据不会持久化保存" : "Personal changes are not saved in demo mode"}
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+              {language === "zh" ? "演示预览中 (不保存)" : "Demo (Not Saved)"}
+            </span>
+          ) : !settings.github.connected ? (
+            <span
+              className="text-[9px] bg-stone-100 text-stone-700 border border-stone-200 px-1.5 py-0.5 rounded font-mono-meta font-medium flex items-center gap-1"
+              title={language === "zh" ? "未配置 GitHub 仓库，数据仅保留在当前浏览器中" : "GitHub disconnected; notes are cached in this browser only"}
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-stone-400" />
+              {language === "zh" ? "仅浏览器缓存" : "Local Cache Only"}
+            </span>
+          ) : (
+            <span
+              className="text-[9px] bg-emerald-50 text-emerald-800 border border-emerald-200/60 px-1.5 py-0.5 rounded font-mono-meta font-medium flex items-center gap-1"
+              title={language === "zh" ? "已连接 GitHub 私有仓库，实时自动提交存盘" : "Synced directly with your private GitHub repository"}
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              {language === "zh" ? "GitHub 实时存盘" : "GitHub Synced"}
+            </span>
+          )}
         </div>
 
         {/* Daily Mood Wash Selector on Home Page */}

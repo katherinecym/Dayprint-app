@@ -561,8 +561,9 @@ export function TodayEditor({ initialPrompt }: TodayEditorProps) {
             <Sprout className="w-4 h-4 text-emerald-600 shrink-0" />
             <div className="flex flex-col min-w-0">
               <span className="font-semibold text-emerald-900 truncate">
-                {language === "zh" ? "AI 识别到与已有记忆相关：" : "AI matched existing memory: "}
-                「{getLocalizedTitle(matchedMemory, language)}」
+                {language === "zh"
+                  ? `AI 识别到与已有记忆相关：「${getLocalizedTitle(matchedMemory, language)}」`
+                  : `AI matched existing memory: "${getLocalizedTitle(matchedMemory, language)}"`}
               </span>
               <span className="text-[10px] text-emerald-700/80 flex items-center gap-1">
                 {language === "zh" ? (
@@ -661,7 +662,7 @@ export function TodayEditor({ initialPrompt }: TodayEditorProps) {
                   <span>
                     {language === "zh"
                       ? `完整保存至今日日志 (Obsidian 层)，并已同步提取为「${cognitiveInjection.dimensionZh}」`
-                      : `Saved to Today's Journal (Obsidian Layer) & extracted as 「${cognitiveInjection.dimensionEn}」`}
+                      : `Saved to Today's Journal (Obsidian Layer) & extracted as "${cognitiveInjection.dimensionEn}"`}
                   </span>
                 </div>
                 <span className="text-[10px] text-sky-700 font-mono shrink-0 ml-2">

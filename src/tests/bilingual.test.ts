@@ -141,14 +141,14 @@ describe("Strict Bilingual Independence & Default Auto-Translation", () => {
       language: "zh",
     };
 
-    expect(getLocalizedTitle(chineseOnly, "en")).toContain("[未翻译]");
-    expect(getLocalizedContent(chineseOnly, "en")).toContain("[未翻译]");
+    expect(getLocalizedTitle(chineseOnly, "en")).toContain("[Untranslated]");
+    expect(getLocalizedContent(chineseOnly, "en")).toContain("[Untranslated]");
     // 中文模式下不受影响
     expect(getLocalizedTitle(chineseOnly, "zh")).toBe("周三下午在徐汇滨江走了很久");
   });
 
   it("should NOT flag a mostly-English string that merely contains a stray CJK fragment", () => {
-    // 回归用例：曾经的 [未翻译] 判据是「只要含中文就打标」，
+    // 回归用例：曾经的 [Untranslated] 判据是「只要含中文就打标」，
     // 结果 "Fullstack engineering preference (置信度: 80%)" 被误判成未翻译。
     const mixed: CanonicalMemory = {
       ...sampleMemory,
@@ -162,8 +162,8 @@ describe("Strict Bilingual Independence & Default Auto-Translation", () => {
       language: "en",
     };
 
-    expect(getLocalizedTitle(mixed, "en")).not.toContain("[未翻译]");
-    expect(getLocalizedContent(mixed, "en")).not.toContain("[未翻译]");
+    expect(getLocalizedTitle(mixed, "en")).not.toContain("[Untranslated]");
+    expect(getLocalizedContent(mixed, "en")).not.toContain("[Untranslated]");
   });
 
   it("should sanitize emojis and confidence labels from titles and contents", () => {
