@@ -6,6 +6,13 @@ Dayprint is a **tactile living memory workspace and micro-journal** built for kn
 
 ---
 
+## Live Web Experience
+
+Try Dayprint directly in your browser:  
+🔗 **[https://dayprint-five.vercel.app/](https://dayprint-five.vercel.app/)**
+
+---
+
 ## Getting Started
 
 ```bash

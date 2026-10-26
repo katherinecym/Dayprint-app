@@ -39,3 +39,4 @@ audit-artifacts/
 # Agent skills & lockfiles
 .agents/
 skills-lock.json
+next-env.d.ts
