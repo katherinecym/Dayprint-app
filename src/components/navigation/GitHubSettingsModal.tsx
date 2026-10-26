@@ -40,7 +40,7 @@ interface GitHubSettingsModalProps {
 export function GitHubSettingsModal({
   isOpen,
   onClose,
-  initialTab = "ai",
+  initialTab = "github",
 }: GitHubSettingsModalProps) {
   const {
     settings,

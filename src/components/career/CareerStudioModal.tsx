@@ -35,7 +35,10 @@ export function CareerStudioModal({ onClose }: CareerStudioModalProps) {
   const { memories, language, settings } = useMemory();
   useModalDismiss(onClose);
   const [activeTab, setActiveTab] = useState<"report" | "resume" | "ledger">("report");
-  const [scope, setScope] = useState<ScopeType>("this_week");
+  // On Monday (day 1), default to last 14 days so review contains rich deliverables
+  const [scope, setScope] = useState<ScopeType>(() => {
+    return typeof window !== "undefined" && new Date().getDay() === 1 ? "last_14_days" : "this_week";
+  });
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [expandedStarId, setExpandedStarId] = useState<string | null>(null);
 

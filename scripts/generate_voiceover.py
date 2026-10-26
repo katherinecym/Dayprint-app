@@ -2,11 +2,12 @@
 """
 Dayprint Demo Voiceover Generator using VoxCPM2.
 Generates studio-quality 48kHz WAV files for Scene 1 to Scene 7,
-and combines them into dayprint_voiceover_full.wav.
+fully aligned with the calibrated second-by-second master timeline.
 """
 
 import os
 import sys
+import json
 import torch
 import soundfile as sf
 import numpy as np
@@ -16,97 +17,81 @@ SCENES = [
     {
         "id": "scene1_step1_sovereignty",
         "title": "Scene 1: Data Sovereignty & Step 1 - Connecting Private GitHub Repo",
+        "budget_seconds": 26.0,
         "text": (
-            "Where does your authentic self actually live? "
-            "Today, our thoughts and work decisions are scattered across a dozen cloud silos. "
-            "Because personal memories contain your most intimate thoughts, Dayprint is built on one core foundation: "
-            "zero data leakage, complete data sovereignty. "
-            "Your very first step is to open Settings and connect your private GitHub repository. "
-            "Entering your repository and personal access token ensures every memory, receipt, and graph edge "
-            "commits directly to your private repository as clean Markdown. "
-            "For this walkthrough, we will demonstrate via our instant Demo Mode, "
-            "preloaded with a systems architect's living stream."
+            "Where does your authentic self live? Our thoughts are scattered across silos. "
+            "Because personal memories are intimate, Dayprint guarantees zero data leakage. "
+            "Step one: open Settings and connect your private GitHub repository. "
+            "Every memory and receipt commits directly to your repository as clean Markdown. "
+            "For this walkthrough, we explore the preloaded interactive demo mode."
         ),
     },
     {
         "id": "scene2_today_canvas",
-        "title": "Scene 2: Today's Canvas, AI Polish, Weave Echo & Morandi Creation Ritual",
+        "title": "Scene 2: Today's Canvas, Concrete Input & STAR AI Polish",
+        "budget_seconds": 39.0,
         "text": (
-            "Capturing a moment is completely frictionless. "
-            "No title paralysis, no rigid folder trees. "
-            "Write down a raw thought, and click AI Polish: "
-            "Dayprint's embedded intelligence instantly structures your rough notes into a quantifiable STAR accomplishment—"
-            "Situation, Task, Action, and Result—ready for your career brag sheet. "
-            "Notice the Memory Echo bar: Dayprint detects past thoughts that resonate with what you wrote. "
-            "With one click on Weave Echo, you weave an authentic temporal thread connecting today's code with your past architectural foundations. "
-            "Categorize with flexible types, create custom types like Architecture on the fly, bind signature Morandi paper pigments, and tag your topics. "
-            "Press Command plus Enter, hear the mechanical keystroke, "
-            "and your thought prints as a physical slip onto your canvas."
+            "Capturing is effortless. No title paralysis, no rigid folders. "
+            "Write down a concrete technical challenge: "
+            "documenting sync contention, replacing mutex locks with lock-free ring buffers. "
+            "Click AI Polish: the STAR framework enriches raw notes into quantified wins. "
+            "Weave Echo connects today's code to your past architectural foundation. "
+            "Categorize flexibly, or create custom types like Architecture on the fly. "
+            "Bind signature Morandi pigments, and tag your topics. "
+            "Press Command Enter to print your physical slip onto canvas."
         ),
     },
     {
         "id": "scene3_companion_panel",
         "title": "Scene 3: Companion Panel — Stream, Daily Summary Slip & Activity Heatmap",
+        "budget_seconds": 20.0,
         "text": (
-            "On the right, your Companion Panel anchors your daily ritual through three elegant pillars. "
-            "At the top rests the Daily Summary Slip. "
-            "Choose your daily mood watercolor wash, and write your evening reflection or takeaway—"
-            "it automatically stamps onto today's permanent record. "
-            "In the center, Today's Stream flows in real time, "
-            "displaying every slip you captured today with precise timestamps, custom color tags, and evolution milestones. "
-            "And at the bottom, your Memory Activity Heatmap tracks your consistency, "
-            "visualizing your unbroken streak and cognitive contribution across the year."
+            "The Companion Panel anchors your daily ritual in three pillars. "
+            "At the top, pick your mood wash and write your evening reflection. "
+            "In the center, Today's Stream flows with real-time slips and color tags. "
+            "At the bottom, your Heatmap tracks consistency and cognitive streaks."
         ),
     },
     {
         "id": "scene4_life_stubs_receipt",
         "title": "Scene 4: Life Stubs & Anatomy of the Daily Thermal Receipt",
+        "budget_seconds": 25.0,
         "text": (
-            "Click Life Stubs, and your digital memories transform into a tactile scrapbook. "
-            "Every day culminates in an authentic Daily Thermal Receipt—a physical artifact of your lived experience. "
-            "Look at the meticulous anatomy: "
-            "the date masthead and mood watercolor wash at the top; "
-            "an itemized dot-matrix register of every slip, marked with timestamps, polaroid thumbnails, and topics; "
-            "the total count of your daily moments; "
-            "your personal evening reflection preserved in elegant serif typography; "
-            "the authentic tilted rubber wax stamp sealing the archive; "
-            "and the tactile jagged sawtooth edge at the bottom. "
-            "Flip through past days with a single click: reviewing your life has never felt so nostalgic and grounding."
+            "Click Life Stubs to open your tactile daily diary. "
+            "Notice the date masthead, mood watercolor, and dot-matrix itemized slips. "
+            "Review the serif reflection, authentic wax stamp, and jagged sawtooth edge. "
+            "Flip back to yesterday with one click for nostalgic review."
         ),
     },
     {
         "id": "scene5_knowledge_graph",
         "title": "Scene 5: Knowledge Graph — Force Graph, Cards Mode & Link Management",
+        "budget_seconds": 34.0,
         "text": (
-            "Memories never exist in isolation. "
-            "In the Knowledge Graph, Dayprint weaves your scattered reflections into a living neural constellation. "
-            "In Force Graph mode, watch your thoughts cluster organically with real physics. "
-            "Hover over any node, and its relational network illuminates across time. "
-            "Switch seamlessly to Cards Mode to inspect your thoughts categorized across a five-tier cognitive hierarchy—"
-            "from fleeting moments to habits, mental models, and core principles. "
-            "And managing links is completely transparent. "
-            "Open Link Management to prune outdated connections with one click, "
-            "or establish new causal bridges, articulating why two ideas connect. "
-            "Your knowledge network is an active, self-organizing mind."
+            "In the Knowledge Graph, reflections weave into a living constellation. "
+            "Hovering over a central hub illuminates its rich relational network. "
+            "Switch to Cards Mode to inspect thoughts across five cognitive tiers. "
+            "Managing links is transparent. Open Link Management to prune connections, "
+            "disconnecting obsolete threads with one click, "
+            "or establish new causal bridges, explaining why two ideas connect."
         ),
     },
     {
         "id": "scene6_weekly_digest",
         "title": "Scene 6: Weekly Digest & Autonomous Synthesis",
+        "budget_seconds": 18.0,
         "text": (
-            "Every Sunday, open the Weekly Digest. "
-            "Dayprint autonomously synthesizes your entire week: "
-            "clustering your key breakthroughs, charting your cognitive growth, and extracting verified STAR accomplishments. "
-            "Click Copy Markdown to paste your weekly brag sheet straight into your team review or personal vault. "
-            "You will never have to wonder what you accomplished this week ever again."
+            "Open Weekly Digest: on Mondays, Dayprint reviews last week's full synthesis. "
+            "Synthesizing breakthroughs across levels, extracting verified STAR achievements. "
+            "Click Copy Markdown to paste your brag sheet into any review."
         ),
     },
     {
         "id": "scene7_closing",
         "title": "Scene 7: Eternal Sovereignty & Closing",
+        "budget_seconds": 11.0,
         "text": (
-            "Your memories are safe, portable, and permanently yours. "
-            "Stop scattering your life across walled gardens. "
+            "Your memories stay permanently sovereign in your own private repository. "
             "Dayprint your life. All the pieces of you, coming together. Thank you!"
         ),
     },
@@ -129,17 +114,20 @@ def main():
     sample_rate = getattr(model.tts_model, "sample_rate", 48000)
     print(f"Model successfully loaded. Sampling rate: {sample_rate} Hz\n")
 
-    full_audio_chunks = []
-    # 0.55 seconds of silence pause between scenes
-    silence_gap = np.zeros(int(sample_rate * 0.55), dtype=np.float32)
+    manifest = []
+    padded_audio_chunks = []
+
+    cumulative_offset = 0.0
 
     for i, scene in enumerate(SCENES, 1):
         scene_id = scene["id"]
         title = scene["title"]
         text = scene["text"]
+        budget = scene["budget_seconds"]
 
         out_path = os.path.join(output_dir, f"{scene_id}.wav")
         print(f"[{i}/{len(SCENES)}] Synthesizing {title}...")
+        print(f"    Target Budget: {budget:.1f}s | Words: {len(text.split())}")
         print(f"    Script: {text[:65]}...")
 
         # VoxCPM2 generation with Apple Silicon GPU acceleration
@@ -149,27 +137,58 @@ def main():
             inference_timesteps=10,
         )
 
+        raw_duration = len(wav) / sample_rate
         sf.write(out_path, wav, sample_rate)
-        duration = len(wav) / sample_rate
-        file_size_mb = os.path.getsize(out_path) / (1024 * 1024)
-        print(f"    -> Saved: {out_path} ({duration:.1f}s, {file_size_mb:.2f} MB)\n")
+        print(f"    -> Raw Voice Audio: {raw_duration:.2f}s (Budget: {budget:.1f}s, Margin: {budget - raw_duration:+.2f}s)")
 
-        full_audio_chunks.append(wav)
-        if i < len(SCENES):
-            full_audio_chunks.append(silence_gap)
+        # Pad with silence to match exact scene budget for anchor synchronization
+        if raw_duration < budget:
+            pad_samples = int((budget - raw_duration) * sample_rate)
+            padded_wav = np.concatenate([wav, np.zeros(pad_samples, dtype=np.float32)])
+        else:
+            print(f"    [WARN] Scene {scene_id} exceeded budget by {raw_duration - budget:.2f}s! Using raw wav.")
+            padded_wav = wav
 
-    # Export combined track
-    combined_wav = np.concatenate(full_audio_chunks)
+        final_scene_dur = len(padded_wav) / sample_rate
+        padded_audio_chunks.append(padded_wav)
+
+        manifest.append({
+            "scene_index": i,
+            "scene_id": scene_id,
+            "title": title,
+            "start_time": cumulative_offset,
+            "end_time": cumulative_offset + final_scene_dur,
+            "raw_voice_duration": raw_duration,
+            "budget_seconds": budget,
+            "padded_duration": final_scene_dur,
+            "audio_file": out_path,
+        })
+
+        cumulative_offset += final_scene_dur
+        print(f"    -> Aligned Time Window: {manifest[-1]['start_time']:.1f}s - {manifest[-1]['end_time']:.1f}s\n")
+
+    # Export combined master track
+    combined_wav = np.concatenate(padded_audio_chunks)
     combined_path = os.path.join(output_dir, "dayprint_voiceover_full.wav")
     sf.write(combined_path, combined_wav, sample_rate)
     total_duration = len(combined_wav) / sample_rate
     total_mb = os.path.getsize(combined_path) / (1024 * 1024)
 
+    # Save manifest JSON for the recording script
+    manifest_path = os.path.join(output_dir, "audio_manifest.json")
+    with open(manifest_path, "w", encoding="utf-8") as f:
+        json.dump({
+            "total_duration": total_duration,
+            "sample_rate": sample_rate,
+            "scenes": manifest
+        }, f, indent=2)
+
     print("==================================================")
     print(" Voiceover Generation Complete!")
-    print(f" Combined Track: {combined_path}")
-    print(f" Total Duration: {total_duration:.1f} seconds (~{int(total_duration//60)}m {int(total_duration%60)}s)")
-    print(f" Total Size: {total_mb:.2f} MB")
+    print(f" Master Audio Track: {combined_path}")
+    print(f" Manifest JSON:      {manifest_path}")
+    print(f" Total Duration:     {total_duration:.2f} seconds ({int(total_duration//60)}m {int(total_duration%60)}s)")
+    print(f" Total File Size:    {total_mb:.2f} MB")
     print("==================================================")
 
 if __name__ == "__main__":

@@ -395,6 +395,7 @@ export function HeaderBar({
 
           {onOpenGitHubSettings && (
             <button
+              data-testid="github-settings-btn"
               onClick={onOpenGitHubSettings}
               className={`h-full px-1.5 border-l border-stone-200 transition-colors cursor-pointer ${
                 settings.github.connected

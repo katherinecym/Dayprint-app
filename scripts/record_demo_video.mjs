@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Automated High-Definition Screen Recording for Dayprint Hackathon Demo Video.
- * Perfectly paced continuous browser automation synchronized with the 171-second studio voiceover.
+ * Perfectly paced continuous browser automation synchronized with the 173-second studio voiceover.
  */
 
 import { chromium } from 'playwright';
@@ -15,7 +15,8 @@ const ffmpeg = require('ffmpeg-static');
 
 const RECORDINGS_DIR = path.resolve('recordings');
 const OUTPUT_VIDEO = path.resolve('dayprint_demo_video.mp4');
-const MASTER_AUDIO = path.resolve('audio/dayprint_voiceover_paced.wav');
+const MASTER_AUDIO = path.resolve('audio/dayprint_voiceover_full.wav');
+const MANIFEST_PATH = path.resolve('audio/audio_manifest.json');
 
 if (!fs.existsSync(RECORDINGS_DIR)) {
   fs.mkdirSync(RECORDINGS_DIR, { recursive: true });
@@ -32,28 +33,25 @@ async function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function smoothScroll(page, targetY, durationMs) {
-  await page.evaluate(async ({ targetY, durationMs }) => {
-    const startY = window.scrollY;
-    const diff = targetY - startY;
-    const startTime = performance.now();
+let manifest = null;
+if (fs.existsSync(MANIFEST_PATH)) {
+  manifest = JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf8'));
+}
 
-    return new Promise((resolve) => {
-      function step(now) {
-        const elapsed = now - startTime;
-        const progress = Math.min(elapsed / durationMs, 1);
-        const ease = progress < 0.5 ? 2 * progress * progress : -1 + (4 - 2 * progress) * progress;
-        window.scrollTo(0, startY + diff * ease);
+async function waitSceneBudget(sceneIndex, sceneStartTime) {
+  if (!manifest) return;
+  const sceneMeta = manifest.scenes.find((s) => s.scene_index === sceneIndex);
+  if (!sceneMeta) return;
 
-        if (progress < 1) {
-          requestAnimationFrame(step);
-        } else {
-          resolve();
-        }
-      }
-      requestAnimationFrame(step);
-    });
-  }, { targetY, durationMs });
+  const targetMs = sceneMeta.budget_seconds * 1000;
+  const elapsed = Date.now() - sceneStartTime;
+  if (elapsed < targetMs) {
+    const remain = targetMs - elapsed;
+    console.log(`  [Scene ${sceneIndex} Sync] Actions finished in ${(elapsed / 1000).toFixed(1)}s. Holding buffer for ${(remain / 1000).toFixed(1)}s...`);
+    await sleep(remain);
+  } else {
+    console.log(`  [Scene ${sceneIndex} Sync] Actions completed at ${(elapsed / 1000).toFixed(1)}s (budget: ${(targetMs / 1000).toFixed(1)}s)`);
+  }
 }
 
 async function main() {
@@ -61,6 +59,7 @@ async function main() {
   console.log(" Dayprint Automated Master Screen Recording Studio");
   console.log("==================================================");
   console.log(`FFmpeg Binary: ${ffmpeg}`);
+  console.log(`Master Audio:  ${MASTER_AUDIO}`);
 
   const browser = await chromium.launch({
     headless: true,
@@ -96,58 +95,69 @@ async function main() {
   console.log("Navigating to Dayprint (http://localhost:3000)...");
   await page.goto('http://localhost:3000', { waitUntil: 'networkidle' });
   await sleep(2500);
-  const sessionStart = Date.now();
 
   // ----------------------------------------------------
-  // SCENE 1: Data Sovereignty & Step 1 Setup (~26s)
+  // SCENE 1: Data Sovereignty & Step 1 Setup (Budget: 26s)
   // ----------------------------------------------------
-  console.log(">>> [SCENE 1] Data Sovereignty & Step 1 - Connecting Private GitHub Repo");
+  console.log(">>> [SCENE 1] Data Sovereignty & Step 1 - Connecting Private GitHub Repo (00:00 - 00:26)");
+  const s1Start = Date.now();
+
   console.log("  - Opening GitHub Settings & Sovereignty modal to explain Step 1...");
-  const ghInitBtn = page.locator('button:has(svg.lucide-git-branch), [data-testid="github-settings-btn"]').first();
-  if (await ghInitBtn.isVisible()) {
-    await ghInitBtn.click();
-    await sleep(2000);
+  const ghInitBtn = page.locator('[data-testid="github-settings-btn"]').first();
+  await ghInitBtn.waitFor({ state: 'visible', timeout: 5000 });
+  await sleep(2000); // 00:00 - 00:02
+  await ghInitBtn.click();
+  await sleep(1500);
 
-    // Hover over Step 1 (PAT Token input)
-    console.log("  - Highlighting Step 1: GitHub PAT generation...");
-    const patInputEl = page.locator('input[placeholder*="ghp_"]').first();
-    if (await patInputEl.isVisible()) {
-      await patInputEl.hover();
-      await sleep(3500);
-    }
+  // Wait for settings modal
+  const settingsModal = page.locator('div.z-\\[60\\]').first();
+  await settingsModal.waitFor({ state: 'visible', timeout: 5000 });
 
-    // Hover over Step 2 (Private repo)
-    console.log("  - Highlighting Step 2: Private repository auto-creation...");
-    const repoInputEl = page.locator('input[placeholder*="my-dayprint-vault"]').first();
-    if (await repoInputEl.isVisible()) {
-      await repoInputEl.hover();
-      await sleep(3500);
-    }
-
-    // Demonstrate 1-click Demo Mode Simulation
-    console.log("  - Triggering simulated demo GitHub sync...");
-    const demoSyncBtn = page.locator('[data-testid="demo-sync-btn"]').first();
-    if (await demoSyncBtn.isVisible()) {
-      await demoSyncBtn.click();
-      await sleep(5500); // Allow 3-step progress, commit SHA 886c5e9, and confetti
-    }
-
-    const closeGhBtn = page.locator('button:has(svg.lucide-x)').first();
-    if (await closeGhBtn.isVisible()) {
-      await closeGhBtn.click();
-      await sleep(2500);
-    }
-
-    // Highlight emerald synced status badge in header
-    console.log("  - Highlighting emerald status badge in header...");
-    await page.mouse.move(960, 40);
-    await sleep(3000);
+  // Hover over Step 1 (PAT Token input)
+  console.log("  - Highlighting Step 1: GitHub PAT generation...");
+  const patInputEl = page.locator('input[placeholder*="ghp_"]').first();
+  if (await patInputEl.isVisible()) {
+    await patInputEl.hover();
+    await sleep(3500);
   }
 
+  // Hover over Step 2 (Private repo)
+  console.log("  - Highlighting Step 2: Private repository auto-creation...");
+  const repoInputEl = page.locator('input[placeholder*="my-dayprint-vault"]').first();
+  if (await repoInputEl.isVisible()) {
+    await repoInputEl.hover();
+    await sleep(3500);
+  }
+
+  // Highlight Demo Mode button in settings banner
+  console.log("  - Highlighting Demo Mode option and entering Demo Mode...");
+  const demoBtn = page.locator('[data-testid="switch-to-demo-btn"]').first();
+  if (await demoBtn.isVisible()) {
+    await demoBtn.hover();
+    await sleep(2000);
+    await demoBtn.click();
+    await sleep(3000);
+  } else {
+    const closeGhBtn = page.locator('div.z-\\[60\\] button:has(svg.lucide-x)').first();
+    if (await closeGhBtn.isVisible()) {
+      await closeGhBtn.click();
+      await sleep(2000);
+    }
+  }
+
+  // Highlight emerald synced status badge in header
+  console.log("  - Highlighting emerald status badge in header...");
+  await page.mouse.move(960, 40);
+  await sleep(2500);
+
+  await waitSceneBudget(1, s1Start);
+
   // ----------------------------------------------------
-  // SCENE 2: Today's Canvas & Creation Ritual (~37s)
+  // SCENE 2: Today's Canvas & Creation Ritual (Budget: 39s)
   // ----------------------------------------------------
-  console.log(">>> [SCENE 2] Today's Canvas, AI Polish, Weave Echo, Custom Types & Morandi Pigments");
+  console.log(">>> [SCENE 2] Today's Canvas, Concrete Input & STAR AI Polish (00:26 - 01:05)");
+  const s2Start = Date.now();
+
   console.log("  - Clicking Today's Editor to expand writing desk...");
   const deskTrigger = page.locator('span:has-text("What\'s on your mind?"), input[placeholder*="Title"]').first();
   if (await deskTrigger.isVisible()) {
@@ -155,19 +165,19 @@ async function main() {
     await sleep(1500);
   }
 
-  console.log("  - Typing Title: Async Actor Isolation Engine...");
+  console.log("  - Typing Title: Distributed State Lock Engine...");
   const titleInput = page.locator('input[placeholder*="Title"]').first();
   if (await titleInput.isVisible()) {
     await titleInput.click();
-    await titleInput.type('Async Actor Isolation Engine', { delay: 35 });
+    await titleInput.type('Distributed State Lock Engine', { delay: 35 });
     await sleep(1000);
   }
 
-  console.log("  - Typing Content: Implemented memory state locks for node synchronization...");
+  console.log("  - Typing Content: Debugged high memory contention during multi-agent sync...");
   const textarea = page.locator('textarea[placeholder*="mind"]').first();
   if (await textarea.isVisible()) {
     await textarea.click();
-    await textarea.type('Implemented memory state locks for high-throughput node synchronization under distributed workloads.', { delay: 25 });
+    await textarea.type('Debugged high memory contention during multi-agent sync. Replaced global mutex locks with lock-free ring buffers to prevent request timeouts under heavy load.', { delay: 25 });
     await sleep(1500);
   }
 
@@ -186,7 +196,7 @@ async function main() {
     await weaveBtn.hover();
     await sleep(1500);
     await weaveBtn.click();
-    await sleep(3500);
+    await sleep(3000);
   }
 
   // Custom Type Creation
@@ -199,7 +209,7 @@ async function main() {
     if (await newTypeInput.isVisible()) {
       await newTypeInput.fill('Architecture');
       await page.keyboard.press('Enter');
-      await sleep(3000);
+      await sleep(2500);
     }
   }
 
@@ -208,11 +218,11 @@ async function main() {
   const typeColorBtn = page.locator('button:has-text("Type Color")').first();
   if (await typeColorBtn.isVisible()) {
     await typeColorBtn.click();
-    await sleep(1200);
+    await sleep(1000);
     const fjordPigment = page.locator('button[title*="Fjord"], button[title*="Ice"]').first();
     if (await fjordPigment.isVisible()) {
       await fjordPigment.click();
-      await sleep(2000);
+      await sleep(1500);
     }
   }
 
@@ -222,24 +232,28 @@ async function main() {
   if (await topicsInput.isVisible()) {
     await topicsInput.click();
     await topicsInput.type('distributed-systems, actor-model', { delay: 30 });
-    await sleep(1500);
+    await sleep(1200);
   }
 
   // Print / Save
   console.log("  - Pressing Meta+Enter to print thermal receipt onto canvas...");
   await page.keyboard.press('Meta+Enter');
-  await sleep(5000); // Confetti burst and thermal paper tear
+  await sleep(4000); // Confetti burst and thermal paper tear
+
+  await waitSceneBudget(2, s2Start);
 
   // ----------------------------------------------------
-  // SCENE 3: Companion Panel Anatomy (Stream, Summary & Heatmap) (~24s)
+  // SCENE 3: Companion Panel Anatomy (Budget: 20s)
   // ----------------------------------------------------
-  console.log(">>> [SCENE 3] Companion Panel Anatomy: Today's Stream, Daily Summary & Activity Heatmap");
+  console.log(">>> [SCENE 3] Companion Panel Anatomy: Today's Stream, Summary & Heatmap (01:05 - 01:25)");
+  const s3Start = Date.now();
+
   // Select Daily Mood Wash
   console.log("  - Selecting Daily Mood Wash: Sage · Calm...");
   const sageMoodBtn = page.locator('button[title*="Sage"], button[title*="Calm"]').first();
   if (await sageMoodBtn.isVisible()) {
     await sageMoodBtn.click();
-    await sleep(2500);
+    await sleep(2000);
   }
 
   // Write Daily Closing Reflection
@@ -247,16 +261,16 @@ async function main() {
   const reflectionTextarea = page.locator('textarea[placeholder*="reflection"]').first();
   if (await reflectionTextarea.isVisible()) {
     await reflectionTextarea.click();
-    await reflectionTextarea.type('System clarity achieved through ruthless boundary isolation.', { delay: 30 });
-    await sleep(3000); // Show green Synced indicator
+    await reflectionTextarea.type('System clarity achieved through boundary isolation.', { delay: 30 });
+    await sleep(2500);
   }
 
   // Hover over Today's Stream showing newly printed note
   console.log("  - Hovering over Today's Stream item...");
-  const streamItem = page.locator('aside h5:has-text("Async Actor Isolation Engine")').first();
+  const streamItem = page.locator('aside h5:has-text("Distributed State Lock Engine")').first();
   if (await streamItem.isVisible()) {
     await streamItem.hover();
-    await sleep(4500);
+    await sleep(3500);
   }
 
   // Hover over Activity Heatmap
@@ -264,13 +278,17 @@ async function main() {
   const heatmapEl = page.locator('aside').locator('text=Streak').first();
   if (await heatmapEl.isVisible()) {
     await heatmapEl.hover();
-    await sleep(5500);
+    await sleep(4000);
   }
 
+  await waitSceneBudget(3, s3Start);
+
   // ----------------------------------------------------
-  // SCENE 4: Life Stubs & Anatomy of Daily Thermal Receipt (~29s)
+  // SCENE 4: Life Stubs & Anatomy of Daily Thermal Receipt (Budget: 25s)
   // ----------------------------------------------------
-  console.log(">>> [SCENE 4] Life Stubs & Anatomy of the Daily Thermal Receipt");
+  console.log(">>> [SCENE 4] Life Stubs & Anatomy of the Daily Thermal Receipt (01:25 - 01:50)");
+  const s4Start = Date.now();
+
   console.log("  - Opening Life Stubs (Daily Thermal Receipt)...");
   const lifeStubsBtn = page.locator('button:has-text("Life Stubs")').first();
   if (await lifeStubsBtn.isVisible()) {
@@ -279,38 +297,42 @@ async function main() {
 
     // Scroll through the thermal receipt to showcase its anatomy
     console.log("  - Exploring receipt components (Masthead, Mood wash, Slips, Wax stamp, Sawtooth edge)...");
-    const receiptContainer = page.locator('.fixed.inset-0 .overflow-y-auto').first();
+    const receiptContainer = page.locator('div.z-\\[60\\] .overflow-y-auto').first();
     if (await receiptContainer.isVisible()) {
       await receiptContainer.evaluate((el) => el.scrollBy({ top: 340, behavior: 'smooth' }));
-      await sleep(6000);
+      await sleep(5000);
 
       // View wax stamp and reflection
       await page.mouse.move(960, 600);
-      await sleep(5000);
+      await sleep(4000);
 
       await receiptContainer.evaluate((el) => el.scrollBy({ top: -340, behavior: 'smooth' }));
-      await sleep(3000);
+      await sleep(2500);
     }
 
-    // Flip to yesterday using right arrow (next in chronological list)
+    // Flip to yesterday using right arrow
     console.log("  - Reliving yesterday via right arrow flip...");
-    const nextDayBtn = page.locator('button:has(svg.lucide-chevron-right)').first();
+    const nextDayBtn = page.locator('div.z-\\[60\\] button:has(svg.lucide-chevron-right)').first();
     if (await nextDayBtn.isVisible() && await nextDayBtn.isEnabled()) {
       await nextDayBtn.click();
-      await sleep(4500);
+      await sleep(4000);
     }
 
-    const closeReceiptBtn = page.locator('.fixed.inset-0 button:has(svg.lucide-x)').first();
+    const closeReceiptBtn = page.locator('div.z-\\[60\\] button:has(svg.lucide-x)').first();
     if (await closeReceiptBtn.isVisible()) {
       await closeReceiptBtn.click();
       await sleep(2000);
     }
   }
 
+  await waitSceneBudget(4, s4Start);
+
   // ----------------------------------------------------
-  // SCENE 5: Knowledge Graph (Force Graph, Cards & Link Management) (~36s)
+  // SCENE 5: Knowledge Graph & Link Management (Budget: 34s)
   // ----------------------------------------------------
-  console.log(">>> [SCENE 5] Knowledge Graph: Force Graph, Cards Mode & Link Management");
+  console.log(">>> [SCENE 5] Knowledge Graph: Force Graph, Cards Mode & Link Management (01:50 - 02:24)");
+  const s5Start = Date.now();
+
   console.log("  - Navigating to Knowledge Graph...");
   const graphNavBtn = page.locator('button:has-text("Knowledge Graph")').first();
   if (await graphNavBtn.isVisible()) {
@@ -325,14 +347,22 @@ async function main() {
   await page.mouse.down();
   await page.mouse.move(860, 420, { steps: 20 });
   await page.mouse.up();
-  await sleep(3500);
+  await sleep(3000);
 
   // Switch to Cards Mode
   console.log("  - Switching to Cognitive Cards Mode (L0-L4 Hierarchy)...");
   const cardsModeBtn = page.locator('button:has-text("Cards")').first();
   if (await cardsModeBtn.isVisible()) {
     await cardsModeBtn.click();
-    await sleep(5500); // Showcase structured cards across L0-L4 tiers
+    await sleep(3500);
+
+    // Select the high-degree central hub card: mem_demo_01 (AetherOS Architecture)
+    console.log("  - Selecting high-degree central hub card (AetherOS Architecture)...");
+    const hubCard = page.locator('div:has-text("AetherOS Cognitive Digital Sub-Myself Architecture")').first();
+    if (await hubCard.isVisible()) {
+      await hubCard.click();
+      await sleep(2500);
+    }
   }
 
   // Switch back to Force Graph
@@ -340,14 +370,11 @@ async function main() {
   const forceModeBtn = page.locator('button:has-text("Force Graph")').first();
   if (await forceModeBtn.isVisible()) {
     await forceModeBtn.click();
-    await sleep(3000);
+    await sleep(3500); // Observe radiant indigo resonance network around the selected hub node
   }
 
   // Link Management: Disconnect & Connect
-  console.log("  - Selecting central node to open Link Node Manager...");
-  await page.mouse.click(760, 480);
-  await sleep(2500);
-
+  console.log("  - Opening Link Node Manager from inspector...");
   const linkNodeBtn = page.locator('button:has-text("Link Node"), button:has-text("Link")').first();
   if (await linkNodeBtn.isVisible()) {
     await linkNodeBtn.click();
@@ -355,7 +382,7 @@ async function main() {
 
     // Disconnect existing link
     console.log("  - Demonstrating link disconnect...");
-    const disconnectBtn = page.locator('button:has-text("Disconnect")').first();
+    const disconnectBtn = page.locator('div.z-\\[60\\] button:has-text("Disconnect")').first();
     if (await disconnectBtn.isVisible()) {
       await disconnectBtn.click();
       await sleep(2500);
@@ -363,43 +390,47 @@ async function main() {
 
     // Connect new link with causal reason
     console.log("  - Connecting new link with causal reason...");
-    const selectEl = page.locator('.fixed.inset-0 select').first();
+    const selectEl = page.locator('div.z-\\[60\\] select').first();
     if (await selectEl.isVisible()) {
       await selectEl.selectOption({ index: 1 });
       await sleep(1000);
     }
 
-    const reasonInput = page.locator('.fixed.inset-0 input[placeholder*="related"], .fixed.inset-0 input[type="text"]').last();
+    const reasonInput = page.locator('div.z-\\[60\\] input[placeholder*="related"], div.z-\\[60\\] input[type="text"]').last();
     if (await reasonInput.isVisible()) {
-      await reasonInput.fill('Direct architectural predecessor and state isolation foundation');
+      await reasonInput.fill('Direct predecessor and state isolation foundation');
       await sleep(1500);
     }
 
-    const submitLinkBtn = page.locator('.fixed.inset-0 button[type="submit"]').first();
+    const submitLinkBtn = page.locator('div.z-\\[60\\] button[type="submit"]').first();
     if (await submitLinkBtn.isVisible()) {
       await submitLinkBtn.click();
-      await sleep(3000);
+      await sleep(2500);
     }
 
-    const closeConnBtn = page.locator('.fixed.inset-0 button:has(svg.lucide-x)').first();
+    const closeConnBtn = page.locator('div.z-\\[60\\] button:has(svg.lucide-x)').first();
     if (await closeConnBtn.isVisible()) {
       await closeConnBtn.click();
-      await sleep(2000);
+      await sleep(1500);
     }
   }
 
+  await waitSceneBudget(5, s5Start);
+
   // ----------------------------------------------------
-  // SCENE 6: Weekly Digest & Autonomous Synthesis (~13s)
+  // SCENE 6: Weekly Digest & Autonomous Synthesis (Budget: 18s)
   // ----------------------------------------------------
-  console.log(">>> [SCENE 6] Weekly Digest & Autonomous Synthesis");
-  console.log("  - Opening Weekly Digest modal...");
+  console.log(">>> [SCENE 6] Weekly Digest & Autonomous Synthesis (02:24 - 02:42)");
+  const s6Start = Date.now();
+
+  console.log("  - Opening Weekly Digest modal (Monday defaults to Last Week Oct 19~25)...");
   const digestBtn = page.locator('button:has-text("Weekly Digest")').first();
   if (await digestBtn.isVisible()) {
     await digestBtn.click();
     await sleep(3000);
 
     // Scroll through the 9 milestones and STAR summary
-    const digestModal = page.locator('.fixed.inset-0 .overflow-y-auto').first();
+    const digestModal = page.locator('div.z-\\[60\\] .overflow-y-auto').first();
     if (await digestModal.isVisible()) {
       console.log("  - Scrolling through weekly milestones and STAR achievements...");
       await digestModal.evaluate((el) => el.scrollBy({ top: 380, behavior: 'smooth' }));
@@ -410,23 +441,27 @@ async function main() {
 
     // Click Copy Markdown
     console.log("  - Clicking Copy Digest Markdown...");
-    const copyBtn = page.locator('.fixed.inset-0 button:has-text("Copy")').first();
+    const copyBtn = page.locator('div.z-\\[60\\] button:has-text("Copy")').first();
     if (await copyBtn.isVisible()) {
       await copyBtn.click();
       await sleep(2000);
     }
 
-    const closeDigestBtn = page.locator('.fixed.inset-0 button:has(svg.lucide-x)').first();
+    const closeDigestBtn = page.locator('div.z-\\[60\\] button:has(svg.lucide-x)').first();
     if (await closeDigestBtn.isVisible()) {
       await closeDigestBtn.click();
       await sleep(1500);
     }
   }
 
+  await waitSceneBudget(6, s6Start);
+
   // ----------------------------------------------------
-  // SCENE 7: Eternal Memory & Closing (~8s)
+  // SCENE 7: Eternal Sovereignty & Closing (Budget: 11s)
   // ----------------------------------------------------
-  console.log(">>> [SCENE 7] Eternal Sovereignty & Closing");
+  console.log(">>> [SCENE 7] Eternal Sovereignty & Closing (02:42 - 02:53)");
+  const s7Start = Date.now();
+
   console.log("  - Returning to Daily Journal...");
   const dailyBtn = page.locator('button:has-text("Daily Journal")').first();
   if (await dailyBtn.isVisible()) {
@@ -438,17 +473,10 @@ async function main() {
   const ghFinalBtn = page.locator('button:has(svg.lucide-git-branch)').first();
   if (await ghFinalBtn.isVisible()) {
     await ghFinalBtn.hover();
-    await sleep(3500);
+    await sleep(3000);
   }
 
-  // Guarantee the video covers the full master voiceover
-  const TARGET_RECORDING_MS = 172000;
-  const elapsed = Date.now() - sessionStart;
-  if (elapsed < TARGET_RECORDING_MS) {
-    const remainingMs = TARGET_RECORDING_MS - elapsed;
-    console.log(`  - Holding final hero screen for ${(remainingMs / 1000).toFixed(1)}s to complete voiceover...`);
-    await sleep(remainingMs);
-  }
+  await waitSceneBudget(7, s7Start);
 
   console.log("Finishing recording session...");
   await page.close();

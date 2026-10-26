@@ -50,7 +50,10 @@ export function WeeklyDigestModal({ onClose }: WeeklyDigestModalProps) {
   } = useMemory();
 
   // Week offset relative to today (0 = current week, -1 = last week, etc.)
-  const [weekOffset, setWeekOffset] = useState<number>(0);
+  // On Monday (day 1), default to last week (-1) so judges and users immediately see the full weekly review
+  const [weekOffset, setWeekOffset] = useState<number>(() => {
+    return typeof window !== "undefined" && new Date().getDay() === 1 ? -1 : 0;
+  });
   const [copied, setCopied] = useState<boolean>(false);
   const [activeFilterLevel, setActiveFilterLevel] = useState<string>("ALL");
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -337,7 +340,17 @@ export function WeeklyDigestModal({ onClose }: WeeklyDigestModalProps) {
                   weekOffset === 0 ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-700"
                 }`}
               >
-                {language === "zh" ? (weekOffset === 0 ? "本周" : `${weekOffset} 周前`) : (weekOffset === 0 ? "Current" : `${weekOffset}w`)}
+                {language === "zh"
+                  ? weekOffset === 0
+                    ? "本周"
+                    : weekOffset === -1
+                    ? "上一周"
+                    : `${Math.abs(weekOffset)} 周前`
+                  : weekOffset === 0
+                  ? "Current"
+                  : weekOffset === -1
+                  ? "Last Week"
+                  : `${Math.abs(weekOffset)}w ago`}
               </button>
               <button
                 onClick={() => setWeekOffset((prev) => Math.min(prev + 1, 0))}

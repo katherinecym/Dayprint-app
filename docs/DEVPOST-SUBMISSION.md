@@ -13,7 +13,7 @@
 * **Title:** Dayprint
 * **Tagline:**
   > Dayprint your life. All the pieces of you, coming together. A tactile, local-first memory sanctuary cultivating your evolving digital self with 100% data sovereignty.
-* **Try it out / Demo Link:** `http://localhost:3000` (Local Dev) / Vercel Live Preview Link
+* **Try it out / Demo Link:** [https://dayprint-five.vercel.app/](https://dayprint-five.vercel.app/) (Live Deployment) / `http://localhost:3000` (Local Dev)
 * **Repository Link:** Public GitHub repository link
 
 ---
