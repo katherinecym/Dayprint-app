@@ -35,3 +35,7 @@ audit-artifacts/
 *.wav
 *.mp3
 *.png
+
+# Agent skills & lockfiles
+.agents/
+skills-lock.json
