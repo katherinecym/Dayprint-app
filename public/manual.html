@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dayprint | Interactive User Manual & Video Demo Script</title>
+  <title>Dayprint | User Guide</title>
   <link rel="icon" href="/favicon.ico" />
   <style>
     :root {
@@ -11,17 +11,16 @@
       --card-bg: #FFFFFF;
       --ink-primary: #1C1917;
       --ink-secondary: #57534E;
-      --ink-muted: #A8A29E;
-      --border-subtle: #E7E5E4;
-      --border-strong: #D6D3D1;
+      --ink-muted: #8C827A;
+      --border-subtle: #E7E3DC;
+      --border-strong: #D5CFCE;
       --accent-terracotta: #C97A63;
       --accent-fjord: #5B7B94;
       --accent-amber: #C49A56;
       --accent-sage: #608066;
-      --accent-twilight: #9A8BB8;
+      --accent-twilight: #7C6F93;
       --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
-      --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
-      --shadow-lg: 0 10px 25px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 14px rgba(0,0,0,0.06);
       --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     }
@@ -31,19 +30,19 @@
       background-color: var(--canvas-bg);
       color: var(--ink-primary);
       font-family: var(--font-sans);
-      line-height: 1.6;
+      line-height: 1.65;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Top Navigation Bar */
+    /* Top Navigation Header */
     header {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(248, 245, 240, 0.92);
-      backdrop-filter: blur(12px);
+      background: rgba(248, 245, 240, 0.94);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border-subtle);
-      padding: 12px 24px;
+      padding: 12px 28px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -55,41 +54,42 @@
       text-decoration: none;
       color: inherit;
     }
-    .brand-logo {
-      width: 28px;
-      height: 28px;
-      border-radius: 6px;
-      background: #1C1917;
+    .brand-mark {
+      width: 26px;
+      height: 26px;
+      border-radius: 5px;
+      background: var(--ink-primary);
+      color: #FFF;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #FFF;
-      font-weight: 800;
-      font-size: 14px;
+      font-weight: 700;
+      font-size: 13px;
     }
     .brand-title {
       font-size: 15px;
       font-weight: 700;
       letter-spacing: -0.01em;
     }
-    .brand-subtitle {
+    .brand-tag {
       font-size: 11px;
       color: var(--ink-secondary);
       background: #EAE6DF;
       padding: 2px 8px;
-      border-radius: 12px;
+      border-radius: 10px;
       font-weight: 500;
     }
-    .nav-actions {
+
+    .nav-controls {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
-    .lang-switcher {
+    .lang-toggle {
       display: flex;
-      background: #EAE6DF;
-      padding: 3px;
-      border-radius: 8px;
+      background: #E8E4DD;
+      padding: 2px;
+      border-radius: 6px;
       border: 1px solid var(--border-subtle);
     }
     .lang-btn {
@@ -99,14 +99,14 @@
       font-size: 12px;
       font-weight: 600;
       color: var(--ink-secondary);
-      border-radius: 6px;
+      border-radius: 4px;
       cursor: pointer;
       transition: all 0.15s ease;
     }
     .lang-btn.active {
       background: #FFF;
       color: var(--ink-primary);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
     }
     .app-link {
       font-size: 12px;
@@ -114,7 +114,7 @@
       color: #FFF;
       background: var(--accent-terracotta);
       padding: 6px 14px;
-      border-radius: 8px;
+      border-radius: 6px;
       text-decoration: none;
       transition: background 0.15s ease;
     }
@@ -123,21 +123,21 @@
     }
 
     /* Sub-nav Category Tabs */
-    .category-bar {
+    .section-nav {
       background: #FFF;
       border-bottom: 1px solid var(--border-subtle);
-      padding: 8px 24px;
+      padding: 8px 28px;
       overflow-x: auto;
       display: flex;
       gap: 8px;
       white-space: nowrap;
       position: sticky;
-      top: 53px;
+      top: 51px;
       z-index: 90;
     }
-    .cat-btn {
-      padding: 6px 14px;
-      border-radius: 20px;
+    .nav-pill {
+      padding: 5px 12px;
+      border-radius: 6px;
       border: 1px solid var(--border-subtle);
       background: #FAF8F5;
       font-size: 12px;
@@ -145,64 +145,62 @@
       color: var(--ink-secondary);
       cursor: pointer;
       text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
       transition: all 0.15s ease;
     }
-    .cat-btn:hover {
+    .nav-pill:hover {
       border-color: var(--ink-secondary);
       color: var(--ink-primary);
     }
-    .cat-btn.active {
+    .nav-pill.active {
       background: var(--ink-primary);
       color: #FFF;
       border-color: var(--ink-primary);
     }
 
-    /* Layout Container */
+    /* Main Container */
     .container {
-      max-width: 1200px;
+      max-width: 1140px;
       margin: 0 auto;
-      padding: 32px 24px 80px 24px;
+      padding: 36px 28px 80px 28px;
     }
 
-    /* Section Styling */
+    /* Section Structure */
     section {
-      margin-bottom: 56px;
-      scroll-margin-top: 120px;
+      margin-bottom: 64px;
+      scroll-margin-top: 115px;
     }
     .section-header {
       margin-bottom: 24px;
-      padding-bottom: 12px;
+      padding-bottom: 14px;
       border-bottom: 1px solid var(--border-subtle);
     }
-    .section-tag {
+    .section-num {
       font-size: 11px;
       font-family: var(--font-mono);
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       color: var(--accent-terracotta);
       margin-bottom: 4px;
     }
     .section-title {
-      font-size: 26px;
-      font-weight: 800;
+      font-size: 24px;
+      font-weight: 700;
       letter-spacing: -0.02em;
       color: var(--ink-primary);
     }
     .section-desc {
       font-size: 15px;
       color: var(--ink-secondary);
-      margin-top: 6px;
-      max-width: 820px;
+      margin-top: 8px;
+      max-width: 840px;
+      line-height: 1.6;
     }
 
-    /* Feature Cards & Grid */
+    /* Card Grids */
     .grid-2 {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
       gap: 24px;
     }
     .grid-3 {
@@ -214,71 +212,65 @@
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border-subtle);
-      border-radius: 12px;
+      border-radius: 10px;
       overflow: hidden;
       box-shadow: var(--shadow-sm);
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
       display: flex;
       flex-direction: column;
     }
-    .card:hover {
-      box-shadow: var(--shadow-md);
-      transform: translateY(-2px);
-    }
 
-    .screenshot-frame {
+    .screenshot-box {
       position: relative;
-      background: #F0EDE8;
+      background: #EFECE6;
       border-bottom: 1px solid var(--border-subtle);
       overflow: hidden;
       cursor: zoom-in;
     }
-    .screenshot-frame img {
+    .screenshot-box img {
       width: 100%;
-      height: 240px;
+      height: 230px;
       object-fit: cover;
       object-position: top;
       display: block;
-      transition: transform 0.3s ease;
+      transition: opacity 0.2s ease;
     }
-    .screenshot-frame:hover img {
-      transform: scale(1.02);
+    .screenshot-box:hover img {
+      opacity: 0.95;
     }
-    .zoom-hint {
+    .zoom-badge {
       position: absolute;
       bottom: 8px;
       right: 8px;
-      background: rgba(0,0,0,0.65);
+      background: rgba(28,25,23,0.7);
       color: #FFF;
       font-size: 10px;
       padding: 3px 8px;
-      border-radius: 6px;
+      border-radius: 4px;
       font-weight: 600;
       backdrop-filter: blur(4px);
     }
 
-    .card-body {
-      padding: 20px;
+    .card-content {
+      padding: 22px;
       flex: 1;
       display: flex;
       flex-direction: column;
     }
-    .card-badge {
+    .meta-tag {
       display: inline-block;
       align-self: flex-start;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 7px;
       border-radius: 4px;
-      margin-bottom: 8px;
-      text-transform: uppercase;
+      margin-bottom: 10px;
       font-family: var(--font-mono);
     }
-    .badge-terracotta { background: rgba(201,122,99,0.15); color: #B66953; }
-    .badge-fjord { background: rgba(91,123,148,0.15); color: #4B6E87; }
-    .badge-amber { background: rgba(196,154,86,0.15); color: #A8813C; }
-    .badge-sage { background: rgba(96,128,102,0.15); color: #4F6E54; }
-    .badge-twilight { background: rgba(154,139,184,0.15); color: #7F709E; }
+    .tag-terracotta { background: #F6EBE7; color: #9A503C; }
+    .tag-fjord { background: #E9EEF2; color: #3B5A71; }
+    .tag-amber { background: #F8F2E7; color: #8A6827; }
+    .tag-sage { background: #EBF1EC; color: #415A45; }
+    .tag-twilight { background: #EFEBF5; color: #61537A; }
 
     .card-title {
       font-size: 17px;
@@ -287,389 +279,337 @@
       color: var(--ink-primary);
     }
     .card-text {
-      font-size: 13px;
+      font-size: 13.5px;
       color: var(--ink-secondary);
       line-height: 1.6;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       flex: 1;
     }
-    .feature-list {
+
+    .feature-points {
       list-style: none;
       padding: 0;
       margin: 0;
       border-top: 1px dashed var(--border-subtle);
       padding-top: 12px;
     }
-    .feature-list li {
-      font-size: 12px;
+    .feature-points li {
+      font-size: 12.5px;
       color: var(--ink-primary);
       margin-bottom: 6px;
       display: flex;
       align-items: baseline;
       gap: 6px;
+      line-height: 1.5;
     }
-    .feature-list li::before {
-      content: "•";
+    .feature-points li::before {
+      content: "-";
       color: var(--accent-terracotta);
       font-weight: bold;
     }
 
-    /* Video Script Section */
-    .script-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #FFF;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid var(--border-subtle);
-      box-shadow: var(--shadow-sm);
-    }
-    .script-table th {
-      background: #FAF8F5;
-      text-align: left;
-      padding: 12px 16px;
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: var(--ink-secondary);
-      border-bottom: 1px solid var(--border-subtle);
-      font-family: var(--font-mono);
-    }
-    .script-table td {
-      padding: 16px;
-      font-size: 13px;
-      border-bottom: 1px solid var(--border-subtle);
-      vertical-align: top;
-    }
-    .script-table tr:last-child td {
-      border-bottom: none;
-    }
-    .time-badge {
+    /* Clean Status Badges */
+    .status-badge {
       display: inline-block;
+      font-size: 11px;
       font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 700;
-      background: #F0EDE8;
-      color: var(--ink-primary);
-      padding: 3px 8px;
-      border-radius: 6px;
-      white-space: nowrap;
-    }
-    .voiceover-box {
-      background: #FAF8F5;
-      border-left: 3px solid var(--accent-terracotta);
-      padding: 10px 14px;
-      border-radius: 0 8px 8px 0;
-      font-style: italic;
-      color: var(--ink-primary);
-      margin-top: 8px;
-      font-size: 12.5px;
-      line-height: 1.5;
-    }
-    .action-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 11px;
       font-weight: 600;
-      color: var(--accent-fjord);
-      background: rgba(91,123,148,0.1);
-      padding: 2px 8px;
+      padding: 2px 7px;
       border-radius: 4px;
-      margin-bottom: 6px;
+      background: #F0EDE8;
+      color: var(--ink-secondary);
+      border: 1px solid var(--border-subtle);
     }
 
-    /* Modal Image Lightbox */
-    .lightbox {
+    /* Mood Swatches */
+    .swatch-group {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .swatch-item {
+      flex: 1;
+      padding: 10px 6px;
+      border-radius: 6px;
+      color: #FFF;
+      font-size: 11px;
+      font-weight: 600;
+      text-align: center;
+      font-family: var(--font-sans);
+    }
+
+    /* Lightbox */
+    .lightbox-modal {
       display: none;
       position: fixed;
       inset: 0;
       z-index: 999;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(8px);
+      background: rgba(28,25,23,0.85);
+      backdrop-filter: blur(6px);
       align-items: center;
       justify-content: center;
       padding: 24px;
     }
-    .lightbox.active {
+    .lightbox-modal.open {
       display: flex;
     }
-    .lightbox img {
-      max-width: 92vw;
-      max-height: 90vh;
+    .lightbox-modal img {
+      max-width: 90vw;
+      max-height: 88vh;
       object-fit: contain;
-      border-radius: 8px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      border-radius: 6px;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.4);
     }
-    .lightbox-close {
+    .close-btn {
       position: absolute;
       top: 20px;
       right: 24px;
       color: #FFF;
-      font-size: 28px;
+      font-size: 26px;
       background: transparent;
       border: none;
       cursor: pointer;
       padding: 8px;
     }
 
-    /* Mood palette swatches */
-    .mood-swatches {
-      display: flex;
-      gap: 10px;
-      margin-top: 12px;
-    }
-    .mood-swatch {
-      flex: 1;
-      padding: 10px;
-      border-radius: 8px;
-      color: #FFF;
-      font-size: 11px;
-      font-weight: 700;
-      text-align: center;
-      box-shadow: var(--shadow-sm);
-    }
-
-    /* Responsive adjustments */
     @media (max-width: 768px) {
       .grid-2, .grid-3 { grid-template-columns: 1fr; }
       .container { padding: 20px 16px 60px 16px; }
-      .section-title { font-size: 22px; }
-      .brand-subtitle { display: none; }
+      .section-title { font-size: 21px; }
+      .brand-tag { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Navigation Bar -->
+  <!-- Header -->
   <header>
     <a href="#" class="brand">
-      <div class="brand-logo">D</div>
+      <div class="brand-mark">D</div>
       <div>
-        <div class="brand-title">Dayprint <span style="font-weight:400; opacity:0.6;">· Interactive Guide</span></div>
+        <div class="brand-title">Dayprint <span style="font-weight:400; color:var(--ink-secondary);">User Guide</span></div>
       </div>
-      <span class="brand-subtitle" data-i18n="version_tag">v2.4.0 Hackathon Release</span>
+      <span class="brand-tag" data-i18n="doc_version">v2.4.0 Release</span>
     </a>
 
-    <div class="nav-actions">
+    <div class="nav-controls">
       <!-- Language Switcher: Defaults to English -->
-      <div class="lang-switcher">
+      <div class="lang-toggle">
         <button id="btn-en" class="lang-btn active" onclick="setLanguage('en')">English</button>
         <button id="btn-zh" class="lang-btn" onclick="setLanguage('zh')">中文</button>
       </div>
 
-      <a href="/" class="app-link" data-i18n="open_app_btn">Open Live App →</a>
+      <a href="/" class="app-link" data-i18n="open_app_link">Open Dayprint →</a>
     </div>
   </header>
 
-  <!-- Sub-Category Navigation Bar -->
-  <nav class="category-bar">
-    <a href="#overview" class="cat-btn active" data-i18n="nav_overview">🏛️ 1. Architecture</a>
-    <a href="#gateway" class="cat-btn" data-i18n="nav_gateway">🔑 2. Gateway & Demo</a>
-    <a href="#tab1-daily" class="cat-btn" data-i18n="nav_daily">📖 3. Tab 1: Daily Canvas</a>
-    <a href="#tab2-memoryos" class="cat-btn" data-i18n="nav_memoryos">🧠 4. Tab 2: Cognitive Ledger</a>
-    <a href="#tab3-graph" class="cat-btn" data-i18n="nav_graph">🕸️ 5. Tab 3: Knowledge Graph</a>
-    <a href="#receipts" class="cat-btn" data-i18n="nav_receipts">🧾 6. Thermal Receipts</a>
-    <a href="#studios" class="cat-btn" data-i18n="nav_studios">✨ 7. Studio Tools</a>
-    <a href="#video-script" class="cat-btn" data-i18n="nav_script">🎬 8. Master Video Script</a>
+  <!-- Navigation Bar -->
+  <nav class="section-nav">
+    <a href="#overview" class="nav-pill active" data-i18n="nav_overview">1. Data Ownership</a>
+    <a href="#gateway" class="nav-pill" data-i18n="nav_gateway">2. Setup & Demo</a>
+    <a href="#tab1-daily" class="nav-pill" data-i18n="nav_daily">3. Tab 1: Daily Canvas</a>
+    <a href="#tab2-memoryos" class="nav-pill" data-i18n="nav_memoryos">4. Tab 2: Cognitive Ledger</a>
+    <a href="#tab3-graph" class="nav-pill" data-i18n="nav_graph">5. Tab 3: Knowledge Graph</a>
+    <a href="#receipts" class="nav-pill" data-i18n="nav_receipts">6. Daily Receipts</a>
+    <a href="#studios" class="nav-pill" data-i18n="nav_studios">7. Studio Tools</a>
   </nav>
 
-  <!-- Main Container -->
+  <!-- Container -->
   <main class="container">
 
-    <!-- SECTION 1: ARCHITECTURE & CORE PHILOSOPHY -->
+    <!-- 1. OVERVIEW & DATA SOVEREIGNTY -->
     <section id="overview">
       <div class="section-header">
-        <div class="section-tag" data-i18n="sec1_tag">Section 1 · Foundation</div>
-        <h2 class="section-title" data-i18n="sec1_title">100% Data Sovereignty & AI Digital Twin Sanctuary</h2>
+        <div class="section-num" data-i18n="sec1_num">Overview · Core Design</div>
+        <h2 class="section-title" data-i18n="sec1_title">Local-First Architecture & Complete Data Ownership</h2>
         <p class="section-desc" data-i18n="sec1_desc">
-          Modern human thoughts are deeply fractured across Slack, Jira, Notion, and phone memos. Dayprint is a tactile, local-first sanctuary that compiles every moment of your life directly into your private GitHub repository as clean Markdown.
+          Most personal thoughts get lost across Slack threads, quick scratchpads, and phone memos. When you actually need them later—for a promotion review, an architecture decision, or recalling how you solved a tough bug three months ago—they are nearly impossible to find. Dayprint provides a focused, local-first workspace that connects straight to your private GitHub repository as plain Markdown files.
         </p>
       </div>
 
       <div class="grid-3">
         <div class="card">
-          <div class="card-body">
-            <span class="card-badge badge-terracotta" data-i18n="core1_badge">Principle 1</span>
-            <h3 class="card-title" data-i18n="core1_title">Zero Data Leakage</h3>
-            <p class="card-text" data-i18n="core1_text">No central databases, zero telemetry tracking. All personal memories, daily receipts, and relationship edges are committed straight to your private GitHub repository.</p>
-            <ul class="feature-list">
-              <li data-i18n="core1_f1">Client-side GitHub API integration</li>
-              <li data-i18n="core1_f2">Token stored only in local browser</li>
-              <li data-i18n="core1_f3">Standard human-readable Markdown</li>
+          <div class="card-content">
+            <span class="meta-tag tag-terracotta" data-i18n="c1_tag">Storage Model</span>
+            <h3 class="card-title" data-i18n="c1_title">Direct GitHub Sync</h3>
+            <p class="card-text" data-i18n="c1_text">No central databases and no proprietary cloud formats. Every note card, daily slip, and relationship compiles into standard Markdown files in your private GitHub vault.</p>
+            <ul class="feature-points">
+              <li data-i18n="c1_p1">Direct client calls to GitHub REST API</li>
+              <li data-i18n="c1_p2">Personal token stored only in local browser</li>
+              <li data-i18n="c1_p3">Full compatibility with local Obsidian vaults</li>
             </ul>
           </div>
         </div>
 
         <div class="card">
-          <div class="card-body">
-            <span class="card-badge badge-amber" data-i18n="core2_badge">Principle 2</span>
-            <h3 class="card-title" data-i18n="core2_title">Tactile Sensory Craft</h3>
-            <p class="card-text" data-i18n="core2_text">Stepping away from cold glass interfaces. Dayprint embraces warm Morandi paper fibers, mechanical typewriter audio feedback, and physical jagged-edge receipt slips.</p>
-            <ul class="feature-list">
-              <li data-i18n="core2_f1">Subtle noise maps and paper texture</li>
-              <li data-i18n="core2_f2">Dip-dye mood wash watercolor glow</li>
-              <li data-i18n="core2_f3">Physical thermal receipt sawtooth cuts</li>
+          <div class="card-content">
+            <span class="meta-tag tag-amber" data-i18n="c2_tag">Visual Craft</span>
+            <h3 class="card-title" data-i18n="c2_title">Tactile Paper & Ink</h3>
+            <p class="card-text" data-i18n="c2_text">Moving past cold glass interfaces. Dayprint uses warm Morandi paper tones, mechanical keystroke sounds, physical torn-paper edges, and watercolor wash glow.</p>
+            <ul class="feature-points">
+              <li data-i18n="c2_p1">Clean paper textures and warm background</li>
+              <li data-i18n="c2_p2">5 watercolor mood washes for daily reflection</li>
+              <li data-i18n="c2_p3">Realistic thermal receipt sawtooth cuts</li>
             </ul>
           </div>
         </div>
 
         <div class="card">
-          <div class="card-body">
-            <span class="card-badge badge-fjord" data-i18n="core3_badge">Principle 3</span>
-            <h3 class="card-title" data-i18n="core3_title">Cognitive Evolution</h3>
-            <p class="card-text" data-i18n="core3_text">Moving beyond raw note dumps. Dayprint organizes knowledge into a vertical L0~L4 cognitive pyramid paired with a horizontal semantic wikilink topology.</p>
-            <ul class="feature-list">
-              <li data-i18n="core3_f1">L0 Raw Notes up to L4 Core Beliefs</li>
-              <li data-i18n="core3_f2">Source provenance with source_ids</li>
-              <li data-i18n="core3_f3">Obsidian-compatible YAML frontmatter</li>
+          <div class="card-content">
+            <span class="meta-tag tag-fjord" data-i18n="c3_tag">Cognition</span>
+            <h3 class="card-title" data-i18n="c3_title">Structured Knowledge</h3>
+            <p class="card-text" data-i18n="c3_text">Beyond random scratchpads. Dayprint organizes knowledge across a vertical L0~L4 cognitive pyramid paired with a horizontal semantic network graph.</p>
+            <ul class="feature-points">
+              <li data-i18n="c3_p1">From L0 raw scratchpads to L4 core beliefs</li>
+              <li data-i18n="c3_p2">Clickable source provenance linking back to origins</li>
+              <li data-i18n="c3_p3">Automatic latent link compiler</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 2: WELCOME GATEWAY & DEMO MODE -->
+    <!-- 2. WELCOME GATEWAY & DEMO MODE -->
     <section id="gateway">
       <div class="section-header">
-        <div class="section-tag" data-i18n="sec2_tag">Section 2 · Onboarding</div>
-        <h2 class="section-title" data-i18n="sec2_title">Welcome Gateway & Interactive Demo Sandbox</h2>
+        <div class="section-num" data-i18n="sec2_num">Onboarding · Initial Setup</div>
+        <h2 class="section-title" data-i18n="sec2_title">Welcome Gateway & Instant Demo Sandbox</h2>
         <p class="section-desc" data-i18n="sec2_desc">
-          On first arrival, Dayprint greets you with the Welcome Gateway modal. Choose between connecting your private GitHub repo for production storage, or explore the preloaded Demo Mode sandbox instantly.
+          When you open Dayprint for the first time, the Welcome Gateway opens. You can either connect your private GitHub repository for production use, or jump straight into Demo Mode to test every feature.
         </p>
       </div>
 
       <div class="grid-2">
         <div class="card">
-          <div class="screenshot-frame" onclick="openLightbox('/manual-assets/00-welcome.png')">
+          <div class="screenshot-box" onclick="openLightbox('/manual-assets/00-welcome.png')">
             <img src="/manual-assets/00-welcome.png" alt="Welcome Gateway Modal">
-            <span class="zoom-hint">🔍 Click to Zoom</span>
+            <span class="zoom-badge">Click to enlarge</span>
           </div>
-          <div class="card-body">
-            <span class="card-badge badge-fjord" data-i18n="gw1_badge">Option A · Production Mode</span>
-            <h3 class="card-title" data-i18n="gw1_title">Private GitHub Repository Connection</h3>
-            <p class="card-text" data-i18n="gw1_text">Enter your repository name (e.g. <code>username/my-vault</code>) and fine-grained Personal Access Token. Dayprint syncs directly via the official GitHub REST API without intermediary proxy servers.</p>
-            <ul class="feature-list">
-              <li data-i18n="gw1_f1">Auto-commits changes with SHA verification</li>
-              <li data-i18n="gw1_f2">Disconnect button instantly purges local token</li>
-              <li data-i18n="gw1_f3">Zero lingering pre-filled mock credentials</li>
+          <div class="card-content">
+            <span class="meta-tag tag-fjord" data-i18n="gw1_tag">Production Mode</span>
+            <h3 class="card-title" data-i18n="gw1_title">Private GitHub Repository Setup</h3>
+            <p class="card-text" data-i18n="gw1_text">Enter your repository name (e.g. <code>username/my-vault</code>) and a GitHub Personal Access Token with repo scope. Dayprint commits changes directly with SHA hashes.</p>
+            <ul class="feature-points">
+              <li data-i18n="gw1_p1">Changes committed directly via official GitHub API</li>
+              <li data-i18n="gw1_p2">Disconnect button cleanly purges tokens from local storage</li>
+              <li data-i18n="gw1_p3">No lingering pre-filled mock credentials</li>
             </ul>
           </div>
         </div>
 
         <div class="card">
-          <div class="screenshot-frame" onclick="openLightbox('/manual-assets/01-welcome-demo-tab.png')">
+          <div class="screenshot-box" onclick="openLightbox('/manual-assets/01-welcome-demo-tab.png')">
             <img src="/manual-assets/01-welcome-demo-tab.png" alt="Demo Mode Gateway Tab">
-            <span class="zoom-hint">🔍 Click to Zoom</span>
+            <span class="zoom-badge">Click to enlarge</span>
           </div>
-          <div class="card-body">
-            <span class="card-badge badge-amber" data-i18n="gw2_badge">Option B · Sandbox Mode</span>
-            <h3 class="card-title" data-i18n="gw2_title">Instant Interactive Demo (Alex Reed Persona)</h3>
-            <p class="card-text" data-i18n="gw2_text">Experience Dayprint with 136 real-feeling notes and 85 daily receipts dating back to August 1. Features an explicit disclaimer: <code>⚠️ Demo mode does not persist personal user data</code>.</p>
-            <ul class="feature-list">
-              <li data-i18n="gw2_f1">136 fictional architect & creative tech notes</li>
-              <li data-i18n="gw2_f2">85 daily receipts spanning Aug 1 to present</li>
-              <li data-i18n="gw2_f3">Zero user privacy exposure; clean mock persona</li>
+          <div class="card-content">
+            <span class="meta-tag tag-amber" data-i18n="gw2_tag">Sandbox Mode</span>
+            <h3 class="card-title" data-i18n="gw2_title">Interactive Demo (Alex Reed Persona)</h3>
+            <p class="card-text" data-i18n="gw2_text">Loads 136 realistic engineering and life notes dating back to August 1, 2026. A clear notice indicates: <code>[Demo Notice: Personal data is not persisted in demo mode]</code>.</p>
+            <ul class="feature-points">
+              <li data-i18n="gw2_p1">136 realistic notes and 85 daily thermal receipts</li>
+              <li data-i18n="gw2_p2">Continuous history spanning August 1 to present day</li>
+              <li data-i18n="gw2_p3">Zero personal privacy risk; fictional tech persona</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 3: TAB 1: DAILY CANVAS -->
+    <!-- 3. TAB 1: DAILY CANVAS -->
     <section id="tab1-daily">
       <div class="section-header">
-        <div class="section-tag" data-i18n="sec3_tag">Section 3 · Primary Workspace</div>
+        <div class="section-num" data-i18n="sec3_num">Workspace · Daily Canvas</div>
         <h2 class="section-title" data-i18n="sec3_title">Tab 1: Daily Canvas & Today's Notes</h2>
         <p class="section-desc" data-i18n="sec3_desc">
-          Your daily thinking desk. The Today's Notes editor opens by default so you can type immediately without unnecessary friction. Features AI STAR polish, temporal zoom, and the companion Context Panel.
+          Your daily thinking desk. Today's Notes opens expanded by default so you can start typing immediately without unfolding. It includes AI STAR polish, temporal zoom, and the Context Panel.
         </p>
       </div>
 
       <div class="grid-2">
         <div class="card">
-          <div class="screenshot-frame" onclick="openLightbox('/manual-assets/02-view-daily.png')">
+          <div class="screenshot-box" onclick="openLightbox('/manual-assets/02-view-daily.png')">
             <img src="/manual-assets/02-view-daily.png" alt="Daily Canvas View">
-            <span class="zoom-hint">🔍 Click to Zoom</span>
+            <span class="zoom-badge">Click to enlarge</span>
           </div>
-          <div class="card-body">
-            <span class="card-badge badge-terracotta" data-i18n="t1_badge1">Capture & Refine</span>
+          <div class="card-content">
+            <span class="meta-tag tag-terracotta" data-i18n="t1_tag1">Writing Desk</span>
             <h3 class="card-title" data-i18n="t1_title1">Default Expanded Editor & AI Polish</h3>
-            <p class="card-text" data-i18n="t1_text1">Today's Notes is expanded by default. Type quick thoughts and click 'AI Polish' to automatically extract Situation, Task, Action, and Result (STAR) career brag points.</p>
-            <ul class="feature-list">
-              <li data-i18n="t1_f1">Independent ZH and EN bilingual tabs</li>
-              <li data-i18n="t1_f2">Weave Echo surfaces related memories from 30 days ago</li>
-              <li data-i18n="t1_f3">Smart Document Ingest splits long text into atomic cards</li>
+            <p class="card-text" data-i18n="t1_text1">Today's Notes is expanded by default. Type quick thoughts and click 'AI Polish' to automatically structure them into Situation, Task, Action, and Result (STAR) career brag points.</p>
+            <ul class="feature-points">
+              <li data-i18n="t1_p1">Independent Chinese and English tabs that do not overwrite each other</li>
+              <li data-i18n="t1_p2">Weave Echo queries notes from 2-4 weeks ago sharing semantic affinity</li>
+              <li data-i18n="t1_p3">Smart Document Ingest parses long docs into atomic cards</li>
             </ul>
           </div>
         </div>
 
         <div class="card">
-          <div class="screenshot-frame" onclick="openLightbox('/manual-assets/10-tablet.png')">
-            <img src="/manual-assets/10-tablet.png" alt="Context Panel & Activity Heatmap">
-            <span class="zoom-hint">🔍 Click to Zoom</span>
+          <div class="screenshot-box" onclick="openLightbox('/manual-assets/10-tablet.png')">
+            <img src="/manual-assets/10-tablet.png" alt="Context Panel View">
+            <span class="zoom-badge">Click to enlarge</span>
           </div>
-          <div class="card-body">
-            <span class="card-badge badge-sage" data-i18n="t1_badge2">Temporal Context</span>
+          <div class="card-content">
+            <span class="meta-tag tag-sage" data-i18n="t1_tag2">Companion Panel</span>
             <h3 class="card-title" data-i18n="t1_title2">Right Companion Panel & Mood Wash</h3>
-            <p class="card-text" data-i18n="t1_text2">The collapsible Context Panel shows today's chronological stream, quick reflection editor, annual Activity Heatmap, and instant 5-color Daily Mood Wash selector.</p>
-            <ul class="feature-list">
-              <li data-i18n="t1_f4">Temporal Zoom: Switch between Day, Week, and Month</li>
-              <li data-i18n="t1_f5">Card inspector with [[wikilink]] expansion</li>
-              <li data-i18n="t1_f6">Instant reflection sync with today's receipt</li>
+            <p class="card-text" data-i18n="t1_text2">The right-hand panel gives you today's timeline pulse, a reflection note field synced with today's receipt, the annual Activity Heatmap, and an instant 5-color mood picker.</p>
+            <ul class="feature-points">
+              <li data-i18n="t1_p4">Temporal Zoom: Switch between Day, Week, and Month</li>
+              <li data-i18n="t1_p5">Card detail inspector with [[wikilink]] expansion</li>
+              <li data-i18n="t1_p6">Reflection notes sync in real-time with today's thermal receipt</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 4: TAB 2: COGNITIVE LEDGER -->
+    <!-- 4. TAB 2: COGNITIVE LEDGER -->
     <section id="tab2-memoryos">
       <div class="section-header">
-        <div class="section-tag" data-i18n="sec4_tag">Section 4 · Calibration Workbench</div>
+        <div class="section-num" data-i18n="sec4_num">Calibration · Cognitive Ledger</div>
         <h2 class="section-title" data-i18n="sec4_title">Tab 2: Cognitive Ledger (Memory OS)</h2>
         <p class="section-desc" data-i18n="sec4_desc">
-          The singular read-and-write calibration workbench in Dayprint. Here, casual fragments are systematically distilled into L0~L4 cognitive layers with visible confidence scores, bilingual readiness, and clickable source provenance.
+          The primary read-and-write calibration workbench in Dayprint. Here, casual fragments are organized into five cognitive layers with visible confidence scores, bilingual readiness indicators, and clickable source provenance.
         </p>
       </div>
 
       <div class="grid-2">
         <div class="card">
-          <div class="screenshot-frame" onclick="openLightbox('/manual-assets/03-view-memory-os.png')">
+          <div class="screenshot-box" onclick="openLightbox('/manual-assets/03-view-memory-os.png')">
             <img src="/manual-assets/03-view-memory-os.png" alt="Cognitive Ledger View">
-            <span class="zoom-hint">🔍 Click to Zoom</span>
+            <span class="zoom-badge">Click to enlarge</span>
           </div>
-          <div class="card-body">
-            <span class="card-badge badge-twilight" data-i18n="t2_badge1">Vertical Hierarchy</span>
+          <div class="card-content">
+            <span class="meta-tag tag-twilight" data-i18n="t2_tag1">Layered Hierarchy</span>
             <h3 class="card-title" data-i18n="t2_title1">L0~L4 Cognitive Pyramid</h3>
-            <p class="card-text" data-i18n="t2_text1">Classify memory assets from L0 Raw Stream to L1 Wins, L2 Habits/SOPs, L3 Mental Models, and L4 Core Beliefs. Includes the AI Distill Engine to synthesize higher-order traits.</p>
-            <ul class="feature-list">
-              <li data-i18n="t2_f1">Default Calibration Score sorting (flaws first)</li>
-              <li data-i18n="t2_f2">Visible Confidence Meter color bar (≥85%, ≥70%, &lt;70%)</li>
-              <li data-i18n="t2_f3">Bilingual completeness indicator (ZH ✅ / EN ⚠️)</li>
+            <p class="card-text" data-i18n="t2_text1">Groups thoughts from L0 Raw Stream up to L1 Wins, L2 Habits/SOPs, L3 Mental Models, and L4 Core Beliefs. Includes the AI Distill tool to synthesize high-order principles.</p>
+            <ul class="feature-points">
+              <li data-i18n="t2_p1">Sorted by calibration need (items needing edits rank first)</li>
+              <li data-i18n="t2_p2">Visible Confidence Meter color bar (≥85%, ≥70%, &lt;70%)</li>
+              <li data-i18n="t2_p3">Clean bilingual readiness tags: <span class="status-badge">ZH Ready · EN Pending</span></li>
             </ul>
           </div>
         </div>
 
         <div class="card">
-          <div class="card-body">
-            <span class="card-badge badge-fjord" data-i18n="t2_badge2">Verifiable Provenance</span>
+          <div class="card-content">
+            <span class="meta-tag tag-fjord" data-i18n="t2_tag2">Traceability</span>
             <h3 class="card-title" data-i18n="t2_title2">Source Provenance Chain (source_ids)</h3>
-            <p class="card-text" data-i18n="t2_text2">Every high-level mental model (L3/L4) explicitly displays "Derived from N original notes". Click to expand and highlight the exact historical context where the principle was born.</p>
-            <ul class="feature-list">
-              <li data-i18n="t2_f4">Clickable provenance back to origin daily notes</li>
-              <li data-i18n="t2_f5">In-place inline editing of bilingual copy</li>
-              <li data-i18n="t2_f6">One-click export to local Obsidian vault with frontmatter</li>
+            <p class="card-text" data-i18n="t2_text2">Higher-level principles (L3/L4) explicitly display "Derived from N notes". Click to expand and highlight the exact historical notes where the insight was originally recorded.</p>
+            <ul class="feature-points">
+              <li data-i18n="t2_p4">Clickable provenance back to origin daily notes</li>
+              <li data-i18n="t2_p5">Inline editing of bilingual text and topics directly on cards</li>
+              <li data-i18n="t2_p6">Exports standard frontmatter compatible with Obsidian</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 5: TAB 3: KNOWLEDGE GRAPH -->
+    <!-- 5. TAB 3: KNOWLEDGE GRAPH -->
     <section id="tab3-graph">
       <div class="section-header">
-        <div class="section-tag" data-i18n="sec5_tag">Section 5 · Relational Topology</div>
+        <div class="section-num" data-i18n="sec5_num">Relational Map · Knowledge Graph</div>
         <h2 class="section-title" data-i18n="sec5_title">Tab 3: Knowledge Graph</h2>
         <p class="section-desc" data-i18n="sec5_desc">
           The horizontal relational network topology. Explore concepts through an interactive force-directed canvas with auto-linking compilers, or inspect degree centrality via compact read-only Topology Capsules.
@@ -678,519 +618,367 @@
 
       <div class="grid-2">
         <div class="card">
-          <div class="screenshot-frame" onclick="openLightbox('/manual-assets/04-view-graph.png')">
+          <div class="screenshot-box" onclick="openLightbox('/manual-assets/04-view-graph.png')">
             <img src="/manual-assets/04-view-graph.png" alt="Knowledge Graph View">
-            <span class="zoom-hint">🔍 Click to Zoom</span>
+            <span class="zoom-badge">Click to enlarge</span>
           </div>
-          <div class="card-body">
-            <span class="card-badge badge-fjord" data-i18n="t3_badge1">Force Simulation</span>
-            <h3 class="card-title" data-i18n="t3_title1">Force-Directed Constellation & Auto-Link</h3>
-            <p class="card-text" data-i18n="t3_text1">Nodes naturally cluster by topic and wikilink affinity with physics spring forces. Click 'Auto-Link Graph' to run local semantic heuristics that automatically weave latent relationships.</p>
-            <ul class="feature-list">
-              <li data-i18n="t3_f1">Smooth zoom, pan, and interactive node dragging</li>
-              <li data-i18n="t3_f2">Auto-Link Compiler discovers causal & semantic links</li>
-              <li data-i18n="t3_f3">Cognitive level color coding across all nodes</li>
+          <div class="card-content">
+            <span class="meta-tag tag-fjord" data-i18n="t3_tag1">Interactive Canvas</span>
+            <h3 class="card-title" data-i18n="t3_title1">Force Graph & Auto-Link Compiler</h3>
+            <p class="card-text" data-i18n="t3_text1">Nodes cluster naturally by topic and wikilink affinity with physics spring forces. Clicking 'Auto-Link Graph' runs local heuristics to detect latent relationships across your vault.</p>
+            <ul class="feature-points">
+              <li data-i18n="t3_p1">Smooth zoom, pan, and interactive node dragging</li>
+              <li data-i18n="t3_p2">Auto-Link Compiler discovers hidden semantic relationships</li>
+              <li data-i18n="t3_p3">Nodes color-coded by their cognitive level</li>
             </ul>
           </div>
         </div>
 
         <div class="card">
-          <div class="card-body">
-            <span class="card-badge badge-terracotta" data-i18n="t3_badge2">Degree Centrality</span>
-            <h3 class="card-title" data-i18n="t3_title2">Topology Index Capsules (No Redundancy)</h3>
-            <p class="card-text" data-i18n="t3_text2">The card switcher in Knowledge Graph toggles to a clean 5~6 column Topology Capsule view. Stripped of body text, it ranks nodes strictly by connection count (Links) to surface hub concepts.</p>
-            <ul class="feature-list">
-              <li data-i18n="t3_f4">Sorted strictly by degree centrality (most links first)</li>
-              <li data-i18n="t3_f5">Compact capsules: type + level + title + link count</li>
-              <li data-i18n="t3_f6">Clicks sync with the Node Inspector and highlight in canvas</li>
+          <div class="card-content">
+            <span class="meta-tag tag-terracotta" data-i18n="t3_tag2">Centrality Ranking</span>
+            <h3 class="card-title" data-i18n="t3_title2">Topology Index Capsules</h3>
+            <p class="card-text" data-i18n="t3_text2">The card switcher toggles to a clean 5~6 column Topology Capsule view. Stripped of body text, it ranks nodes strictly by connection count (Links) to surface hub concepts.</p>
+            <ul class="feature-points">
+              <li data-i18n="t3_p4">Sorted strictly by degree centrality (most links first)</li>
+              <li data-i18n="t3_p5">Clean compact capsules: type + level + title + link count</li>
+              <li data-i18n="t3_p6">Clicking any capsule highlights the node in the canvas</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 6: DAILY THERMAL RECEIPTS -->
+    <!-- 6. DAILY THERMAL RECEIPTS -->
     <section id="receipts">
       <div class="section-header">
-        <div class="section-tag" data-i18n="sec6_tag">Section 6 · Tactile Life Stubs</div>
+        <div class="section-num" data-i18n="sec6_num">Life Stubs · Daily Receipts</div>
         <h2 class="section-title" data-i18n="sec6_title">Daily Thermal Receipts & 5 Mood Washes</h2>
         <p class="section-desc" data-i18n="sec6_desc">
-          Click 'Daily Receipt' to summon the physical thermal receipt carousel. Built with 85 authentic slips spanning from August 1 to today, featuring jagged sawtooth edges, wax stamps, and 5 distinct Morandi watercolor washes.
+          Click 'Life Stubs' in the sidebar or companion panel to summon the thermal receipt carousel. Demo mode comes preloaded with 85 continuous slips spanning from August 1 to today.
         </p>
       </div>
 
       <div class="grid-2">
         <div class="card">
-          <div class="screenshot-frame" onclick="openLightbox('/manual-assets/05-modal-receipt.png')">
+          <div class="screenshot-box" onclick="openLightbox('/manual-assets/05-modal-receipt.png')">
             <img src="/manual-assets/05-modal-receipt.png" alt="Daily Receipt Carousel">
-            <span class="zoom-hint">🔍 Click to Zoom</span>
+            <span class="zoom-badge">Click to enlarge</span>
           </div>
-          <div class="card-body">
-            <span class="card-badge badge-terracotta" data-i18n="rcpt_badge1">Physical Skumorphism</span>
-            <h3 class="card-title" data-i18n="rcpt_title1">Sawtooth Perforation & Zero Empty Cards</h3>
-            <p class="card-text" data-i18n="rcpt_text1">Every single receipt date matches real canonical memories. The 'TOTAL RECORDED' counter shows 2 ITEMS, 3 ITEMS, etc. with zero empty dates. Includes tactile wax 'ARCHIVED' stamps.</p>
-            <ul class="feature-list">
-              <li data-i18n="rcpt_f1">85 slips from August 1 to present in Demo mode</li>
-              <li data-i18n="rcpt_f2">Detailed timestamped item breakdown</li>
-              <li data-i18n="rcpt_f3">Poetic bilingual Daily Reflection box</li>
+          <div class="card-content">
+            <span class="meta-tag tag-terracotta" data-i18n="rcpt_tag1">Receipt Anatomy</span>
+            <h3 class="card-title" data-i18n="rcpt_title1">Sawtooth Perforation & Real Counts</h3>
+            <p class="card-text" data-i18n="rcpt_text1">Every single receipt date matches real canonical memories. The 'TOTAL RECORDED' counter shows 2 ITEMS, 3 ITEMS, etc., with zero empty dates. Includes tactile wax 'ARCHIVED' stamps.</p>
+            <ul class="feature-points">
+              <li data-i18n="rcpt_p1">85 slips from August 1 to present in Demo mode</li>
+              <li data-i18n="rcpt_p2">Detailed timestamped breakdown of items</li>
+              <li data-i18n="rcpt_p3">Bilingual Daily Reflection box with italic serif font</li>
             </ul>
           </div>
         </div>
 
         <div class="card">
-          <div class="card-body">
-            <span class="card-badge badge-amber" data-i18n="rcpt_badge2">Emotional Spectrum</span>
+          <div class="card-content">
+            <span class="meta-tag tag-amber" data-i18n="rcpt_tag2">Mood Spectrum</span>
             <h3 class="card-title" data-i18n="rcpt_title2">The 5 Morandi Mood Washes</h3>
-            <p class="card-text" data-i18n="rcpt_text2">Each day's slip is dyed with a dip-wash watercolor glow reflecting your state of mind:</p>
+            <p class="card-text" data-i18n="rcpt_text2">Each day's slip features a watercolor wash dyed across the top and bottom edges, matching your daily reflection tone:</p>
 
-            <div class="mood-swatches">
-              <div class="mood-swatch" style="background:#C97A63;">Terracotta · Energized</div>
-              <div class="mood-swatch" style="background:#C49A56;">Amber · Inspired</div>
-              <div class="mood-swatch" style="background:#608066;">Sage · Calm</div>
-              <div class="mood-swatch" style="background:#5B7B94;">Fjord · Focused</div>
-              <div class="mood-swatch" style="background:#9A8BB8;">Twilight · Reflective</div>
+            <div class="swatch-group">
+              <div class="swatch-item" style="background:#C97A63;">Terracotta<br>Energized</div>
+              <div class="swatch-item" style="background:#C49A56;">Amber<br>Inspired</div>
+              <div class="swatch-item" style="background:#608066;">Sage<br>Calm</div>
+              <div class="swatch-item" style="background:#5B7B94;">Fjord<br>Focused</div>
+              <div class="swatch-item" style="background:#7C6F93;">Twilight<br>Reflective</div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 7: STUDIOS & UTILITIES -->
+    <!-- 7. STUDIOS & UTILITIES -->
     <section id="studios">
       <div class="section-header">
-        <div class="section-tag" data-i18n="sec7_tag">Section 7 · Specialized Studios</div>
+        <div class="section-num" data-i18n="sec7_num">Specialized Tools · Growth</div>
         <h2 class="section-title" data-i18n="sec7_title">Career Studio, Weekly Digest, Constellation & OmniSearch</h2>
         <p class="section-desc" data-i18n="sec7_desc">
-          Professional development tools that turn your memory sanctuary into a powerful career engine and reflective retreat.
+          Dedicated studios that transform your daily notes into career highlights, weekly retrospectives, and fast search.
         </p>
       </div>
 
       <div class="grid-3">
         <div class="card">
-          <div class="screenshot-frame" onclick="openLightbox('/manual-assets/07-modal-career.png')">
+          <div class="screenshot-box" onclick="openLightbox('/manual-assets/07-modal-career.png')">
             <img src="/manual-assets/07-modal-career.png" alt="Career Studio Modal">
-            <span class="zoom-hint">🔍 Click to Zoom</span>
+            <span class="zoom-badge">Click to enlarge</span>
           </div>
-          <div class="card-body">
-            <span class="card-badge badge-terracotta">Career Engine</span>
-            <h3 class="card-title" data-i18n="studio1_title">Career Studio</h3>
-            <p class="card-text" data-i18n="studio1_text">Aggregates STAR brag sheet achievements and auto-generates bilingual career summaries and promotion bullets from your verified memory stream.</p>
+          <div class="card-content">
+            <span class="meta-tag tag-terracotta">Career</span>
+            <h3 class="card-title" data-i18n="st1_title">Career Studio</h3>
+            <p class="card-text" data-i18n="st1_text">Aggregates STAR brag sheet achievements and auto-generates bilingual career summaries and promotion bullets from your verified notes.</p>
           </div>
         </div>
 
         <div class="card">
-          <div class="screenshot-frame" onclick="openLightbox('/manual-assets/06-modal-weekly.png')">
+          <div class="screenshot-box" onclick="openLightbox('/manual-assets/06-modal-weekly.png')">
             <img src="/manual-assets/06-modal-weekly.png" alt="Weekly Digest Modal">
-            <span class="zoom-hint">🔍 Click to Zoom</span>
+            <span class="zoom-badge">Click to enlarge</span>
           </div>
-          <div class="card-body">
-            <span class="card-badge badge-sage">Weekly Cadence</span>
-            <h3 class="card-title" data-i18n="studio2_title">Weekly Digest</h3>
-            <p class="card-text" data-i18n="studio2_text">Analyzes 7-day emotional rhythms and cognitive milestones with local-timezone accuracy (Monday to Sunday) and key habit maintenance stats.</p>
+          <div class="card-content">
+            <span class="meta-tag tag-sage">Retrospective</span>
+            <h3 class="card-title" data-i18n="st2_title">Weekly Digest</h3>
+            <p class="card-text" data-i18n="st2_text">Analyzes 7-day emotional rhythms and cognitive milestones with local-timezone accuracy (Monday to Sunday) and key habit maintenance stats.</p>
           </div>
         </div>
 
         <div class="card">
-          <div class="screenshot-frame" onclick="openLightbox('/manual-assets/08-modal-archive.png')">
+          <div class="screenshot-box" onclick="openLightbox('/manual-assets/08-modal-archive.png')">
             <img src="/manual-assets/08-modal-archive.png" alt="OmniSearch & Archive">
-            <span class="zoom-hint">🔍 Click to Zoom</span>
+            <span class="zoom-badge">Click to enlarge</span>
           </div>
-          <div class="card-body">
-            <span class="card-badge badge-fjord">Recall & Archive</span>
-            <h3 class="card-title" data-i18n="studio3_title">OmniSearch (⌘K) & Archive</h3>
-            <p class="card-text" data-i18n="studio3_text">Sub-millisecond fuzzy search across English and Chinese notes, coupled with an annual and monthly chronological tree archive.</p>
+          <div class="card-content">
+            <span class="meta-tag tag-fjord">Search & Tree</span>
+            <h3 class="card-title" data-i18n="st3_title">OmniSearch (⌘K) & Archive</h3>
+            <p class="card-text" data-i18n="st3_text">Sub-millisecond fuzzy search across English and Chinese notes, coupled with an annual and monthly chronological tree archive.</p>
           </div>
         </div>
       </div>
-    </section>
-
-    <!-- SECTION 8: MASTER VIDEO DEMO SCRIPT -->
-    <section id="video-script">
-      <div class="section-header">
-        <div class="section-tag" data-i18n="sec8_tag">Section 8 · Video Production Script</div>
-        <h2 class="section-title" data-i18n="sec8_title">Master Video Demo Screenplay & Bilingual Voiceover</h2>
-        <p class="section-desc" data-i18n="sec8_desc">
-          Strictly timed for 2 minutes 20 seconds (under the 1–3 minute hackathon constraint). Every scene aligns with on-screen cursor movements and bilingual narration.
-        </p>
-      </div>
-
-      <table class="script-table">
-        <thead>
-          <tr>
-            <th style="width:120px;" data-i18n="th_time">Timestamp</th>
-            <th style="width:180px;" data-i18n="th_scene">Scene & View</th>
-            <th data-i18n="th_action">On-Screen Action & Visual Choreography</th>
-            <th style="width:45%;" data-i18n="th_voiceover">Voiceover Script (EN / 中文)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Scene 1 -->
-          <tr>
-            <td><span class="time-badge">0:00 – 0:25</span></td>
-            <td><strong>Scene 1</strong><br><small style="color:var(--ink-secondary);">Welcome Gateway</small></td>
-            <td>
-              <div class="action-badge">🎬 Cursor Cue</div>
-              <div>1. Open Dayprint at <code>http://localhost:3000</code>. Welcome Gateway appears.</div>
-              <div>2. Point out Private GitHub Repo field vs Demo Mode.</div>
-              <div>3. Click "进入 Demo 体验模式" (Enter Demo Mode). Confetti bursts, main canvas reveals.</div>
-            </td>
-            <td>
-              <div class="voiceover-box" data-vo="1">
-                <strong>EN:</strong> "Where does your authentic self actually live? Today, our lives are fractured across Slack, docs, and phone memos. Dayprint is the living sanctuary for your AI Digital Twin. Built on complete data sovereignty, it commits directly to your private GitHub repository as clean Markdown. For this walkthrough, let's enter instant Demo Mode preloaded with 136 living engineering and life memories."<br><br>
-                <strong>中文:</strong> “你的真实自我在哪里安放？现代人的思考被撕裂在各种软件中。Dayprint 是你的 AI 数字分身记忆圣殿。基于绝对数据主权，所有记录直接沉淀到你自己的私有 GitHub 仓库。今天让我们进入即时 Demo 模式，体验 136 条涵盖工程与生活的全真记忆。”
-              </div>
-            </td>
-          </tr>
-
-          <!-- Scene 2 -->
-          <tr>
-            <td><span class="time-badge">0:25 – 0:50</span></td>
-            <td><strong>Scene 2</strong><br><small style="color:var(--ink-secondary);">Tab 1: Daily Canvas</small></td>
-            <td>
-              <div class="action-badge">🎬 Cursor Cue</div>
-              <div>1. Highlight default expanded <code>TodayEditor</code> at top.</div>
-              <div>2. Type: <em>"Async Actor Isolation Engine"</em>. Click <strong>✨ AI Polish</strong>.</div>
-              <div>3. Watch STAR model unfold (Situation, Task, Action, Result). Click Save.</div>
-              <div>4. Toggle Temporal Zoom from Day to Week to Month.</div>
-            </td>
-            <td>
-              <div class="voiceover-box" data-vo="2">
-                <strong>EN:</strong> "Tab 1 is the Daily Canvas. Today's Notes is expanded by default for zero-friction capture. Type a raw note and hit AI Polish: our engine instantly distills it into the STAR format—capturing Situation, Task, Action, and Result for career brag sheets. Weave Echo surfaces related thoughts from two weeks ago, turning fleeting moments into connected wisdom."<br><br>
-                <strong>中文:</strong> “Tab 1 是每日画卷。今日速记台默认展开，随时捕捉灵感。输入随笔点击 AI 润色，系统立刻提炼出情境、任务、行动与结果的 STAR 战绩模型。回声编织更会自动唤醒两周前的相关思考，让灵感彼此呼应。”
-              </div>
-            </td>
-          </tr>
-
-          <!-- Scene 3 -->
-          <tr>
-            <td><span class="time-badge">0:50 – 1:15</span></td>
-            <td><strong>Scene 3</strong><br><small style="color:var(--ink-secondary);">Daily Thermal Receipts</small></td>
-            <td>
-              <div class="action-badge">🎬 Cursor Cue</div>
-              <div>1. In sidebar, click <strong>"生活存根 (Daily Receipt)"</strong>.</div>
-              <div>2. The physical thermal receipt carousel opens.</div>
-              <div>3. Swipe left smoothly across August, September, October.</div>
-              <div>4. Highlight 5 mood washes, jagged edges, reflection text, and 'ARCHIVED' stamp.</div>
-            </td>
-            <td>
-              <div class="voiceover-box" data-vo="3">
-                <strong>EN:</strong> "Click Daily Receipt to summon our tactile life stubs. Featuring 85 authentic slips from August 1 to today, every date has real records with zero empty cards. Each day is dyed in one of five Morandi mood washes—from Terracotta Energized to Fjord Focused—complete with genuine paper tear edges, reflections, and tactile wax archive stamps."<br><br>
-                <strong>中文:</strong> “点击每日小票唤起实体手账存根。内置从 8 月 1 日至今的 85 张完整小票，每张均对应真实记忆，零空卡。五大莫兰迪心情色彩洗色——从热情陶土红到澄澈冰海蓝，搭配逼真的撕裂齿纹、今日结语与火漆印章。”
-              </div>
-            </td>
-          </tr>
-
-          <!-- Scene 4 -->
-          <tr>
-            <td><span class="time-badge">1:15 – 1:40</span></td>
-            <td><strong>Scene 4</strong><br><small style="color:var(--ink-secondary);">Tab 2: Cognitive Ledger</small></td>
-            <td>
-              <div class="action-badge">🎬 Cursor Cue</div>
-              <div>1. In sidebar, click <strong>"认知档案 (Cognitive Ledger)"</strong>.</div>
-              <div>2. Point out L0~L4 hierarchy and Calibration Score sorting.</div>
-              <div>3. Hover over Confidence bar (95%) and Bilingual badges (ZH/EN).</div>
-              <div>4. Click <strong>"源自 2 条原始记录" (source_ids)</strong> to expand provenance.</div>
-            </td>
-            <td>
-              <div class="voiceover-box" data-vo="4">
-                <strong>EN:</strong> "Tab 2 is the Cognitive Ledger—the single calibration workbench in Dayprint. It organizes mental assets into an L0 to L4 pyramid, from raw notes up to foundational beliefs. Cards are sorted by calibration need, featuring visible confidence rating meters, bilingual readiness indicators, and clickable source_ids provenance chains linking directly back to origin notes."<br><br>
-                <strong>中文:</strong> “Tab 2 是认知中枢账本——也是全系统唯一的校准工作台。它将记忆整理为 L0 到 L4 的金字塔体系，直达底层信条。按待校准度降序排列，配备清晰的置信度色条、双语完整度指示，以及可反查原始日记的 source_ids 溯源链。”
-              </div>
-            </td>
-          </tr>
-
-          <!-- Scene 5 -->
-          <tr>
-            <td><span class="time-badge">1:40 – 2:05</span></td>
-            <td><strong>Scene 5</strong><br><small style="color:var(--ink-secondary);">Tab 3: Knowledge Graph</small></td>
-            <td>
-              <div class="action-badge">🎬 Cursor Cue</div>
-              <div>1. Click <strong>"Knowledge Graph"</strong> in the sidebar.</div>
-              <div>2. Drag nodes in the force-directed canvas. Click <strong>"编织潜在星轨" (Auto-Link)</strong>.</div>
-              <div>3. Toggle the top-right view switcher to <strong>"拓扑索引 (Topology Index)"</strong>.</div>
-              <div>4. Show compact capsules sorted by Link count. Click a node to open Inspector.</div>
-            </td>
-            <td>
-              <div class="voiceover-box" data-vo="5">
-                <strong>EN:</strong> "Tab 3 is Knowledge Graph—the horizontal relational topology. Watch concepts self-assemble into constellations through physics spring forces, or click Auto-Link to weave latent causal relationships. Switch to Topology Index to inspect degree centrality through compact capsules ranked strictly by link count, without redundant body text."<br><br>
-                <strong>中文:</strong> “Tab 3 是 Knowledge Graph——横向关系拓扑网络。概念节点通过引力力场自发聚拢为星团，点击自动编织即可发现隐藏因果连线。切换到拓扑索引视图，通过按连结数降序排列的紧凑胶囊快速检索枢纽概念，绝无冗余正文干扰。”
-              </div>
-            </td>
-          </tr>
-
-          <!-- Scene 6 -->
-          <tr>
-            <td><span class="time-badge">2:05 – 2:25</span></td>
-            <td><strong>Scene 6</strong><br><small style="color:var(--ink-secondary);">Career Studio & Closing</small></td>
-            <td>
-              <div class="action-badge">🎬 Cursor Cue</div>
-              <div>1. Open Career Studio: show STAR brag sheet & resume bullets.</div>
-              <div>2. Click language switcher to show 100% pure English mode.</div>
-              <div>3. Open GitHub settings: show disconnect & private repository sync.</div>
-            </td>
-            <td>
-              <div class="voiceover-box" data-vo="6">
-                <strong>EN:</strong> "Finally, Career Studio turns your memory stream into structured STAR performance sheets and resume highlights. Toggle instantly between 100% pure English and Chinese. Your memories, your thoughts, your future AI digital twin—100% owned by you. Welcome to Dayprint."<br><br>
-                <strong>中文:</strong> “最后，Career Studio 将沉淀的记忆一键转化为专业的 STAR 职场述职与简历亮点。支持中英文即时切换。你的记忆、你的心智、你未来的 AI 数字分身——100% 掌握在你自己手中。这就是 Dayprint。”
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
     </section>
 
   </main>
 
-  <!-- Interactive Lightbox Modal -->
-  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+  <!-- Lightbox Modal -->
+  <div id="lightbox" class="lightbox-modal" onclick="closeLightbox()">
+    <button class="close-btn" onclick="closeLightbox()">&times;</button>
     <img id="lightbox-img" src="" alt="Enlarged screenshot">
   </div>
 
   <script>
-    // Bilingual Dictionary
     const i18n = {
       en: {
-        version_tag: "v2.4.0 Hackathon Release",
-        open_app_btn: "Open Live App →",
-        nav_overview: "🏛️ 1. Architecture",
-        nav_gateway: "🔑 2. Gateway & Demo",
-        nav_daily: "📖 3. Tab 1: Daily Canvas",
-        nav_memoryos: "🧠 4. Tab 2: Cognitive Ledger",
-        nav_graph: "🕸️ 5. Tab 3: Knowledge Graph",
-        nav_receipts: "🧾 6. Thermal Receipts",
-        nav_studios: "✨ 7. Studio Tools",
-        nav_script: "🎬 8. Master Video Script",
-        sec1_tag: "Section 1 · Foundation",
-        sec1_title: "100% Data Sovereignty & AI Digital Twin Sanctuary",
-        sec1_desc: "Modern human thoughts are deeply fractured across Slack, Jira, Notion, and phone memos. Dayprint is a tactile, local-first sanctuary that compiles every moment of your life directly into your private GitHub repository as clean Markdown.",
-        core1_badge: "Principle 1",
-        core1_title: "Zero Data Leakage",
-        core1_text: "No central databases, zero telemetry tracking. All personal memories, daily receipts, and relationship edges are committed straight to your private GitHub repository.",
-        core1_f1: "Client-side GitHub API integration",
-        core1_f2: "Token stored only in local browser",
-        core1_f3: "Standard human-readable Markdown",
-        core2_badge: "Principle 2",
-        core2_title: "Tactile Sensory Craft",
-        core2_text: "Stepping away from cold glass interfaces. Dayprint embraces warm Morandi paper fibers, mechanical typewriter audio feedback, and physical jagged-edge receipt slips.",
-        core2_f1: "Subtle noise maps and paper texture",
-        core2_f2: "Dip-dye mood wash watercolor glow",
-        core2_f3: "Physical thermal receipt sawtooth cuts",
-        core3_badge: "Principle 3",
-        core3_title: "Cognitive Evolution",
-        core3_text: "Moving beyond raw note dumps. Dayprint organizes knowledge into a vertical L0~L4 cognitive pyramid paired with a horizontal semantic wikilink topology.",
-        core3_f1: "L0 Raw Notes up to L4 Core Beliefs",
-        core3_f2: "Source provenance with source_ids",
-        core3_f3: "Obsidian-compatible YAML frontmatter",
-        sec2_tag: "Section 2 · Onboarding",
-        sec2_title: "Welcome Gateway & Interactive Demo Sandbox",
-        sec2_desc: "On first arrival, Dayprint greets you with the Welcome Gateway modal. Choose between connecting your private GitHub repo for production storage, or explore the preloaded Demo Mode sandbox instantly.",
-        gw1_badge: "Option A · Production Mode",
-        gw1_title: "Private GitHub Repository Connection",
-        gw1_text: "Enter your repository name (e.g. username/my-vault) and fine-grained Personal Access Token. Dayprint syncs directly via the official GitHub REST API without intermediary proxy servers.",
-        gw1_f1: "Auto-commits changes with SHA verification",
-        gw1_f2: "Disconnect button instantly purges local token",
-        gw1_f3: "Zero lingering pre-filled mock credentials",
-        gw2_badge: "Option B · Sandbox Mode",
-        gw2_title: "Instant Interactive Demo (Alex Reed Persona)",
-        gw2_text: "Experience Dayprint with 136 real-feeling notes and 85 daily receipts dating back to August 1. Features an explicit disclaimer: ⚠️ Demo mode does not persist personal user data.",
-        gw2_f1: "136 fictional architect & creative tech notes",
-        gw2_f2: "85 daily receipts spanning Aug 1 to present",
-        gw2_f3: "Zero user privacy exposure; clean mock persona",
-        sec3_tag: "Section 3 · Primary Workspace",
+        doc_version: "v2.4.0 Release",
+        open_app_link: "Open Dayprint →",
+        nav_overview: "1. Data Ownership",
+        nav_gateway: "2. Setup & Demo",
+        nav_daily: "3. Tab 1: Daily Canvas",
+        nav_memoryos: "4. Tab 2: Cognitive Ledger",
+        nav_graph: "5. Tab 3: Knowledge Graph",
+        nav_receipts: "6. Daily Receipts",
+        nav_studios: "7. Studio Tools",
+        sec1_num: "Overview · Core Design",
+        sec1_title: "Local-First Architecture & Complete Data Ownership",
+        sec1_desc: "Most personal thoughts get lost across Slack threads, quick scratchpads, and phone memos. When you actually need them later—for a promotion review, an architecture decision, or recalling how you solved a tough bug three months ago—they are nearly impossible to find. Dayprint provides a focused, local-first workspace that connects straight to your private GitHub repository as plain Markdown files.",
+        c1_tag: "Storage Model",
+        c1_title: "Direct GitHub Sync",
+        c1_text: "No central databases and no proprietary cloud formats. Every note card, daily slip, and relationship compiles into standard Markdown files in your private GitHub vault.",
+        c1_p1: "Direct client calls to GitHub REST API",
+        c1_p2: "Personal token stored only in local browser",
+        c1_p3: "Full compatibility with local Obsidian vaults",
+        c2_tag: "Visual Craft",
+        c2_title: "Tactile Paper & Ink",
+        c2_text: "Moving past cold glass interfaces. Dayprint uses warm Morandi paper tones, mechanical keystroke sounds, physical torn-paper edges, and watercolor wash glow.",
+        c2_p1: "Clean paper textures and warm background",
+        c2_p2: "5 watercolor mood washes for daily reflection",
+        c2_p3: "Realistic thermal receipt sawtooth cuts",
+        c3_tag: "Cognition",
+        c3_title: "Structured Knowledge",
+        c3_text: "Beyond random scratchpads. Dayprint organizes knowledge across a vertical L0~L4 cognitive pyramid paired with a horizontal semantic network graph.",
+        c3_p1: "From L0 raw scratchpads to L4 core beliefs",
+        c3_p2: "Clickable source provenance linking back to origins",
+        c3_p3: "Automatic latent link compiler",
+        sec2_num: "Onboarding · Initial Setup",
+        sec2_title: "Welcome Gateway & Instant Demo Sandbox",
+        sec2_desc: "When you open Dayprint for the first time, the Welcome Gateway opens. You can either connect your private GitHub repository for production use, or jump straight into Demo Mode to test every feature.",
+        gw1_tag: "Production Mode",
+        gw1_title: "Private GitHub Repository Setup",
+        gw1_text: "Enter your repository name (e.g. username/my-vault) and a GitHub Personal Access Token with repo scope. Dayprint commits changes directly with SHA hashes.",
+        gw1_p1: "Changes committed directly via official GitHub API",
+        gw1_p2: "Disconnect button cleanly purges tokens from local storage",
+        gw1_p3: "No lingering pre-filled mock credentials",
+        gw2_tag: "Sandbox Mode",
+        gw2_title: "Interactive Demo (Alex Reed Persona)",
+        gw2_text: "Loads 136 realistic engineering and life notes dating back to August 1, 2026. A clear notice indicates: [Demo Notice: Personal data is not persisted in demo mode].",
+        gw2_p1: "136 realistic notes and 85 daily thermal receipts",
+        gw2_p2: "Continuous history spanning August 1 to present day",
+        gw2_p3: "Zero personal privacy risk; fictional tech persona",
+        sec3_num: "Workspace · Daily Canvas",
         sec3_title: "Tab 1: Daily Canvas & Today's Notes",
-        sec3_desc: "Your daily thinking desk. The Today's Notes editor opens by default so you can type immediately without unnecessary friction. Features AI STAR polish, temporal zoom, and the companion Context Panel.",
-        t1_badge1: "Capture & Refine",
+        sec3_desc: "Your daily thinking desk. Today's Notes opens expanded by default so you can start typing immediately without unfolding. It includes AI STAR polish, temporal zoom, and the Context Panel.",
+        t1_tag1: "Writing Desk",
         t1_title1: "Default Expanded Editor & AI Polish",
-        t1_text1: "Today's Notes is expanded by default. Type quick thoughts and click 'AI Polish' to automatically extract Situation, Task, Action, and Result (STAR) career brag points.",
-        t1_f1: "Independent ZH and EN bilingual tabs",
-        t1_f2: "Weave Echo surfaces related memories from 30 days ago",
-        t1_f3: "Smart Document Ingest splits long text into atomic cards",
-        t1_badge2: "Temporal Context",
+        t1_text1: "Today's Notes is expanded by default. Type quick thoughts and click 'AI Polish' to automatically structure them into Situation, Task, Action, and Result (STAR) career brag points.",
+        t1_p1: "Independent Chinese and English tabs that do not overwrite each other",
+        t1_p2: "Weave Echo queries notes from 2-4 weeks ago sharing semantic affinity",
+        t1_p3: "Smart Document Ingest parses long docs into atomic cards",
+        t1_tag2: "Companion Panel",
         t1_title2: "Right Companion Panel & Mood Wash",
-        t1_text2: "The collapsible Context Panel shows today's chronological stream, quick reflection editor, annual Activity Heatmap, and instant 5-color Daily Mood Wash selector.",
-        t1_f4: "Temporal Zoom: Switch between Day, Week, and Month",
-        t1_f5: "Card inspector with [[wikilink]] expansion",
-        t1_f6: "Instant reflection sync with today's receipt",
-        sec4_tag: "Section 4 · Calibration Workbench",
+        t1_text2: "The right-hand panel gives you today's timeline pulse, a reflection note field synced with today's receipt, the annual Activity Heatmap, and an instant 5-color mood picker.",
+        t1_p4: "Temporal Zoom: Switch between Day, Week, and Month",
+        t1_p5: "Card detail inspector with [[wikilink]] expansion",
+        t1_p6: "Reflection notes sync in real-time with today's thermal receipt",
+        sec4_num: "Calibration · Cognitive Ledger",
         sec4_title: "Tab 2: Cognitive Ledger (Memory OS)",
-        sec4_desc: "The singular read-and-write calibration workbench in Dayprint. Casual fragments are systematically distilled into L0~L4 cognitive layers with visible confidence scores, bilingual readiness, and clickable source provenance.",
-        t2_badge1: "Vertical Hierarchy",
+        sec4_desc: "The primary read-and-write calibration workbench in Dayprint. Here, casual fragments are organized into five cognitive layers with visible confidence scores, bilingual readiness indicators, and clickable source provenance.",
+        t2_tag1: "Layered Hierarchy",
         t2_title1: "L0~L4 Cognitive Pyramid",
-        t2_text1: "Classify memory assets from L0 Raw Stream to L1 Wins, L2 Habits/SOPs, L3 Mental Models, and L4 Core Beliefs. Includes the AI Distill Engine to synthesize higher-order traits.",
-        t2_f1: "Default Calibration Score sorting (flaws first)",
-        t2_f2: "Visible Confidence Meter color bar (≥85%, ≥70%, <70%)",
-        t2_f3: "Bilingual completeness indicator (ZH ✅ / EN ⚠️)",
-        t2_badge2: "Verifiable Provenance",
+        t2_text1: "Groups thoughts from L0 Raw Stream up to L1 Wins, L2 Habits/SOPs, L3 Mental Models, and L4 Core Beliefs. Includes the AI Distill tool to synthesize high-order principles.",
+        t2_p1: "Sorted by calibration need (items needing edits rank first)",
+        t2_p2: "Visible Confidence Meter color bar (≥85%, ≥70%, <70%)",
+        t2_p3: "Clean bilingual readiness tags: <span class=\"status-badge\">ZH Ready · EN Pending</span>",
+        t2_tag2: "Traceability",
         t2_title2: "Source Provenance Chain (source_ids)",
-        t2_text2: "Every high-level mental model (L3/L4) explicitly displays 'Derived from N original notes'. Click to expand and highlight the exact historical context where the principle was born.",
-        t2_f4: "Clickable provenance back to origin daily notes",
-        t2_f5: "In-place inline editing of bilingual copy",
-        t2_f6: "One-click export to local Obsidian vault with frontmatter",
-        sec5_tag: "Section 5 · Relational Topology",
+        t2_text2: "Higher-level principles (L3/L4) explicitly display 'Derived from N notes'. Click to expand and highlight the exact historical notes where the insight was originally recorded.",
+        t2_p4: "Clickable provenance back to origin daily notes",
+        t2_p5: "Inline editing of bilingual text and topics directly on cards",
+        t2_p6: "Exports standard frontmatter compatible with Obsidian",
+        sec5_num: "Relational Map · Knowledge Graph",
         sec5_title: "Tab 3: Knowledge Graph",
         sec5_desc: "The horizontal relational network topology. Explore concepts through an interactive force-directed canvas with auto-linking compilers, or inspect degree centrality via compact read-only Topology Capsules.",
-        t3_badge1: "Force Simulation",
-        t3_title1: "Force-Directed Constellation & Auto-Link",
-        t3_text1: "Nodes naturally cluster by topic and wikilink affinity with physics spring forces. Click 'Auto-Link Graph' to run local semantic heuristics that automatically weave latent relationships.",
-        t3_f1: "Smooth zoom, pan, and interactive node dragging",
-        t3_f2: "Auto-Link Compiler discovers causal & semantic links",
-        t3_f3: "Cognitive level color coding across all nodes",
-        t3_badge2: "Degree Centrality",
-        t3_title2: "Topology Index Capsules (No Redundancy)",
-        t3_text2: "The card switcher in Knowledge Graph toggles to a clean 5~6 column Topology Capsule view. Stripped of body text, it ranks nodes strictly by connection count (Links) to surface hub concepts.",
-        t3_f4: "Sorted strictly by degree centrality (most links first)",
-        t3_f5: "Compact capsules: type + level + title + link count",
-        t3_f6: "Clicks sync with the Node Inspector and highlight in canvas",
-        sec6_tag: "Section 6 · Tactile Life Stubs",
+        t3_tag1: "Interactive Canvas",
+        t3_title1: "Force Graph & Auto-Link Compiler",
+        t3_text1: "Nodes cluster naturally by topic and wikilink affinity with physics spring forces. Clicking 'Auto-Link Graph' runs local heuristics to detect latent relationships across your vault.",
+        t3_p1: "Smooth zoom, pan, and interactive node dragging",
+        t3_p2: "Auto-Link Compiler discovers hidden semantic relationships",
+        t3_p3: "Nodes color-coded by their cognitive level",
+        t3_tag2: "Centrality Ranking",
+        t3_title2: "Topology Index Capsules",
+        t3_text2: "The card switcher toggles to a clean 5~6 column Topology Capsule view. Stripped of body text, it ranks nodes strictly by connection count (Links) to surface hub concepts.",
+        t3_p4: "Sorted strictly by degree centrality (most links first)",
+        t3_p5: "Clean compact capsules: type + level + title + link count",
+        t3_p6: "Clicking any capsule highlights the node in the canvas",
+        sec6_num: "Life Stubs · Daily Receipts",
         sec6_title: "Daily Thermal Receipts & 5 Mood Washes",
-        sec6_desc: "Click 'Daily Receipt' to summon the physical thermal receipt carousel. Built with 85 authentic slips spanning from August 1 to today, featuring jagged sawtooth edges, wax stamps, and 5 distinct Morandi watercolor washes.",
-        rcpt_badge1: "Physical Skumorphism",
-        rcpt_title1: "Sawtooth Perforation & Zero Empty Cards",
-        rcpt_text1: "Every single receipt date matches real canonical memories. The 'TOTAL RECORDED' counter shows 2 ITEMS, 3 ITEMS, etc. with zero empty dates. Includes tactile wax 'ARCHIVED' stamps.",
-        rcpt_f1: "85 slips from August 1 to present in Demo mode",
-        rcpt_f2: "Detailed timestamped item breakdown",
-        rcpt_f3: "Poetic bilingual Daily Reflection box",
-        rcpt_badge2: "Emotional Spectrum",
+        sec6_desc: "Click 'Life Stubs' in the sidebar or companion panel to summon the thermal receipt carousel. Demo mode comes preloaded with 85 continuous slips spanning from August 1 to today.",
+        rcpt_tag1: "Receipt Anatomy",
+        rcpt_title1: "Sawtooth Perforation & Real Counts",
+        rcpt_text1: "Every single receipt date matches real canonical memories. The 'TOTAL RECORDED' counter shows 2 ITEMS, 3 ITEMS, etc., with zero empty dates. Includes tactile wax 'ARCHIVED' stamps.",
+        rcpt_p1: "85 slips from August 1 to present in Demo mode",
+        rcpt_p2: "Detailed timestamped breakdown of items",
+        rcpt_p3: "Bilingual Daily Reflection box with italic serif font",
+        rcpt_tag2: "Mood Spectrum",
         rcpt_title2: "The 5 Morandi Mood Washes",
-        rcpt_text2: "Each day's slip is dyed with a dip-wash watercolor glow reflecting your state of mind: Terracotta (Energized), Amber (Inspired), Sage (Calm), Fjord (Focused), and Twilight (Reflective).",
-        sec7_tag: "Section 7 · Specialized Studios",
+        rcpt_text2: "Each day's slip features a watercolor wash dyed across the top and bottom edges, matching your daily reflection tone: Terracotta (Energized), Amber (Inspired), Sage (Calm), Fjord (Focused), and Twilight (Reflective).",
+        sec7_num: "Specialized Tools · Growth",
         sec7_title: "Career Studio, Weekly Digest, Constellation & OmniSearch",
-        sec7_desc: "Professional development tools that turn your memory sanctuary into a powerful career engine and reflective retreat.",
-        studio1_title: "Career Studio",
-        studio1_text: "Aggregates STAR brag sheet achievements and auto-generates bilingual career summaries and promotion bullets from your verified memory stream.",
-        studio2_title: "Weekly Digest",
-        studio2_text: "Analyzes 7-day emotional rhythms and cognitive milestones with local-timezone accuracy (Monday to Sunday) and key habit maintenance stats.",
-        studio3_title: "OmniSearch (⌘K) & Archive",
-        studio3_text: "Sub-millisecond fuzzy search across English and Chinese notes, coupled with an annual and monthly chronological tree archive.",
-        sec8_tag: "Section 8 · Video Production Script",
-        sec8_title: "Master Video Demo Screenplay & Bilingual Voiceover",
-        sec8_desc: "Strictly timed for 2 minutes 20 seconds (under the 1–3 minute hackathon constraint). Every scene aligns with on-screen cursor movements and bilingual narration.",
-        th_time: "Timestamp",
-        th_scene: "Scene & View",
-        th_action: "On-Screen Action & Visual Choreography",
-        th_voiceover: "Voiceover Script (EN / 中文)"
+        sec7_desc: "Dedicated studios that transform your daily notes into career highlights, weekly retrospectives, and fast search.",
+        st1_title: "Career Studio",
+        st1_text: "Aggregates STAR brag sheet achievements and auto-generates bilingual career summaries and promotion bullets from your verified notes.",
+        st2_title: "Weekly Digest",
+        st2_text: "Analyzes 7-day emotional rhythms and cognitive milestones with local-timezone accuracy (Monday to Sunday) and key habit maintenance stats.",
+        st3_title: "OmniSearch (⌘K) & Archive",
+        st3_text: "Sub-millisecond fuzzy search across English and Chinese notes, coupled with an annual and monthly chronological tree archive."
       },
       zh: {
-        version_tag: "v2.4.0 黑客松发布版",
-        open_app_btn: "打开运行中应用 →",
-        nav_overview: "🏛️ 1. 架构与主权",
-        nav_gateway: "🔑 2. 网关与Demo",
-        nav_daily: "📖 3. Tab 1: 每日画卷",
-        nav_memoryos: "🧠 4. Tab 2: 认知中枢",
-        nav_graph: "🕸️ 5. Tab 3: Knowledge Graph",
-        nav_receipts: "🧾 6. 每日小票画廊",
-        nav_studios: "✨ 7. 演进工作台",
-        nav_script: "🎬 8. 录屏旁白脚本",
-        sec1_tag: "第一章节 · 架构基石",
-        sec1_title: "100% 数据主权与 AI 数字分身记忆圣殿",
-        sec1_desc: "现代人的思考被严重撕裂在各种碎片化软件中。Dayprint 是一个温暖、通感、本地优先的记忆圣殿，将你生命中的每一个闪光时刻直接以人类可读的 Markdown 形式提交至你个人的私有 GitHub 仓库。",
-        core1_badge: "第一原则",
-        core1_title: "零数据泄露 (Data Sovereignty)",
-        core1_text: "绝无中心化数据库，绝无用户追踪埋点。所有个人日记、每日小票与关系边均直连你自己的私有 GitHub 仓库存储。",
-        core1_f1: "纯客户端调用 GitHub 官方 REST API",
-        core1_f2: "密钥 Token 仅加密保存在本地浏览器",
-        core1_f3: "通用标准人类可读 Markdown 格式",
-        core2_badge: "第二原则",
-        core2_title: "通感拟物美学 (Tactile Sensory)",
-        core2_text: "摆脱冰冷的玻璃屏界面。Dayprint 融入温暖的莫兰迪纸质纤维、机械打字机音效，以及实体热敏纸撕裂齿纹。",
-        core2_f1: "细致微杂色噪点与纸张纤维触感",
-        core2_f2: "双色浸染洗色（Dip-Dye Wash）水彩光晕",
-        core2_f3: "逼真的热敏纸锯齿边缘撕口设计",
-        core3_badge: "第三原则",
-        core3_title: "认知演进 (Cognitive Evolution)",
-        core3_text: "绝不仅是无序的随笔垃圾桶。Dayprint 构建了纵向 L0~L4 认知金字塔与横向关系拓扑网络，让认知持续升维。",
-        core3_f1: "从 L0 随笔到 L4 底层信条的严谨分层",
-        core3_f2: "基于 source_ids 的真实来源溯源反查链",
-        core3_f3: "完美兼容 Obsidian 标准 Frontmatter",
-        sec2_tag: "第二章节 · 新手连接",
-        sec2_title: "欢迎网关与交互式 Demo 体验沙盒",
-        sec2_desc: "初次进入应用时，Welcome Gateway 会自动弹出。你可以在连接私有 GitHub 仓库与直接体验 Demo 模式之间自由选择。",
-        gw1_badge: "选项 A · 生产持久化模式",
-        gw1_title: "私有 GitHub 仓库直接连接",
-        gw1_text: "输入你的 GitHub 仓库路径（如 username/my-vault）与 Personal Access Token。Dayprint 直接与 GitHub 通信，零中间服务器。",
-        gw1_f1: "带 SHA 校验的自动 Git 提交与同步",
-        gw1_f2: "随时点击断开连接，彻底擦除本地凭据",
-        gw1_f3: "绝无任何遗留模拟账号预填残留",
-        gw2_badge: "选项 B · 沙盒模式",
-        gw2_title: "即时体验 Demo 模式（Alex Reed 虚构人设）",
-        gw2_text: "预载入自 2026 年 8 月 1 日起的 136 条真实工程手账与 85 张每日小票。显式标注：⚠️ Demo 模式下无法存储用户信息与手账数据。",
-        gw2_f1: "136 条虚构架构师与创意开发手账",
-        gw2_f2: "85 张自 8 月 1 日起至今的完整小票历程",
-        gw2_f3: "零用户个人隐私泄露风险，纯粹体验",
-        sec3_tag: "第三章节 · 核心画卷",
-        sec3_title: "Tab 1: 每日记忆画卷与今日速记台",
-        sec3_desc: "你的日常沉浸书写台。今日速记台默认展开，无需额外点击即可落笔。配备 AI STAR 战绩润色、时空缩放与右侧伴随面板。",
-        t1_badge1: "快速捕捉与提炼",
+        doc_version: "v2.4.0 正式版",
+        open_app_link: "打开 Dayprint →",
+        nav_overview: "1. 数据主权",
+        nav_gateway: "2. 新手与Demo",
+        nav_daily: "3. Tab 1: 每日画卷",
+        nav_memoryos: "4. Tab 2: 认知中枢",
+        nav_graph: "5. Tab 3: Knowledge Graph",
+        nav_receipts: "6. 每日小票",
+        nav_studios: "7. 专属工具",
+        sec1_num: "产品概述 · 核心架构",
+        sec1_title: "本地优先架构与 100% 数据归属",
+        sec1_desc: "在日常开发和生活中，很多有价值的思考容易散落在 Slack 讨论、临时文本和备忘录里。等到写晋升述职、做技术选型复盘，或者想查几个月前解决某个 Bug 的思路时，往往很难拼凑完整。Dayprint 采用本地优先（Local-First）设计，直接把笔记同步到你自己的私有 GitHub 仓库，存成最干净、随时可迁移的 Markdown 文件。",
+        c1_tag: "存储机制",
+        c1_title: "直连私有 GitHub 仓库",
+        c1_text: "没有中心化黑盒数据库，没有专有格式绑定。所有笔记卡片、每日小票与双向关系，都以人类可读的 Markdown 文件保存在你自己的仓库中。",
+        c1_p1: "纯客户端调用 GitHub 官方 REST API",
+        c1_p2: "密钥 Token 仅加密保存在本地浏览器",
+        c1_p3: "原生兼容本地 Obsidian 知识库格式",
+        c2_tag: "视觉触感",
+        c2_title: "纸张质感与温润排版",
+        c2_text: "告别冰冷单调的纯白界面。Dayprint 选用温暖的莫兰迪纸张底色、机械键盘敲击音效、真实的撕裂齿纹小票与水彩洗色光晕。",
+        c2_p1: "温暖细腻的纸张噪点与底色",
+        c2_p2: "5 种情绪水彩洗色辅助每日复盘",
+        c2_p3: "逼真的热敏小票齿纹撕口设计",
+        c3_tag: "认知进阶",
+        c3_title: "结构化知识沉淀",
+        c3_text: "不只是无序的便签记录。Dayprint 搭建了纵向 L0 到 L4 的认知层级金字塔，并配合横向概念网络图谱，帮助思考沉淀为做事准则。",
+        c3_p1: "从 L0 随手草稿到 L4 底层信条清晰分层",
+        c3_p2: "支持点击溯源链，随时跳回最早记录的日记",
+        c3_p3: "自动挖掘未标记的潜在关联与因果关系",
+        sec2_num: "新手接入 · 模式选择",
+        sec2_title: "欢迎网关与即时体验 Demo 沙盒",
+        sec2_desc: "初次打开 Dayprint 时，系统会弹出欢迎网关。你可以选择连接自己的私有 GitHub 仓库开启正式记录，也可以直接进入 Demo 模式完整体验各项功能。",
+        gw1_tag: "正式模式",
+        gw1_title: "配置私有 GitHub 笔记仓库",
+        gw1_text: "输入你的 GitHub 仓库路径（如 username/my-vault）与具备读写权限的个人访问令牌（PAT）。Dayprint 会在每次保存时自动提交并生成提交哈希。",
+        gw1_p1: "直接调用 GitHub 官方 API 自动提交更改",
+        gw1_p2: "点击断开连接可立即彻底清除本地存储的密钥",
+        gw1_p3: "刷新后保持断开状态，绝无多余模拟账号残留",
+        gw2_tag: "沙盒模式",
+        gw2_title: "即时体验 Demo（Alex Reed 虚构人设）",
+        gw2_text: "预载入自 2026 年 8 月 1 日起的 136 条真实工程手账与 85 张每日小票。页面明确提示：[Demo 说明：演示模式下不会保存用户个人数据]。",
+        gw2_p1: "136 条涵盖技术与生活的真实记录，85 张小票",
+        gw2_p2: "从 8 月 1 日至今连续完整，没有任何断层日期",
+        gw2_p3: "完全使用虚构技术专家人设，零用户隐私隐患",
+        sec3_num: "核心画卷 · 日常记录",
+        sec3_title: "Tab 1: 每日记忆画卷与速记台",
+        sec3_desc: "日常记录的主工作台。今日速记台默认保持展开状态，打开就能直接写。配备 AI STAR 战绩提炼、时空缩放视图和右侧伴随面板。",
+        t1_tag1: "沉浸书写台",
         t1_title1: "默认展开速记台与 AI 润色",
-        t1_text1: "速记台默认展开。输入日常随笔后点击 ✨ 润色，AI 自动提取情境、任务、行动与结果的 STAR 职场高光模型。",
-        t1_f1: "中英双语独立编辑选项卡，互不覆盖",
-        t1_f2: "回声编织自动唤醒两周前类似思考",
-        t1_f3: "智能文档提取将长文一键切分为原子卡片群",
-        t1_badge2: "时序纵览",
-        t1_title2: "右侧伴随面板与心情色彩洗色",
-        t1_text2: "右侧伴随面板展现当天时间脉络、即时小票结语备忘、年度记录热力图与 5 种心情洗色（Daily Mood Wash）选择器。",
-        t1_f4: "时空缩放：日 (Day)、周 (Week)、月 (Month) 任意切换",
-        t1_f5: "卡片详情双向 [[wikilink]] 关系展开",
-        t1_f6: "即时结语与当天小票实时双向同步",
-        sec4_tag: "第四章节 · 校准中枢",
+        t1_text1: "速记台默认展开。输入随手记录后点击 ✨ 润色，AI 会自动帮你把口语化碎记梳理为情境（Situation）、任务（Task）、行动（Action）与结果（Result）的 STAR 战绩格式。",
+        t1_p1: "中英双语独立编辑选项卡，互不覆盖丢失",
+        t1_p2: "回声编织自动唤醒两到四周前的相关思考",
+        t1_p3: "智能文档提取将整篇会议纪要一键切分为原子卡片",
+        t1_tag2: "伴随面板",
+        t1_title2: "右侧伴随面板与心情洗色",
+        t1_text2: "右侧面板展现当天的时间脉络、与小票实时双向同步的复盘便签、年度记录热力图以及 5 种心情色彩选择器。",
+        t1_p4: "时空缩放：日（Day）、周（Week）、月（Month）自由切换",
+        t1_p5: "卡片详情弹窗支持 [[wikilink]] 双向关系展开",
+        t1_p6: "即时复盘便签与当天的热敏小票双向实时同步",
+        sec4_num: "认知校准 · 工作台",
         sec4_title: "Tab 2: 认知中枢账本 (Cognitive Ledger)",
-        sec4_desc: "Dayprint 全系统唯一的读写校准工作台。散落碎片在这里被系统化提炼为 L0~L4 认知阶梯，具备置信度色条、双语校验与溯源反查。",
-        t2_badge1: "纵向分层体系",
-        t2_title1: "L0~L4 认知进化金字塔",
-        t2_text1: "涵盖 L0 随笔、L1 战绩、L2 习惯SOP、L3 心智模型到 L4 底层信条。配备 AI Distill 引擎自动反思提炼高阶认知。",
-        t2_f1: "默认按待校准度降序排序（缺失项优先展示）",
-        t2_f2: "直观置信度色条（≥85% 苍绿 / ≥70% 琥珀 / <70% 陶土红）",
-        t2_f3: "双语完整度提示标签（ZH ✅ / EN ⚠️）",
-        t2_badge2: "有据可查",
+        sec4_desc: "Dayprint 全系统唯一的读写校准工作台。在这里，日常碎片会被系统化整理进 L0 到 L4 的认知阶梯，配备清晰的置信度色条、双语就绪状态和来源溯源链接。",
+        t2_tag1: "分层体系",
+        t2_title1: "L0~L4 认知金字塔",
+        t2_text1: "涵盖 L0 随笔、L1 战绩、L2 习惯SOP、L3 心智模型到 L4 底层信条。配备 AI Distill 引擎，能从低阶记录中提炼出高阶做事准则。",
+        t2_p1: "按待校准度降序排列（需要补全的卡片排在最前）",
+        t2_p2: "卡片显式呈现置信度色条（≥85% 苍绿 / ≥70% 琥珀 / <70% 陶土红）",
+        t2_p3: "双语就绪状态标签：<span class=\"status-badge\">中文已就绪 · 英文待补全</span>",
+        t2_tag2: "溯源追踪",
         t2_title2: "来源溯源反查链 (source_ids)",
-        t2_text2: "每一条高阶心智（L3/L4）明确标注「源自 N 条原始记录」。点击即可展开高亮对应历史日记碎片，拒绝凭空捏造人设。",
-        t2_f4: "点击溯源直接反查回当初的原始随笔",
-        t2_f5: "支持原地表单行卡直接微调双语文案",
-        t2_f6: "一键导出符合 Obsidian 规范的标准 Frontmatter",
-        sec5_tag: "第五章节 · 关系拓扑",
+        t2_text2: "每一条高阶心智（L3/L4）都会明确标注“源自 N 条原始记录”。点击可直接展开对应日期的日记，确保每条信条都言之有据。",
+        t2_p4: "点击溯源可直接反查最初记录的日记上下文",
+        t2_p5: "在卡片上直接修改中英文案与标签主题",
+        t2_p6: "一键导出符合 Obsidian 官方标准的前置元数据",
+        sec5_num: "关联网络 · 拓扑分析",
         sec5_title: "Tab 3: Knowledge Graph",
-        sec5_desc: "横向概念网络与拓扑涌现分析台。在力导向动态引力星轨中漫游，一键挖掘潜在星轨；或切换至纯粹的拓扑索引胶囊按连接度检索枢纽概念。",
-        t3_badge1: "引力物理模拟",
-        t3_title1: "力导向星轨引擎与潜在连线挖掘",
-        t3_text1: "节点根据语义相似度与双向链接产生引力自发聚拢。点击「编织潜在星轨」，本地启发式算法自动挖掘未标明的因果联系。",
-        t3_f1: "丝滑缩放平移与物理拖拽动效",
-        t3_f2: "Auto-Link 自动编译发现潜在语义因果链",
-        t3_f3: "全图谱节点按认知层级莫兰迪色彩区分",
-        t3_badge2: "中心度索引",
-        t3_title2: "拓扑索引胶囊（无冗余正文干扰）",
-        t3_text2: "右上角切换至拓扑索引视图，以 5~6 列紧凑胶囊呈现。移除冗余正文，严格按连结数（Links）降序排布，直观定位中枢概念。",
-        t3_f4: "按度数中心性（连结数降序）严格排布",
-        t3_f5: "胶囊结构：类型 + 层级 + 标题 + 连结数",
-        t3_f6: "点击胶囊与右侧 Inspector 抽屉及图谱联动高亮",
-        sec6_tag: "第六章节 · 实体手账",
+        sec5_desc: "横向概念网络与拓扑结构分析台。既可以在力导向动态画布中漫游概念聚类，也可以切换到紧凑的拓扑索引胶囊，按连结数量快速检索核心概念。",
+        t3_tag1: "动态画布",
+        t3_title1: "力导向星轨引擎与自动连线编译",
+        t3_text1: "概念节点在物理斥力与引力下自然形成主题星团。点击“编织潜在星轨”，本地启发式算法会自动扫描笔记，挖掘潜在的语义因果连线。",
+        t3_p1: "丝滑缩放、平移与节点拖拽物理回弹",
+        t3_p2: "Auto-Link 自动编译发现未显式标记的双向关系",
+        t3_p3: "节点按认知层级莫兰迪色彩区分展示",
+        t3_tag2: "中心度索引",
+        t3_title2: "拓扑索引胶囊（无冗余正文）",
+        t3_text2: "右上角切换到拓扑索引视图，以 5 到 6 列紧凑胶囊排布。移除了冗余正文，严格按连结数量（Links）从高到低排列，直观展现核心枢纽概念。",
+        t3_p4: "按连接度中心性（连结数从高到低）排序",
+        t3_p5: "紧凑胶囊结构：类型 + 层级 + 标题 + 连结数",
+        t3_p6: "点击任一胶囊即可在右侧抽屉检视出入度连线并在画布高亮",
+        sec6_num: "手账存根 · 实体感",
         sec6_title: "每日复盘小票与 5 色心情洗色画廊",
-        sec6_desc: "点击「生活存根」唤起实体热敏纸小票轮播画廊。Demo 内置从 8 月 1 日至今的 85 张真实小票，具备撕裂齿纹、火漆印章与 5 种莫兰迪水彩洗色。",
-        rcpt_badge1: "通感拟物设计",
-        rcpt_title1: "锯齿撕裂边缘与严谨零空卡",
-        rcpt_text1: "每一个小票日期都对应真实记忆卡片。'TOTAL RECORDED' 显示 2 ITEMS、3 ITEMS，绝无空卡。底部盖有火漆橡胶 ARCHIVED 归档印章。",
-        rcpt_f1: "Demo 模式覆盖 8 月 1 日至今的 85 张完整小票",
-        rcpt_f2: "详尽列出当天各时钟发生的碎片事件清单",
-        rcpt_f3: "独立中英双语「今日复盘与结语」感悟框",
-        rcpt_badge2: "情绪光谱",
-        rcpt_title2: "五大莫兰迪心情色彩洗色",
-        rcpt_text2: "每张小票顶部与底部浸染当天的心情水彩：陶土红（热情）、琥珀蜜（灵感）、苍青绿（平和）、冰海蓝（澄澈）与暮山紫（内省）。",
-        sec7_tag: "第七章节 · 专属工具",
-        sec7_title: "Career Studio、周报复盘、星轨天体与全知检索",
-        sec7_desc: "深度赋能职场晋升与生命复盘的专业辅助工作台，让记忆库成为职场跃迁的核心护城河。",
-        studio1_title: "Career Studio (职场战绩库)",
-        studio1_text: "汇总历次 AI 润色提炼的 STAR 高光战绩，一键推演生成中英双语的高管述职亮点与量化简历子弹点。",
-        studio2_title: "Weekly Digest (周报复盘)",
-        studio2_text: "分析 7 天情绪周期与关键认知产出。精准基于本地周一至周日切分，生成周度金句与习惯追踪报告。",
-        studio3_title: "OmniSearch (⌘K) 与时光归档",
-        studio3_text: "毫秒级中英文全文检索与模糊匹配，搭配按年份、月份树状折叠的时光归档树，随时回溯生命印记。",
-        sec8_tag: "第八章节 · 视频脚本",
-        sec8_title: "极高清录屏交互指令与中英双语配音脚本",
-        sec8_desc: "严格控制在 2 分 20 秒以内（完全符合黑客松 1~3 分钟硬性要求）。每个镜头对应精确的鼠标交互指令与中英配音台词。",
-        th_time: "时间戳",
-        th_scene: "镜头场次与视图",
-        th_action: "屏幕操作指令与鼠标动线",
-        th_voiceover: "配音旁白台词 (中英对照)"
+        sec6_desc: "点击侧边栏或伴随面板的“生活存根”，展开实体风格热敏小票画廊。Demo 模式预置了自 8 月 1 日至今的 85 张连续小票，覆盖 5 种情绪水彩洗色。",
+        rcpt_tag1: "小票结构",
+        rcpt_title1: "齿纹撕口与零空卡保障",
+        rcpt_text1: "每个小票日期均对应真实日记卡片，TOTAL RECORDED 计数显示 2 ITEMS、3 ITEMS，绝无空卡。底部盖有拟物的火漆归档印章。",
+        rcpt_p1: "Demo 模式涵盖 8 月 1 日至今的 85 张完整小票",
+        rcpt_p2: "详细列出当天每个时间点记录的事件与灵感",
+        rcpt_p3: "优雅的中英双语今日复盘与结语感悟卡",
+        rcpt_tag2: "情绪光谱",
+        rcpt_title2: "五大莫兰迪心情水彩洗色",
+        rcpt_text2: "每张小票的上下边缘浸染当天的心情水彩：陶土红（热情）、琥珀蜜（灵感）、苍青绿（平和）、冰海蓝（澄澈）与暮山紫（内省）。",
+        sec7_num: "专属工作台 · 进阶成长",
+        sec7_title: "Career Studio、周报复盘、星轨罗盘与全知检索",
+        sec7_desc: "深度赋能职场复盘与认知归档的专属工具，让平时的随想成为你职业生涯的坚实证据。",
+        st1_title: "Career Studio (职场战绩库)",
+        st1_text: "汇总历次 AI 润色提炼的 STAR 战绩，一键推演生成中英文述职亮点与量化简历要点，年终复盘不再抓瞎。",
+        st2_title: "Weekly Digest (周报复盘)",
+        st2_text: "汇总 7 天的情绪节奏与关键认知产出。精准匹配本地周一至周日周期，生成周度金句与习惯维持率统计。",
+        st3_title: "OmniSearch (⌘K) 与时光归档",
+        st3_text: "毫秒级中英文全文模糊检索，搭配按年份、月份树状折叠的历史归档抽屉，随时随地回溯往昔。"
       }
     };
 
@@ -1200,11 +988,9 @@
       currentLang = lang;
       document.documentElement.lang = lang;
       
-      // Update buttons
       document.getElementById('btn-en').classList.toggle('active', lang === 'en');
       document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
 
-      // Update text nodes
       const elements = document.querySelectorAll('[data-i18n]');
       elements.forEach(el => {
         const key = el.getAttribute('data-i18n');
@@ -1214,23 +1000,21 @@
       });
     }
 
-    // Lightbox modal logic
     function openLightbox(src) {
       const lb = document.getElementById('lightbox');
       const img = document.getElementById('lightbox-img');
       img.src = src;
-      lb.classList.add('active');
+      lb.classList.add('open');
     }
 
     function closeLightbox() {
-      document.getElementById('lightbox').classList.remove('active');
+      document.getElementById('lightbox').classList.remove('open');
     }
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeLightbox();
     });
 
-    // Initialize English by default
     setLanguage('en');
   </script>
 </body>
