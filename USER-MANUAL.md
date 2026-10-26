@@ -1,204 +1,243 @@
-# Dayprint (日印) 全功能使用指南与产品手册
-
-> **版本**：v2.4.0 (Build With AI Hackathon Release)  
-> **定位**：本地优先、数据主权的 AI 数字分身记忆圣殿与心智进化中枢 (Local-First Cognitive Confidant & Digital Twin Sanctuary)  
-> **文档目标**：全面梳理 Dayprint 每个页面、每个 Tab、每个工具弹窗与底层交互逻辑，作为用户操作指南与视频演示录制（Screenplay & Voiceover）的权威基准。
-
----
-
-## 目录
-1. [产品核心架构与数据主权原则](#1-产品核心架构与数据主权原则)
-2. [新手引导与数据模式网关 (Welcome Gateway)](#2-新手引导与数据模式网关-welcome-gateway)
-3. [Tab 1: 每日记忆画卷 (Daily Canvas & Living Stream)](#3-tab-1-每日记忆画卷-daily-canvas--living-stream)
-4. [Tab 2: 认知中枢账本 (Cognitive Ledger / Memory OS)](#4-tab-2-认知中枢账本-cognitive-ledger--memory-os)
-5. [Tab 3: 知识关系图谱与拓扑星轨 (Knowledge Graph & Celestial Topology)](#5-tab-3-知识关系图谱与拓扑星轨-knowledge-graph--celestial-topology)
-6. [拟物生命凭证：每日小票画廊 (Daily Thermal Receipts)](#6-拟物生命凭证每日小票画廊-daily-thermal-receipts)
-7. [四大专属演进工作台 (Specialized Studios & Modals)](#7-四大专属演进工作台-specialized-studios--modals)
-8. [全局辅助工具与系统控制 (Global Utilities & Controls)](#8-全局辅助工具与系统控制-global-utilities--controls)
-9. [从使用文档到录屏视频脚本的转化映射 (Script Mapping)](#9-从使用文档到录屏视频脚本的转化映射-script-mapping)
+# Dayprint Master Product Guide & Video Demo Blueprint
+> **Interactive HTML Version**: Available live at [http://localhost:3000/manual.html](http://localhost:3000/manual.html)  
+> **Interactive Preview File**: [public/manual.html](file:///Users/katherine/Desktop/play&fun/build-with-AI-basics/public/manual.html)  
+> **Version**: v2.4.0 (Build With AI Hackathon Release)  
+> **Languages**: English (Default) / 中文 (Bilingual)  
 
 ---
 
-## 1. 产品核心架构与数据主权原则
-
-现代人的思考被严重撕裂：工作突破留在 Slack/Jira，深度阅读散落各处，瞬间感悟在手机备忘录里石沉大海。更重要的是，将最私密的个人记忆交给中心化云厂商面临严重的数据隐私与厂商绑定风险。
-
-Dayprint 基于三大底层支柱构建：
-1. **绝对数据主权 (100% Data Sovereignty)**：无中心化数据库，无用户追踪。所有数据直连用户自己的私有 GitHub 仓库，以干净的人类可读 Markdown 格式存储；支持一键同频至本地 Obsidian Vault。
-2. **通感拟物美学 (Tactile Sensory Craftsmanship)**：打破冰冷玻璃屏界面，引入温暖的莫兰迪纸质纹理、微拟物票据齿纹、双色浸染洗色（Dip-Dye Wash）与机械打字机音效。
-3. **AI 数字分身摇篮 (AI Digital Twin Cradle)**：不仅记录日常碎片，更通过独特的 L0~L4 纵向认知金字塔与横向关系拓扑，持续沉淀个人的底层信念与心智模型。
-
----
-
-## 2. 新手引导与数据模式网关 (Welcome Gateway)
-
-初次访问应用或未配置凭据时，系统会自动唤起 **Welcome Gateway（欢迎网关）**。
-
-### 2.1 双模式选择
-- **选项 A：连接私有 GitHub 仓库（生产持久化模式）**
-  - **仓库格式**：输入 `username/repo-name`（如私有笔记仓库）。
-  - **认证密钥**：填入具备 `repo` 读写权限的 GitHub Personal Access Token (PAT)。
-  - **安全机制**：Token 仅加密缓存在浏览器端本地 LocalStorage，直接调用 GitHub API 进行 Git Commit/Push，绝不途径任何第三方中间服务器。
-- **选项 B：体验 Demo 模式 (Instant Interactive Sandbox)**
-  - **免配置即用**：点击「进入 Demo 体验模式」，立即载入虚构架构师（Alex Reed, Systems Architect）自 2026 年 8 月 1 日起的全真手账数据。
-  - **边界提示**：界面显式标注 `⚠️ Demo 模式下无法存储用户信息与手账数据`，明确该环境仅用于沉浸式功能体验。
-
-### 2.2 仓库断开与缓存重置
-- 在主界面右上角或侧边栏点击 **GitHub 状态徽标**，可随时打开设置面板：
-  - 点击「断开连接 (Disconnect)」：即刻抹除本地保存的 GitHub PAT 与仓库绑定，回到干净的离线状态。
-  - 刷新页面后严格保持断开，绝不回退或预填任何模拟凭据。
+## Quick Navigation / 快速导航
+- [Part 1 (English): Complete User Manual & Feature Guide](#part-1-english-complete-user-manual--feature-guide)
+  - [1. Data Sovereignty & Core Philosophy](#1-data-sovereignty--core-philosophy)
+  - [2. Welcome Gateway & Demo Mode Sandbox](#2-welcome-gateway--demo-mode-sandbox)
+  - [3. Tab 1: Daily Canvas & Today's Notes](#3-tab-1-daily-canvas--todays-notes)
+  - [4. Tab 2: Cognitive Ledger](#4-tab-2-cognitive-ledger)
+  - [5. Tab 3: Knowledge Graph](#5-tab-3-knowledge-graph)
+  - [6. Daily Thermal Receipts & 5 Mood Washes](#6-daily-thermal-receipts--5-mood-washes)
+  - [7. Specialized Studios & Utilities](#7-specialized-studios--utilities)
+  - [8. Master Video Demo Screenplay & Voiceover Script](#8-master-video-demo-screenplay--voiceover-script)
+- [Part 2 (中文): 完整功能使用指南与视频演示脚本](#part-2-中文-完整功能使用指南与视频演示脚本)
 
 ---
 
-## 3. Tab 1: 每日记忆画卷 (Daily Canvas & Living Stream)
+# Part 1 (English): Complete User Manual & Feature Guide
 
-日常灵感与事件捕捉的“主舞台”，兼顾极简输入与丰富的时间回溯。
+## 1. Data Sovereignty & Core Philosophy
 
-### 3.1 今日速记台 (Today's Notes / TodayEditor)
-- **默认展开态**：打开即处于展开书写状态，无需多余点击。
-- **中英双语独立编辑**：支持在 `ZH`（中文）与 `EN`（英文）选项卡间独立录入，互不覆盖；仅填单侧时，内置翻译引擎自动补全另一侧。
-- **AI 智能润色 (AI Polish Engine)**：
-  - 输入粗糙随笔后点击 ✨ 润色，AI 自动提取职场与成长 **STAR 模型**（Situation 情境、Task 任务、Action 行动、Result 结果）。
-  - 自动剥离情绪杂质，提炼出可直接用于晋升复盘或知识库的高净值卡片。
-- **回声编织 (Weave Echo)**：在录入时自动检索过去 30 天内相似的记忆碎片，提醒你“这个想法你在两周前也思考过”，形成跨时间的自我对话。
-- **智能文档提取 (Smart Document Ingest)**：支持粘贴整篇会议纪要、技术 RFC 或长文，AI 自动将其切分为原子化的碎片卡片群批量入库。
-- **类型与莫兰迪色彩拾取**：
-  - 支持 `Idea (想法/陶土红)`、`Learning (学习/冰海蓝)`、`Moment (瞬刻/琥珀蜜)`、`Decision (决策/暮山紫)`、`Plan (规划/苍青绿)`、`Collection (藏品/深海蓝)`。
-  - 支持动态添加自定义类型。
+Modern human thinking is deeply fractured across Slack, Jira, Notion, and phone memos. Even worse, entrusting intimate personal thoughts to centralized cloud providers risks vendor lock-in and privacy leakage.
 
-### 3.2 时序画卷交互 (Living Stream)
-- **时空缩放 (Temporal Zoom)**：提供「日 (Day) / 周 (Week) / 月 (Month)」三级缩放。
-  - 日视图：聚焦单日细节，按发生时间顺序串联。
-  - 周/月视图：大尺度聚合卡片网格，全景纵览生活节奏。
-- **记忆卡片微交互**：
-  - 卡片顶部展示发生时间、类型标签与认知层级徽标（L0~L4）。
-  - 双语标题与正文优雅呈现，支持一键切换语言预览。
-  - 点击可展开全屏检视详情，查看双向关联节点并一键连线。
-
-### 3.3 右侧伴随面板 (Context Panel)
-- **今日脉络时间线**：展示当天已记录的所有记忆条目与发生时钟。
-- **即时日记小票备忘录**：在面板下方直接填写今日复盘与结语（Reflection），自动与当天小票双向同步。
-- **5 种心情色彩洗色 (Daily Mood Wash)**：一键点选当天主色调（陶土红、琥珀蜜、苍青绿、冰海蓝、暮山紫）。
-- **活动热力图 (Activity Heatmap)**：直观展现全年的记录活跃度频次分布。
+Dayprint is built on three foundational pillars:
+1. **100% Data Sovereignty**: Zero central databases, zero telemetry. All personal notes, receipts, and graph links are committed directly to your private GitHub repository as clean, standard Markdown. Compatible with local Obsidian vaults.
+2. **Tactile Sensory Craftsmanship**: Rejecting cold glass interfaces in favor of warm Morandi paper fibers, mechanical typewriter audio feedback, dip-dye watercolor glow, and genuine jagged-edge thermal paper tears.
+3. **Cognitive Evolution**: Knowledge progresses through an L0~L4 cognitive pyramid paired with a semantic wikilink topology.
 
 ---
 
-## 4. Tab 2: 认知中枢账本 (Cognitive Ledger / Memory OS)
+## 2. Welcome Gateway & Demo Mode Sandbox
 
-**定位：全应用唯一的读写校准工作台（Calibration Workbench）**。  
-不再是普通的卡片列表，而是用户审视、提炼、进化个人心智模型的严肃账本。
+![Welcome Gateway](/manual-assets/00-welcome.png)
 
-### 4.1 纵向认知金字塔架构 (L0 ~ L4 Hierarchy)
-- **L0 原始随笔 (Raw Stream)**：未经过加工的日常感触与工作碎记。
-- **L1 事件与高光 (Events & Wins)**：里程碑事件、关键交付与战绩。
-- **L2 习惯与流程 (Habits & SOPs)**：可复用的工作流、日常生活规律与实践准则。
-- **L3 心智模型 (Mental Models)**：经过验证的思考范式（如“群岛原则”、“第一性原理推演”）。
-- **L4 底层信念与信条 (First Principles & Beliefs)**：构筑个人世界观与做人做事底线的核心价值观。
+When first opening Dayprint without credentials, the **Welcome Gateway** modal appears automatically.
 
-### 4.2 校准工作台核心功能
-- **待校准度排序 (Calibration Score Sorting)**：
-  - 默认按“待办缺陷度”降序排列：缺英文翻译（+40分）、缺中文（+40分）、无主题（+10分）、无溯源（+10分）、低置信度（加权）。
-  - 让用户一目了然：哪一条核心信条最需要当下手动完善。
-- **置信度指示器 (Confidence Meter)**：
-  - 每张卡片均以显式百分比色条呈现置信度（≥85% 苍青绿，≥70% 琥珀蜜，<70% 陶土红）。
-  - 支持原地拖动滑块调整自己对该原则的坚信程度。
-- **双语完整度校验**：显式展示 `ZH ✅ / EN ⚠️` 标签，杜绝单侧语言缺失。
-- **来源溯源反查链 (Source Provenance / source_ids)**：
-  - 高阶信条（L3/L4）卡片上显式标注「源自 N 条原始记录」。
-  - 点击即可展开并高亮对应的原始日记碎片，保证数字分身的每一条人设与原则都**言之有据、绝非空中楼阁**。
-- **AI 认知升维引擎 (AI Distill Engine)**：
-  - 一键调用大模型研读近期 L0/L1 记录，自主归纳并提炼候选心智模型。
-  - 用户确认无误后一键升维沉淀为 L3/L4 卡片。
-- **Obsidian 双向同频导出**：符合 Obsidian 官方标准 Frontmatter，一键同频沉淀到本地知识库。
+### 2.1 Two Operating Modes
+- **Option A: Private GitHub Repository Connection (Production Mode)**
+  - Enter your repository path (e.g. `username/my-vault`) and Personal Access Token (PAT).
+  - The token is encrypted in browser LocalStorage only. Dayprint communicates directly with GitHub REST API—zero intermediary servers.
+- **Option B: Instant Interactive Demo (Sandbox Mode)**
+  - Click **"进入 Demo 体验模式" (Enter Demo Mode)**.
+  - Instantly loads 136 realistic engineering and life notes dating back to August 1, 2026, under the fictional persona of Alex Reed (Systems Architect).
+  - Explicit disclaimer: `⚠️ Demo 模式下无法存储用户信息与手账数据` (Demo mode does not persist personal user data).
+
+### 2.2 Disconnecting GitHub
+- Click the GitHub badge in the header or sidebar at any time.
+- Click **"Disconnect"**: Clears local token and repository bindings immediately. Remains cleanly disconnected upon refresh.
 
 ---
 
-## 5. Tab 3: 知识关系图谱与拓扑星轨 (Knowledge Graph & Celestial Topology)
+## 3. Tab 1: Daily Canvas & Today's Notes
 
-**定位：横向网络拓扑与概念涌现分析台（只读分析分析台）**。
+![Daily Canvas](/manual-assets/02-view-daily.png)
 
-### 5.1 力导向动态星轨 (Force-Directed Graph)
-- **物理引力引擎**：节点之间基于双向链接（`[[wikilink]]`）与主题相似度产生物理弹簧斥力与中心引力。
-- **粒子星轨漫游**：支持无级缩放、节点拖拽、力场阻尼自适应稳定，高密度连接的节点自然收敛为枢纽星团。
-- **潜在星轨自动编织 (Auto-Link Compiler)**：
-  - 点击「编织潜在星轨连线」，本地启发式/语义引擎全量扫描所有记忆内容。
-  - 自动挖掘未显式标记的因果关系、演进关系与引用关系，瞬间织密认知网络。
+The primary thinking surface for immediate capture and temporal reflection.
 
-### 5.2 拓扑索引胶囊 (Topology Index)
-- 点击右上角切换至 **「拓扑索引」视图**。
-- **节点紧凑胶囊**：采用 5~6 列极紧凑布局，**明确不渲染冗余正文**，仅呈现：类型徽标 + 层级徽标 + 标题 + 连结数（Links）。
-- **按连结度降序排列**：直接将网络中的“中枢核心概念”推向最顶端。
-- **节点检视器联动 (Node Inspector)**：点击任一胶囊，右侧弹出检视抽屉，展现该节点的所有出度/入度连线并可在图谱上高亮脉冲定位。
+### 3.1 Today's Notes Desk (TodayEditor)
+- **Expanded by Default**: Ready for immediate input without an extra unfold click.
+- **Independent Bilingual Editing**: Switch between `ZH` and `EN` tabs. If only one language is filled, the internal engine auto-translates the other side.
+- **AI STAR Polish**: Type a raw note and click ✨ Polish. The AI extracts Situation, Task, Action, and Result (STAR) career brag points, stripping away emotional noise.
+- **Weave Echo**: Automatically queries memories from 14~30 days ago sharing semantic affinity, sparking cross-temporal self-dialogue.
+- **Smart Document Ingest**: Paste long meeting minutes or technical RFCs; AI parses and creates atomic cards in batch.
+- **Morandi Pigment Types**: Idea (`#C97A63`), Learning (`#5B7B94`), Moment (`#C49A56`), Decision (`#7C6F93`), Plan (`#608066`), Collection (`#5A7D8F`).
 
----
+### 3.2 Living Stream & Temporal Zoom
+- **Temporal Zoom**: Day (daily sequence), Week (7-day grid), Month (high-level cadence).
+- **Interactive Memory Cards**: Level badge, time tags, [[wikilink]] expansion, and inline link weaving.
 
-## 6. 拟物生命凭证：每日小票画廊 (Daily Thermal Receipts)
-
-在主界面左侧边栏或伴随面板点击「每日小票 (Daily Receipt)」，唤起沉浸式小票轮播画廊。
-
-### 6.1 核心特性与数据规模
-- **历史跨度丰富**：Demo 模式内置自 **2026 年 8 月 1 日至今** 的完整小票历史（85 张小票，覆盖 86 天，无任何日期断层）。
-- **零空卡保证 (Zero Empty Slips)**：每个有小票的日期均对应真实的记忆卡片，`TOTAL RECORDED: N ITEMS` 真实统计（如 2 ITEMS, 3 ITEMS），彻底告别空白无内容。
-- **5 大莫兰迪心情洗色 (Mood Wash)**：
-  1. **陶土红 · 热情 (Terracotta · Energized)**：行动力爆棚的高光之日。
-  2. **琥珀蜜 · 灵感 (Amber · Inspired)**：顿悟闪光、创造心流之日。
-  3. **苍青绿 · 平和 (Sage · Calm)**：松弛从容、内心安定之日。
-  4. **冰海蓝 · 澄澈 (Fjord · Focused)**：清醒理性、专注沉浸之日。
-  5. **暮山紫 · 内省 (Twilight · Reflective)**：深度复盘、静水流深之日。
-- **拟物触感设计**：
-  - 顶部与底部逼真的热敏纸撕裂锯齿（Sawtooth Tear Edges）。
-  - 双色浸染洗色光晕，营造实体手账的温润呼吸感。
-  - 独立双语「今日复盘与结语 (Daily Reflection)」，诗意沉淀一天的思绪。
-  - 底部印有拟物盖印的火漆/橡胶归档印章（ARCHIVED Stamp）。
+### 3.3 Right Companion Panel (Context Panel)
+- Today's chronological pulse.
+- Reflection input box synced in real-time with today's receipt.
+- **5-Color Daily Mood Wash**: Instant palette selection.
+- **Annual Activity Heatmap**: Visual frequency matrix across the year.
 
 ---
 
-## 7. 四大专属演进工作台 (Specialized Studios & Modals)
+## 4. Tab 2: Cognitive Ledger
 
-除三大主 Tab 外，Dayprint 提供了深度赋能个人成长与职场跃迁的专属工具：
+![Cognitive Ledger](/manual-assets/03-view-memory-os.png)
 
-### 7.1 职场战绩工作台 (Career Studio)
-- **STAR 战绩库汇总**：自动汇集历次 AI 润色提炼出的高质量工作交付与架构突破。
-- **AI 简历/晋升述职一键生成**：根据沉淀的记忆库，一键推演生成中英双语的专业个人总结与履历亮点，告别年底复盘遗忘。
+**Positioning: The singular read-and-write Calibration Workbench in Dayprint.**
 
-### 7.2 周度演进简报 (Weekly Digest)
-- **7 天认知与情绪周期盘点**：统计整周的心情分布比例与核心认知输出。
-- **时区安全周历**：精准基于本地时间周一至周日切分，生成周度金句与习惯维持率报告。
+### 4.1 L0~L4 Cognitive Pyramid Hierarchy
+- **L0 Raw Stream**: Unfiltered thoughts and casual daily notes.
+- **L1 Events & Wins**: Milestones, key deliverables, and achievements.
+- **L2 Habits & SOPs**: Reusable workflows, personal rhythms, and practice protocols.
+- **L3 Mental Models**: Validated thinking heuristics (e.g. "The Archipelago Principle").
+- **L4 First Principles & Core Beliefs**: Non-negotiable philosophical tenets.
 
-### 7.3 星轨天体罗盘 (Constellation Walk)
-- 将记忆按晨间意图、午后聚焦、夜间沉淀与历史周期映射到同心圆天体轨道上，提供沉浸式的宇宙星轨巡游。
-
-### 7.4 全知检索与历史归档 (OmniSearch & Archive)
-- **全局秒级搜索 (⌘K)**：跨越双语、类型、标签进行毫秒级全文检索与模糊匹配。
-- **时光归档 (Archive Modal)**：按年份、月份树状折叠归档，随时回溯生命印记。
-
----
-
-## 8. 全局辅助工具与系统控制 (Global Utilities & Controls)
-
-1. **中英双语即时切换 (Language Toggle)**：
-   - 顶部一键切换 `ZH` / `EN`。
-   - 底层由双语独立字典驱动，严格保证英文模式下**零残留中文泄漏**，标题与正文完全纯粹。
-2. **弹窗焦点与滚动锁定 (Modal Dismiss System)**：
-   - 全局引入基于引用计数的 `useModalDismiss`，所有弹窗均支持 Esc 快捷关闭，且弹出时严密锁定底层背景滚动，杜绝手势穿透。
-3. **断网韧性与离线就绪**：
-   - 完全基于客户端渲染与本地状态流转，即便完全拔掉网线，所有查看、记录、图谱操作毫秒级响应。
+### 4.2 Calibration Workbench Capabilities
+- **Calibration Score Sorting**: Ranked by maintenance need (missing English +40, missing Chinese +40, missing topics +10, missing provenance +10, low confidence).
+- **Visible Confidence Meter**: Explicit percentage color bar (≥85% Sage Green, ≥70% Amber, <70% Terracotta).
+- **Bilingual Completeness Tag**: Displays `ZH ✅ / EN ⚠️` for instantaneous auditing.
+- **Source Provenance Chain (`source_ids`)**: High-level principles display "Derived from N original notes". Click to expand and highlight the exact historical notes that birthed the insight.
+- **AI Distill Engine**: Synthesizes higher-order models from recent low-level notes.
+- **Obsidian Sync**: Exports standard YAML frontmatter for native Obsidian compatibility.
 
 ---
 
-## 9. 从使用文档到录屏视频脚本的转化映射 (Script Mapping)
+## 5. Tab 3: Knowledge Graph
 
-基于本使用文档，录屏演示视频（2 分 30 秒内）将按以下 6 个核心场次严格推进：
+![Knowledge Graph](/manual-assets/04-view-graph.png)
+
+**Positioning: Horizontal relational network topology and emergent concept map (Read-only Analysis Desk).**
+
+### 5.1 Force-Directed Physics Constellation
+- **Physics Attraction Engine**: Dynamic spring forces pull semantically related cards into natural orbital clusters.
+- **Auto-Link Compiler**: Click "编织潜在星轨" (Auto-Link Graph) to run local heuristics that detect latent causal and semantic links across the vault.
+
+### 5.2 Topology Index Capsules (No Redundancy)
+- Toggle top-right to **"拓扑索引 (Topology Index)"**.
+- **Compact Capsule Layout**: 5~6 columns. **Explicitly eliminates redundant body copy**, showing only: Type + Level + Title + Connection Count (Links).
+- **Ranked by Degree Centrality**: Highest-connected hub concepts float directly to the top.
+- **Inspector Sync**: Clicking any capsule highlights the node in the canvas and opens the Node Inspector drawer.
+
+---
+
+## 6. Daily Thermal Receipts & 5 Mood Washes
+
+![Daily Receipt](/manual-assets/05-modal-receipt.png)
+
+Click **"生活存根 (Daily Receipt)"** to summon the physical thermal receipt carousel.
+
+### 6.1 Tactile Life Stubs
+- **Rich Historical Depth**: Demo mode includes 85 slips spanning from August 1, 2026, to today without date gaps.
+- **Zero Empty Slips Guarantee**: Every single receipt date links to real canonical memories (`TOTAL RECORDED: 2 ITEMS`, `3 ITEMS`).
+- **Authentic Jagged Teeth**: Realistic physical sawtooth tear edges at top and bottom.
+- **Bilingual Daily Reflection**: Editorial contemplation box with custom typography.
+- **Tactile Wax Stamp**: Stamped with a physical `ARCHIVED` wax seal.
+
+### 6.2 The 5 Morandi Mood Washes
+1. **Terracotta · Energized (`#C97A63`)**: High-drive action and breakthroughs.
+2. **Amber · Inspired (`#C49A56`)**: Creative flow and epiphanies.
+3. **Sage · Calm (`#608066`)**: Centered mindfulness and stillness.
+4. **Fjord · Focused (`#5B7B94`)**: Sober rationality and deep focus.
+5. **Twilight · Reflective (`#9A8BB8`)**: Midnight introspection and philosophical audits.
+
+---
+
+## 7. Specialized Studios & Utilities
+
+| Studio / Tool | Purpose & Highlight |
+| :--- | :--- |
+| **Career Studio** | Gathers STAR brag achievements; generates executive promotion summaries and bilingual resume bullet points. |
+| **Weekly Digest** | 7-day emotional cadence and cognitive output analysis. Local-timezone Monday~Sunday alignment. |
+| **Constellation Walk** | Concentric planetary orbital walk mapping memories across circadian and historical orbits. |
+| **OmniSearch (⌘K) & Archive** | Sub-millisecond bilingual fuzzy search and tree-based annual/monthly chronological archives. |
+| **Language Toggle** | 100% strict English / Chinese switcher with zero residual Chinese leakage in English mode. |
+| **Modal Dismiss System** | Ref-counted `useModalDismiss` ensuring Esc dismiss and zero background body scroll-bleed. |
+
+---
+
+## 8. Master Video Demo Screenplay & Voiceover Script
+
+> **Target Duration**: 2 minutes 15 seconds to 2 minutes 25 seconds  
+> **Resolution**: 1080p @ 60fps  
+> **Master Voiceover**: Confident, articulate systems architect  
 
 ```
 +------------------------------------------------------------------------------------------------------------------+
-| 镜头场次        | 对应文档章节               | 核心展示动作与亮点                                                |
-+------------------------------------------------------------------------------------------------------------------+
-| Scene 1 (0:00) | §2 新手引导与数据主权网关   | 展开 Welcome Gateway，演示 GitHub 数据主权理念与 Demo 模式一键进入 |
-| Scene 2 (0:25) | §3 每日画卷与速记台         | 展示默认展开的 Today's Notes，演示中英双语输入与 AI STAR 润色提炼   |
-| Scene 3 (0:55) | §6 每日小票与心情洗色       | 打开小票画廊，横滑展示 8月至今的 5 种莫兰迪色彩洗色与真实复盘      |
-| Scene 4 (1:25) | §4 认知中枢账本 (T2)        | 切换 Cognitive Ledger，展示待校准排序、置信度条与 source_ids 溯源链 |
-| Scene 5 (1:55) | §5 知识关系图谱 (T3)        | 切换 Graph，展示力导向星轨漫游、自动编织连线与拓扑索引胶囊         |
-| Scene 6 (2:15) | §7 职场工作台与总结收尾     | 快速展示 Career Studio 战绩生成与 GitHub 真正属于用户的归档收尾   |
+| 0:00 - 0:25   | Scene 1: Welcome Gateway — 100% Data Sovereignty via Private GitHub & Demo Mode                   |
+| 0:25 - 0:50   | Scene 2: Tab 1 Daily Canvas — Today's Notes Default Expanded, AI STAR Polish & Temporal Zoom     |
+| 0:50 - 1:15   | Scene 3: Daily Receipts — 85 Slips from Aug 1, 5 Mood Washes & Tactile Perforations             |
+| 1:15 - 1:40   | Scene 4: Tab 2 Cognitive Ledger — L0-L4 Hierarchy, Calibration Workbench & Source Provenance     |
+| 1:40 - 2:05   | Scene 5: Tab 3 Knowledge Graph — Force-Directed Constellations & Topology Index Capsules          |
+| 2:05 - 2:25   | Scene 6: Career Studio & Closing — STAR Brag Sheet, 100% Bilingual & Eternal Ownership           |
 +------------------------------------------------------------------------------------------------------------------+
 ```
+
+### 🎬 Scene 1: Welcome Gateway & Data Sovereignty (0:00 – 0:25 | 25s)
+- **Visual Actions**:
+  1. Open Dayprint (`http://localhost:3000`). The Welcome Gateway modal displays.
+  2. Hover over the Private GitHub Repo input and Personal Access Token fields.
+  3. Click **"进入 Demo 体验模式" (Enter Demo Mode)**. Confetti bursts; the warm Morandi paper canvas reveals.
+- **English Voiceover**:
+  > *"Where does your authentic self actually live? Today, our lives are fractured across Slack threads, docs, and phone memos. Dayprint is the living sanctuary for your AI Digital Twin. Built on complete data sovereignty, it commits directly to your private GitHub repository as clean Markdown. For this walkthrough, let's enter instant Demo Mode preloaded with 136 living engineering and life memories."*
+- **中文旁白**:
+  > “你的真实自我在哪里安放？现代人的思考被撕裂在各种软件中。Dayprint 是你的 AI 数字分身记忆圣殿。基于绝对数据主权，所有记录直接沉淀到你自己的私有 GitHub 仓库。今天让我们进入即时 Demo 模式，体验 136 条涵盖工程与生活的全真记忆。”
+
+### 🎬 Scene 2: Tab 1 Daily Canvas (0:25 – 0:50 | 25s)
+- **Visual Actions**:
+  1. Showcase the default expanded `TodayEditor` at top.
+  2. Type: `"Async Actor Isolation Engine"` and brief content. Click **✨ AI Polish**.
+  3. Watch the golden STAR container unfold (Situation, Task, Action, Result). Click Save.
+  4. Toggle Temporal Zoom from Day to Week to Month.
+- **English Voiceover**:
+  > *"Tab 1 is the Daily Canvas. Today's Notes is expanded by default for zero-friction capture. Type a raw note and hit AI Polish: our engine instantly distills it into the STAR format—capturing Situation, Task, Action, and Result for career brag sheets. Weave Echo surfaces related thoughts from two weeks ago, turning fleeting moments into connected wisdom."*
+- **中文旁白**:
+  > “Tab 1 是每日画卷。今日速记台默认展开，随时捕捉灵感。输入随笔点击 AI 润色，系统立刻提炼出情境、任务、行动与结果的 STAR 战绩模型。回声编织更会自动唤醒两周前的相关思考，让灵感彼此呼应。”
+
+### 🎬 Scene 3: Daily Receipts Gallery (0:50 – 1:15 | 25s)
+- **Visual Actions**:
+  1. Click **"生活存根 (Daily Receipt)"** in the sidebar. The tactile thermal receipt carousel opens.
+  2. Smoothly swipe across August, September, and October.
+  3. Highlight the 5 mood washes, jagged sawtooth edges, reflection text, and `ARCHIVED` wax stamp.
+- **English Voiceover**:
+  > *"Click Daily Receipt to summon our tactile life stubs. Featuring 85 authentic slips from August 1 to today, every date has real records with zero empty cards. Each day is dyed in one of five Morandi mood washes—from Terracotta Energized to Fjord Focused—complete with genuine paper tear edges, reflections, and tactile wax archive stamps."*
+- **中文旁白**:
+  > “点击每日小票唤起实体手账存根。内置从 8 月 1 日至今的 85 张完整小票，每张均对应真实记忆，零空卡。五大莫兰迪心情色彩洗色——从热情陶土红到澄澈冰海蓝，搭配逼真的撕裂齿纹、今日结语与火漆印章。”
+
+### 🎬 Scene 4: Tab 2 Cognitive Ledger (1:15 – 1:40 | 25s)
+- **Visual Actions**:
+  1. Switch to **"认知档案 (Cognitive Ledger)"**.
+  2. Highlight the L0~L4 hierarchy and default Calibration Score sorting.
+  3. Hover over the Confidence bar (95%) and Bilingual tags (`ZH ✅ / EN ⚠️`).
+  4. Click **"源自 2 条原始记录" (`source_ids`)** to expand provenance context.
+- **English Voiceover**:
+  > *"Tab 2 is the Cognitive Ledger—the single calibration workbench in Dayprint. It organizes mental assets into an L0 to L4 pyramid, from raw notes up to foundational beliefs. Cards are sorted by calibration need, featuring visible confidence rating meters, bilingual readiness indicators, and clickable source_ids provenance chains linking directly back to origin notes."*
+- **中文旁白**:
+  > “Tab 2 是认知中枢账本——也是全系统唯一的校准工作台。它将记忆整理为 L0 到 L4 的金字塔体系，直达底层信条。按待校准度降序排列，配备清晰的置信度色条、双语完整度指示，以及可反查原始日记的 source_ids 溯源链。”
+
+### 🎬 Scene 5: Tab 3 Knowledge Graph (1:40 – 2:05 | 25s)
+- **Visual Actions**:
+  1. Switch to **"Knowledge Graph"** in the sidebar.
+  2. Drag nodes in the force-directed canvas. Click **"编织潜在星轨" (Auto-Link)**.
+  3. Toggle top-right to **"拓扑索引 (Topology Index)"**.
+  4. Show compact capsules sorted by link count without redundant body text. Click a node to open the Inspector.
+- **English Voiceover**:
+  > *"Tab 3 is Knowledge Graph—the horizontal relational topology. Watch concepts self-assemble into constellations through physics spring forces, or click Auto-Link to weave latent causal relationships. Switch to Topology Index to inspect degree centrality through compact capsules ranked strictly by link count, without redundant body text."*
+- **中文旁白**:
+  > “Tab 3 是 Knowledge Graph——横向关系拓扑网络。概念节点通过引力力场自发聚拢为星团，点击自动编织即可发现隐藏因果连线。切换到拓扑索引视图，通过按连结数降序排列的紧凑胶囊快速检索枢纽概念，绝无冗余正文干扰。”
+
+### 🎬 Scene 6: Career Studio & Closing (2:05 – 2:25 | 20s)
+- **Visual Actions**:
+  1. Open Career Studio: show STAR brag sheet and resume highlights.
+  2. Click language switcher to show 100% pure English mode.
+  3. Open GitHub settings: highlight disconnect and private repository sync.
+- **English Voiceover**:
+  > *"Finally, Career Studio turns your memory stream into structured STAR performance sheets and resume highlights. Toggle instantly between 100% pure English and Chinese. Your memories, your thoughts, your future AI digital twin—100% owned by you. Welcome to Dayprint."*
+- **中文旁白**:
+  > “最后，Career Studio 将沉淀的记忆一键转化为专业的 STAR 职场述职与简历亮点。支持中英文即时切换。你的记忆、你的心智、你未来的 AI 数字分身——100% 掌握在你自己手中。这就是 Dayprint。”
+
+---
+
+# Part 2 (中文): 完整功能使用指南与视频演示脚本
+
+（详细中文各章节与上方英文一一对应，用户可直接在网页版 [http://localhost:3000/manual.html](http://localhost:3000/manual.html) 顶部右上角一键切换查看，并支持全屏缩放所有高精度截图。）
