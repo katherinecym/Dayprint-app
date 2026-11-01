@@ -1,8 +1,9 @@
 # Dayprint · Developer Handoff Guide
 
-> **Single entry point for incoming contributors and engineering agents.**
+> **Single entry point for incoming contributors and engineering agents.**  
+> For the complete end-to-end integration architecture and component walkthrough, refer to [SYSTEM-INTEGRATION.md](./SYSTEM-INTEGRATION.md).
 
-Last Updated: 2026-10-25
+Last Updated: 2026-11-02
 
 ---
 

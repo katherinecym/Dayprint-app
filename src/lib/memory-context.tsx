@@ -785,16 +785,6 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
       receipts?: Record<string, DailyReceipt>;
     }
   ): Promise<{ success: boolean; message: string }> => {
-    if (!settings.github.pat || !settings.github.repo) {
-      return {
-        success: false,
-        message:
-          language === "zh"
-            ? "未配置 GitHub 仓库或 Personal Access Token。可在设置中配置以写入远程仓库。"
-            : "No GitHub repo or token provided. Please configure it in Settings.",
-      };
-    }
-
     setIsSyncing(true);
     try {
       const isProd = appMode === "production";
@@ -810,7 +800,7 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          repo: settings.github.repo,
+          repo: settings.github.repo || "katherinecym/Dayprint-storage",
           pat: settings.github.pat,
           memories: payloadMems,
           relationships: payloadRels,
@@ -823,8 +813,10 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
         updateSettings({
           github: {
             ...settings.github,
+            repo: data.repo || settings.github.repo || "katherinecym/Dayprint-storage",
             connected: true,
             last_sync: new Date().toISOString(),
+            last_commit_sha: data.sha || settings.github.last_commit_sha,
           },
         });
         return {
@@ -845,17 +837,12 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
   };
 
   const pullFromGitHub = async (): Promise<{ success: boolean; message: string }> => {
-    if (!settings.github.pat || !settings.github.repo) {
-      return {
-        success: false,
-        message: language === "zh" ? "未配置 GitHub 仓库或 Token" : "Missing GitHub repo or token",
-      };
-    }
-
     setIsSyncing(true);
     try {
+      const targetRepo = settings.github.repo || "katherinecym/Dayprint-storage";
+      const targetPat = settings.github.pat || "";
       const res = await fetch(
-        `/api/github/sync?repo=${encodeURIComponent(settings.github.repo)}&pat=${encodeURIComponent(settings.github.pat)}`
+        `/api/github/sync?repo=${encodeURIComponent(targetRepo)}&pat=${encodeURIComponent(targetPat)}`
       );
       const result = await res.json();
 

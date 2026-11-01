@@ -65,6 +65,7 @@ export function AppSidebar({
 
   const [soundOn, setSoundOn] = useState(() => isSoundEnabled());
   const [syncStatus, setSyncStatus] = useState<string | null>(null);
+  const [syncError, setSyncError] = useState<string | null>(null);
 
   const handleToggleSound = () => {
     const next = toggleSoundSetting();
@@ -73,10 +74,16 @@ export function AppSidebar({
 
   const handleSync = async () => {
     playKeyClick();
-    setSyncStatus(t.saving);
+    setSyncStatus(null);
+    setSyncError(null);
     const result = await syncWithGitHub();
-    setSyncStatus(result.message);
-    setTimeout(() => setSyncStatus(null), 3500);
+    if (result.success) {
+      setSyncStatus(result.message);
+      setTimeout(() => setSyncStatus(null), 3500);
+    } else {
+      setSyncError(result.message);
+      setTimeout(() => setSyncError(null), 8000);
+    }
   };
 
   const mainNavigation = [
@@ -381,17 +388,27 @@ export function AppSidebar({
                 }
               }}
               className={`flex-1 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors cursor-pointer truncate ${
-                settings.github.connected
+                syncError
+                  ? "bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200/60"
+                  : settings.github.connected
                   ? "bg-emerald-50 text-emerald-900 hover:bg-emerald-100 border border-emerald-200/60"
                   : "bg-stone-900 text-stone-100 hover:bg-stone-800"
               }`}
-              title={settings.github.connected ? `${settings.github.repo} (Click to sync)` : "Connect GitHub"}
+              title={
+                syncError
+                  ? syncError
+                  : settings.github.connected
+                  ? `${settings.github.repo} (Click to sync)`
+                  : "Connect GitHub"
+              }
             >
-              <GitBranch className={`w-3.5 h-3.5 shrink-0 ${settings.github.connected ? "text-emerald-700" : "text-stone-300"}`} />
+              <GitBranch className={`w-3.5 h-3.5 shrink-0 ${syncError ? "text-rose-500" : settings.github.connected ? "text-emerald-700" : "text-stone-300"}`} />
               {isOpen && (
                 <span className="text-[11px] font-medium truncate">
                   {isSyncing
                     ? (language === "zh" ? "同步中..." : "Syncing...")
+                    : syncError
+                    ? (syncError.length > 24 ? syncError.slice(0, 24) + "…" : syncError)
                     : syncStatus ||
                       (settings.github.connected
                         ? settings.github.repo.split("/")[1] || "GitHub"

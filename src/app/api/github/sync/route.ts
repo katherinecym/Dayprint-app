@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { parseMarkdownContent } from "@/lib/vault-parser";
+import { sendFeishuAlert } from "@/lib/feishu-notify";
 
 function cleanGitHubRepo(
   input: string,
@@ -32,18 +33,27 @@ function cleanGitHubRepo(
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const pat = body.pat || "";
-    const repo = body.repo || "";
+    const pat = body.pat || process.env.GITHUB_PAT || "";
+    const repo =
+      body.repo ||
+      process.env.GITHUB_STORAGE_REPO ||
+      process.env.GITHUB_REPO ||
+      "katherinecym/Dayprint-storage";
     const { memories, relationships, receipts, autoCreate = true } = body;
 
     if (!pat) {
+      await sendFeishuAlert({
+        title: "Dayprint Storage 同步告警：缺失 GitHub Token",
+        message: "Dayprint 云端同步被触发，但未检测到有效的 GitHub Personal Access Token (PAT)。",
+        actionGuide: "请在 Dayprint App 偏好设置中配置您的 GitHub PAT，或在 .env.local 中配置 GITHUB_PAT。",
+      });
       return NextResponse.json(
         { error: "Personal Access Token is required to commit to GitHub" },
         { status: 400 }
       );
     }
 
-    // 1. Get authenticated user profile to resolve fallback username
+    // 1. Get authenticated user profile to resolve fallback username & verify token
     let authedUser = "";
     try {
       const userRes = await fetch("https://api.github.com/user", {
@@ -56,9 +66,24 @@ export async function POST(req: NextRequest) {
       if (userRes.ok) {
         const userData = await userRes.json();
         authedUser = userData.login || "";
+      } else if (userRes.status === 401) {
+        await sendFeishuAlert({
+          title: "Dayprint Storage 告警：GitHub Token 已过期或失效",
+          message:
+            "Dayprint 云端同步失败：GitHub Personal Access Token 鉴权失败 (HTTP 401 Unauthorized)。",
+          actionGuide:
+            "请前往 GitHub Settings > Developer settings > Personal access tokens 重新生成 Token 并更新至 Dayprint App 中。",
+        });
+        return NextResponse.json(
+          {
+            error:
+              "GitHub Personal Access Token 已过期或失效 (401 Unauthorized)。已自动通过飞书机器人向您发送提醒。",
+          },
+          { status: 401 }
+        );
       }
-    } catch {
-      // non-blocking
+    } catch (e: any) {
+      console.warn("User auth verification warning:", e);
     }
 
     const parsedRepo = cleanGitHubRepo(repo, authedUser);
@@ -66,7 +91,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(
         {
           error:
-            "Invalid repository name. Please enter a repo name (e.g. my-dayprint) or full URL.",
+            "Invalid repository name. Please enter a repo name (e.g. Dayprint-storage) or full URL.",
         },
         { status: 400 }
       );
@@ -114,6 +139,11 @@ export async function POST(req: NextRequest) {
 
       if (!createRes.ok) {
         const createErr = await createRes.json();
+        await sendFeishuAlert({
+          title: "Dayprint Storage 告警：自动创建私有仓库失败",
+          message: `尝试为用户自动创建私有仓库 ${fullRepo} 失败 (HTTP ${createRes.status}): ${createErr.message || "权限不足"}`,
+          actionGuide: "请在 GitHub 上手动新建名为 `Dayprint-storage` 的私有仓库，或检查 Token 是否包含仓库管理权限。",
+        });
         return NextResponse.json(
           {
             error:
@@ -127,6 +157,19 @@ export async function POST(req: NextRequest) {
       await new Promise((r) => setTimeout(r, 1200));
     } else if (!repoCheckRes.ok && repoCheckRes.status !== 404) {
       const err = await repoCheckRes.json();
+      if (repoCheckRes.status === 401) {
+        await sendFeishuAlert({
+          title: "Dayprint Storage 告警：GitHub Token 已过期",
+          message: `访问仓库 ${fullRepo} 失败 (HTTP 401 Unauthorized)。`,
+          actionGuide: "请重新生成并更新 GitHub PAT。",
+        });
+      } else if (repoCheckRes.status === 403) {
+        await sendFeishuAlert({
+          title: "Dayprint Storage 权限告警：无写入权限",
+          message: `Token 无法写入或访问私有仓库 ${fullRepo} (HTTP 403 Forbidden)。`,
+          actionGuide: "请确保使用的 Token 已授权给该仓库且勾选了 `repo`（或 Contents 写入）权限。",
+        });
+      }
       return NextResponse.json(
         { error: err.message || "Failed to access GitHub repository" },
         { status: repoCheckRes.status }
@@ -212,6 +255,13 @@ export async function POST(req: NextRequest) {
 
     if (!putRes.ok) {
       const errData = await putRes.json();
+      if (putRes.status === 401 || putRes.status === 403) {
+        await sendFeishuAlert({
+          title: "Dayprint Storage 提交失败：Token 权限异常",
+          message: `向仓库 ${fullRepo} 提交文件时遇到权限错误 (HTTP ${putRes.status}): ${errData.message || "Forbidden"}`,
+          actionGuide: "请检查 Token 是否拥有 Contents 写入权限并重新绑定。",
+        });
+      }
       return NextResponse.json(
         { error: errData.message || "Failed to commit changes to GitHub" },
         { status: putRes.status }
@@ -246,9 +296,29 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
-    const pat = searchParams.get("pat") || "";
-    const repo = searchParams.get("repo") || "";
     const action = searchParams.get("action");
+
+    // Provide default server configurations if requested
+    if (action === "default") {
+      const envPat = process.env.GITHUB_PAT || "";
+      const envRepo =
+        process.env.GITHUB_STORAGE_REPO ||
+        process.env.GITHUB_REPO ||
+        "katherinecym/Dayprint-storage";
+      return NextResponse.json({
+        success: true,
+        has_default: Boolean(envPat),
+        default_repo: envRepo,
+        default_pat: envPat,
+      });
+    }
+
+    const pat = searchParams.get("pat") || process.env.GITHUB_PAT || "";
+    const repo =
+      searchParams.get("repo") ||
+      process.env.GITHUB_STORAGE_REPO ||
+      process.env.GITHUB_REPO ||
+      "katherinecym/Dayprint-storage";
 
     if (!pat) {
       return NextResponse.json(
@@ -268,6 +338,13 @@ export async function GET(req: NextRequest) {
       });
 
       if (!userRes.ok) {
+        if (userRes.status === 401) {
+          await sendFeishuAlert({
+            title: "Dayprint Storage 告警：GitHub Token 已过期或失效",
+            message: "验证用户 Token 失败 (HTTP 401 Unauthorized)。",
+            actionGuide: "请在 GitHub 重新生成 Token 并更新至 Dayprint App 中。",
+          });
+        }
         return NextResponse.json(
           { error: "Invalid GitHub token. Please verify PAT permissions." },
           { status: userRes.status }

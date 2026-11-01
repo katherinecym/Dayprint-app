@@ -62,6 +62,7 @@ export function HeaderBar({
   } = useMemory();
 
   const [syncStatus, setSyncStatus] = useState<string | null>(null);
+  const [syncError, setSyncError] = useState<string | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [soundOn, setSoundOn] = useState(() => isSoundEnabled());
   const [isModeMenuOpen, setIsModeMenuOpen] = useState(false);
@@ -84,10 +85,16 @@ export function HeaderBar({
   }, []);
 
   const handleSync = async () => {
-    setSyncStatus(t.saving);
+    setSyncStatus(null);
+    setSyncError(null);
     const result = await syncWithGitHub();
-    setSyncStatus(result.message);
-    setTimeout(() => setSyncStatus(null), 3500);
+    if (result.success) {
+      setSyncStatus(result.message);
+      setTimeout(() => setSyncStatus(null), 3500);
+    } else {
+      setSyncError(result.message);
+      setTimeout(() => setSyncError(null), 8000);
+    }
   };
 
   const getWorkspaceTitle = () => {
@@ -367,14 +374,18 @@ export function HeaderBar({
                   }`
             }
             className={`h-full flex items-center gap-1.5 px-2.5 text-xs font-semibold transition-colors cursor-pointer ${
-              settings.github.connected
+              syncError
+                ? "bg-rose-50 text-rose-700 hover:bg-rose-100"
+                : settings.github.connected
                 ? "bg-emerald-50 text-emerald-900 hover:bg-emerald-100"
                 : "bg-stone-900 text-stone-100 hover:bg-stone-800"
             }`}
           >
             <GitBranch
               className={`w-3.5 h-3.5 ${
-                settings.github.connected ? "text-emerald-700" : "text-stone-300"
+                syncError
+                  ? "text-rose-500"
+                  : settings.github.connected ? "text-emerald-700" : "text-stone-300"
               }`}
             />
             <span className="text-[11px] font-medium hidden md:inline">
@@ -382,6 +393,10 @@ export function HeaderBar({
                 ? language === "zh"
                   ? "同步中..."
                   : "Syncing..."
+                : syncError
+                ? syncError.length > 28
+                  ? syncError.slice(0, 28) + "…"
+                  : syncError
                 : syncStatus ||
                   (settings.github.connected
                     ? settings.github.auto_sync

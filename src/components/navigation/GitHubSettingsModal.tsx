@@ -94,8 +94,10 @@ export function GitHubSettingsModal({
   // Sync inputs when settings change or modal opens
   useEffect(() => {
     if (isOpen) {
-      setRepoInput(sanitizeRepo(settings.github.repo));
-      setPatInput(sanitizePat(settings.github.pat));
+      const currentRepo = sanitizeRepo(settings.github.repo);
+      const currentPat = sanitizePat(settings.github.pat);
+      setRepoInput(currentRepo);
+      setPatInput(currentPat);
       setAutoSyncInput(Boolean(settings.github.auto_sync));
 
       setAiProvider(settings.ai?.provider || "gemini");
@@ -104,8 +106,22 @@ export function GitHubSettingsModal({
       setAiBaseUrl(settings.ai?.baseUrl || "");
       setStatusMsg(null);
 
-      if (settings.github.pat) {
-        verifyToken(settings.github.pat);
+      if (currentPat) {
+        verifyToken(currentPat);
+      } else {
+        // Probe default configuration from server environment
+        fetch("/api/github/sync?action=default")
+          .then((r) => r.json())
+          .then((d) => {
+            if (d.has_default && d.default_pat) {
+              setPatInput(d.default_pat);
+              if (!currentRepo && d.default_repo) {
+                setRepoInput(d.default_repo);
+              }
+              verifyToken(d.default_pat);
+            }
+          })
+          .catch(() => {});
       }
     }
   }, [isOpen, settings]);
@@ -126,7 +142,7 @@ export function GitHubSettingsModal({
       if (data.success && data.user) {
         setDetectedUser(data.user);
         if (!repoInput.trim()) {
-          setRepoInput("my-dayprint-vault");
+          setRepoInput("Dayprint-storage");
         }
       } else {
         setDetectedUser(null);
@@ -816,6 +832,7 @@ export function GitHubSettingsModal({
                 <div className="flex items-center gap-1.5 flex-wrap pt-0.5">
                   <span className="text-[10px] text-stone-500">{language === "zh" ? "常用快捷填入:" : "Presets:"}</span>
                   {[
+                    "Dayprint-storage",
                     "my-dayprint-vault",
                     "my-notes",
                     "personal-archive",

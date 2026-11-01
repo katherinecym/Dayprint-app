@@ -8,6 +8,7 @@
 <p align="center">
   <a href="https://dayprint-five.vercel.app/"><strong>Live App Demo</strong></a> •
   <a href="https://dayprint-five.vercel.app/manual.html"><strong>Interactive User Manual</strong></a> •
+  <a href="./docs/SYSTEM-INTEGRATION.md"><strong>System Integration</strong></a> •
   <a href="./docs/DEVPOST-SUBMISSION.md"><strong>Devpost Package</strong></a>
 </p>
 
