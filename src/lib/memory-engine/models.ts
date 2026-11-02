@@ -58,8 +58,7 @@ export class GeminiModelRouter implements IModelRouter {
 
   private async callGeminiJson<T>(
     prompt: string,
-    systemInstruction?: string,
-    schemaDescription?: string
+    systemInstruction?: string
   ): Promise<T | null> {
     if (!this.apiKey) return null;
 

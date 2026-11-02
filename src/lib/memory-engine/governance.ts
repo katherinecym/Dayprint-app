@@ -2,7 +2,6 @@ import crypto from "crypto";
 import {
   MemoryCandidateRecord,
   MemoryRecord,
-  MemoryHistoryRecord,
   MemoryType,
 } from "./types";
 import { getMemoryStore } from "./store";

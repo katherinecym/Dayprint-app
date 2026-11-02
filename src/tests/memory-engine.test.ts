@@ -3,10 +3,7 @@ import fs from "fs";
 import path from "path";
 import { LocalMemoryStore, setMemoryStore } from "../lib/memory-engine/store";
 import { processCaptureEvent } from "../lib/memory-engine/capture";
-import {
-  processEventToCandidates,
-  applyCandidateCommit,
-} from "../lib/memory-engine/governance";
+import { applyCandidateCommit } from "../lib/memory-engine/governance";
 
 const TEST_STORE_PATH = path.join(process.cwd(), ".dayprint-store", "test-store.json");
 
@@ -57,7 +54,7 @@ describe("Dayprint Personal Memory Engine (prd-chatgpt.md)", () => {
 
   it("2. Extraction & Governance: preserves history when superseding memory", async () => {
     // Step A: Capture initial preference event
-    const event1 = await store.saveEvent({
+    await store.saveEvent({
       id: "ev_1",
       event_id: "evt_pref_1",
       user_id: "test_user",
