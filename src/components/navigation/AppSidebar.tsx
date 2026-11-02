@@ -23,6 +23,7 @@ import {
   Search,
   Award,
   HelpCircle,
+  ShieldCheck,
 } from "lucide-react";
 import { isSoundEnabled, toggleSoundSetting, playKeyClick } from "@/lib/sound";
 import { DayprintLogo } from "@/components/ui/DayprintLogo";
@@ -37,6 +38,7 @@ interface AppSidebarProps {
   onOpenArchive: () => void;
   onOpenGitHubSettings: () => void;
   onOpenSearch?: () => void;
+  onOpenReviewCenter?: () => void;
 }
 
 export function AppSidebar({
@@ -49,6 +51,7 @@ export function AppSidebar({
   onOpenArchive,
   onOpenGitHubSettings,
   onOpenSearch,
+  onOpenReviewCenter,
 }: AppSidebarProps) {
   const {
     t,
@@ -148,6 +151,14 @@ export function AppSidebar({
       icon: FolderArchive,
       action: onOpenArchive,
       accent: "hover:text-[#7C6F93]",
+    },
+    {
+      id: "governance",
+      labelZh: "记忆审核治理",
+      labelEn: "Memory Review",
+      icon: ShieldCheck,
+      action: onOpenReviewCenter,
+      accent: "hover:text-[#3E5C76]",
     },
     {
       id: "manual",

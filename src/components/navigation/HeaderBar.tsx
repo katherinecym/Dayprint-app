@@ -25,6 +25,7 @@ import {
   Check,
   ChevronDown,
   HelpCircle,
+  ShieldCheck,
 } from "lucide-react";
 import { OmniSearchModal } from "@/components/search/OmniSearchModal";
 import { isSoundEnabled, toggleSoundSetting } from "@/lib/sound";
@@ -37,6 +38,7 @@ interface HeaderBarProps {
   onToggleContextPanel?: () => void;
   onOpenConstellation?: () => void;
   onOpenGitHubSettings?: () => void;
+  onOpenReviewCenter?: () => void;
 }
 
 export function HeaderBar({
@@ -46,6 +48,7 @@ export function HeaderBar({
   onToggleContextPanel,
   onOpenConstellation,
   onOpenGitHubSettings,
+  onOpenReviewCenter,
 }: HeaderBarProps) {
   const {
     t,
@@ -326,6 +329,20 @@ export function HeaderBar({
 
       {/* Action Controls & Utilities */}
       <div className="flex items-center gap-2">
+        {/* Memory Governance Review Center Button */}
+        {onOpenReviewCenter && (
+          <button
+            onClick={onOpenReviewCenter}
+            className="h-9 px-2.5 flex items-center gap-1.5 text-xs rounded-lg border border-[var(--grid-line)] bg-white hover:bg-stone-50 text-stone-700 transition-colors shadow-2xs cursor-pointer font-medium"
+            title={language === "zh" ? "打开记忆治理与审核中心" : "Open Memory Governance & Review Center"}
+          >
+            <ShieldCheck className="w-3.5 h-3.5 text-[var(--color-insight)]" />
+            <span className="hidden md:inline text-[11px] font-medium">
+              {language === "zh" ? "记忆审核" : "Review"}
+            </span>
+          </button>
+        )}
+
         {/* Language Switcher Button (EN / 中文) */}
         <button
           onClick={() => setLanguage(language === "en" ? "zh" : "en")}

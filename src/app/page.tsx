@@ -14,6 +14,7 @@ import { GitHubSettingsModal } from "@/components/navigation/GitHubSettingsModal
 import { WelcomeGatewayModal } from "@/components/navigation/WelcomeGatewayModal";
 import { CareerStudioModal } from "@/components/career/CareerStudioModal";
 import { WeeklyDigestModal } from "@/components/digest/WeeklyDigestModal";
+import { ReviewCenterModal } from "@/components/review/ReviewCenterModal";
 import { MemoryOSView } from "@/components/memory-os/MemoryOSView";
 import { GraphNodesView } from "@/components/graph/GraphNodesView";
 import { useMemory } from "@/lib/memory-context";
@@ -36,6 +37,7 @@ export default function Home() {
   const [isArchiveOpen, setIsArchiveOpen] = useState(false);
   const [isGitHubSettingsOpen, setIsGitHubSettingsOpen] = useState(false);
   const [isWelcomeOpen, setIsWelcomeOpen] = useState(false);
+  const [isReviewCenterOpen, setIsReviewCenterOpen] = useState(false);
 
   useEffect(() => {
     try {
@@ -64,6 +66,7 @@ export default function Home() {
         onOpenConstellation={() => setIsConstellationOpen(true)}
         onOpenArchive={() => setIsArchiveOpen(true)}
         onOpenGitHubSettings={() => setIsGitHubSettingsOpen(true)}
+        onOpenReviewCenter={() => setIsReviewCenterOpen(true)}
       />
 
       {/* 2. Main Content Canvas Area */}
@@ -75,6 +78,7 @@ export default function Home() {
           onToggleContextPanel={() => setIsContextPanelOpen((prev) => !prev)}
           onOpenConstellation={() => setIsConstellationOpen(true)}
           onOpenGitHubSettings={() => setIsGitHubSettingsOpen(true)}
+          onOpenReviewCenter={() => setIsReviewCenterOpen(true)}
         />
 
         {/* Primary Workspace */}
@@ -156,6 +160,11 @@ export default function Home() {
           onClose={() => setIsWelcomeOpen(false)}
         />
       )}
+
+      <ReviewCenterModal
+        isOpen={isReviewCenterOpen}
+        onClose={() => setIsReviewCenterOpen(false)}
+      />
     </div>
   );
 }

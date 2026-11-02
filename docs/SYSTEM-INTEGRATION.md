@@ -373,6 +373,29 @@ pnpm dev
 | **4. Obsidian 格式云端闭环** | 配置 GitHub 仓库并点击“立即同步”。进入 GitHub 私有仓库，查看生成的 `journals/YYYY-MM-DD.md`，使用本地 Obsidian 打开该目录，验证日记可直接无缝浏览与双链跳转。 | `/api/github/sync` / `journals/*.md` |
 | **5. 飞书机器人告警打通** | 在设置中故意填写错误的 GitHub PAT 并触发同步。系统在前端展示错误的同时，通过飞书机器人向配置的 `FEISHU_ADMIN_OPEN_ID` 推送格式化的排障预警卡片。 | `feishu-notify.ts` / `/api/github/sync` |
 | **6. 热敏小票与仪式感** | 点击侧边栏或右侧面板的“每日小票”，触发纸张锯齿渲染与结算彩带喷射。 | `DailyReceiptModal.tsx` / `canvas-confetti` |
+| **7. 个人记忆引擎与 MCP 打通** | 统一采集端点 `/api/v1/capture` 自动落库 GitHub `inbox/` 原子存证与 Neon/本地状态机，提取候选记忆并通过「记忆审核治理中心」进行 ADD/MERGE/SUPERSEDE 审核，同时支持外部 Agent 通过标准 `/api/v1/mcp` 协议安全检索记忆。 | `src/lib/memory-engine/` / `ReviewCenterModal.tsx` / `/api/v1/mcp` |
+
+---
+
+## 8. 个人记忆引擎与 MCP 架构实现 (Personal Memory Engine v1.0)
+
+根据 `prd-chatgpt.md` 的规范，Dayprint 已完成云端事件驱动与记忆治理引擎升级：
+
+1. **统一采集网关 (`/api/v1/capture`)**：
+   - 接收来自 Web 前端、飞书机器人、外部 Agent（nanoMuse、Claude Code 等）的原始输入；
+   - 强制 SHA-256 内容哈希防重校验与幂等性保障；
+   - 原子不可变存档：将原始事件以单文件形式追加写入用户私有 GitHub 仓库 `inbox/YYYY/MM/DD/event_<id>.json`。
+2. **Neon PostgreSQL 数据库与双模自适应存储 (`src/lib/memory-engine/store.ts`)**：
+   - 提供了包含 `events`, `memory_candidates`, `memories`, `memory_history`, `processing_jobs`, `memory_embeddings` 的标准 SQL Schema (`database/schema.sql`)；
+   - 支持无感自适应：未配置 Neon `DATABASE_URL` 时自动启用本地高保真轻量存储驱动，配置后自动连接 Neon Postgres。
+3. **证据链提取与记忆治理状态机 (`src/lib/memory-engine/governance.ts`)**：
+   - **Candidate Before Commitment**：AI 提取的记忆先入候选池（Candidate），带有原文引用（Evidence Quote）与来源 Event ID；
+   - **Reconciliation**：仲裁算子（`ADD` / `MERGE` / `UPDATE` / `SUPERSEDE` / `LINK` / `REVIEW` / `REJECT`）；
+   - **历史不可变审计**：记忆更新或更迭时，旧记录保留在 `memory_history` 审计链中并标记 `valid_until`，绝不直接物理覆写。
+4. **标准 MCP Server 协议 (`/api/v1/mcp`)**：
+   - 开放 `search_memory`, `get_memory`, `get_profile`, `save_memory`, `create_journal` 等标准工具，允许外部自主 Agent 接入长短期记忆。
+5. **记忆审核治理中心 (`ReviewCenterModal.tsx`)**：
+   - 用户在界面可实时查看待审候选条目、证据链溯源、AI 判定理由与操作建议，并一键核准（Approve）或拒绝（Reject）。
 
 ---
 
