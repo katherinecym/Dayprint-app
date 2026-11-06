@@ -163,6 +163,22 @@ sequenceDiagram
 
 ---
 
+## 6. 真实数据同步与 Mock 隔离修复记录 (2026-11-06)
+
+针对用户反馈的「数据不同步、出现大量非本人莫名数据、右侧热力图与实际使用不符」核心问题，彻底执行了根因治理：
+1. **GitHub 远端归档洗净与恢复**：
+   - 清除了 `katherinecym/Dayprint-storage` 远端 `dayprint-memory/archive.json` 中被污染的 148 条 `mem_demo_*` 评测假数据；
+   - 完整恢复并补齐了用户真实核心记忆（17 条真实记忆，包括 You+ 架构、ARK Engine、诺Chat、诺亚动态人格平台、Noya AI 海外版 C 端、Taste 品味框架、多智能体协同等）及 21 条关联连线。
+2. **生产模式与 Demo 模式硬隔离**：
+   - 修复 `memory-context.tsx` 在连接 GitHub 仓库时默认进入生产模式 (`production`)；
+   - 彻底删除在 demo 模式下过滤剔除 `mem_you_` 真实记忆的遗留错误；
+   - 在所有推送 (`POST /api/github/sync`) 与拉取 (`GET /api/github/sync`) 链路中增加硬拦截，禁止任何 `mem_demo_*` 与 `rel_demo_*` 泄露至个人真实存储；
+   - `clearTestData()` 与 `switchToProductionMode()` 升级为彻底清理所有 `mem_demo_*` 假数据。
+3. **右侧热力图真实对齐**：
+   - 剥离假数据后，`MemoryActivityHeatmap` 严格仅根据用户真实发生时间 (`occurred_at`) 渲染真实活跃点位（覆盖 9 月至 11 月真实手账与项目迭代日），彻底消除过去 85 天假满格连击现象。
+
+---
+
 > **总结**：
 > 这一步优化是 Dayprint 从“开发期拼装原型”迈向“成熟纯粹产品”的分水岭。
 > 扔掉本地 Node `fs` 的包袱，把本地 Obsidian 降级为外部下游普通工具，以 **GitHub 为真理源、飞书 you+ bot 为采集端、Dayprint 为认知中枢**，整套系统立刻清爽、健壮且真正具备多端生命力。

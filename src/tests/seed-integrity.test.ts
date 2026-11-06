@@ -125,4 +125,12 @@ describe("Demo dataset integrity", () => {
       expect(haystack.includes(forbidden), `demo seed leaks "${forbidden}"`).toBe(false);
     }
   });
+
+  it("strictly prefixes all mock demo memories with mem_demo_ for clean production isolation", () => {
+    for (const m of SEED_MEMORIES) {
+      expect(m.id.startsWith("mem_demo_"), `Demo memory ${m.id} must start with mem_demo_`).toBe(true);
+    }
+    const filtered = SEED_MEMORIES.filter((m) => !m.id.startsWith("mem_demo_"));
+    expect(filtered.length).toBe(0);
+  });
 });

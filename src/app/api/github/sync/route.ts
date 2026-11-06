@@ -177,13 +177,19 @@ export async function POST(req: NextRequest) {
     }
 
     // 3. Commit snapshot of memories, relationships, and receipts
+    // Enforce strict mock isolation: never commit synthetic demo data to user GitHub repo
+    const safeMemories = (memories || []).filter((m: any) => !m.id.startsWith("mem_demo_"));
+    const safeRelationships = (relationships || []).filter(
+      (r: any) => !r.id.startsWith("rel_demo_") && !r.from_memory_id?.startsWith("mem_demo_") && !r.to_memory_id?.startsWith("mem_demo_")
+    );
+
     const contentPayload = {
       timestamp: new Date().toISOString(),
-      memories_count: memories?.length || 0,
-      relationships_count: relationships?.length || 0,
+      memories_count: safeMemories.length,
+      relationships_count: safeRelationships.length,
       receipts_count: Object.keys(receipts || {}).length,
-      memories: memories || [],
-      relationships: relationships || [],
+      memories: safeMemories,
+      relationships: safeRelationships,
       receipts: receipts || {},
     };
 
@@ -392,6 +398,21 @@ export async function GET(req: NextRequest) {
       const data = await archiveRes.json();
       const contentStr = Buffer.from(data.content, "base64").toString("utf-8");
       const parsed = JSON.parse(contentStr);
+
+      // Enforce zero demo data leakage from archive.json
+      if (Array.isArray(parsed.memories)) {
+        parsed.memories = parsed.memories.filter((m: any) => !m.id.startsWith("mem_demo_"));
+        parsed.memories_count = parsed.memories.length;
+      }
+      if (Array.isArray(parsed.relationships)) {
+        parsed.relationships = parsed.relationships.filter(
+          (r: any) =>
+            !r.id.startsWith("rel_demo_") &&
+            !r.from_memory_id?.startsWith("mem_demo_") &&
+            !r.to_memory_id?.startsWith("mem_demo_")
+        );
+        parsed.relationships_count = parsed.relationships.length;
+      }
 
       return NextResponse.json({
         exists: true,
