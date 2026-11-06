@@ -163,22 +163,30 @@ sequenceDiagram
 
 ---
 
-## 6. 真实数据同步与 Mock 隔离修复记录 (2026-11-06)
+## 6. 全面剔除 Demo 模式与全链路真实数据流打通 (2026-11-06)
 
-针对用户反馈的「数据不同步、出现大量非本人莫名数据、右侧热力图与实际使用不符」核心问题，彻底执行了根因治理：
-1. **GitHub 远端归档洗净与恢复**：
+针对用户反馈的「数据不同步、出现大量莫名数据、右侧热力图与实际使用不符」核心问题，彻底执行了根因治理与极简重构（-846 行冗余代码）：
+
+1. **彻底废除并删除 Demo 模式 (No More Demo Mode)**：
+   - 全面移除了 HeaderBar 顶部的演示版胶囊开关、GitHubSettingsModal 中的演示版卡片与载入测试数据按钮、BoogieMatrixCanvas 与 WelcomeGatewayModal 中的 Demo 体验引导。
+   - 彻底移除了 `AppMode`、`loadDemoData`、`resetDemoData`、`clearTestData` 及 `types/memory.ts` 中的中英文静态 Mock 种子字典。
+   - 系统仅保留单一真实个人手账模式：零内置虚构记忆，画卷干净纯粹。
+
+2. **GitHub 远端归档洗净与权威对齐 (SSOT Hardening)**：
    - 清除了 `katherinecym/Dayprint-storage` 远端 `dayprint-memory/archive.json` 中被污染的 148 条 `mem_demo_*` 评测假数据；
-   - 完整恢复并补齐了用户真实核心记忆（17 条真实记忆，包括 You+ 架构、ARK Engine、诺Chat、诺亚动态人格平台、Noya AI 海外版 C 端、Taste 品味框架、多智能体协同等）及 21 条关联连线。
-2. **生产模式与 Demo 模式硬隔离**：
-   - 修复 `memory-context.tsx` 在连接 GitHub 仓库时默认进入生产模式 (`production`)；
-   - 彻底删除在 demo 模式下过滤剔除 `mem_you_` 真实记忆的遗留错误；
-   - 在所有推送 (`POST /api/github/sync`) 与拉取 (`GET /api/github/sync`) 链路中增加硬拦截，禁止任何 `mem_demo_*` 与 `rel_demo_*` 泄露至个人真实存储；
-   - `clearTestData()` 与 `switchToProductionMode()` 升级为彻底清理所有 `mem_demo_*` 假数据。
-3. **右侧热力图真实对齐**：
-   - 剥离假数据后，`MemoryActivityHeatmap` 严格仅根据用户真实发生时间 (`occurred_at`) 渲染真实活跃点位（覆盖 9 月至 11 月真实手账与项目迭代日），彻底消除过去 85 天假满格连击现象。
+   - 完整保留并对齐用户真实的 17 条核心记忆（涵盖 You+ 架构实践、ARK Engine、诺Chat、诺亚动态人格平台、Noya AI 海外版 C 端、Taste 品味框架、多智能体协同等）及 21 条关联连线；
+   - 在 API 读写层 (`GET/POST /api/github/sync`) 与本地上下文 (`memory-context.tsx`) 中建立硬性防护，彻底切断任何假数据注入通道。
+
+3. **右侧活动热力图真实对齐**：
+   - 剥离假数据后，`MemoryActivityHeatmap` 严格仅根据用户真实发生时间 (`occurred_at`) 渲染真实活跃点位（精准对应 2026 年 9 月与 10 月的真实使用日期：9/2, 9/6, 10/11, 10/12, 10/15, 10/16, 10/19, 10/20, 10/21, 10/25, 10/27 等）；
+   - 彻底消除假连续 85 天满格连续打卡，真实呈现个人日常沉淀轨迹。
+
+4. **端到端数据流验证 (E2E Verified)**：
+   - **采集端 -> 云端**：输入/飞书 Ingest -> Context 内存状态 -> `localStorage` 本地留存 -> 自动防抖 2.5s 提交 GitHub Private 仓库 (`dayprint-memory/archive.json` + `journals/YYYY-MM-DD.md`)；
+   - **云端 -> Web 画卷**：页面挂载/窗口激活/手动点击 -> `/api/github/sync` 拉取云端最新数据 -> 409 Conflict 自动最新 SHA 抢占恢复 -> 画布与热力图同频刷新。
 
 ---
 
 > **总结**：
 > 这一步优化是 Dayprint 从“开发期拼装原型”迈向“成熟纯粹产品”的分水岭。
-> 扔掉本地 Node `fs` 的包袱，把本地 Obsidian 降级为外部下游普通工具，以 **GitHub 为真理源、飞书 you+ bot 为采集端、Dayprint 为认知中枢**，整套系统立刻清爽、健壮且真正具备多端生命力。
+> 彻底剥离虚假 Demo 模式与 Mock 数据，以 **GitHub Private Repo 为真理源、飞书 you+ bot 为瞬时采集端、Dayprint 为认知中枢**，整套系统清爽、健壮且真实可用。

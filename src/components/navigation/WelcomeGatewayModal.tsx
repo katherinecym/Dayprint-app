@@ -36,11 +36,10 @@ export function WelcomeGatewayModal({
     updateSettings,
     syncWithGitHub,
     language,
-    loadDemoData,
-    switchToProductionMode,
+    clearAllData,
   } = useMemory();
 
-  const [activeTab, setActiveTab] = useState<"github" | "demo">("github");
+  const [activeTab, setActiveTab] = useState<"github" | "journal">("github");
   const [patInput, setPatInput] = useState("");
   const [repoInput, setRepoInput] = useState("");
   const [showToken, setShowToken] = useState(false);
@@ -154,8 +153,8 @@ export function WelcomeGatewayModal({
         },
       });
 
-      // 2. Switch to production mode (clean canvas for personal memories)
-      switchToProductionMode(true);
+      // 2. Clear canvas for personal memories if needed
+      clearAllData();
 
       // 3. Trigger initial sync to create repository & write schema/README
       const res = await syncWithGitHub();
@@ -183,9 +182,8 @@ export function WelcomeGatewayModal({
     }
   };
 
-  // Handler for trying demo mode
-  const handleSelectDemo = () => {
-    loadDemoData();
+  // Handler for starting personal journal
+  const handleStartJournal = () => {
     completeOnboarding();
   };
 
@@ -240,15 +238,15 @@ export function WelcomeGatewayModal({
             </button>
             <button
               type="button"
-              onClick={() => setActiveTab("demo")}
+              onClick={() => setActiveTab("journal")}
               className={`py-2 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-                activeTab === "demo"
+                activeTab === "journal"
                   ? "bg-white text-stone-900 shadow-xs"
                   : "text-stone-600 hover:text-stone-900"
               }`}
             >
-              <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-              <span>{language === "zh" ? "✨ 先体验 Demo 演示模式" : "✨ Try Demo Mode First"}</span>
+              <Leaf className="w-3.5 h-3.5 text-emerald-600" />
+              <span>{language === "zh" ? "🌱 直接开启纯净手账" : "🌱 Clean Journal"}</span>
             </button>
           </div>
 
@@ -358,20 +356,15 @@ export function WelcomeGatewayModal({
                     </div>
                     <div className="text-[11px] text-stone-600 mt-0.5">
                       {language === "zh"
-                        ? "您可以先使用 Demo 模式免配置直接体验完整特性。"
-                        : "You can try Demo Mode to experience all features right away without setup."}
-                    </div>
-                    <div className="text-[11px] text-amber-800 font-semibold mt-1">
-                      {language === "zh"
-                        ? "⚠️ 注意：Demo 模式下无法存储用户信息与手账记忆。"
-                        : "⚠️ Note: Demo mode cannot store user information or memories."}
+                        ? "您可以先开启本地纯净手账，所有随笔与存根安全保存在当前浏览器本地，后续随时可绑定 GitHub 仓库。"
+                        : "You can start with a local journal. Everything is safely stored in your browser and can be linked to GitHub anytime."}
                     </div>
                     <button
                       type="button"
-                      onClick={() => setActiveTab("demo")}
+                      onClick={() => setActiveTab("journal")}
                       className="text-xs text-blue-600 hover:text-blue-800 font-bold underline mt-1.5 inline-block cursor-pointer"
                     >
-                      {language === "zh" ? "👉 切换到 Demo 模式体验" : "👉 Switch to Demo Mode"}
+                      {language === "zh" ? "👉 开启本地手账" : "👉 Start Local Journal"}
                     </button>
                   </div>
                 </div>
@@ -418,28 +411,28 @@ export function WelcomeGatewayModal({
             </div>
           )}
 
-          {/* TAB 2: EXPLORE DEMO MODE */}
-          {activeTab === "demo" && (
+          {/* TAB 2: CLEAN SLATE JOURNAL */}
+          {activeTab === "journal" && (
             <div className="space-y-4 animate-in fade-in duration-150">
-              <div className="p-4 bg-amber-50/70 border border-amber-200/80 rounded-xl space-y-2">
-                <div className="flex items-center gap-2 text-amber-900 font-bold text-xs">
-                  <Sparkles className="w-4 h-4 text-amber-600" />
-                  <span>{language === "zh" ? "零门槛直接体验" : "Instant Exploration Without Setup"}</span>
+              <div className="p-4 bg-emerald-50/70 border border-emerald-200/80 rounded-xl space-y-2">
+                <div className="flex items-center gap-2 text-emerald-900 font-bold text-xs">
+                  <Leaf className="w-4 h-4 text-emerald-600" />
+                  <span>{language === "zh" ? "纯净手账模式" : "Clean Slate Journal"}</span>
                 </div>
                 <p className="text-xs text-stone-600 leading-relaxed">
                   {language === "zh"
-                    ? "无需 GitHub 账号与 Token，一键载入已预置的蒙德里安星轨、生活小票存根与认知记忆卡片，即刻感受全部交互特性。后续随时可在顶部导航栏连接 GitHub 开启个人正式手账。"
-                    : "No GitHub credentials needed. Instantly explore preloaded demo memories, visual constellation graphs, and daily receipts. You can link your private GitHub vault anytime later."}
+                    ? "直接开启一张属于你自己的空白画卷。所有内容先在当前浏览器本地安全加密留存，后续可随时一键绑定 GitHub 存储库实现多端云端归档。"
+                    : "Start directly with a pristine personal canvas. Your memories are securely kept in local storage first and can be linked to a GitHub vault anytime."}
                 </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                 <div className="p-3 bg-white border border-stone-200 rounded-xl space-y-1">
                   <div className="font-semibold text-stone-900">
-                    {language === "zh" ? "🌟 蒙德里安双语图谱" : "🌟 Living Constellation"}
+                    {language === "zh" ? "🌟 知识拓扑与图谱" : "🌟 Relational Topology"}
                   </div>
                   <div className="text-[11px] text-stone-500">
-                    {language === "zh" ? "力导向关系网络与时间引力流" : "Force-directed relational nodes & timelines"}
+                    {language === "zh" ? "记录时自动构建个人认知网络" : "Builds your personal cognitive network as you write"}
                   </div>
                 </div>
                 <div className="p-3 bg-white border border-stone-200 rounded-xl space-y-1">
@@ -447,35 +440,18 @@ export function WelcomeGatewayModal({
                     {language === "zh" ? "🧾 每日灵感小票存根" : "🧾 Daily Receipt Slips"}
                   </div>
                   <div className="text-[11px] text-stone-500">
-                    {language === "zh" ? "复古热敏打印风每日总结与盖章" : "Thermal-print style end-of-day reflection"}
+                    {language === "zh" ? "复古热敏打印风每日复盘与盖章" : "Thermal-print style end-of-day reflection"}
                   </div>
                 </div>
               </div>
 
-              {/* Ephemeral Warning Notice */}
-              <div className="p-3.5 bg-amber-50 border border-amber-300/80 rounded-xl space-y-1.5">
-                <div className="flex items-center gap-2 text-amber-950 font-bold text-xs">
-                  <AlertCircle className="w-4 h-4 text-amber-700 shrink-0" />
-                  <span>
-                    {language === "zh"
-                      ? "重要提示：Demo 模式数据非持久存储"
-                      : "Important: Demo Mode Data Is Ephemeral"}
-                  </span>
-                </div>
-                <p className="text-[11px] text-amber-900 leading-relaxed">
-                  {language === "zh"
-                    ? "⚠️ Demo 模式下无法存储用户信息与手账数据（仅供交互演示与特性评测）。若要永久保留您的个人手账，请随时切换至「连接专属 GitHub 仓库」开启正式手账。"
-                    : "⚠️ Demo mode cannot store user information or journal memories (for interactive preview only). To permanently keep your records, connect your private GitHub vault anytime."}
-                </p>
-              </div>
-
               <button
                 type="button"
-                onClick={handleSelectDemo}
-                className="w-full h-11 bg-amber-500 hover:bg-amber-600 text-stone-950 font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm hover:shadow-md"
+                onClick={handleStartJournal}
+                className="w-full h-11 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm hover:shadow-md"
               >
-                <Sparkles className="w-4 h-4" />
-                <span>{language === "zh" ? "以 Demo 模式进入体验" : "Enter in Demo Mode"}</span>
+                <Leaf className="w-4 h-4" />
+                <span>{language === "zh" ? "直接进入我的手账" : "Enter My Personal Journal"}</span>
                 <ArrowRight className="w-3.5 h-3.5 opacity-80" />
               </button>
             </div>

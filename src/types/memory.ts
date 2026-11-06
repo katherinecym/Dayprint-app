@@ -320,204 +320,6 @@ const FALLBACK_EN_DICT: Record<string, string> = {
   "周度复盘演进计划：修剪冗余节点与加固核心连接": "Weekly Review Cadence: Pruning Graph Dead Weight & Reinforcing Core Bridges",
 };
 
-const SEED_MEMORIES_ZH_MAP: Record<string, { title: string; content: string }> = {
-  mem_demo_01: {
-    title: "AetherOS 个人认知与数字分身系统架构实践",
-    content: "规划并主导 AetherOS 个人认知系统的整体产品架构。底层基于本地大语言模型与认知代理，设计 Human-in-the-Loop 记忆提炼流：日常散落随笔 -> 智能提炼认知卡片 -> 主动生成双向链接 -> 一键沉淀入库，实现零干扰、可控性强的个人知识资产闭环。",
-  },
-  mem_demo_02: {
-    title: "架构聚焦与高阶精力管理：践行群岛原则",
-    content: "早期系统开发中职责边界模糊容易导致注意力碎片化。确立「群岛原则（Archipelago Principle）」：将 100% 认知精力倾注于高杠杆系统架构、核心心智模型与人机交互打磨，系统性拒绝无意义的低密度社交与会议消耗，显著提升产品迭代速率与代码纯度。",
-  },
-  mem_demo_03: {
-    title: "技术选型 SOP：GitHub 活跃度与本地压测双重验证",
-    content: "建立严谨的技术选型四步法：1. 分析 GitHub 长期 commit 频率与 PR 合并延迟；2. 检验 issue 响应速度与维护团队信噪比；3. 构建独立测试床进行边界压测；4. 核心禁忌：绝不迷信官方宣传文案与跑分演示，一切以本地物理基准与真实负载为准。",
-  },
-  mem_demo_04: {
-    title: "底层价值观：智识自主权与第一性原理思辨",
-    content: "在模型泛滥与观点同质化的时代，外界信息极其廉价且充斥杂音。唯有依托第一性原理推导的心智模型和亲身实证，才能筑起不可动摇的个人护城河。坚持白盒可控性与真正的用户数据主权，不做被动的信息搬运工。",
-  },
-  mem_demo_05: {
-    title: "沟通哲学：极简、高信噪比与直击根因",
-    content: "日常交流与工程协作始终奉行极简与高信息密度。厌恶低信噪比的冗余客套与过度包装，主张开门见山直击因果链条与核心瓶颈。“删除冗余是最高阶的优雅（Deletion is the ultimate sophistication）”，在代码重构、产品设计与日常决策中皆奉此道。",
-  },
-  mem_demo_06: {
-    title: "算法推演：非线性凸性与动态系统中的数值收敛",
-    content: "推导非线性动力系统中的凸性（Convexity）曲率与收敛边界。在多变量状态转移模型中，局部极值逼近必须采用阻尼牛顿迭代法进行步长校准。理论启示：认知进化正如数值求根，无法依靠单次跃迁，而是通过连续的微观反馈逐步逼近真实解。",
-  },
-  mem_demo_07: {
-    title: "通感美学：将纸张质感与机械音效注入数字界面",
-    content: "优秀的人机交互应当遵循维科与李白的通感联觉原理：界面不应是冰冷的玻璃平面，而应具备物理世界的温度与阻尼。通过莫兰迪矿物纸张纹理、锯齿边缘撕裂动效与机械打字机微音效，将枯燥的备忘记录升华为令人愉悦的心灵仪式。",
-  },
-  mem_demo_08: {
-    title: "里程碑：自主研发离线双向链接与图谱编译引擎",
-    content: "自主完成知识图谱编译引擎研发，支持毫秒级解析 [[Wiki-Links]] 与跨条目概念共鸣。结合力导向排布算法与拓扑聚类，将散落在日记、读书笔记与工作决策中的孤岛碎片实时编译为可交互的神经星轨图谱。",
-  },
-  mem_demo_09: {
-    title: "数据主权：以用户私有 Git 树为核心存储底座",
-    content: "做出关键持久化决策：放弃托管式集中黑盒数据库，全面采用用户本地文件系统与私有 GitHub 仓库作为主存储。虽牺牲毫秒级即时推送，但彻底赢得不可篡改的版本树、明文 Markdown 可读性以及 100% 的个人记忆主权。",
-  },
-  mem_demo_10: {
-    title: "晨间认知仪式：15 分钟无阻力意识流倾泻",
-    content: "清晨 7:30，手冲一杯耶加雪菲。打开 Dayprint 输入框，不设任何标题与文件夹分类，直接将刚苏醒时大脑中无序涌现的灵感、梦境余波与当日优先项倾泻在画布上。敲击回车，伴随机械清脆声，思绪瞬间定格成一页实体小票。",
-  },
-  mem_demo_11: {
-    title: "系统拆解法：复杂分布式架构的第一性原理降维",
-    content: "学习并总结复杂系统的降维法则：当架构变得臃肿混乱时，回归最底层的三要素——状态所有权、不可变事件日志与失败隔离边界。一切高大上的抽象若无法映射到这三点，皆属于无谓的自嗨式复杂度。",
-  },
-  mem_demo_12: {
-    title: "周度复盘演进计划：修剪冗余节点与加固核心连接",
-    content: "制定周度知识沉淀规范：每周日晚利用 Dayprint 周报模块自动萃取本周高光条目，通过 AI 述职润色提炼 STAR 结构，同时在关系图谱中排查无连接的孤立节点，手动补全关联原因，保持认知网络的生命力。",
-  },
-  mem_20261013_today_01: {
-    title: "作为离散信息网格的百老汇爵士乐",
-    content: "蒙德里安的《百老汇爵士乐》不仅是画布上的爵士乐，更是一个离散分包的信息网络。三原色小方块代表节拍、休止与切分思绪。我们应当将记忆条目构建为有呼吸的视觉脉冲。",
-  },
-  mem_20261013_today_02: {
-    title: "晨间咖啡与阳台掠过的秋风",
-    content: "清晨 7:45。天空呈现澄澈的钴蓝色，空气中透着十月的清冽爽朗。这提醒了我：从容克制的晨间节律往往能带来十倍清晰的创造力。",
-  },
-  mem_20261012_01: {
-    title: "以 GitHub 为主数据存储而非 Postgres",
-    content: "决定采用 GitHub Git 树和原始 Markdown/JSON 文件作为用户自驱存储。虽然牺牲了微秒级写入延迟，但换来了零锁定、永久版本树与数据自主权。",
-  },
-  mem_20261012_02: {
-    title: "索尼亚·德劳内的俄耳甫斯主义与同时性对比",
-    content: "领悟德劳内的同时性对比理论：并置的色彩无需物理位移即可在视网膜上产生振颤与动态。将其应用于记忆卡片排列，相邻记忆将自然产生概念共鸣。",
-  },
-  mem_20261011_01: {
-    title: "实现时空穿梭缩放引擎 (年-月-日)",
-    content: "设计无缝语义缩放：全景视图呈现和谐的马赛克聚类，推近展开月份分布，微观落入日级记忆画布。",
-  },
-  mem_20261010_01: {
-    title: "代官山旧书店的复古海报淘金记",
-    content: "淘到一张 1968 年构成主义排版印刷原作。原色粗报纸上鲜艳的红色对角线，为 Dayprint 的标签与构图带来了直接灵感。",
-  },
-  mem_20261010_02: {
-    title: "伊姆斯夫妇《十的次方》哲学",
-    content: "远眺显现人生宏观脉络，近察触碰瞬时肌理触感。界面必须在所有尺度变换中始终保持观察者的空间锚点。",
-  },
-  mem_20261010_03: {
-    title: "作为生活特刊的每日记忆小票",
-    content: "在每晚将当日记忆凝练为生活小票格式：热敏票据排版、锯齿裂边、高光碎片与明日计划，沉淀为有温度的回响。",
-  },
-  mem_20260928_01: {
-    title: "双语平权：英文与简体中文独立演进",
-    content: "支持英文与简体中文无缝切换，两种语言版本各自独立校准演进，互不干扰，确保两种语境下皆具备原生自然表达。",
-  },
-  mem_20260915_01: {
-    title: "运河两岸的中秋灯会",
-    content: "运河水面映照着数百盏漂浮的暖黄纸灯。静静伫立四十分钟聆听细语，是一段沉静深刻的个人记忆。",
-  },
-  mem_20260821_01: {
-    title: "作为蒙德里安新造型画卷的个人档案馆",
-    content: "为何个人工具往往走向层级文件夹或混沌乱动的图谱？新造型主义为个人的回响沉淀赋予了严谨秩序、克制平衡与美学温度。",
-  },
-  mem_20260704_01: {
-    title: "本地优先与数据主权带来的解放感",
-    content: "精读本地优先软件宣言。私密思绪永远不会被云端订阅门槛或专有私有数据库所劫持，这种掌控感无可替代。",
-  },
-};
-
-const SEED_MEMORIES_EN_MAP: Record<string, { title: string; content: string }> = {
-  mem_demo_01: {
-    title: "AetherOS Cognitive Digital Sub-Myself Architecture & Human-in-the-Loop",
-    content: "Architected the AetherOS personal cognitive operating system. Designed a Human-in-the-Loop memory distillation workflow: casual thoughts and work logs -> autonomous LLM extraction of cognitive slips -> proactive bi-directional link suggestions -> one-click verification into local storage, establishing a high-signal living digital twin.",
-  },
-  mem_demo_02: {
-    title: "Architecture Focus & The Archipelago Principle: Eliminating Low-Density Noise",
-    content: "Early-stage development often suffers from blurred boundaries and context-switching fatigue. Established the 'Archipelago Principle': allocate 100% of cognitive bandwidth to high-leverage system architecture, core mental models, and tactile UX craftsmanship while systematically eliminating low-density meetings and social noise.",
-  },
-  mem_demo_03: {
-    title: "Technology Selection SOP: GitHub Health & Local Stress Testing",
-    content: "Formulated a disciplined 4-step technology evaluation SOP: 1. Audit long-term commit velocity and PR merge latency on GitHub; 2. Assess issue response quality and maintainer signal-to-noise ratio; 3. Build an isolated local testbed to stress-test edge conditions; 4. Core rule: Never trust marketing claims or vendor benchmarks without empirical verification.",
-  },
-  mem_demo_04: {
-    title: "Foundational Value: Intellectual Autonomy & First-Principles Reasoning",
-    content: "In an era of cognitive homogenization and automated content, external opinions are cheap and noisy. Only proprietary mental models derived from first principles and empirical experience form an enduring intellectual moat. Champion white-box auditability and sovereign user data ownership.",
-  },
-  mem_demo_05: {
-    title: "Communication Philosophy: High-Density Signal & Root-Cause Directness",
-    content: "Adhere strictly to high-density, low-fluff communication in both engineering and leadership. Cut straight to root causes, causal chains, and verifiable metrics. Deletion is the ultimate sophistication across code refactoring, system architecture, and daily routines.",
-  },
-  mem_demo_06: {
-    title: "Algorithm Study: Non-linear Convexity & Numerical Convergence in Dynamic Systems",
-    content: "Derived curvature properties and convergence boundaries in non-linear dynamic systems. Proved that local optimum convergence requires damped Newton-Raphson step-size calibration. Conceptual insight: cognitive evolution mirrors numerical solvers—it requires continuous micro-feedback loops rather than abrupt speculative leaps.",
-  },
-  mem_demo_07: {
-    title: "Synesthetic Aesthetics: Bringing Tactile Paper Warmth to Digital Interfaces",
-    content: "Human-computer interaction should embrace sensory synesthesia: interfaces must transcend sterile glass rectangles to evoke the tactile friction of the physical world. By combining Morandi paper textures, serrated tear animations, and mechanical keystroke acoustics, note-taking transforms into a grounding ritual.",
-  },
-  mem_demo_08: {
-    title: "Milestone: Shipped Offline Bi-directional Linking & Constellation Compiler",
-    content: "Engineered an autonomous knowledge compilation engine supporting sub-millisecond [[Wiki-Links]] resolution and semantic resonance detection. Coupled with force-directed physics and topological clustering, isolated daily notes assemble into an interactive neural constellation.",
-  },
-  mem_demo_09: {
-    title: "Data Sovereignty: User-Owned Git Trees Over Proprietary Cloud Silos",
-    content: "Made a load-bearing persistence decision: rejected proprietary cloud databases in favor of local Markdown and user-owned private GitHub repositories. Traded microsecond cloud sync for tamper-evident commit trees, human-readable data longevity, and uncompromised privacy.",
-  },
-  mem_demo_10: {
-    title: "Morning Cognitive Ritual: 15-Minute Frictionless Stream-of-Consciousness",
-    content: "7:30 AM. Fresh cup of pour-over coffee. Opened Dayprint with zero title pressure or folder taxonomy, dumping waking thoughts, dream fragments, and daily focus areas onto the blank stream. Pressing Enter with a crisp mechanical strike seals the moment onto paper.",
-  },
-  mem_demo_11: {
-    title: "Systems Heuristic: Deconstructing Complex Distributed Systems to First Principles",
-    content: "Distilled an architectural reduction heuristic: when complex systems become bloated, strip them down to three fundamental primitives—state ownership, immutable event logs, and failure isolation boundaries. Any abstraction that fails to map cleanly is gratuitous complexity.",
-  },
-  mem_demo_12: {
-    title: "Weekly Review Cadence: Pruning Graph Dead Weight & Reinforcing Core Bridges",
-    content: "Established a weekly knowledge hygiene workflow: every Sunday evening, use Dayprint's Weekly Digest to synthesize milestones into STAR accomplishment bullets, prune disconnected nodes in the graph, and articulate latent relationship reasons.",
-  },
-  mem_20261013_today_01: {
-    title: "Broadway Boogie Woogie as an Information Grid",
-    content: "Mondrian's Broadway Boogie Woogie isn't just jazz on canvas; it is a discrete packetized information network. Small blocks of primary colors represent rhythm, pauses, and syncopated thoughts. We should structure memory items as living visual pulses.",
-  },
-  mem_20261013_today_02: {
-    title: "Morning coffee & autumn breeze over the balcony",
-    content: "7:45 AM. The sky was an immaculate cobalt blue. Felt that crisp October shift in the air. Reminded me why intentional slow mornings yield 10x better creative clarity.",
-  },
-  mem_20261012_01: {
-    title: "GitHub as Canonical Storage instead of Postgres",
-    content: "Decided to use GitHub Git tree & raw markdown/json files as user-owned persistence. Tradeoff: higher write latency, but zero lock-in, free version control history, and full sovereignty.",
-  },
-  mem_20261012_02: {
-    title: "Sonia Delaunay's Orphism & Simultaneity",
-    content: "Discovered Delaunay's simultaneous contrast theory: colors placed side-by-side create optical motion and vibration without physical movement. Applying this to memory proximity makes adjacent cards resonate.",
-  },
-  mem_20261011_01: {
-    title: "Implement Time Travel Zoom Engine (Year-Month-Day)",
-    content: "Design seamless semantic zoom: All Time overview displays harmonic mosaic clusters, zooming in unfolds monthly distribution, then day-level memory canvas.",
-  },
-  mem_20261010_01: {
-    title: "Vintage poster hunt in Daikanyama bookstore",
-    content: "Found an original 1968 Constructivism typography print. The stark red diagonal slash against raw newsprint paper gave immediate inspiration for Dayprint's card badges.",
-  },
-  mem_20261010_02: {
-    title: "Ray & Charles Eames 'Powers of Ten' Philosophy",
-    content: "Zooming out reveals overarching life patterns; zooming in reveals immediate tactile sensations. The UI must preserve the observer's spatial anchor across all scales.",
-  },
-  mem_20261010_03: {
-    title: "Daily Receipt as an Editorial Souvenir",
-    content: "At the end of each day, synthesize memories into a ticket/receipt format: thermal receipt typography, perforated edges, highlights of moments, decisions, and tomorrow's open loops.",
-  },
-  mem_20260928_01: {
-    title: "Bilingual First: English & Simplified Chinese Equality",
-    content: "Support seamless toggle between English and Simplified Chinese without cross-pollution. Each language can be refined independently, ensuring native phrasing in both.",
-  },
-  mem_20260915_01: {
-    title: "Mid-autumn lantern festival along the canal",
-    content: "The water reflected hundreds of warm floating paper lanterns. Stood there for forty minutes listening to the gentle murmur of the crowd. A memory of profound quietude.",
-  },
-  mem_20260821_01: {
-    title: "Personal Life Archive as Geometric De Stijl Canvas",
-    content: "Why are personal knowledge tools either nested folders or graph webs with chaotic force-directed physics? De Stijl brings order, clean balance, and human beauty to personal retrospection.",
-  },
-  mem_20260704_01: {
-    title: "Why local-first & user-owned sync is liberating",
-    content: "Read the Local-First software manifesto. The feeling of never having your private thoughts held hostage by cloud subscription gates or proprietary binary databases is priceless.",
-  },
-};
-
 /**
  * Sanitizes memory text by removing AI-cliché emojis, star symbols, and obsolete confidence labels.
  */
@@ -560,14 +362,9 @@ export function getLocalizedTitle(m: CanonicalMemory, lang: "en" | "zh"): string
   let title = "";
   if (lang === "en") {
     // 1. Prefer explicit title_en if it does not leak untranslated Chinese.
-    //    Sanitize first: "## 🧠 Cognitive Patterns (置信度: 80%)" is English once
-    //    the confidence label is stripped, so judging the raw value would push a
-    //    perfectly good translation down into the fallback branch.
     const enCand = sanitizeMemoryText(m.title_en?.trim() || "");
     if (enCand && (!CJK_RE.test(enCand) || !m.title_zh)) {
       title = enCand;
-    } else if (SEED_MEMORIES_EN_MAP[m.id]?.title) {
-      title = SEED_MEMORIES_EN_MAP[m.id].title;
     } else if (m.title && FALLBACK_EN_DICT[m.title]) {
       title = FALLBACK_EN_DICT[m.title];
     } else if (m.title_zh && FALLBACK_EN_DICT[m.title_zh]) {
@@ -575,8 +372,6 @@ export function getLocalizedTitle(m: CanonicalMemory, lang: "en" | "zh"): string
     } else if (m.language === "en" && m.title && !CJK_RE.test(m.title)) {
       title = m.title;
     } else {
-      // 走到这里说明英文侧确实没有可用内容（翻译不可用 / 只有中文）。
-      // 与其静默把中文当英文渲染，不如显式标注，用户才知道该去补。
       title = markUntranslatedIfNeeded(enCand || m.title || "Untitled Memory");
     }
   } else {
@@ -584,8 +379,6 @@ export function getLocalizedTitle(m: CanonicalMemory, lang: "en" | "zh"): string
     const zhCand = m.title_zh?.trim();
     if (zhCand) {
       title = zhCand;
-    } else if (SEED_MEMORIES_ZH_MAP[m.id]?.title) {
-      title = SEED_MEMORIES_ZH_MAP[m.id].title;
     } else if (m.title && FALLBACK_ZH_DICT[m.title]) {
       title = FALLBACK_ZH_DICT[m.title];
     } else if (m.title_en && FALLBACK_ZH_DICT[m.title_en]) {
@@ -609,8 +402,6 @@ export function getLocalizedContent(m: CanonicalMemory, lang: "en" | "zh"): stri
     const enCand = sanitizeMemoryText(m.content_en?.trim() || "");
     if (enCand && (!CJK_RE.test(enCand) || !m.content_zh)) {
       content = enCand;
-    } else if (SEED_MEMORIES_EN_MAP[m.id]?.content) {
-      content = SEED_MEMORIES_EN_MAP[m.id].content;
     } else if (m.content && FALLBACK_EN_DICT[m.content]) {
       content = FALLBACK_EN_DICT[m.content];
     } else if (m.content_zh && FALLBACK_EN_DICT[m.content_zh]) {
@@ -624,8 +415,6 @@ export function getLocalizedContent(m: CanonicalMemory, lang: "en" | "zh"): stri
     const zhCand = m.content_zh?.trim();
     if (zhCand) {
       content = zhCand;
-    } else if (SEED_MEMORIES_ZH_MAP[m.id]?.content) {
-      content = SEED_MEMORIES_ZH_MAP[m.id].content;
     } else if (m.content && FALLBACK_ZH_DICT[m.content]) {
       content = FALLBACK_ZH_DICT[m.content];
     } else if (m.content_en && FALLBACK_ZH_DICT[m.content_en]) {

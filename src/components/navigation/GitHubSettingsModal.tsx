@@ -51,11 +51,6 @@ export function GitHubSettingsModal({
     language,
     memories,
     clearAllData,
-    clearTestData,
-    resetDemoData,
-    appMode,
-    loadDemoData,
-    switchToProductionMode,
   } = useMemory();
 
   const [activeTab, setActiveTab] = useState<"ai" | "github" | "data">(initialTab);
@@ -708,43 +703,6 @@ export function GitHubSettingsModal({
                 </div>
               </div>
 
-              {/* No GitHub Account? Try Demo Mode Guidance Banner */}
-              <div className="p-3.5 bg-gradient-to-r from-amber-50/90 via-amber-100/40 to-amber-50/90 border border-amber-200/90 rounded-xl space-y-2 shadow-xs">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-start gap-2">
-                    <Sparkles className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-                    <div>
-                      <span className="text-xs font-bold text-stone-900 block">
-                        {language === "zh"
-                          ? "暂无 GitHub 账号或 Token？"
-                          : "Don't have a GitHub account or Token?"}
-                      </span>
-                      <span className="text-[11px] text-stone-600 block mt-0.5 leading-relaxed">
-                        {language === "zh"
-                          ? "您可以直接切换至 Demo 演示模式体验完整交互与图谱特性。"
-                          : "You can switch to Demo Mode to explore all visual features, constellation graphs, and daily receipts."}
-                      </span>
-                      <span className="text-[10px] text-amber-800 font-semibold block mt-1">
-                        {language === "zh"
-                          ? "⚠️ 注意：Demo 模式下无法持久存储您的个人信息与手账记忆。"
-                          : "⚠️ Note: Demo mode cannot store or persist your personal info or memories."}
-                      </span>
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    data-testid="switch-to-demo-btn"
-                    onClick={() => {
-                      loadDemoData();
-                      onClose();
-                    }}
-                    className="px-3 py-1.5 bg-stone-900 hover:bg-stone-800 active:scale-95 text-white text-xs font-semibold rounded-lg shadow-xs transition-all flex items-center gap-1.5 cursor-pointer shrink-0 mt-0.5"
-                  >
-                    <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                    <span>{language === "zh" ? "体验 Demo 模式" : "Try Demo Mode"}</span>
-                  </button>
-                </div>
-              </div>
 
               {/* Step 1: Personal Access Token (PAT) with Auto-Detection */}
               <div className="p-4 bg-white border border-stone-200 rounded-xl space-y-2.5 shadow-xs">
@@ -961,107 +919,9 @@ export function GitHubSettingsModal({
             </div>
           )}
 
-          {/* TAB 3: DATA MANAGEMENT & RESET */}
+          {/* TAB 3: DATA MANAGEMENT */}
           {activeTab === "data" && (
             <div className="space-y-4">
-              {/* App Mode Switch Section */}
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <h4 className="text-xs font-bold text-stone-900 uppercase tracking-wider font-mono-meta">
-                    {language === "zh" ? "运行版本模式" : "Application Mode"}
-                  </h4>
-                  <span className="text-[10px] text-stone-500">
-                    {language === "zh" ? "随时可无缝切换与载入" : "Switch or restore anytime"}
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {/* Demo Card */}
-                  <div
-                    onClick={() => {
-                      if (appMode !== "demo") {
-                        loadDemoData();
-                        setStatusMsg({
-                          text: language === "zh" ? "已切换至演示版，并载入全部评测示例数据！" : "Switched to Demo Mode with mock memories loaded!",
-                          isError: false,
-                        });
-                      }
-                    }}
-                    className={`p-3.5 rounded-xl border-2 transition-all cursor-pointer relative ${
-                      appMode === "demo"
-                        ? "border-amber-400 bg-amber-50/70 shadow-xs"
-                        : "border-stone-200 bg-white hover:border-stone-300 hover:bg-stone-50/50"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between mb-1.5">
-                      <div className="flex items-center gap-1.5">
-                        <Sparkles className="w-4 h-4 text-amber-600" />
-                        <span className="text-xs font-bold text-stone-900">
-                          {language === "zh" ? "✨ 演示体验版" : "✨ Demo Mode"}
-                        </span>
-                      </div>
-                      {appMode === "demo" && (
-                        <span className="text-[10px] font-mono-meta font-bold px-1.5 py-0.5 rounded-full bg-amber-200/80 text-amber-900">
-                          {language === "zh" ? "当前运行" : "ACTIVE"}
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-[11px] text-stone-500 leading-relaxed">
-                      {language === "zh"
-                        ? "专为评测与特性探索设计。预置蒙德里安、代官山旧书店等丰富图谱、小票存根与认知档案。"
-                        : "Designed for review & feature exploration. Preloaded with rich constellation graphs, daily notes & receipts."}
-                    </p>
-                    <p className="text-[10px] text-amber-800 font-semibold mt-1">
-                      {language === "zh"
-                        ? "⚠️ 注意：Demo 模式下无法存储用户信息与手账数据。"
-                        : "⚠️ Note: Demo mode cannot store or persist user information."}
-                    </p>
-                  </div>
-
-                  {/* Production Card */}
-                  <div
-                    onClick={() => {
-                      if (appMode !== "production") {
-                        const confirmClear = window.confirm(
-                          language === "zh"
-                            ? "切换至正式版：是否同时清空演示 Mock 数据，开启一张全新空白画卷？\n(确定 = 纯净空白手账，取消 = 保留现有记录继续)"
-                            : "Switch to Personal Journal: Wipe mock data for a clean canvas?\n(OK = Clean canvas, Cancel = Keep existing notes)"
-                        );
-                        switchToProductionMode(confirmClear);
-                        setStatusMsg({
-                          text: language === "zh" ? "已切换至正式版！" : "Switched to Personal Journal Mode!",
-                          isError: false,
-                        });
-                      }
-                    }}
-                    className={`p-3.5 rounded-xl border-2 transition-all cursor-pointer relative ${
-                      appMode === "production"
-                        ? "border-emerald-500 bg-emerald-50/70 shadow-xs"
-                        : "border-stone-200 bg-white hover:border-stone-300 hover:bg-stone-50/50"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between mb-1.5">
-                      <div className="flex items-center gap-1.5">
-                        <Leaf className="w-4 h-4 text-emerald-600" />
-                        <span className="text-xs font-bold text-stone-900">
-                          {language === "zh" ? "🌱 正式个人手账" : "🌱 Personal Journal"}
-                        </span>
-                      </div>
-                      {appMode === "production" && (
-                        <span className="text-[10px] font-mono-meta font-bold px-1.5 py-0.5 rounded-full bg-emerald-200/80 text-emerald-900">
-                          {language === "zh" ? "当前运行" : "ACTIVE"}
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-[11px] text-stone-500 leading-relaxed">
-                      {language === "zh"
-                        ? "专属你的私密日常手账与终身思考资产。纯净空白，无冗余数据，支持随时一键载入示例数据。"
-                        : "Your authentic personal memory ledger. Clean slate without mock items, with 1-click demo restore anytime."}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
               <div className="p-3.5 bg-amber-50/70 border border-amber-200 rounded-xl flex items-start gap-2.5">
                 <Database className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
                 <div className="text-[11px] leading-relaxed text-stone-700">
@@ -1069,57 +929,22 @@ export function GitHubSettingsModal({
                     {language === "zh" ? "数据状态：" : "Current Data: "}
                   </span>
                   {language === "zh"
-                    ? `当前本地共沉淀 ${memories.length} 条记忆碎片。您可以在此一键移除内置的测试数据，或彻底清空以重获干净空白页。`
-                    : `Currently ${memories.length} memory records stored locally. You can clear demo data or wipe clean anytime.`}
+                    ? `当前本地共保存 ${memories.length} 条个人真实记忆。数据存储于您的私有 GitHub 仓库与本地浏览器。`
+                    : `Currently ${memories.length} authentic personal memories stored. Synchronized with your private GitHub repository & local storage.`}
                 </div>
               </div>
 
-              {/* Action 1: Clear Test/Demo Data */}
-              <div className="p-4 bg-white border border-stone-200 rounded-xl flex items-center justify-between gap-4 shadow-xs">
-                <div>
-                  <h4 className="font-semibold text-stone-900 text-xs">
-                    {language === "zh" ? "仅清空内置测试数据" : "Remove Demo / Test Data"}
-                  </h4>
-                  <p className="text-[11px] text-stone-500 mt-0.5">
-                    {language === "zh"
-                      ? "移除蒙德里安、代官山旧书店等初始测试数据，保留您自己创建的真实记忆。"
-                      : "Removes default Mondrian / bookstore test entries while keeping your own notes."}
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (
-                      window.confirm(
-                        language === "zh"
-                          ? "确定要移除所有内置测试数据吗？"
-                          : "Remove all built-in demo items?"
-                      )
-                    ) {
-                      clearTestData();
-                      setStatusMsg({
-                        text: language === "zh" ? "已成功清理所有内置测试数据！" : "Demo data removed successfully!",
-                        isError: false,
-                      });
-                    }
-                  }}
-                  className="px-3 py-1.5 rounded-lg border border-stone-300 hover:bg-stone-50 text-stone-700 text-xs font-medium cursor-pointer transition-colors shrink-0"
-                >
-                  {language === "zh" ? "清理测试数据" : "Clean Demo Data"}
-                </button>
-              </div>
-
-              {/* Action 2: Clear All Data */}
+              {/* Action: Clear All Data */}
               <div className="p-4 bg-white border border-rose-200/80 rounded-xl flex items-center justify-between gap-4 shadow-xs">
                 <div>
                   <h4 className="font-semibold text-rose-700 text-xs flex items-center gap-1.5">
                     <Trash2 className="w-3.5 h-3.5" />
-                    <span>{language === "zh" ? "彻底清空全部数据" : "Wipe All Records (Clean Slate)"}</span>
+                    <span>{language === "zh" ? "彻底清空全部本地数据" : "Wipe All Local Records"}</span>
                   </h4>
                   <p className="text-[11px] text-stone-500 mt-0.5">
                     {language === "zh"
-                      ? "抹去本地所有记忆、关系图谱连线及小票存根，回到全新纯净状态。"
-                      : "Erases all local memories, relationships, and receipts for a completely fresh start."}
+                      ? "抹去本地所有记忆、关系图谱连线及小票存根，回到全新纯净状态。如需恢复可随时从 GitHub 重新拉取。"
+                      : "Erases all local memories, relationships, and receipts. You can pull them back from GitHub anytime."}
                   </p>
                 </div>
                 <button
@@ -1142,42 +967,6 @@ export function GitHubSettingsModal({
                   className="px-3 py-1.5 rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white border border-rose-200 text-xs font-medium cursor-pointer transition-colors shrink-0"
                 >
                   {language === "zh" ? "清空全部" : "Wipe All"}
-                </button>
-              </div>
-
-              {/* Action 3: Restore Demo Data */}
-              <div className="p-4 bg-white border border-stone-200 rounded-xl flex items-center justify-between gap-4 shadow-xs">
-                <div>
-                  <h4 className="font-semibold text-stone-900 text-xs flex items-center gap-1.5">
-                    <RotateCcw className="w-3.5 h-3.5 text-[#5B7B94]" />
-                    <span>{language === "zh" ? "重新载入官方示例" : "Restore Demo Memories"}</span>
-                  </h4>
-                  <p className="text-[11px] text-stone-500 mt-0.5">
-                    {language === "zh"
-                      ? "若您想再次体验完整的图谱星轨与多维排版联动，可一键重装示例数据。"
-                      : "Reload full knowledge constellation demo to explore features and layouts."}
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (
-                      window.confirm(
-                        language === "zh"
-                          ? "重新载入示例数据将覆盖当前画板，确认载入吗？"
-                          : "Restore demo data? This will overwrite current canvas."
-                      )
-                    ) {
-                      resetDemoData();
-                      setStatusMsg({
-                        text: language === "zh" ? "已重新载入官方示例数据！" : "Demo memories restored!",
-                        isError: false,
-                      });
-                    }
-                  }}
-                  className="px-3 py-1.5 rounded-lg border border-stone-300 hover:bg-stone-50 text-stone-700 text-xs font-medium cursor-pointer transition-colors shrink-0"
-                >
-                  {language === "zh" ? "载入示例" : "Load Demo"}
                 </button>
               </div>
             </div>

@@ -14,17 +14,11 @@ import {
   MORANDI_PIGMENTS,
   MemoryTimelineLog,
 } from "@/types/memory";
-import { SEED_MEMORIES, SEED_RELATIONSHIPS, SEED_COLLECTIONS, getDemoReceipts } from "@/lib/seed";
+import { SEED_COLLECTIONS } from "@/lib/seed";
 import { Language, translations } from "@/lib/i18n";
 import { ensureBilingualMemoryFields } from "@/lib/translator";
 
-export type AppMode = "demo" | "production";
-
 interface MemoryContextType {
-  appMode: AppMode;
-  setAppMode: (mode: AppMode) => void;
-  loadDemoData: () => void;
-  switchToProductionMode: (clearExisting?: boolean) => void;
   memories: CanonicalMemory[];
   relationships: Relationship[];
   collections: Collection[];
@@ -67,9 +61,7 @@ interface MemoryContextType {
   }) => Promise<{ success: boolean; message: string }>;
   pullFromGitHub: () => Promise<{ success: boolean; message: string }>;
   isSyncing: boolean;
-  resetDemoData: () => void;
   clearAllData: () => void;
-  clearTestData: () => void;
   customPositions: Record<string, { col: number; row: number; colSpan: number; rowSpan: number }>;
   setCustomPositions: React.Dispatch<
     React.SetStateAction<Record<string, { col: number; row: number; colSpan: number; rowSpan: number }>>
@@ -139,7 +131,6 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
   const [storedReceipts, setStoredReceipts] = useState<Record<string, DailyReceipt>>({});
   const [isSyncing, setIsSyncing] = useState<boolean>(false);
   const [viewMode, setViewMode] = useState<"daily" | "memory_os" | "graph">("daily");
-  const [appMode, setAppModeState] = useState<AppMode>("demo");
   const [customTypes, setCustomTypes] = useState<string[]>([]);
   const [typeColors, setTypeColors] = useState<Record<string, string>>(DEFAULT_TYPE_COLORS);
 
@@ -203,16 +194,7 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
         parsedSettings?.github?.repo === "katherinecym/Dayprint-storage"
       );
 
-      const storedMode = localStorage.getItem("dayprint_app_mode") as AppMode | null;
-      // When connected to GitHub or in personal journal mode, default strictly to production
-      const currentMode: AppMode = isGhConfigured
-        ? "production"
-        : storedMode === "demo"
-        ? "demo"
-        : "production";
-      setAppModeState(currentMode);
-
-      // 1. Load memories: demo mode guarantees mock seed data is present; production mode keeps personal canvas
+      // 1. Load memories: strictly purge any legacy synthetic demo data
       let loadedMems: CanonicalMemory[] = [];
       if (storedMems) {
         try {
@@ -222,22 +204,11 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
           }
         } catch {}
       }
-
-      if (currentMode === "demo") {
-        const existingIds = new Set(loadedMems.map((m) => m.id));
-        const missing = SEED_MEMORIES.filter((sm) => !existingIds.has(sm.id));
-        if (missing.length > 0) {
-          loadedMems = [...loadedMems, ...missing];
-          localStorage.setItem("dayprint_memories", JSON.stringify(loadedMems));
-        }
-      } else {
-        // In personal journal mode: strictly purge all synthetic demo data
-        loadedMems = loadedMems.filter((m) => !m.id.startsWith("mem_demo_"));
-        localStorage.setItem("dayprint_memories", JSON.stringify(loadedMems));
-      }
+      loadedMems = loadedMems.filter((m) => !m.id.startsWith("mem_demo_"));
+      localStorage.setItem("dayprint_memories", JSON.stringify(loadedMems));
       setMemories(loadedMems);
 
-      // 2. Load relationships
+      // 2. Load relationships: purge any legacy synthetic demo links
       let loadedRels: Relationship[] = [];
       if (storedRels) {
         try {
@@ -247,23 +218,13 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
           }
         } catch {}
       }
-
-      if (currentMode === "demo") {
-        const existingRelIds = new Set(loadedRels.map((r) => r.id));
-        const missingRels = SEED_RELATIONSHIPS.filter((sr) => !existingRelIds.has(sr.id));
-        if (missingRels.length > 0) {
-          loadedRels = [...loadedRels, ...missingRels];
-          localStorage.setItem("dayprint_relationships", JSON.stringify(loadedRels));
-        }
-      } else {
-        loadedRels = loadedRels.filter(
-          (r) =>
-            !r.id.startsWith("rel_demo_") &&
-            !r.from_memory_id.startsWith("mem_demo_") &&
-            !r.to_memory_id.startsWith("mem_demo_")
-        );
-        localStorage.setItem("dayprint_relationships", JSON.stringify(loadedRels));
-      }
+      loadedRels = loadedRels.filter(
+        (r) =>
+          !r.id.startsWith("rel_demo_") &&
+          !r.from_memory_id.startsWith("mem_demo_") &&
+          !r.to_memory_id.startsWith("mem_demo_")
+      );
+      localStorage.setItem("dayprint_relationships", JSON.stringify(loadedRels));
       setRelationships(loadedRels);
 
       // 3. Load collections
@@ -282,27 +243,13 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
       }
       setCollections(loadedCols);
 
-      // 4. Load receipts — demo 模式下补齐「每日心情水彩」与复盘，
-      //    否则所有日期都会回退到同一个默认心情，Mood Wash 看起来只有一种。
+      // 4. Load receipts
       let loadedRcpts: Record<string, DailyReceipt> = {};
       if (storedRcpts !== null) {
         try {
           const parsed = JSON.parse(storedRcpts);
           if (parsed && typeof parsed === "object") loadedRcpts = parsed;
         } catch {}
-      }
-      if (currentMode === "demo") {
-        const demoRcpts = getDemoReceipts();
-        let changed = false;
-        Object.keys(demoRcpts).forEach((d) => {
-          if (!loadedRcpts[d]) {
-            loadedRcpts[d] = demoRcpts[d];
-            changed = true;
-          }
-        });
-        if (changed) {
-          localStorage.setItem("dayprint_receipts", JSON.stringify(loadedRcpts));
-        }
       }
       setStoredReceipts(loadedRcpts);
 
@@ -441,15 +388,9 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
         const data = await res.json();
         if (data.success && Array.isArray(data.memories) && data.memories.length > 0) {
           setMemories((prev) => {
-            const incoming = appMode === "production"
-              ? data.memories.filter((m: any) => !m.id.startsWith("mem_demo_"))
-              : data.memories;
-            const isOnlySeed = prev.length > 0 && prev.every((m) => m.id.startsWith("mem_demo_") || m.id.startsWith("mem_00") || m.id.startsWith("mem_01"));
+            const incoming = data.memories.filter((m: any) => !m.id.startsWith("mem_demo_"));
             const existingIds = new Set(prev.map((m) => m.id));
             const freshItems = incoming.filter((m: any) => !existingIds.has(m.id));
-            if (isOnlySeed && freshItems.length > 0) {
-              return freshItems;
-            }
             return freshItems.length > 0 ? [...freshItems, ...prev] : prev;
           });
         }
@@ -981,94 +922,20 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
     };
   }, [memories, relationships, storedReceipts, settings.github.connected, settings.github.auto_sync]);
 
-  const setAppMode = (mode: AppMode) => {
-    setAppModeState(mode);
-    try {
-      localStorage.setItem("dayprint_app_mode", mode);
-    } catch {}
-  };
-
-  const loadDemoData = () => {
-    setAppModeState("demo");
-    setMemories(SEED_MEMORIES);
-    setRelationships(SEED_RELATIONSHIPS);
-    setCollections(SEED_COLLECTIONS);
-    const demoRcpts = getDemoReceipts();
-    setStoredReceipts(demoRcpts);
-    try {
-      localStorage.setItem("dayprint_app_mode", "demo");
-      localStorage.setItem("dayprint_memories", JSON.stringify(SEED_MEMORIES));
-      localStorage.setItem("dayprint_relationships", JSON.stringify(SEED_RELATIONSHIPS));
-      localStorage.setItem("dayprint_collections", JSON.stringify(SEED_COLLECTIONS));
-      localStorage.setItem("dayprint_receipts", JSON.stringify(demoRcpts));
-      localStorage.removeItem("dayprint_test_cleaned_v2");
-    } catch {}
-  };
-
-  const switchToProductionMode = (clearExisting: boolean = false) => {
-    setAppModeState("production");
-    try {
-      localStorage.setItem("dayprint_app_mode", "production");
-    } catch {}
-    if (clearExisting) {
-      setMemories([]);
-      setRelationships([]);
-      setCollections([]);
-      setCustomPositions({});
-      setStoredReceipts({});
-      setSelectedMemoryId(null);
-      try {
-        localStorage.setItem("dayprint_memories", JSON.stringify([]));
-        localStorage.setItem("dayprint_relationships", JSON.stringify([]));
-        localStorage.setItem("dayprint_collections", JSON.stringify([]));
-        localStorage.setItem("dayprint_custom_positions", JSON.stringify({}));
-        localStorage.setItem("dayprint_receipts", JSON.stringify({}));
-      } catch {}
-    } else {
-      // Immediately purge all synthetic demo data from memory state & local storage
-      setMemories((prev) => {
-        const cleaned = prev.filter((m) => !m.id.startsWith("mem_demo_"));
-        try { localStorage.setItem("dayprint_memories", JSON.stringify(cleaned)); } catch {}
-        return cleaned;
-      });
-      setRelationships((prev) => {
-        const cleaned = prev.filter(
-          (r) =>
-            !r.id.startsWith("rel_demo_") &&
-            !r.from_memory_id.startsWith("mem_demo_") &&
-            !r.to_memory_id.startsWith("mem_demo_")
-        );
-        try { localStorage.setItem("dayprint_relationships", JSON.stringify(cleaned)); } catch {}
-        return cleaned;
-      });
-    }
-  };
-
-  const resetDemoData = () => {
-    loadDemoData();
-  };
-
   const clearAllData = () => {
-    switchToProductionMode(true);
-  };
-
-  const clearTestData = () => {
-    setMemories((prev) => {
-      const remaining = prev.filter((m) => !m.id.startsWith("mem_demo_"));
-      try { localStorage.setItem("dayprint_memories", JSON.stringify(remaining)); } catch {}
-      return remaining;
-    });
-    setRelationships((prev) => {
-      const remaining = prev.filter(
-        (r) =>
-          !r.id.startsWith("rel_demo_") &&
-          !r.from_memory_id.startsWith("mem_demo_") &&
-          !r.to_memory_id.startsWith("mem_demo_")
-      );
-      try { localStorage.setItem("dayprint_relationships", JSON.stringify(remaining)); } catch {}
-      return remaining;
-    });
-    try { localStorage.setItem("dayprint_test_cleaned_v2", "true"); } catch {}
+    setMemories([]);
+    setRelationships([]);
+    setCollections([]);
+    setCustomPositions({});
+    setStoredReceipts({});
+    setSelectedMemoryId(null);
+    try {
+      localStorage.setItem("dayprint_memories", JSON.stringify([]));
+      localStorage.setItem("dayprint_relationships", JSON.stringify([]));
+      localStorage.setItem("dayprint_collections", JSON.stringify([]));
+      localStorage.setItem("dayprint_custom_positions", JSON.stringify({}));
+      localStorage.setItem("dayprint_receipts", JSON.stringify({}));
+    } catch {}
   };
 
   // Generate or retrieve existing receipt for a specific date
@@ -1106,10 +973,6 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
   return (
     <MemoryContext.Provider
       value={{
-        appMode,
-        setAppMode,
-        loadDemoData,
-        switchToProductionMode,
         memories,
         relationships,
         collections,
@@ -1139,9 +1002,7 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
         syncWithGitHub,
         pullFromGitHub,
         isSyncing,
-        resetDemoData,
         clearAllData,
-        clearTestData,
         customPositions,
         setCustomPositions,
         getDailyReceipt,
